@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.network import Network  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.network import Network  # noqa: E501
+from h1.rest import ApiException
 
 class TestNetwork(unittest.TestCase):
     """Network unit test stubs"""
@@ -33,7 +33,7 @@ class TestNetwork(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.network.Network()  # noqa: E501
+        # model = h1.models.network.Network()  # noqa: E501
         if include_optional :
             return Network(
                 id = '0', 
@@ -49,14 +49,14 @@ class TestNetwork(unittest.TestCase):
                 address = '0', 
                 gateway = '0', 
                 type = 'public', 
-                dns = h1-client-python.models.network_dns.network_dns(
+                dns = h1.models.network_dns.network_dns(
                     nameservers = [
                         '0'
                         ], ), 
                 netgw = '0', 
                 firewall = '0', 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

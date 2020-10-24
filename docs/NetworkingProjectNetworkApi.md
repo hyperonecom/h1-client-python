@@ -1,4 +1,4 @@
-# h1-client-python.NetworkingProjectNetworkApi
+# h1.NetworkingProjectNetworkApi
 
 All URIs are relative to *https://api.hyperone.com/v2*
 
@@ -33,12 +33,12 @@ Create network
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -48,17 +48,17 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
-networking_project_network_create = h1-client-python.NetworkingProjectNetworkCreate() # NetworkingProjectNetworkCreate | 
+networking_project_network_create = h1.NetworkingProjectNetworkCreate() # NetworkingProjectNetworkCreate | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -114,12 +114,12 @@ Delete network
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -129,14 +129,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -190,12 +190,12 @@ Get networking/network.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -205,14 +205,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -270,12 +270,12 @@ List networking/network.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -285,14 +285,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -352,12 +352,12 @@ Returns a single network
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -367,14 +367,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -430,12 +430,12 @@ List network
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -445,14 +445,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 name = 'name_example' # str | Filter by name (optional)
@@ -512,12 +512,12 @@ Get networking/network.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -527,14 +527,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -592,12 +592,12 @@ List networking/network.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -607,14 +607,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -670,12 +670,12 @@ Create networking/network.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -685,18 +685,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
-tag = h1-client-python.Tag() # Tag | 
+tag = h1.Tag() # Tag | 
 
     try:
         # Create networking/network.tag
@@ -750,12 +750,12 @@ Delete networking/network.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -765,14 +765,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -829,12 +829,12 @@ Get networking/network.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -844,14 +844,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -909,12 +909,12 @@ List networking/network.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -924,14 +924,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
@@ -987,12 +987,12 @@ Replace networking/network.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1002,18 +1002,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
-tag = [h1-client-python.Tag()] # list[Tag] | 
+tag = [h1.Tag()] # list[Tag] | 
 
     try:
         # Replace networking/network.tag
@@ -1067,12 +1067,12 @@ Returns modified network
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1082,18 +1082,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.NetworkingProjectNetworkApi(api_client)
+    api_instance = h1.NetworkingProjectNetworkApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 network_id = 'network_id_example' # str | Network Id
-networking_project_network_update = h1-client-python.NetworkingProjectNetworkUpdate() # NetworkingProjectNetworkUpdate | 
+networking_project_network_update = h1.NetworkingProjectNetworkUpdate() # NetworkingProjectNetworkUpdate | 
 
     try:
         # Update networking/network

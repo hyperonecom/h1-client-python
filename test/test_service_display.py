@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.service_display import ServiceDisplay  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.service_display import ServiceDisplay  # noqa: E501
+from h1.rest import ApiException
 
 class TestServiceDisplay(unittest.TestCase):
     """ServiceDisplay unit test stubs"""
@@ -33,10 +33,10 @@ class TestServiceDisplay(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.service_display.ServiceDisplay()  # noqa: E501
+        # model = h1.models.service_display.ServiceDisplay()  # noqa: E501
         if include_optional :
             return ServiceDisplay(
-                unit = h1-client-python.models.service_display_unit.service_display_unit(
+                unit = h1.models.service_display_unit.service_display_unit(
                     usage = '0', 
                     billing = '0', )
             )

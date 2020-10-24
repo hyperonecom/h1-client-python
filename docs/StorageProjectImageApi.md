@@ -1,4 +1,4 @@
-# h1-client-python.StorageProjectImageApi
+# h1.StorageProjectImageApi
 
 All URIs are relative to *https://api.hyperone.com/v2*
 
@@ -35,12 +35,12 @@ Create image
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -50,17 +50,17 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
-storage_project_image_create = h1-client-python.StorageProjectImageCreate() # StorageProjectImageCreate | 
+storage_project_image_create = h1.StorageProjectImageCreate() # StorageProjectImageCreate | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -116,12 +116,12 @@ Delete image
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -131,14 +131,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -192,12 +192,12 @@ List storage/image.disk
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -207,14 +207,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -270,12 +270,12 @@ Get storage/image.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -285,14 +285,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -350,12 +350,12 @@ List storage/image.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -365,14 +365,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -432,12 +432,12 @@ Returns a single image
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -447,14 +447,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -510,12 +510,12 @@ List image
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -525,14 +525,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 name = 'name_example' # str | Filter by name (optional)
@@ -592,12 +592,12 @@ Get storage/image.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -607,14 +607,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -672,12 +672,12 @@ List storage/image.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -687,14 +687,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -750,12 +750,12 @@ Create storage/image.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -765,18 +765,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
-tag = h1-client-python.Tag() # Tag | 
+tag = h1.Tag() # Tag | 
 
     try:
         # Create storage/image.tag
@@ -830,12 +830,12 @@ Delete storage/image.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -845,14 +845,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -909,12 +909,12 @@ Get storage/image.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -924,14 +924,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -989,12 +989,12 @@ List storage/image.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1004,14 +1004,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
@@ -1067,12 +1067,12 @@ Replace storage/image.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1082,18 +1082,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
-tag = [h1-client-python.Tag()] # list[Tag] | 
+tag = [h1.Tag()] # list[Tag] | 
 
     try:
         # Replace storage/image.tag
@@ -1147,12 +1147,12 @@ action transfer
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1162,18 +1162,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
-storage_project_image_transfer = h1-client-python.StorageProjectImageTransfer() # StorageProjectImageTransfer | 
+storage_project_image_transfer = h1.StorageProjectImageTransfer() # StorageProjectImageTransfer | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -1230,12 +1230,12 @@ Returns modified image
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1245,18 +1245,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.StorageProjectImageApi(api_client)
+    api_instance = h1.StorageProjectImageApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 image_id = 'image_id_example' # str | Image Id
-storage_project_image_update = h1-client-python.StorageProjectImageUpdate() # StorageProjectImageUpdate | 
+storage_project_image_update = h1.StorageProjectImageUpdate() # StorageProjectImageUpdate | 
 
     try:
         # Update storage/image

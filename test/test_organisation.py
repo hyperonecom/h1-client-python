@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.organisation import Organisation  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.organisation import Organisation  # noqa: E501
+from h1.rest import ApiException
 
 class TestOrganisation(unittest.TestCase):
     """Organisation unit test stubs"""
@@ -33,7 +33,7 @@ class TestOrganisation(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.organisation.Organisation()  # noqa: E501
+        # model = h1.models.organisation.Organisation()  # noqa: E501
         if include_optional :
             return Organisation(
                 id = '0', 
@@ -44,23 +44,24 @@ class TestOrganisation(unittest.TestCase):
                 created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                 created_by = '0', 
                 state = 'Active', 
+                organisation = '0', 
                 uri = '0', 
-                billing = h1-client-python.models.organisation_billing.organisation_billing(
+                billing = h1.models.organisation_billing.organisation_billing(
                     currency = '0', 
                     company = '0', 
                     email = '0', 
-                    address = h1-client-python.models.invoice_seller_address.invoice_seller_address(
+                    address = h1.models.invoice_seller_address.invoice_seller_address(
                         street = '0', 
                         zipcode = '0', 
                         city = '0', 
                         country = '0', ), 
                     nip = '0', ), 
-                transfer = h1-client-python.models.organisation_transfer.organisation_transfer(
+                transfer = h1.models.organisation_transfer.organisation_transfer(
                     name = '0', 
                     id = '0', ), 
                 bank_account = '0', 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

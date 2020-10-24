@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.invoice import Invoice  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.invoice import Invoice  # noqa: E501
+from h1.rest import ApiException
 
 class TestInvoice(unittest.TestCase):
     """Invoice unit test stubs"""
@@ -33,7 +33,7 @@ class TestInvoice(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.invoice.Invoice()  # noqa: E501
+        # model = h1.models.invoice.Invoice()  # noqa: E501
         if include_optional :
             return Invoice(
                 id = '0', 
@@ -47,16 +47,16 @@ class TestInvoice(unittest.TestCase):
                 payments = [
                     '0'
                     ], 
-                seller = h1-client-python.models.invoice_seller.invoice_seller(
+                seller = h1.models.invoice_seller.invoice_seller(
                     company = '0', 
-                    address = h1-client-python.models.invoice_seller_address.invoice_seller_address(
+                    address = h1.models.invoice_seller_address.invoice_seller_address(
                         street = '0', 
                         zipcode = '0', 
                         city = '0', 
                         country = '0', ), 
                     nip = '0', ), 
                 items = [
-                    h1-client-python.models.invoice_items.invoice_items(
+                    h1.models.invoice_items.invoice_items(
                         name = '0', 
                         price = '0', 
                         netto = '0', 
@@ -65,9 +65,9 @@ class TestInvoice(unittest.TestCase):
                         vat_rate = '0', 
                         quantity = 1.337, )
                     ], 
-                buyer = h1-client-python.models.invoice_buyer.invoice_buyer(
+                buyer = h1.models.invoice_buyer.invoice_buyer(
                     company = '0', 
-                    address = h1-client-python.models.invoice_buyer_address.invoice_buyer_address(
+                    address = h1.models.invoice_buyer_address.invoice_buyer_address(
                         street = '0', 
                         zipcode = '0', 
                         city = '0', 
@@ -77,7 +77,7 @@ class TestInvoice(unittest.TestCase):
                 type = 'vat', 
                 summary = '0', 
                 project = '0', 
-                duplicate = h1-client-python.models.invoice_duplicate.invoice_duplicate(
+                duplicate = h1.models.invoice_duplicate.invoice_duplicate(
                     created_on = '0', 
                     id = '0', ), 
                 uri = '0', 

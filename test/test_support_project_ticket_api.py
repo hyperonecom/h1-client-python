@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.support_project_ticket_api import SupportProjectTicketApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.support_project_ticket_api import SupportProjectTicketApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestSupportProjectTicketApi(unittest.TestCase):
     """SupportProjectTicketApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.support_project_ticket_api.SupportProjectTicketApi()  # noqa: E501
+        self.api = h1.api.support_project_ticket_api.SupportProjectTicketApi()  # noqa: E501
 
     def tearDown(self):
         pass

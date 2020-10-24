@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.storage_project_image_api import StorageProjectImageApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.storage_project_image_api import StorageProjectImageApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestStorageProjectImageApi(unittest.TestCase):
     """StorageProjectImageApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.storage_project_image_api.StorageProjectImageApi()  # noqa: E501
+        self.api = h1.api.storage_project_image_api.StorageProjectImageApi()  # noqa: E501
 
     def tearDown(self):
         pass

@@ -8,7 +8,7 @@ stages:
   script:
    - pip install -r requirements.txt
    - pip install -r test-requirements.txt
-   - pytest --cov=h1-client-python
+   - pytest --cov=h1
 
 nosetest-2.7:
   extends: .nosetest

@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.database_project_instance_api import DatabaseProjectInstanceApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.database_project_instance_api import DatabaseProjectInstanceApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestDatabaseProjectInstanceApi(unittest.TestCase):
     """DatabaseProjectInstanceApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.database_project_instance_api.DatabaseProjectInstanceApi()  # noqa: E501
+        self.api = h1.api.database_project_instance_api.DatabaseProjectInstanceApi()  # noqa: E501
 
     def tearDown(self):
         pass

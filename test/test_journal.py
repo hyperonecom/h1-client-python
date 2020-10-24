@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.journal import Journal  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.journal import Journal  # noqa: E501
+from h1.rest import ApiException
 
 class TestJournal(unittest.TestCase):
     """Journal unit test stubs"""
@@ -33,7 +33,7 @@ class TestJournal(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.journal.Journal()  # noqa: E501
+        # model = h1.models.journal.Journal()  # noqa: E501
         if include_optional :
             return Journal(
                 id = '0', 
@@ -50,7 +50,7 @@ class TestJournal(unittest.TestCase):
                 retention = 1.337, 
                 fqdn = '0', 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.billing_address1 import BillingAddress1  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.billing_address1 import BillingAddress1  # noqa: E501
+from h1.rest import ApiException
 
 class TestBillingAddress1(unittest.TestCase):
     """BillingAddress1 unit test stubs"""
@@ -33,7 +33,7 @@ class TestBillingAddress1(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.billing_address1.BillingAddress1()  # noqa: E501
+        # model = h1.models.billing_address1.BillingAddress1()  # noqa: E501
         if include_optional :
             return BillingAddress1(
                 city = '0', 

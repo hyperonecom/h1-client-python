@@ -1,10 +1,12 @@
-# h1-client-python.ComputeProjectVmApi
+# h1.ComputeProjectVmApi
 
 All URIs are relative to *https://api.hyperone.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**compute_project_vm_console**](ComputeProjectVmApi.md#compute_project_vm_console) | **POST** /compute/{locationId}/project/{projectId}/vm/{vmId}/actions/console | Console compute/vm
+[**compute_project_vm_connect_get**](ComputeProjectVmApi.md#compute_project_vm_connect_get) | **GET** /compute/{locationId}/project/{projectId}/vm/{vmId}/connect/{connectId} | Get compute/vm.connect
+[**compute_project_vm_connect_list**](ComputeProjectVmApi.md#compute_project_vm_connect_list) | **GET** /compute/{locationId}/project/{projectId}/vm/{vmId}/connect | List compute/vm.connect
+[**compute_project_vm_connect_open**](ComputeProjectVmApi.md#compute_project_vm_connect_open) | **POST** /compute/{locationId}/project/{projectId}/vm/{vmId}/connect/{connectId}/actions/open | Open compute/vm.connect
 [**compute_project_vm_create**](ComputeProjectVmApi.md#compute_project_vm_create) | **POST** /compute/{locationId}/project/{projectId}/vm | Create compute/vm
 [**compute_project_vm_delete**](ComputeProjectVmApi.md#compute_project_vm_delete) | **DELETE** /compute/{locationId}/project/{projectId}/vm/{vmId} | Delete compute/vm
 [**compute_project_vm_disk_create**](ComputeProjectVmApi.md#compute_project_vm_disk_create) | **POST** /compute/{locationId}/project/{projectId}/vm/{vmId}/disk | Create compute/vm.disk
@@ -35,12 +37,12 @@ Method | HTTP request | Description
 [**compute_project_vm_update**](ComputeProjectVmApi.md#compute_project_vm_update) | **PATCH** /compute/{locationId}/project/{projectId}/vm/{vmId} | Update compute/vm
 
 
-# **compute_project_vm_console**
-> compute_project_vm_console(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+# **compute_project_vm_connect_get**
+> Connect compute_project_vm_connect_get(project_id, location_id, vm_id, connect_id)
 
-Console compute/vm
+Get compute/vm.connect
 
-action console
+Get compute/vm.connect
 
 ### Example
 
@@ -48,12 +50,12 @@ action console
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -63,24 +65,25 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+connect_id = 'connect_id_example' # str | connectId
 
     try:
-        # Console compute/vm
-        api_instance.compute_project_vm_console(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+        # Get compute/vm.connect
+        api_response = api_instance.compute_project_vm_connect_get(project_id, location_id, vm_id, connect_id)
+        pprint(api_response)
     except ApiException as e:
-        print("Exception when calling ComputeProjectVmApi->compute_project_vm_console: %s\n" % e)
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -90,7 +93,166 @@ Name | Type | Description  | Notes
  **project_id** | **str**| Project Id | 
  **location_id** | **str**| Location Id | 
  **vm_id** | **str**| Vm Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **connect_id** | **str**| connectId | 
+
+### Return type
+
+[**Connect**](Connect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **compute_project_vm_connect_list**
+> list[Connect] compute_project_vm_connect_list(project_id, location_id, vm_id)
+
+List compute/vm.connect
+
+List compute/vm.connect
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ComputeProjectVmApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+vm_id = 'vm_id_example' # str | Vm Id
+
+    try:
+        # List compute/vm.connect
+        api_response = api_instance.compute_project_vm_connect_list(project_id, location_id, vm_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **vm_id** | **str**| Vm Id | 
+
+### Return type
+
+[**list[Connect]**](Connect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **compute_project_vm_connect_open**
+> compute_project_vm_connect_open(project_id, location_id, vm_id, connect_id, compute_project_vm_connect_open)
+
+Open compute/vm.connect
+
+action open
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ComputeProjectVmApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+vm_id = 'vm_id_example' # str | Vm Id
+connect_id = 'connect_id_example' # str | connectId
+compute_project_vm_connect_open = h1.ComputeProjectVmConnectOpen() # ComputeProjectVmConnectOpen | 
+
+    try:
+        # Open compute/vm.connect
+        api_instance.compute_project_vm_connect_open(project_id, location_id, vm_id, connect_id, compute_project_vm_connect_open)
+    except ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_open: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **vm_id** | **str**| Vm Id | 
+ **connect_id** | **str**| connectId | 
+ **compute_project_vm_connect_open** | [**ComputeProjectVmConnectOpen**](ComputeProjectVmConnectOpen.md)|  | 
 
 ### Return type
 
@@ -102,7 +264,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -127,12 +289,12 @@ Create vm
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -142,17 +304,17 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
-compute_project_vm_create = h1-client-python.ComputeProjectVmCreate() # ComputeProjectVmCreate | 
+compute_project_vm_create = h1.ComputeProjectVmCreate() # ComputeProjectVmCreate | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -208,12 +370,12 @@ Delete vm
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -223,14 +385,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -284,12 +446,12 @@ Create compute/vm.disk
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -299,18 +461,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_disk_create = h1-client-python.ComputeProjectVmDiskCreate() # ComputeProjectVmDiskCreate | 
+compute_project_vm_disk_create = h1.ComputeProjectVmDiskCreate() # ComputeProjectVmDiskCreate | 
 
     try:
         # Create compute/vm.disk
@@ -364,12 +526,12 @@ List compute/vm.disk
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -379,14 +541,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -442,12 +604,12 @@ Get compute/vm.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -457,14 +619,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -522,12 +684,12 @@ List compute/vm.event
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -537,14 +699,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -604,12 +766,12 @@ action flavour
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -619,18 +781,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_flavour = h1-client-python.ComputeProjectVmFlavour() # ComputeProjectVmFlavour | 
+compute_project_vm_flavour = h1.ComputeProjectVmFlavour() # ComputeProjectVmFlavour | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -687,12 +849,12 @@ Returns a single vm
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -702,14 +864,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -765,12 +927,12 @@ Create compute/vm.iso
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -780,18 +942,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_iso_create = h1-client-python.ComputeProjectVmIsoCreate() # ComputeProjectVmIsoCreate | 
+compute_project_vm_iso_create = h1.ComputeProjectVmIsoCreate() # ComputeProjectVmIsoCreate | 
 
     try:
         # Create compute/vm.iso
@@ -845,12 +1007,12 @@ List compute/vm.iso
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -860,14 +1022,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -923,12 +1085,12 @@ List vm
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -938,14 +1100,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 name = 'name_example' # str | Filter by name (optional)
@@ -1005,12 +1167,12 @@ Get compute/vm.metric
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1020,14 +1182,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1085,12 +1247,12 @@ List compute/vm.metric
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1100,14 +1262,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1151,7 +1313,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_metric_point_list**
-> list[Serie] compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id, interval=interval, timespan=timespan)
+> list[Point] compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id, interval=interval, timespan=timespan)
 
 List compute/vm.point
 
@@ -1163,12 +1325,12 @@ List compute/vm.point
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1178,14 +1340,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1214,7 +1376,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Serie]**](Serie.md)
+[**list[Point]**](Point.md)
 
 ### Authorization
 
@@ -1247,12 +1409,12 @@ action password_reset
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1262,18 +1424,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_password_reset = h1-client-python.ComputeProjectVmPasswordReset() # ComputeProjectVmPasswordReset | 
+compute_project_vm_password_reset = h1.ComputeProjectVmPasswordReset() # ComputeProjectVmPasswordReset | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -1330,12 +1492,12 @@ action restart
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1345,14 +1507,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1411,12 +1573,12 @@ action serialport
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1426,18 +1588,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_serialport = h1-client-python.ComputeProjectVmSerialport() # ComputeProjectVmSerialport | 
+compute_project_vm_serialport = h1.ComputeProjectVmSerialport() # ComputeProjectVmSerialport | 
 x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
 
     try:
@@ -1493,12 +1655,12 @@ Get compute/vm.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1508,14 +1670,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1573,12 +1735,12 @@ List compute/vm.service
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1588,14 +1750,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1651,12 +1813,12 @@ action start
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1666,14 +1828,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1732,12 +1894,12 @@ action stop
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1747,14 +1909,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1813,12 +1975,12 @@ Create compute/vm.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1828,18 +1990,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-tag = h1-client-python.Tag() # Tag | 
+tag = h1.Tag() # Tag | 
 
     try:
         # Create compute/vm.tag
@@ -1893,12 +2055,12 @@ Delete compute/vm.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1908,14 +2070,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -1972,12 +2134,12 @@ Get compute/vm.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -1987,14 +2149,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -2052,12 +2214,12 @@ List compute/vm.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -2067,14 +2229,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -2130,12 +2292,12 @@ Replace compute/vm.tag
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -2145,18 +2307,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-tag = [h1-client-python.Tag()] # list[Tag] | 
+tag = [h1.Tag()] # list[Tag] | 
 
     try:
         # Replace compute/vm.tag
@@ -2210,12 +2372,12 @@ action turnoff
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -2225,14 +2387,14 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
@@ -2291,12 +2453,12 @@ Returns modified vm
 ```python
 from __future__ import print_function
 import time
-import h1-client-python
-from h1-client-python.rest import ApiException
+import h1
+from h1.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     host = "https://api.hyperone.com/v2"
 )
 
@@ -2306,18 +2468,18 @@ configuration = h1-client-python.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): BearerAuth
-configuration = h1-client-python.Configuration(
+configuration = h1.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with h1-client-python.ApiClient(configuration) as api_client:
+with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1-client-python.ComputeProjectVmApi(api_client)
+    api_instance = h1.ComputeProjectVmApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_update = h1-client-python.ComputeProjectVmUpdate() # ComputeProjectVmUpdate | 
+compute_project_vm_update = h1.ComputeProjectVmUpdate() # ComputeProjectVmUpdate | 
 
     try:
         # Update compute/vm

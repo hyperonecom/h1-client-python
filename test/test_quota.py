@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.quota import Quota  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.quota import Quota  # noqa: E501
+from h1.rest import ApiException
 
 class TestQuota(unittest.TestCase):
     """Quota unit test stubs"""
@@ -33,16 +33,16 @@ class TestQuota(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.quota.Quota()  # noqa: E501
+        # model = h1.models.quota.Quota()  # noqa: E501
         if include_optional :
             return Quota(
                 id = '0', 
                 name = '0', 
-                metric = h1-client-python.models.quota_metric.Quota_metric(
+                metric = h1.models.quota_metric.Quota_metric(
                     key = '0', 
                     unit = '0', ), 
                 usage = 1.337, 
-                limit = h1-client-python.models.quota_limit.Quota_limit(
+                limit = h1.models.quota_limit.Quota_limit(
                     platform = 1.337, 
                     user = 1.337, 
                     effective = 1.337, )

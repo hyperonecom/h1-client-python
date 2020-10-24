@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.proforma import Proforma  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.proforma import Proforma  # noqa: E501
+from h1.rest import ApiException
 
 class TestProforma(unittest.TestCase):
     """Proforma unit test stubs"""
@@ -33,23 +33,23 @@ class TestProforma(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.proforma.Proforma()  # noqa: E501
+        # model = h1.models.proforma.Proforma()  # noqa: E501
         if include_optional :
             return Proforma(
                 id = '0', 
                 invoice_no = '0', 
-                seller = h1-client-python.models.proforma_seller.proforma_seller(
+                seller = h1.models.proforma_seller.proforma_seller(
                     company = '0', 
-                    address = h1-client-python.models.invoice_seller_address.invoice_seller_address(
+                    address = h1.models.invoice_seller_address.invoice_seller_address(
                         street = '0', 
                         zipcode = '0', 
                         city = '0', 
                         country = '0', ), 
                     nip = '0', 
                     iban = '0', ), 
-                buyer = h1-client-python.models.invoice_buyer.invoice_buyer(
+                buyer = h1.models.invoice_buyer.invoice_buyer(
                     company = '0', 
-                    address = h1-client-python.models.invoice_buyer_address.invoice_buyer_address(
+                    address = h1.models.invoice_buyer_address.invoice_buyer_address(
                         street = '0', 
                         zipcode = '0', 
                         city = '0', 
@@ -58,7 +58,7 @@ class TestProforma(unittest.TestCase):
                     email = '0', ), 
                 issue_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                 items = [
-                    h1-client-python.models.invoice_items.invoice_items(
+                    h1.models.invoice_items.invoice_items(
                         name = '0', 
                         price = '0', 
                         netto = '0', 
@@ -70,7 +70,7 @@ class TestProforma(unittest.TestCase):
                 summary = '0', 
                 project = '0', 
                 uri = '0', 
-                array__ = h1-client-python.models.proforma___array__.proforma___array__(
+                array__ = h1.models.proforma___array__.proforma___array__(
                     id = '0', 
                     invoice_no = '0', 
                     issue_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 

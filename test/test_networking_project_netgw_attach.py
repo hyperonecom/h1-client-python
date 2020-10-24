@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.networking_project_netgw_attach import NetworkingProjectNetgwAttach  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.networking_project_netgw_attach import NetworkingProjectNetgwAttach  # noqa: E501
+from h1.rest import ApiException
 
 class TestNetworkingProjectNetgwAttach(unittest.TestCase):
     """NetworkingProjectNetgwAttach unit test stubs"""
@@ -33,10 +33,10 @@ class TestNetworkingProjectNetgwAttach(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.networking_project_netgw_attach.NetworkingProjectNetgwAttach()  # noqa: E501
+        # model = h1.models.networking_project_netgw_attach.NetworkingProjectNetgwAttach()  # noqa: E501
         if include_optional :
             return NetworkingProjectNetgwAttach(
-                private = h1-client-python.models.netgw_private.Netgw_private(
+                private = h1.models.netgw_private.Netgw_private(
                     network = '0', )
             )
         else :

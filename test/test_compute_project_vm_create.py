@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.compute_project_vm_create import ComputeProjectVmCreate  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.compute_project_vm_create import ComputeProjectVmCreate  # noqa: E501
+from h1.rest import ApiException
 
 class TestComputeProjectVmCreate(unittest.TestCase):
     """ComputeProjectVmCreate unit test stubs"""
@@ -33,7 +33,7 @@ class TestComputeProjectVmCreate(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.compute_project_vm_create.ComputeProjectVmCreate()  # noqa: E501
+        # model = h1.models.compute_project_vm_create.ComputeProjectVmCreate()  # noqa: E501
         if include_optional :
             return ComputeProjectVmCreate(
                 name = '0', 
@@ -44,18 +44,18 @@ class TestComputeProjectVmCreate(unittest.TestCase):
                 user_metadata = '0', 
                 start = True, 
                 credential = [
-                    h1-client-python.models.compute_project_vm_create_credential.compute_project_vm_create_credential(
+                    h1.models.compute_project_vm_create_credential.compute_project_vm_create_credential(
                         type = 'ssh', 
                         value = '0', )
                     ], 
                 disk = [
-                    h1-client-python.models.compute_project_vm_create_disk.compute_project_vm_create_disk(
+                    h1.models.compute_project_vm_create_disk.compute_project_vm_create_disk(
                         name = '0', 
                         service = '0', 
                         size = 1.337, )
                     ], 
                 netadp = [
-                    h1-client-python.models.compute_project_vm_create_netadp.compute_project_vm_create_netadp(
+                    h1.models.compute_project_vm_create_netadp.compute_project_vm_create_netadp(
                         network = '0', 
                         firewall = '0', 
                         ip = [
@@ -63,7 +63,7 @@ class TestComputeProjectVmCreate(unittest.TestCase):
                             ], )
                     ], 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

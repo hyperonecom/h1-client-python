@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.iam_organisation_role_api import IamOrganisationRoleApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.iam_organisation_role_api import IamOrganisationRoleApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestIamOrganisationRoleApi(unittest.TestCase):
     """IamOrganisationRoleApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.iam_organisation_role_api.IamOrganisationRoleApi()  # noqa: E501
+        self.api = h1.api.iam_organisation_role_api.IamOrganisationRoleApi()  # noqa: E501
 
     def tearDown(self):
         pass

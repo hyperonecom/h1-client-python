@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.dns_project_zone_create import DnsProjectZoneCreate  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.dns_project_zone_create import DnsProjectZoneCreate  # noqa: E501
+from h1.rest import ApiException
 
 class TestDnsProjectZoneCreate(unittest.TestCase):
     """DnsProjectZoneCreate unit test stubs"""
@@ -33,16 +33,16 @@ class TestDnsProjectZoneCreate(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.dns_project_zone_create.DnsProjectZoneCreate()  # noqa: E501
+        # model = h1.models.dns_project_zone_create.DnsProjectZoneCreate()  # noqa: E501
         if include_optional :
             return DnsProjectZoneCreate(
                 name = '0', 
                 service = '0', 
                 dns_name = '0', 
-                source = h1-client-python.models.zone_source.Zone_source(
+                source = h1.models.zone_source.Zone_source(
                     dns_probing = True, ), 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

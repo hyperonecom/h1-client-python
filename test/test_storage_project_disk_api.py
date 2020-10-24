@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.storage_project_disk_api import StorageProjectDiskApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.storage_project_disk_api import StorageProjectDiskApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestStorageProjectDiskApi(unittest.TestCase):
     """StorageProjectDiskApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.storage_project_disk_api.StorageProjectDiskApi()  # noqa: E501
+        self.api = h1.api.storage_project_disk_api.StorageProjectDiskApi()  # noqa: E501
 
     def tearDown(self):
         pass

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.networking_rule import NetworkingRule  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.networking_rule import NetworkingRule  # noqa: E501
+from h1.rest import ApiException
 
 class TestNetworkingRule(unittest.TestCase):
     """NetworkingRule unit test stubs"""
@@ -33,7 +33,7 @@ class TestNetworkingRule(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.networking_rule.NetworkingRule()  # noqa: E501
+        # model = h1.models.networking_rule.NetworkingRule()  # noqa: E501
         if include_optional :
             return NetworkingRule(
                 id = '0', 

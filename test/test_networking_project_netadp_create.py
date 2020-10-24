@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.networking_project_netadp_create import NetworkingProjectNetadpCreate  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.networking_project_netadp_create import NetworkingProjectNetadpCreate  # noqa: E501
+from h1.rest import ApiException
 
 class TestNetworkingProjectNetadpCreate(unittest.TestCase):
     """NetworkingProjectNetadpCreate unit test stubs"""
@@ -33,7 +33,7 @@ class TestNetworkingProjectNetadpCreate(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.networking_project_netadp_create.NetworkingProjectNetadpCreate()  # noqa: E501
+        # model = h1.models.networking_project_netadp_create.NetworkingProjectNetadpCreate()  # noqa: E501
         if include_optional :
             return NetworkingProjectNetadpCreate(
                 vm = '0', 
@@ -43,7 +43,7 @@ class TestNetworkingProjectNetadpCreate(unittest.TestCase):
                     '0'
                     ], 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.service_billing_price import ServiceBillingPrice  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.service_billing_price import ServiceBillingPrice  # noqa: E501
+from h1.rest import ApiException
 
 class TestServiceBillingPrice(unittest.TestCase):
     """ServiceBillingPrice unit test stubs"""
@@ -33,7 +33,7 @@ class TestServiceBillingPrice(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.service_billing_price.ServiceBillingPrice()  # noqa: E501
+        # model = h1.models.service_billing_price.ServiceBillingPrice()  # noqa: E501
         if include_optional :
             return ServiceBillingPrice(
                 pln = 1.337, 

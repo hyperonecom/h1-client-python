@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.support_message import SupportMessage  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.support_message import SupportMessage  # noqa: E501
+from h1.rest import ApiException
 
 class TestSupportMessage(unittest.TestCase):
     """SupportMessage unit test stubs"""
@@ -33,13 +33,13 @@ class TestSupportMessage(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.support_message.SupportMessage()  # noqa: E501
+        # model = h1.models.support_message.SupportMessage()  # noqa: E501
         if include_optional :
             return SupportMessage(
                 id = '0', 
                 type = 'text', 
                 user = '0', 
-                data = h1-client-python.models.message_data.Message_data(
+                data = h1.models.message_data.Message_data(
                     mime = 'text/plain', 
                     url = '0', 
                     body = '0', ), 

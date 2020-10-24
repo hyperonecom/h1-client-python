@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.service import Service  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.service import Service  # noqa: E501
+from h1.rest import ApiException
 
 class TestService(unittest.TestCase):
     """Service unit test stubs"""
@@ -33,14 +33,14 @@ class TestService(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.service.Service()  # noqa: E501
+        # model = h1.models.service.Service()  # noqa: E501
         if include_optional :
             return Service(
                 id = '0', 
                 resource = '0', 
                 type = '0', 
-                billing = h1-client-python.models.service_billing.service_billing(
-                    price = h1-client-python.models.service_billing_price.service_billing_price(
+                billing = h1.models.service_billing.service_billing(
+                    price = h1.models.service_billing_price.service_billing_price(
                         pln = 1.337, 
                         eur = 1.337, 
                         usd = 1.337, 
@@ -48,16 +48,16 @@ class TestService(unittest.TestCase):
                     period = '0', 
                     quantity = 1.337, 
                     one_time = True, 
-                    reservations = h1-client-python.models.service_billing_reservations.service_billing_reservations(
+                    reservations = h1.models.service_billing_reservations.service_billing_reservations(
                         id = '0', 
                         period = '0', 
-                        resource_price = h1-client-python.models.service_billing_price.service_billing_price(
+                        resource_price = h1.models.service_billing_price.service_billing_price(
                             pln = 1.337, 
                             eur = 1.337, 
                             usd = 1.337, 
                             gbp = 1.337, ), ), ), 
-                display = h1-client-python.models.service_display.service_display(
-                    unit = h1-client-python.models.service_display_unit.service_display_unit(
+                display = h1.models.service_display.service_display(
+                    unit = h1.models.service_display_unit.service_display_unit(
                         usage = '0', 
                         billing = '0', ), ), 
                 data = {

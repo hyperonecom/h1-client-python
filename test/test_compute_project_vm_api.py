@@ -14,24 +14,38 @@ from __future__ import absolute_import
 
 import unittest
 
-import h1-client-python
-from h1-client-python.api.compute_project_vm_api import ComputeProjectVmApi  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.api.compute_project_vm_api import ComputeProjectVmApi  # noqa: E501
+from h1.rest import ApiException
 
 
 class TestComputeProjectVmApi(unittest.TestCase):
     """ComputeProjectVmApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1-client-python.api.compute_project_vm_api.ComputeProjectVmApi()  # noqa: E501
+        self.api = h1.api.compute_project_vm_api.ComputeProjectVmApi()  # noqa: E501
 
     def tearDown(self):
         pass
 
-    def test_compute_project_vm_console(self):
-        """Test case for compute_project_vm_console
+    def test_compute_project_vm_connect_get(self):
+        """Test case for compute_project_vm_connect_get
 
-        Console compute/vm  # noqa: E501
+        Get compute/vm.connect  # noqa: E501
+        """
+        pass
+
+    def test_compute_project_vm_connect_list(self):
+        """Test case for compute_project_vm_connect_list
+
+        List compute/vm.connect  # noqa: E501
+        """
+        pass
+
+    def test_compute_project_vm_connect_open(self):
+        """Test case for compute_project_vm_connect_open
+
+        Open compute/vm.connect  # noqa: E501
         """
         pass
 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.iam_permission import IamPermission  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.iam_permission import IamPermission  # noqa: E501
+from h1.rest import ApiException
 
 class TestIamPermission(unittest.TestCase):
     """IamPermission unit test stubs"""
@@ -33,7 +33,7 @@ class TestIamPermission(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.iam_permission.IamPermission()  # noqa: E501
+        # model = h1.models.iam_permission.IamPermission()  # noqa: E501
         if include_optional :
             return IamPermission(
                 id = '0', 

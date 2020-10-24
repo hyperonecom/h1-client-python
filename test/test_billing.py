@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.billing import Billing  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.billing import Billing  # noqa: E501
+from h1.rest import ApiException
 
 class TestBilling(unittest.TestCase):
     """Billing unit test stubs"""
@@ -33,7 +33,7 @@ class TestBilling(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.billing.Billing()  # noqa: E501
+        # model = h1.models.billing.Billing()  # noqa: E501
         if include_optional :
             return Billing(
                 id = '0', 
@@ -42,17 +42,17 @@ class TestBilling(unittest.TestCase):
                 quantity = 1.337, 
                 project = '0', 
                 one_time = True, 
-                service = h1-client-python.models.billing_service.billing_service(
+                service = h1.models.billing_service.billing_service(
                     id = '0', 
                     type = '0', 
                     name = '0', ), 
-                resource = h1-client-python.models.billing_resource.billing_resource(
+                resource = h1.models.billing_resource.billing_resource(
                     id = '0', 
                     type = '0', 
                     name = '0', 
                     deleted = True, ), 
                 charges = [
-                    h1-client-python.models.billing_charges.billing_charges(
+                    h1.models.billing_charges.billing_charges(
                         id = '0', 
                         value = 1.337, 
                         start = '0', 

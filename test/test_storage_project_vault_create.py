@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.storage_project_vault_create import StorageProjectVaultCreate  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.storage_project_vault_create import StorageProjectVaultCreate  # noqa: E501
+from h1.rest import ApiException
 
 class TestStorageProjectVaultCreate(unittest.TestCase):
     """StorageProjectVaultCreate unit test stubs"""
@@ -33,7 +33,7 @@ class TestStorageProjectVaultCreate(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.storage_project_vault_create.StorageProjectVaultCreate()  # noqa: E501
+        # model = h1.models.storage_project_vault_create.StorageProjectVaultCreate()  # noqa: E501
         if include_optional :
             return StorageProjectVaultCreate(
                 name = '0', 
@@ -41,7 +41,7 @@ class TestStorageProjectVaultCreate(unittest.TestCase):
                 size = 1, 
                 source = '0', 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

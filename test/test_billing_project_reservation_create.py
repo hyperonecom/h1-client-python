@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.billing_project_reservation_create import BillingProjectReservationCreate  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.billing_project_reservation_create import BillingProjectReservationCreate  # noqa: E501
+from h1.rest import ApiException
 
 class TestBillingProjectReservationCreate(unittest.TestCase):
     """BillingProjectReservationCreate unit test stubs"""
@@ -33,13 +33,13 @@ class TestBillingProjectReservationCreate(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.billing_project_reservation_create.BillingProjectReservationCreate()  # noqa: E501
+        # model = h1.models.billing_project_reservation_create.BillingProjectReservationCreate()  # noqa: E501
         if include_optional :
             return BillingProjectReservationCreate(
                 name = '0', 
                 service = '0', 
                 tag = [
-                    h1-client-python.models.tag.tag(
+                    h1.models.tag.tag(
                         id = '0', 
                         key = '0', 
                         value = '0', )

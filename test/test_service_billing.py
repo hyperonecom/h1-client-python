@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import h1-client-python
-from h1-client-python.models.service_billing import ServiceBilling  # noqa: E501
-from h1-client-python.rest import ApiException
+import h1
+from h1.models.service_billing import ServiceBilling  # noqa: E501
+from h1.rest import ApiException
 
 class TestServiceBilling(unittest.TestCase):
     """ServiceBilling unit test stubs"""
@@ -33,10 +33,10 @@ class TestServiceBilling(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1-client-python.models.service_billing.ServiceBilling()  # noqa: E501
+        # model = h1.models.service_billing.ServiceBilling()  # noqa: E501
         if include_optional :
             return ServiceBilling(
-                price = h1-client-python.models.service_billing_price.service_billing_price(
+                price = h1.models.service_billing_price.service_billing_price(
                     pln = 1.337, 
                     eur = 1.337, 
                     usd = 1.337, 
@@ -44,15 +44,15 @@ class TestServiceBilling(unittest.TestCase):
                 period = '0', 
                 quantity = 1.337, 
                 one_time = True, 
-                reservations = h1-client-python.models.service_billing_reservations.service_billing_reservations(
+                reservations = h1.models.service_billing_reservations.service_billing_reservations(
                     id = '0', 
                     period = '0', 
-                    price = h1-client-python.models.service_billing_price.service_billing_price(
+                    price = h1.models.service_billing_price.service_billing_price(
                         pln = 1.337, 
                         eur = 1.337, 
                         usd = 1.337, 
                         gbp = 1.337, ), 
-                    resource_price = h1-client-python.models.service_billing_price.service_billing_price(
+                    resource_price = h1.models.service_billing_price.service_billing_price(
                         pln = 1.337, 
                         eur = 1.337, 
                         usd = 1.337, 
