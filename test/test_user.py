@@ -37,6 +37,8 @@ class TestUser(unittest.TestCase):
         if include_optional :
             return User(
                 id = '0', 
+                first_name = '0', 
+                family_name = '0', 
                 name = '0', 
                 created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                 modified_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 

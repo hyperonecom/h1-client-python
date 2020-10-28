@@ -37,6 +37,8 @@ class TestIamUserUpdate(unittest.TestCase):
         if include_optional :
             return IamUserUpdate(
                 phone = '0', 
+                first_name = '0', 
+                family_name = '0', 
                 lang = 'en'
             )
         else :

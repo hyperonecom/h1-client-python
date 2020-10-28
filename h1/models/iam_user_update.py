@@ -34,26 +34,36 @@ class IamUserUpdate(object):
     """
     openapi_types = {
         'phone': 'str',
+        'first_name': 'str',
+        'family_name': 'str',
         'lang': 'str'
     }
 
     attribute_map = {
         'phone': 'phone',
+        'first_name': 'firstName',
+        'family_name': 'familyName',
         'lang': 'lang'
     }
 
-    def __init__(self, phone=None, lang=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, phone=None, first_name=None, family_name=None, lang=None, local_vars_configuration=None):  # noqa: E501
         """IamUserUpdate - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._phone = None
+        self._first_name = None
+        self._family_name = None
         self._lang = None
         self.discriminator = None
 
         if phone is not None:
             self.phone = phone
+        if first_name is not None:
+            self.first_name = first_name
+        if family_name is not None:
+            self.family_name = family_name
         if lang is not None:
             self.lang = lang
 
@@ -77,6 +87,48 @@ class IamUserUpdate(object):
         """
 
         self._phone = phone
+
+    @property
+    def first_name(self):
+        """Gets the first_name of this IamUserUpdate.  # noqa: E501
+
+
+        :return: The first_name of this IamUserUpdate.  # noqa: E501
+        :rtype: str
+        """
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, first_name):
+        """Sets the first_name of this IamUserUpdate.
+
+
+        :param first_name: The first_name of this IamUserUpdate.  # noqa: E501
+        :type: str
+        """
+
+        self._first_name = first_name
+
+    @property
+    def family_name(self):
+        """Gets the family_name of this IamUserUpdate.  # noqa: E501
+
+
+        :return: The family_name of this IamUserUpdate.  # noqa: E501
+        :rtype: str
+        """
+        return self._family_name
+
+    @family_name.setter
+    def family_name(self, family_name):
+        """Sets the family_name of this IamUserUpdate.
+
+
+        :param family_name: The family_name of this IamUserUpdate.  # noqa: E501
+        :type: str
+        """
+
+        self._family_name = family_name
 
     @property
     def lang(self):

@@ -34,6 +34,8 @@ class User(object):
     """
     openapi_types = {
         'id': 'str',
+        'first_name': 'str',
+        'family_name': 'str',
         'name': 'str',
         'created_on': 'datetime',
         'modified_on': 'datetime',
@@ -46,6 +48,8 @@ class User(object):
 
     attribute_map = {
         'id': 'id',
+        'first_name': 'firstName',
+        'family_name': 'familyName',
         'name': 'name',
         'created_on': 'createdOn',
         'modified_on': 'modifiedOn',
@@ -56,13 +60,15 @@ class User(object):
         'tag': 'tag'
     }
 
-    def __init__(self, id=None, name=None, created_on=None, modified_on=None, lang='en', phone=None, limit=None, uri=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, first_name=None, family_name=None, name=None, created_on=None, modified_on=None, lang=None, phone=None, limit=None, uri=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """User - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
+        self._first_name = None
+        self._family_name = None
         self._name = None
         self._created_on = None
         self._modified_on = None
@@ -75,6 +81,10 @@ class User(object):
 
         if id is not None:
             self.id = id
+        if first_name is not None:
+            self.first_name = first_name
+        if family_name is not None:
+            self.family_name = family_name
         if name is not None:
             self.name = name
         if created_on is not None:
@@ -112,6 +122,48 @@ class User(object):
         """
 
         self._id = id
+
+    @property
+    def first_name(self):
+        """Gets the first_name of this User.  # noqa: E501
+
+
+        :return: The first_name of this User.  # noqa: E501
+        :rtype: str
+        """
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, first_name):
+        """Sets the first_name of this User.
+
+
+        :param first_name: The first_name of this User.  # noqa: E501
+        :type: str
+        """
+
+        self._first_name = first_name
+
+    @property
+    def family_name(self):
+        """Gets the family_name of this User.  # noqa: E501
+
+
+        :return: The family_name of this User.  # noqa: E501
+        :rtype: str
+        """
+        return self._family_name
+
+    @family_name.setter
+    def family_name(self, family_name):
+        """Sets the family_name of this User.
+
+
+        :param family_name: The family_name of this User.  # noqa: E501
+        :type: str
+        """
+
+        self._family_name = family_name
 
     @property
     def name(self):
