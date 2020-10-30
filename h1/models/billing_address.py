@@ -35,18 +35,18 @@ class BillingAddress(object):
     openapi_types = {
         'country': 'str',
         'city': 'str',
-        'zipcode': 'str',
-        'street': 'str'
+        'street': 'str',
+        'zipcode': 'str'
     }
 
     attribute_map = {
         'country': 'country',
         'city': 'city',
-        'zipcode': 'zipcode',
-        'street': 'street'
+        'street': 'street',
+        'zipcode': 'zipcode'
     }
 
-    def __init__(self, country='PL', city=None, zipcode=None, street=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, country='PL', city=None, street=None, zipcode=None, local_vars_configuration=None):  # noqa: E501
         """BillingAddress - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -54,15 +54,15 @@ class BillingAddress(object):
 
         self._country = None
         self._city = None
-        self._zipcode = None
         self._street = None
+        self._zipcode = None
         self.discriminator = None
 
         if country is not None:
             self.country = country
         self.city = city
-        self.zipcode = zipcode
         self.street = street
+        self.zipcode = zipcode
 
     @property
     def country(self):
@@ -115,29 +115,6 @@ class BillingAddress(object):
         self._city = city
 
     @property
-    def zipcode(self):
-        """Gets the zipcode of this BillingAddress.  # noqa: E501
-
-
-        :return: The zipcode of this BillingAddress.  # noqa: E501
-        :rtype: str
-        """
-        return self._zipcode
-
-    @zipcode.setter
-    def zipcode(self, zipcode):
-        """Sets the zipcode of this BillingAddress.
-
-
-        :param zipcode: The zipcode of this BillingAddress.  # noqa: E501
-        :type: str
-        """
-        if self.local_vars_configuration.client_side_validation and zipcode is None:  # noqa: E501
-            raise ValueError("Invalid value for `zipcode`, must not be `None`")  # noqa: E501
-
-        self._zipcode = zipcode
-
-    @property
     def street(self):
         """Gets the street of this BillingAddress.  # noqa: E501
 
@@ -159,6 +136,29 @@ class BillingAddress(object):
             raise ValueError("Invalid value for `street`, must not be `None`")  # noqa: E501
 
         self._street = street
+
+    @property
+    def zipcode(self):
+        """Gets the zipcode of this BillingAddress.  # noqa: E501
+
+
+        :return: The zipcode of this BillingAddress.  # noqa: E501
+        :rtype: str
+        """
+        return self._zipcode
+
+    @zipcode.setter
+    def zipcode(self, zipcode):
+        """Sets the zipcode of this BillingAddress.
+
+
+        :param zipcode: The zipcode of this BillingAddress.  # noqa: E501
+        :type: str
+        """
+        if self.local_vars_configuration.client_side_validation and zipcode is None:  # noqa: E501
+            raise ValueError("Invalid value for `zipcode`, must not be `None`")  # noqa: E501
+
+        self._zipcode = zipcode
 
     def to_dict(self):
         """Returns the model properties as a dict"""

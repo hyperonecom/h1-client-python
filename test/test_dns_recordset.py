@@ -37,7 +37,7 @@ class TestDnsRecordset(unittest.TestCase):
         if include_optional :
             return DnsRecordset(
                 id = '0', 
-                name = '0', 
+                name = '@', 
                 type = 'A', 
                 ttl = 1.337, 
                 record = [
@@ -49,7 +49,6 @@ class TestDnsRecordset(unittest.TestCase):
             )
         else :
             return DnsRecordset(
-                name = '0',
                 type = 'A',
         )
 

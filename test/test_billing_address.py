@@ -38,14 +38,14 @@ class TestBillingAddress(unittest.TestCase):
             return BillingAddress(
                 country = 'PL', 
                 city = '0', 
-                zipcode = '0', 
-                street = '0'
+                street = '0', 
+                zipcode = '0'
             )
         else :
             return BillingAddress(
                 city = '0',
-                zipcode = '0',
                 street = '0',
+                zipcode = '0',
         )
 
     def testBillingAddress(self):

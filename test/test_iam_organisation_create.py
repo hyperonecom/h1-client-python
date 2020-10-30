@@ -45,8 +45,8 @@ class TestIamOrganisationCreate(unittest.TestCase):
                     address = h1.models.billing_address.Billing_address(
                         country = 'PL', 
                         city = '0', 
-                        zipcode = '0', 
-                        street = '0', ), )
+                        street = '0', 
+                        zipcode = '0', ), )
             )
         else :
             return IamOrganisationCreate(

@@ -48,7 +48,7 @@ class DnsRecordset(object):
         'record': 'record'
     }
 
-    def __init__(self, id=None, name=None, type=None, ttl=3600, record=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name='@', type=None, ttl=3600, record=None, local_vars_configuration=None):  # noqa: E501
         """DnsRecordset - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -63,7 +63,8 @@ class DnsRecordset(object):
 
         if id is not None:
             self.id = id
-        self.name = name
+        if name is not None:
+            self.name = name
         self.type = type
         if ttl is not None:
             self.ttl = ttl
@@ -95,6 +96,7 @@ class DnsRecordset(object):
     def name(self):
         """Gets the name of this DnsRecordset.  # noqa: E501
 
+        use '@' to reference the zone origin  # noqa: E501
 
         :return: The name of this DnsRecordset.  # noqa: E501
         :rtype: str
@@ -105,12 +107,11 @@ class DnsRecordset(object):
     def name(self, name):
         """Sets the name of this DnsRecordset.
 
+        use '@' to reference the zone origin  # noqa: E501
 
         :param name: The name of this DnsRecordset.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
 

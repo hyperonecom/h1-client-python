@@ -872,7 +872,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_invoice_get**
-> Proforma iam_organisation_invoice_get(organisation_id, invoice_id)
+> Invoice iam_organisation_invoice_get(organisation_id, invoice_id)
 
 Get iam/organisation.invoice
 
@@ -927,7 +927,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Proforma**](Proforma.md)
+[**Invoice**](Invoice.md)
 
 ### Authorization
 
