@@ -530,6 +530,9 @@ Class | Method | HTTP request | Description
 *ProviderProjectAgentApi* | [**provider_project_agent_get**](./ProviderProjectAgentApi.md#provider_project_agent_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId} | Get provider/agent
 *ProviderProjectAgentApi* | [**provider_project_agent_inspect**](./ProviderProjectAgentApi.md#provider_project_agent_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/actions/inspect | Inspect provider/agent
 *ProviderProjectAgentApi* | [**provider_project_agent_list**](./ProviderProjectAgentApi.md#provider_project_agent_list) | **GET** /provider/{locationId}/project/{projectId}/agent | List provider/agent
+*ProviderProjectAgentApi* | [**provider_project_agent_metric_get**](./ProviderProjectAgentApi.md#provider_project_agent_metric_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId} | Get provider/agent.metric
+*ProviderProjectAgentApi* | [**provider_project_agent_metric_list**](./ProviderProjectAgentApi.md#provider_project_agent_metric_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric | List provider/agent.metric
+*ProviderProjectAgentApi* | [**provider_project_agent_metric_point_list**](./ProviderProjectAgentApi.md#provider_project_agent_metric_point_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}/point | List provider/agent.point
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_event_list**](./ProviderProjectAgentApi.md#provider_project_agent_resource_event_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/event | List provider/agent.event
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_inspect**](./ProviderProjectAgentApi.md#provider_project_agent_resource_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/inspect | Inspect provider/agent.resource
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_list**](./ProviderProjectAgentApi.md#provider_project_agent_resource_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource | List provider/agent.resource
@@ -1022,6 +1025,9 @@ Class | Method | HTTP request | Description
  - **provider/agent.enabledService/create**: 
  - **provider/agent.enabledService/get**: 
  - **provider/agent.enabledService/delete**: 
+ - **provider/agent.metric/list**: 
+ - **provider/agent.metric/get**: 
+ - **provider/agent.point/list**: 
  - **provider/agent.service/list**: 
  - **provider/agent.service/get**: 
  - **provider/agent.tag/list**: 

@@ -20,6 +20,9 @@ Method | HTTP request | Description
 [**provider_project_agent_get**](ProviderProjectAgentApi.md#provider_project_agent_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId} | Get provider/agent
 [**provider_project_agent_inspect**](ProviderProjectAgentApi.md#provider_project_agent_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/actions/inspect | Inspect provider/agent
 [**provider_project_agent_list**](ProviderProjectAgentApi.md#provider_project_agent_list) | **GET** /provider/{locationId}/project/{projectId}/agent | List provider/agent
+[**provider_project_agent_metric_get**](ProviderProjectAgentApi.md#provider_project_agent_metric_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId} | Get provider/agent.metric
+[**provider_project_agent_metric_list**](ProviderProjectAgentApi.md#provider_project_agent_metric_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric | List provider/agent.metric
+[**provider_project_agent_metric_point_list**](ProviderProjectAgentApi.md#provider_project_agent_metric_point_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}/point | List provider/agent.point
 [**provider_project_agent_resource_event_list**](ProviderProjectAgentApi.md#provider_project_agent_resource_event_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/event | List provider/agent.event
 [**provider_project_agent_resource_inspect**](ProviderProjectAgentApi.md#provider_project_agent_resource_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/inspect | Inspect provider/agent.resource
 [**provider_project_agent_resource_list**](ProviderProjectAgentApi.md#provider_project_agent_resource_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource | List provider/agent.resource
@@ -1298,6 +1301,248 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**list[Agent]**](Agent.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **provider_project_agent_metric_get**
+> Metric provider_project_agent_metric_get(project_id, location_id, agent_id, metric_id)
+
+Get provider/agent.metric
+
+Get provider/agent.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ProviderProjectAgentApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+agent_id = 'agent_id_example' # str | Agent Id
+metric_id = 'metric_id_example' # str | metricId
+
+    try:
+        # Get provider/agent.metric
+        api_response = api_instance.provider_project_agent_metric_get(project_id, location_id, agent_id, metric_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **agent_id** | **str**| Agent Id | 
+ **metric_id** | **str**| metricId | 
+
+### Return type
+
+[**Metric**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **provider_project_agent_metric_list**
+> list[Metric] provider_project_agent_metric_list(project_id, location_id, agent_id)
+
+List provider/agent.metric
+
+List provider/agent.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ProviderProjectAgentApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+agent_id = 'agent_id_example' # str | Agent Id
+
+    try:
+        # List provider/agent.metric
+        api_response = api_instance.provider_project_agent_metric_list(project_id, location_id, agent_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **agent_id** | **str**| Agent Id | 
+
+### Return type
+
+[**list[Metric]**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **provider_project_agent_metric_point_list**
+> list[Point] provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id, interval=interval, timespan=timespan)
+
+List provider/agent.point
+
+List provider/agent.point
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ProviderProjectAgentApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+agent_id = 'agent_id_example' # str | Agent Id
+metric_id = 'metric_id_example' # str | metricId
+interval = 'interval_example' # str | interval (optional)
+timespan = 'timespan_example' # str | timespan (optional)
+
+    try:
+        # List provider/agent.point
+        api_response = api_instance.provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id, interval=interval, timespan=timespan)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_point_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **agent_id** | **str**| Agent Id | 
+ **metric_id** | **str**| metricId | 
+ **interval** | **str**| interval | [optional] 
+ **timespan** | **str**| timespan | [optional] 
+
+### Return type
+
+[**list[Point]**](Point.md)
 
 ### Authorization
 

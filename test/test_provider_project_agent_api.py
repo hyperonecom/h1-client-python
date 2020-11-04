@@ -140,6 +140,27 @@ class TestProviderProjectAgentApi(unittest.TestCase):
         """
         pass
 
+    def test_provider_project_agent_metric_get(self):
+        """Test case for provider_project_agent_metric_get
+
+        Get provider/agent.metric  # noqa: E501
+        """
+        pass
+
+    def test_provider_project_agent_metric_list(self):
+        """Test case for provider_project_agent_metric_list
+
+        List provider/agent.metric  # noqa: E501
+        """
+        pass
+
+    def test_provider_project_agent_metric_point_list(self):
+        """Test case for provider_project_agent_metric_point_list
+
+        List provider/agent.point  # noqa: E501
+        """
+        pass
+
     def test_provider_project_agent_resource_event_list(self):
         """Test case for provider_project_agent_resource_event_list
 

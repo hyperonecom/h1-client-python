@@ -2275,6 +2275,430 @@ class ProviderProjectAgentApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def provider_project_agent_metric_get(self, project_id, location_id, agent_id, metric_id, **kwargs):  # noqa: E501
+        """Get provider/agent.metric  # noqa: E501
+
+        Get provider/agent.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_get(project_id, location_id, agent_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str metric_id: metricId (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Metric
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.provider_project_agent_metric_get_with_http_info(project_id, location_id, agent_id, metric_id, **kwargs)  # noqa: E501
+
+    def provider_project_agent_metric_get_with_http_info(self, project_id, location_id, agent_id, metric_id, **kwargs):  # noqa: E501
+        """Get provider/agent.metric  # noqa: E501
+
+        Get provider/agent.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_get_with_http_info(project_id, location_id, agent_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str metric_id: metricId (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Metric, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'agent_id',
+            'metric_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method provider_project_agent_metric_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `provider_project_agent_metric_get`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `provider_project_agent_metric_get`")  # noqa: E501
+        # verify the required parameter 'agent_id' is set
+        if self.api_client.client_side_validation and ('agent_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['agent_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `agent_id` when calling `provider_project_agent_metric_get`")  # noqa: E501
+        # verify the required parameter 'metric_id' is set
+        if self.api_client.client_side_validation and ('metric_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['metric_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `metric_id` when calling `provider_project_agent_metric_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'agent_id' in local_var_params:
+            path_params['agentId'] = local_var_params['agent_id']  # noqa: E501
+        if 'metric_id' in local_var_params:
+            path_params['metricId'] = local_var_params['metric_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Metric',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def provider_project_agent_metric_list(self, project_id, location_id, agent_id, **kwargs):  # noqa: E501
+        """List provider/agent.metric  # noqa: E501
+
+        List provider/agent.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_list(project_id, location_id, agent_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Metric]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.provider_project_agent_metric_list_with_http_info(project_id, location_id, agent_id, **kwargs)  # noqa: E501
+
+    def provider_project_agent_metric_list_with_http_info(self, project_id, location_id, agent_id, **kwargs):  # noqa: E501
+        """List provider/agent.metric  # noqa: E501
+
+        List provider/agent.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_list_with_http_info(project_id, location_id, agent_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Metric], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'agent_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method provider_project_agent_metric_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `provider_project_agent_metric_list`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `provider_project_agent_metric_list`")  # noqa: E501
+        # verify the required parameter 'agent_id' is set
+        if self.api_client.client_side_validation and ('agent_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['agent_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `agent_id` when calling `provider_project_agent_metric_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'agent_id' in local_var_params:
+            path_params['agentId'] = local_var_params['agent_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/provider/{locationId}/project/{projectId}/agent/{agentId}/metric', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Metric]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def provider_project_agent_metric_point_list(self, project_id, location_id, agent_id, metric_id, **kwargs):  # noqa: E501
+        """List provider/agent.point  # noqa: E501
+
+        List provider/agent.point  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str metric_id: metricId (required)
+        :param str interval: interval
+        :param str timespan: timespan
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Point]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.provider_project_agent_metric_point_list_with_http_info(project_id, location_id, agent_id, metric_id, **kwargs)  # noqa: E501
+
+    def provider_project_agent_metric_point_list_with_http_info(self, project_id, location_id, agent_id, metric_id, **kwargs):  # noqa: E501
+        """List provider/agent.point  # noqa: E501
+
+        List provider/agent.point  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_metric_point_list_with_http_info(project_id, location_id, agent_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str metric_id: metricId (required)
+        :param str interval: interval
+        :param str timespan: timespan
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Point], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'agent_id',
+            'metric_id',
+            'interval',
+            'timespan'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method provider_project_agent_metric_point_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `provider_project_agent_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `provider_project_agent_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'agent_id' is set
+        if self.api_client.client_side_validation and ('agent_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['agent_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `agent_id` when calling `provider_project_agent_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'metric_id' is set
+        if self.api_client.client_side_validation and ('metric_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['metric_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `metric_id` when calling `provider_project_agent_metric_point_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'agent_id' in local_var_params:
+            path_params['agentId'] = local_var_params['agent_id']  # noqa: E501
+        if 'metric_id' in local_var_params:
+            path_params['metricId'] = local_var_params['metric_id']  # noqa: E501
+
+        query_params = []
+        if 'interval' in local_var_params and local_var_params['interval'] is not None:  # noqa: E501
+            query_params.append(('interval', local_var_params['interval']))  # noqa: E501
+        if 'timespan' in local_var_params and local_var_params['timespan'] is not None:  # noqa: E501
+            query_params.append(('timespan', local_var_params['timespan']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}/point', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Point]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def provider_project_agent_resource_event_list(self, project_id, location_id, agent_id, resource_id, **kwargs):  # noqa: E501
         """List provider/agent.event  # noqa: E501
 
