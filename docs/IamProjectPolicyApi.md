@@ -722,7 +722,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_policy_list**
-> list[Policy] iam_project_policy_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> list[Policy] iam_project_policy_list(project_id, name=name, resource=resource, tag_value=tag_value, tag_key=tag_key)
 
 List iam/policy
 
@@ -759,12 +759,13 @@ with h1.ApiClient(configuration) as api_client:
     api_instance = h1.IamProjectPolicyApi(api_client)
     project_id = 'project_id_example' # str | Project Id
 name = 'name_example' # str | Filter by name (optional)
+resource = 'resource_example' # str | Filter by resource (optional)
 tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
 tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
     try:
         # List iam/policy
-        api_response = api_instance.iam_project_policy_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
+        api_response = api_instance.iam_project_policy_list(project_id, name=name, resource=resource, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IamProjectPolicyApi->iam_project_policy_list: %s\n" % e)
@@ -776,6 +777,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| Project Id | 
  **name** | **str**| Filter by name | [optional] 
+ **resource** | **str**| Filter by resource | [optional] 
  **tag_value** | **str**| Filter by tag.value | [optional] 
  **tag_key** | **str**| Filter by tag.key | [optional] 
 

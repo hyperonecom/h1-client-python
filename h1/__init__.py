@@ -219,7 +219,6 @@ from h1.models.service_billing_price import ServiceBillingPrice
 from h1.models.service_billing_reservations import ServiceBillingReservations
 from h1.models.service_display import ServiceDisplay
 from h1.models.service_display_unit import ServiceDisplayUnit
-from h1.models.storage_project_disk_attach import StorageProjectDiskAttach
 from h1.models.storage_project_disk_create import StorageProjectDiskCreate
 from h1.models.storage_project_disk_resize import StorageProjectDiskResize
 from h1.models.storage_project_disk_transfer import StorageProjectDiskTransfer

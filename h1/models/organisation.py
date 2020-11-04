@@ -41,7 +41,6 @@ class Organisation(object):
         'created_on': 'datetime',
         'created_by': 'str',
         'state': 'str',
-        'organisation': 'str',
         'uri': 'str',
         'billing': 'OrganisationBilling',
         'transfer': 'OrganisationTransfer',
@@ -58,7 +57,6 @@ class Organisation(object):
         'created_on': 'createdOn',
         'created_by': 'createdBy',
         'state': 'state',
-        'organisation': 'organisation',
         'uri': 'uri',
         'billing': 'billing',
         'transfer': 'transfer',
@@ -66,7 +64,7 @@ class Organisation(object):
         'tag': 'tag'
     }
 
-    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, organisation=None, uri=None, billing=None, transfer=None, bank_account=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, uri=None, billing=None, transfer=None, bank_account=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """Organisation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -80,7 +78,6 @@ class Organisation(object):
         self._created_on = None
         self._created_by = None
         self._state = None
-        self._organisation = None
         self._uri = None
         self._billing = None
         self._transfer = None
@@ -104,8 +101,6 @@ class Organisation(object):
             self.created_by = created_by
         if state is not None:
             self.state = state
-        if organisation is not None:
-            self.organisation = organisation
         if uri is not None:
             self.uri = uri
         if billing is not None:
@@ -290,27 +285,6 @@ class Organisation(object):
             )
 
         self._state = state
-
-    @property
-    def organisation(self):
-        """Gets the organisation of this Organisation.  # noqa: E501
-
-
-        :return: The organisation of this Organisation.  # noqa: E501
-        :rtype: str
-        """
-        return self._organisation
-
-    @organisation.setter
-    def organisation(self, organisation):
-        """Sets the organisation of this Organisation.
-
-
-        :param organisation: The organisation of this Organisation.  # noqa: E501
-        :type: str
-        """
-
-        self._organisation = organisation
 
     @property
     def uri(self):

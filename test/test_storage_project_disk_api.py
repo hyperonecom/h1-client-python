@@ -28,13 +28,6 @@ class TestStorageProjectDiskApi(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_storage_project_disk_attach(self):
-        """Test case for storage_project_disk_attach
-
-        Attach storage/disk  # noqa: E501
-        """
-        pass
-
     def test_storage_project_disk_create(self):
         """Test case for storage_project_disk_create
 

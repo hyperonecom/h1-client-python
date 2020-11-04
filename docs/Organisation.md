@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **created_on** | **datetime** |  | [optional] 
 **created_by** | **str** |  | [optional] 
 **state** | **str** |  | [optional] 
-**organisation** | **str** |  | [optional] 
 **uri** | **str** |  | [optional] 
 **billing** | [**OrganisationBilling**](OrganisationBilling.md) |  | [optional] 
 **transfer** | [**OrganisationTransfer**](OrganisationTransfer.md) |  | [optional] 

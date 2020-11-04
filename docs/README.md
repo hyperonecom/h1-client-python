@@ -548,7 +548,6 @@ Class | Method | HTTP request | Description
 *ProviderProjectAgentApi* | [**provider_project_agent_tag_put**](./ProviderProjectAgentApi.md#provider_project_agent_tag_put) | **PUT** /provider/{locationId}/project/{projectId}/agent/{agentId}/tag | Replace provider/agent.tag
 *ProviderProjectAgentApi* | [**provider_project_agent_transfer**](./ProviderProjectAgentApi.md#provider_project_agent_transfer) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/actions/transfer | Transfer provider/agent
 *ProviderProjectAgentApi* | [**provider_project_agent_update**](./ProviderProjectAgentApi.md#provider_project_agent_update) | **PATCH** /provider/{locationId}/project/{projectId}/agent/{agentId} | Update provider/agent
-*StorageProjectDiskApi* | [**storage_project_disk_attach**](./StorageProjectDiskApi.md#storage_project_disk_attach) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/attach | Attach storage/disk
 *StorageProjectDiskApi* | [**storage_project_disk_create**](./StorageProjectDiskApi.md#storage_project_disk_create) | **POST** /storage/{locationId}/project/{projectId}/disk | Create storage/disk
 *StorageProjectDiskApi* | [**storage_project_disk_delete**](./StorageProjectDiskApi.md#storage_project_disk_delete) | **DELETE** /storage/{locationId}/project/{projectId}/disk/{diskId} | Delete storage/disk
 *StorageProjectDiskApi* | [**storage_project_disk_detach**](./StorageProjectDiskApi.md#storage_project_disk_detach) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/detach | Detach storage/disk
@@ -861,7 +860,6 @@ Class | Method | HTTP request | Description
  - [ServiceBillingReservations](./ServiceBillingReservations.md)
  - [ServiceDisplay](./ServiceDisplay.md)
  - [ServiceDisplayUnit](./ServiceDisplayUnit.md)
- - [StorageProjectDiskAttach](./StorageProjectDiskAttach.md)
  - [StorageProjectDiskCreate](./StorageProjectDiskCreate.md)
  - [StorageProjectDiskResize](./StorageProjectDiskResize.md)
  - [StorageProjectDiskTransfer](./StorageProjectDiskTransfer.md)
@@ -1192,7 +1190,6 @@ Class | Method | HTTP request | Description
  - **storage/disk.name/update**: 
  - **storage/disk/delete**: 
  - **storage/disk.size/update**: 
- - **storage/disk/attach**: 
  - **storage/disk/detach**: 
  - **storage/disk/read**: 
  - **storage/disk/transfer**: 
@@ -1436,6 +1433,7 @@ Class | Method | HTTP request | Description
  - **compute/vm/passwordReset**: 
  - **compute/vm/flavour**: 
  - **compute/vm.serialport/read**: 
+ - **storage/disk/attach**: 
  - **storage/iso/attach**: 
  - **compute/vm.metric/list**: 
  - **compute/vm.metric/get**: 

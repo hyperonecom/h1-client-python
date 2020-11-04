@@ -1218,6 +1218,7 @@ class IamOrganisationPolicyApi(object):
         :param async_req bool: execute request asynchronously
         :param str organisation_id: Organisation Id (required)
         :param str name: Filter by name
+        :param str resource: Filter by resource
         :param str tag_value: Filter by tag.value
         :param str tag_key: Filter by tag.key
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1246,6 +1247,7 @@ class IamOrganisationPolicyApi(object):
         :param async_req bool: execute request asynchronously
         :param str organisation_id: Organisation Id (required)
         :param str name: Filter by name
+        :param str resource: Filter by resource
         :param str tag_value: Filter by tag.value
         :param str tag_key: Filter by tag.key
         :param _return_http_data_only: response data without head status code
@@ -1267,6 +1269,7 @@ class IamOrganisationPolicyApi(object):
         all_params = [
             'organisation_id',
             'name',
+            'resource',
             'tag_value',
             'tag_key'
         ]
@@ -1292,6 +1295,8 @@ class IamOrganisationPolicyApi(object):
                                                         local_var_params['organisation_id'] is None):  # noqa: E501
             raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_list`")  # noqa: E501
 
+        if self.api_client.client_side_validation and 'resource' in local_var_params and not re.search(r'^\/(?<namespace>[a-z]+)(\/(?<location>[a-z0-9-]+))?\/(?<parent>(project|organisation))\/(?<parentId>[a-f0-9]{24})(\/(?<type>[a-z]+))?(\/(?<resource>[a-f0-9]{24}))?(?<subresource>(\/[a-z0-9]+)+)?$', local_var_params['resource']):  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `resource` when calling `iam_organisation_policy_list`, must conform to the pattern `/^\/(?<namespace>[a-z]+)(\/(?<location>[a-z0-9-]+))?\/(?<parent>(project|organisation))\/(?<parentId>[a-f0-9]{24})(\/(?<type>[a-z]+))?(\/(?<resource>[a-f0-9]{24}))?(?<subresource>(\/[a-z0-9]+)+)?$/`")  # noqa: E501
         collection_formats = {}
 
         path_params = {}
@@ -1301,6 +1306,8 @@ class IamOrganisationPolicyApi(object):
         query_params = []
         if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
             query_params.append(('name', local_var_params['name']))  # noqa: E501
+        if 'resource' in local_var_params and local_var_params['resource'] is not None:  # noqa: E501
+            query_params.append(('resource', local_var_params['resource']))  # noqa: E501
         if 'tag_value' in local_var_params and local_var_params['tag_value'] is not None:  # noqa: E501
             query_params.append(('tag.value', local_var_params['tag_value']))  # noqa: E501
         if 'tag_key' in local_var_params and local_var_params['tag_key'] is not None:  # noqa: E501

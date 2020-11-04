@@ -4,7 +4,6 @@ All URIs are relative to *https://api.hyperone.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**storage_project_disk_attach**](StorageProjectDiskApi.md#storage_project_disk_attach) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/attach | Attach storage/disk
 [**storage_project_disk_create**](StorageProjectDiskApi.md#storage_project_disk_create) | **POST** /storage/{locationId}/project/{projectId}/disk | Create storage/disk
 [**storage_project_disk_delete**](StorageProjectDiskApi.md#storage_project_disk_delete) | **DELETE** /storage/{locationId}/project/{projectId}/disk/{diskId} | Delete storage/disk
 [**storage_project_disk_detach**](StorageProjectDiskApi.md#storage_project_disk_detach) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/detach | Detach storage/disk
@@ -27,89 +26,6 @@ Method | HTTP request | Description
 [**storage_project_disk_transfer**](StorageProjectDiskApi.md#storage_project_disk_transfer) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/transfer | Transfer storage/disk
 [**storage_project_disk_update**](StorageProjectDiskApi.md#storage_project_disk_update) | **PATCH** /storage/{locationId}/project/{projectId}/disk/{diskId} | Update storage/disk
 
-
-# **storage_project_disk_attach**
-> Disk storage_project_disk_attach(project_id, location_id, disk_id, storage_project_disk_attach, x_idempotency_key=x_idempotency_key)
-
-Attach storage/disk
-
-action attach
-
-### Example
-
-* Bearer (JWT) Authentication (BearerAuth):
-```python
-from __future__ import print_function
-import time
-import h1
-from h1.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.hyperone.com/v2
-# See configuration.py for a list of all supported configuration parameters.
-configuration = h1.Configuration(
-    host = "https://api.hyperone.com/v2"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): BearerAuth
-configuration = h1.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
-)
-
-# Enter a context with an instance of the API client
-with h1.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-storage_project_disk_attach = h1.StorageProjectDiskAttach() # StorageProjectDiskAttach | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
-
-    try:
-        # Attach storage/disk
-        api_response = api_instance.storage_project_disk_attach(project_id, location_id, disk_id, storage_project_disk_attach, x_idempotency_key=x_idempotency_key)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling StorageProjectDiskApi->storage_project_disk_attach: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **storage_project_disk_attach** | [**StorageProjectDiskAttach**](StorageProjectDiskAttach.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
-
-### Return type
-
-[**Disk**](Disk.md)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | successful operation |  -  |
-**202** | operation queued |  -  |
-**400** | Bad Request |  -  |
-**401** | Access token is missing or invalid |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_create**
 > Disk storage_project_disk_create(project_id, location_id, storage_project_disk_create, x_idempotency_key=x_idempotency_key)

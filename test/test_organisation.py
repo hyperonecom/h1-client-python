@@ -44,7 +44,6 @@ class TestOrganisation(unittest.TestCase):
                 created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                 created_by = '0', 
                 state = 'Active', 
-                organisation = '0', 
                 uri = '0', 
                 billing = h1.models.organisation_billing.organisation_billing(
                     currency = '0', 
