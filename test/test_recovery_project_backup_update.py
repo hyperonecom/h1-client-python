@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import h1
-from h1.models.iam_organisation_transfer_accept import IamOrganisationTransferAccept  # noqa: E501
+from h1.models.recovery_project_backup_update import RecoveryProjectBackupUpdate  # noqa: E501
 from h1.rest import ApiException
 
-class TestIamOrganisationTransferAccept(unittest.TestCase):
-    """IamOrganisationTransferAccept unit test stubs"""
+class TestRecoveryProjectBackupUpdate(unittest.TestCase):
+    """RecoveryProjectBackupUpdate unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,22 +29,21 @@ class TestIamOrganisationTransferAccept(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test IamOrganisationTransferAccept
+        """Test RecoveryProjectBackupUpdate
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1.models.iam_organisation_transfer_accept.IamOrganisationTransferAccept()  # noqa: E501
+        # model = h1.models.recovery_project_backup_update.RecoveryProjectBackupUpdate()  # noqa: E501
         if include_optional :
-            return IamOrganisationTransferAccept(
-                payment = '0'
+            return RecoveryProjectBackupUpdate(
+                name = '0'
             )
         else :
-            return IamOrganisationTransferAccept(
-                payment = '0',
+            return RecoveryProjectBackupUpdate(
         )
 
-    def testIamOrganisationTransferAccept(self):
-        """Test IamOrganisationTransferAccept"""
+    def testRecoveryProjectBackupUpdate(self):
+        """Test RecoveryProjectBackupUpdate"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

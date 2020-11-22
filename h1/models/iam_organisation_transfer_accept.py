@@ -33,27 +33,23 @@ class IamOrganisationTransferAccept(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'payment': 'str',
-        'project': 'str'
+        'payment': 'str'
     }
 
     attribute_map = {
-        'payment': 'payment',
-        'project': 'project'
+        'payment': 'payment'
     }
 
-    def __init__(self, payment=None, project=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, payment=None, local_vars_configuration=None):  # noqa: E501
         """IamOrganisationTransferAccept - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._payment = None
-        self._project = None
         self.discriminator = None
 
         self.payment = payment
-        self.project = project
 
     @property
     def payment(self):
@@ -77,29 +73,6 @@ class IamOrganisationTransferAccept(object):
             raise ValueError("Invalid value for `payment`, must not be `None`")  # noqa: E501
 
         self._payment = payment
-
-    @property
-    def project(self):
-        """Gets the project of this IamOrganisationTransferAccept.  # noqa: E501
-
-
-        :return: The project of this IamOrganisationTransferAccept.  # noqa: E501
-        :rtype: str
-        """
-        return self._project
-
-    @project.setter
-    def project(self, project):
-        """Sets the project of this IamOrganisationTransferAccept.
-
-
-        :param project: The project of this IamOrganisationTransferAccept.  # noqa: E501
-        :type: str
-        """
-        if self.local_vars_configuration.client_side_validation and project is None:  # noqa: E501
-            raise ValueError("Invalid value for `project`, must not be `None`")  # noqa: E501
-
-        self._project = project
 
     def to_dict(self):
         """Returns the model properties as a dict"""

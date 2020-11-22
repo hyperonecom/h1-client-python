@@ -3100,19 +3100,18 @@ class IamOrganisationApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def iam_organisation_transfer_accept(self, organisation_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
-        """Transfer accept iam/organisation  # noqa: E501
+    def iam_organisation_service_get(self, organisation_id, service_id, **kwargs):  # noqa: E501
+        """Get iam/organisation.service  # noqa: E501
 
-        action transfer_accept  # noqa: E501
+        Get iam/organisation.service  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_accept(organisation_id, iam_organisation_transfer_accept, async_req=True)
+        >>> thread = api.iam_organisation_service_get(organisation_id, service_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
-        :param str x_idempotency_key: Idempotency key
+        :param str service_id: serviceId (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -3120,26 +3119,25 @@ class IamOrganisationApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: Organisation
+        :return: ResourceService
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_transfer_accept_with_http_info(organisation_id, iam_organisation_transfer_accept, **kwargs)  # noqa: E501
+        return self.iam_organisation_service_get_with_http_info(organisation_id, service_id, **kwargs)  # noqa: E501
 
-    def iam_organisation_transfer_accept_with_http_info(self, organisation_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
-        """Transfer accept iam/organisation  # noqa: E501
+    def iam_organisation_service_get_with_http_info(self, organisation_id, service_id, **kwargs):  # noqa: E501
+        """Get iam/organisation.service  # noqa: E501
 
-        action transfer_accept  # noqa: E501
+        Get iam/organisation.service  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_accept_with_http_info(organisation_id, iam_organisation_transfer_accept, async_req=True)
+        >>> thread = api.iam_organisation_service_get_with_http_info(organisation_id, service_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
-        :param str x_idempotency_key: Idempotency key
+        :param str service_id: serviceId (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -3149,7 +3147,7 @@ class IamOrganisationApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: tuple(Organisation, status_code(int), headers(HTTPHeaderDict))
+        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3158,8 +3156,247 @@ class IamOrganisationApi(object):
 
         all_params = [
             'organisation_id',
-            'iam_organisation_transfer_accept',
-            'x_idempotency_key'
+            'service_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method iam_organisation_service_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'organisation_id' is set
+        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['organisation_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_service_get`")  # noqa: E501
+        # verify the required parameter 'service_id' is set
+        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['service_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `service_id` when calling `iam_organisation_service_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'organisation_id' in local_var_params:
+            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+        if 'service_id' in local_var_params:
+            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/iam/organisation/{organisationId}/service/{serviceId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='ResourceService',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def iam_organisation_service_list(self, organisation_id, **kwargs):  # noqa: E501
+        """List iam/organisation.service  # noqa: E501
+
+        List iam/organisation.service  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_service_list(organisation_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[ResourceService]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.iam_organisation_service_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
+
+    def iam_organisation_service_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
+        """List iam/organisation.service  # noqa: E501
+
+        List iam/organisation.service  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_service_list_with_http_info(organisation_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'organisation_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method iam_organisation_service_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'organisation_id' is set
+        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['organisation_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_service_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'organisation_id' in local_var_params:
+            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/iam/organisation/{organisationId}/service', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[ResourceService]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def iam_organisation_transfer_accept(self, organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
+        """Accept iam/organisation.transfer  # noqa: E501
+
+        action accept  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param str transfer_id: transferId (required)
+        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Transfer
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.iam_organisation_transfer_accept_with_http_info(organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs)  # noqa: E501
+
+    def iam_organisation_transfer_accept_with_http_info(self, organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
+        """Accept iam/organisation.transfer  # noqa: E501
+
+        action accept  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_accept_with_http_info(organisation_id, transfer_id, iam_organisation_transfer_accept, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param str transfer_id: transferId (required)
+        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Transfer, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'organisation_id',
+            'transfer_id',
+            'iam_organisation_transfer_accept'
         ]
         all_params.extend(
             [
@@ -3182,6 +3419,10 @@ class IamOrganisationApi(object):
         if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['organisation_id'] is None):  # noqa: E501
             raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_accept`")  # noqa: E501
+        # verify the required parameter 'transfer_id' is set
+        if self.api_client.client_side_validation and ('transfer_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['transfer_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `transfer_id` when calling `iam_organisation_transfer_accept`")  # noqa: E501
         # verify the required parameter 'iam_organisation_transfer_accept' is set
         if self.api_client.client_side_validation and ('iam_organisation_transfer_accept' not in local_var_params or  # noqa: E501
                                                         local_var_params['iam_organisation_transfer_accept'] is None):  # noqa: E501
@@ -3192,12 +3433,12 @@ class IamOrganisationApi(object):
         path_params = {}
         if 'organisation_id' in local_var_params:
             path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+        if 'transfer_id' in local_var_params:
+            path_params['transferId'] = local_var_params['transfer_id']  # noqa: E501
 
         query_params = []
 
         header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
 
         form_params = []
         local_var_files = {}
@@ -3217,14 +3458,251 @@ class IamOrganisationApi(object):
         auth_settings = ['BearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/actions/transfer_accept', 'POST',
+            '/iam/organisation/{organisationId}/transfer/{transferId}/actions/accept', 'POST',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Organisation',  # noqa: E501
+            response_type='Transfer',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def iam_organisation_transfer_get(self, organisation_id, transfer_id, **kwargs):  # noqa: E501
+        """Get iam/organisation.transfer  # noqa: E501
+
+        Get iam/organisation.transfer  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_get(organisation_id, transfer_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param str transfer_id: transferId (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Transfer
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.iam_organisation_transfer_get_with_http_info(organisation_id, transfer_id, **kwargs)  # noqa: E501
+
+    def iam_organisation_transfer_get_with_http_info(self, organisation_id, transfer_id, **kwargs):  # noqa: E501
+        """Get iam/organisation.transfer  # noqa: E501
+
+        Get iam/organisation.transfer  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_get_with_http_info(organisation_id, transfer_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param str transfer_id: transferId (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Transfer, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'organisation_id',
+            'transfer_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method iam_organisation_transfer_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'organisation_id' is set
+        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['organisation_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_get`")  # noqa: E501
+        # verify the required parameter 'transfer_id' is set
+        if self.api_client.client_side_validation and ('transfer_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['transfer_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `transfer_id` when calling `iam_organisation_transfer_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'organisation_id' in local_var_params:
+            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+        if 'transfer_id' in local_var_params:
+            path_params['transferId'] = local_var_params['transfer_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/iam/organisation/{organisationId}/transfer/{transferId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Transfer',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def iam_organisation_transfer_list(self, organisation_id, **kwargs):  # noqa: E501
+        """List iam/organisation.transfer  # noqa: E501
+
+        List iam/organisation.transfer  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_list(organisation_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Transfer]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.iam_organisation_transfer_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
+
+    def iam_organisation_transfer_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
+        """List iam/organisation.transfer  # noqa: E501
+
+        List iam/organisation.transfer  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.iam_organisation_transfer_list_with_http_info(organisation_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str organisation_id: Organisation Id (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Transfer], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'organisation_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method iam_organisation_transfer_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'organisation_id' is set
+        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['organisation_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'organisation_id' in local_var_params:
+            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/iam/organisation/{organisationId}/transfer', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Transfer]',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501

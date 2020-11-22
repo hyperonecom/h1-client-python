@@ -52,7 +52,7 @@ class NetworkingRule(object):
         'internal': 'internal'
     }
 
-    def __init__(self, id=None, name=None, action=None, priority=None, filter=None, external=None, internal=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, action=None, priority=None, filter=None, external=["0.0.0.0/0"], internal=["*"], local_vars_configuration=None):  # noqa: E501
         """NetworkingRule - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -73,7 +73,8 @@ class NetworkingRule(object):
         self.action = action
         self.priority = priority
         self.filter = filter
-        self.external = external
+        if external is not None:
+            self.external = external
         if internal is not None:
             self.internal = internal
 
@@ -214,8 +215,6 @@ class NetworkingRule(object):
         :param external: The external of this NetworkingRule.  # noqa: E501
         :type: list[str]
         """
-        if self.local_vars_configuration.client_side_validation and external is None:  # noqa: E501
-            raise ValueError("Invalid value for `external`, must not be `None`")  # noqa: E501
 
         self._external = external
 

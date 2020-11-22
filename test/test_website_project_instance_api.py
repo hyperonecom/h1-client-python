@@ -189,10 +189,24 @@ class TestWebsiteProjectInstanceApi(unittest.TestCase):
         """
         pass
 
-    def test_website_project_instance_log(self):
-        """Test case for website_project_instance_log
+    def test_website_project_instance_log_get(self):
+        """Test case for website_project_instance_log_get
 
-        Log website/instance  # noqa: E501
+        Get website/instance.log  # noqa: E501
+        """
+        pass
+
+    def test_website_project_instance_log_list(self):
+        """Test case for website_project_instance_log_list
+
+        List website/instance.log  # noqa: E501
+        """
+        pass
+
+    def test_website_project_instance_log_read(self):
+        """Test case for website_project_instance_log_read
+
+        Read website/instance.log  # noqa: E501
         """
         pass
 

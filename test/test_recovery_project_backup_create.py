@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import h1
-from h1.models.networking_rule import NetworkingRule  # noqa: E501
+from h1.models.recovery_project_backup_create import RecoveryProjectBackupCreate  # noqa: E501
 from h1.rest import ApiException
 
-class TestNetworkingRule(unittest.TestCase):
-    """NetworkingRule unit test stubs"""
+class TestRecoveryProjectBackupCreate(unittest.TestCase):
+    """RecoveryProjectBackupCreate unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,39 +29,31 @@ class TestNetworkingRule(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test NetworkingRule
+        """Test RecoveryProjectBackupCreate
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1.models.networking_rule.NetworkingRule()  # noqa: E501
+        # model = h1.models.recovery_project_backup_create.RecoveryProjectBackupCreate()  # noqa: E501
         if include_optional :
-            return NetworkingRule(
-                id = '0', 
+            return RecoveryProjectBackupCreate(
                 name = '0', 
-                action = 'allow', 
-                priority = 1.337, 
-                filter = [
-                    '0'
-                    ], 
-                external = [
-                    '0'
-                    ], 
-                internal = [
-                    '0'
+                service = '0', 
+                source = '0', 
+                tag = [
+                    h1.models.tag.tag(
+                        id = '0', 
+                        key = '0', 
+                        value = '0', )
                     ]
             )
         else :
-            return NetworkingRule(
+            return RecoveryProjectBackupCreate(
                 name = '0',
-                action = 'allow',
-                priority = 1.337,
-                filter = [
-                    '0'
-                    ],
+                service = '0',
         )
 
-    def testNetworkingRule(self):
-        """Test NetworkingRule"""
+    def testRecoveryProjectBackupCreate(self):
+        """Test RecoveryProjectBackupCreate"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

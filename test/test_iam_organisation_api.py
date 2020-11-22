@@ -203,10 +203,38 @@ class TestIamOrganisationApi(unittest.TestCase):
         """
         pass
 
+    def test_iam_organisation_service_get(self):
+        """Test case for iam_organisation_service_get
+
+        Get iam/organisation.service  # noqa: E501
+        """
+        pass
+
+    def test_iam_organisation_service_list(self):
+        """Test case for iam_organisation_service_list
+
+        List iam/organisation.service  # noqa: E501
+        """
+        pass
+
     def test_iam_organisation_transfer_accept(self):
         """Test case for iam_organisation_transfer_accept
 
-        Transfer accept iam/organisation  # noqa: E501
+        Accept iam/organisation.transfer  # noqa: E501
+        """
+        pass
+
+    def test_iam_organisation_transfer_get(self):
+        """Test case for iam_organisation_transfer_get
+
+        Get iam/organisation.transfer  # noqa: E501
+        """
+        pass
+
+    def test_iam_organisation_transfer_list(self):
+        """Test case for iam_organisation_transfer_list
+
+        List iam/organisation.transfer  # noqa: E501
         """
         pass
 

@@ -287,6 +287,13 @@ class TestIamProjectApi(unittest.TestCase):
         """
         pass
 
+    def test_iam_project_transfer(self):
+        """Test case for iam_project_transfer
+
+        Transfer iam/project  # noqa: E501
+        """
+        pass
+
     def test_iam_project_update(self):
         """Test case for iam_project_update
 

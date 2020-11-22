@@ -41,6 +41,7 @@ Method | HTTP request | Description
 [**iam_project_threshold_delete**](IamProjectApi.md#iam_project_threshold_delete) | **DELETE** /iam/project/{projectId}/threshold/{thresholdId} | Delete iam/project.threshold
 [**iam_project_threshold_get**](IamProjectApi.md#iam_project_threshold_get) | **GET** /iam/project/{projectId}/threshold/{thresholdId} | Get iam/project.threshold
 [**iam_project_threshold_list**](IamProjectApi.md#iam_project_threshold_list) | **GET** /iam/project/{projectId}/threshold | List iam/project.threshold
+[**iam_project_transfer**](IamProjectApi.md#iam_project_transfer) | **POST** /iam/project/{projectId}/actions/transfer | Transfer iam/project
 [**iam_project_update**](IamProjectApi.md#iam_project_update) | **PATCH** /iam/project/{projectId} | Update iam/project
 
 
@@ -2848,6 +2849,85 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **iam_project_transfer**
+> Project iam_project_transfer(project_id, iam_project_transfer, x_idempotency_key=x_idempotency_key)
+
+Transfer iam/project
+
+action transfer
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.IamProjectApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+iam_project_transfer = h1.IamProjectTransfer() # IamProjectTransfer | 
+x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+
+    try:
+        # Transfer iam/project
+        api_response = api_instance.iam_project_transfer(project_id, iam_project_transfer, x_idempotency_key=x_idempotency_key)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_transfer: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **iam_project_transfer** | [**IamProjectTransfer**](IamProjectTransfer.md)|  | 
+ **x_idempotency_key** | **str**| Idempotency key | [optional] 
+
+### Return type
+
+[**Project**](Project.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**202** | operation queued |  -  |
 **400** | Bad Request |  -  |
 **401** | Access token is missing or invalid |  -  |
 

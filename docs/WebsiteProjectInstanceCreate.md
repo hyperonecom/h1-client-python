@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **service** | **str** |  | 
 **image** | **str** |  | 
-**source** | **str** |  | [optional] 
+**source** | [**OneOfAnyTypeAnyType**](OneOfAnyTypeAnyType.md) |  | [optional] 
 **env** | [**list[WebsiteEnv]**](WebsiteEnv.md) |  | [optional] 
 **tag** | [**list[Tag]**](Tag.md) |  | [optional] 
 

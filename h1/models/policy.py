@@ -282,7 +282,7 @@ class Policy(object):
         :param state: The state of this Policy.  # noqa: E501
         :type: str
         """
-        allowed_values = ["Online"]  # noqa: E501
+        allowed_values = ["Online", "Processing", "NotCreated"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and state not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `state` ({0}), must be one of {1}"  # noqa: E501

@@ -29,7 +29,11 @@ Method | HTTP request | Description
 [**iam_organisation_proforma_download**](IamOrganisationApi.md#iam_organisation_proforma_download) | **POST** /iam/organisation/{organisationId}/proforma/{proformaId}/actions/download | Download iam/organisation.proforma
 [**iam_organisation_proforma_get**](IamOrganisationApi.md#iam_organisation_proforma_get) | **GET** /iam/organisation/{organisationId}/proforma/{proformaId} | Get iam/organisation.proforma
 [**iam_organisation_proforma_list**](IamOrganisationApi.md#iam_organisation_proforma_list) | **GET** /iam/organisation/{organisationId}/proforma | List iam/organisation.proforma
-[**iam_organisation_transfer_accept**](IamOrganisationApi.md#iam_organisation_transfer_accept) | **POST** /iam/organisation/{organisationId}/actions/transfer_accept | Transfer accept iam/organisation
+[**iam_organisation_service_get**](IamOrganisationApi.md#iam_organisation_service_get) | **GET** /iam/organisation/{organisationId}/service/{serviceId} | Get iam/organisation.service
+[**iam_organisation_service_list**](IamOrganisationApi.md#iam_organisation_service_list) | **GET** /iam/organisation/{organisationId}/service | List iam/organisation.service
+[**iam_organisation_transfer_accept**](IamOrganisationApi.md#iam_organisation_transfer_accept) | **POST** /iam/organisation/{organisationId}/transfer/{transferId}/actions/accept | Accept iam/organisation.transfer
+[**iam_organisation_transfer_get**](IamOrganisationApi.md#iam_organisation_transfer_get) | **GET** /iam/organisation/{organisationId}/transfer/{transferId} | Get iam/organisation.transfer
+[**iam_organisation_transfer_list**](IamOrganisationApi.md#iam_organisation_transfer_list) | **GET** /iam/organisation/{organisationId}/transfer | List iam/organisation.transfer
 [**iam_organisation_update**](IamOrganisationApi.md#iam_organisation_update) | **PATCH** /iam/organisation/{organisationId} | Update iam/organisation
 
 
@@ -1933,12 +1937,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **iam_organisation_transfer_accept**
-> Organisation iam_organisation_transfer_accept(organisation_id, iam_organisation_transfer_accept, x_idempotency_key=x_idempotency_key)
+# **iam_organisation_service_get**
+> ResourceService iam_organisation_service_get(organisation_id, service_id)
 
-Transfer accept iam/organisation
+Get iam/organisation.service
 
-action transfer_accept
+Get iam/organisation.service
 
 ### Example
 
@@ -1970,12 +1974,162 @@ with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = h1.IamOrganisationApi(api_client)
     organisation_id = 'organisation_id_example' # str | Organisation Id
-iam_organisation_transfer_accept = h1.IamOrganisationTransferAccept() # IamOrganisationTransferAccept | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+service_id = 'service_id_example' # str | serviceId
 
     try:
-        # Transfer accept iam/organisation
-        api_response = api_instance.iam_organisation_transfer_accept(organisation_id, iam_organisation_transfer_accept, x_idempotency_key=x_idempotency_key)
+        # Get iam/organisation.service
+        api_response = api_instance.iam_organisation_service_get(organisation_id, service_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_service_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation_id** | **str**| Organisation Id | 
+ **service_id** | **str**| serviceId | 
+
+### Return type
+
+[**ResourceService**](ResourceService.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **iam_organisation_service_list**
+> list[ResourceService] iam_organisation_service_list(organisation_id)
+
+List iam/organisation.service
+
+List iam/organisation.service
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.IamOrganisationApi(api_client)
+    organisation_id = 'organisation_id_example' # str | Organisation Id
+
+    try:
+        # List iam/organisation.service
+        api_response = api_instance.iam_organisation_service_list(organisation_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_service_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation_id** | **str**| Organisation Id | 
+
+### Return type
+
+[**list[ResourceService]**](ResourceService.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **iam_organisation_transfer_accept**
+> Transfer iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept)
+
+Accept iam/organisation.transfer
+
+action accept
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.IamOrganisationApi(api_client)
+    organisation_id = 'organisation_id_example' # str | Organisation Id
+transfer_id = 'transfer_id_example' # str | transferId
+iam_organisation_transfer_accept = h1.IamOrganisationTransferAccept() # IamOrganisationTransferAccept | 
+
+    try:
+        # Accept iam/organisation.transfer
+        api_response = api_instance.iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_accept: %s\n" % e)
@@ -1986,12 +2140,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation_id** | **str**| Organisation Id | 
+ **transfer_id** | **str**| transferId | 
  **iam_organisation_transfer_accept** | [**IamOrganisationTransferAccept**](IamOrganisationTransferAccept.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
 
 ### Return type
 
-[**Organisation**](Organisation.md)
+[**Transfer**](Transfer.md)
 
 ### Authorization
 
@@ -2006,7 +2160,156 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | successful operation |  -  |
-**202** | operation queued |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **iam_organisation_transfer_get**
+> Transfer iam_organisation_transfer_get(organisation_id, transfer_id)
+
+Get iam/organisation.transfer
+
+Get iam/organisation.transfer
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.IamOrganisationApi(api_client)
+    organisation_id = 'organisation_id_example' # str | Organisation Id
+transfer_id = 'transfer_id_example' # str | transferId
+
+    try:
+        # Get iam/organisation.transfer
+        api_response = api_instance.iam_organisation_transfer_get(organisation_id, transfer_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_transfer_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation_id** | **str**| Organisation Id | 
+ **transfer_id** | **str**| transferId | 
+
+### Return type
+
+[**Transfer**](Transfer.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **iam_organisation_transfer_list**
+> list[Transfer] iam_organisation_transfer_list(organisation_id)
+
+List iam/organisation.transfer
+
+List iam/organisation.transfer
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.IamOrganisationApi(api_client)
+    organisation_id = 'organisation_id_example' # str | Organisation Id
+
+    try:
+        # List iam/organisation.transfer
+        api_response = api_instance.iam_organisation_transfer_list(organisation_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_transfer_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation_id** | **str**| Organisation Id | 
+
+### Return type
+
+[**list[Transfer]**](Transfer.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
 **400** | Bad Request |  -  |
 **401** | Access token is missing or invalid |  -  |
 

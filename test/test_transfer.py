@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import h1
-from h1.models.iam_organisation_transfer_accept import IamOrganisationTransferAccept  # noqa: E501
+from h1.models.transfer import Transfer  # noqa: E501
 from h1.rest import ApiException
 
-class TestIamOrganisationTransferAccept(unittest.TestCase):
-    """IamOrganisationTransferAccept unit test stubs"""
+class TestTransfer(unittest.TestCase):
+    """Transfer unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,22 +29,24 @@ class TestIamOrganisationTransferAccept(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test IamOrganisationTransferAccept
+        """Test Transfer
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = h1.models.iam_organisation_transfer_accept.IamOrganisationTransferAccept()  # noqa: E501
+        # model = h1.models.transfer.Transfer()  # noqa: E501
         if include_optional :
-            return IamOrganisationTransferAccept(
-                payment = '0'
+            return Transfer(
+                id = '0', 
+                name = '0', 
+                state = 'Active'
             )
         else :
-            return IamOrganisationTransferAccept(
-                payment = '0',
+            return Transfer(
+                name = '0',
         )
 
-    def testIamOrganisationTransferAccept(self):
-        """Test IamOrganisationTransferAccept"""
+    def testTransfer(self):
+        """Test Transfer"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **action** | **str** |  | 
 **priority** | **float** |  | 
 **filter** | **list[str]** |  | 
-**external** | **list[str]** |  | 
-**internal** | **list[str]** |  | [optional] 
+**external** | **list[str]** |  | [optional] [default to ["0.0.0.0/0"]]
+**internal** | **list[str]** |  | [optional] [default to ["*"]]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

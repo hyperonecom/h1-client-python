@@ -39,6 +39,7 @@ from h1.api.networking_project_netadp_api import NetworkingProjectNetadpApi
 from h1.api.networking_project_netgw_api import NetworkingProjectNetgwApi
 from h1.api.networking_project_network_api import NetworkingProjectNetworkApi
 from h1.api.provider_project_agent_api import ProviderProjectAgentApi
+from h1.api.recovery_project_backup_api import RecoveryProjectBackupApi
 from h1.api.storage_project_disk_api import StorageProjectDiskApi
 from h1.api.storage_project_image_api import StorageProjectImageApi
 from h1.api.storage_project_iso_api import StorageProjectIsoApi
@@ -63,6 +64,7 @@ from h1.models.agent_resource_event import AgentResourceEvent
 from h1.models.attempt import Attempt
 from h1.models.auth_token import AuthToken
 from h1.models.auth_token_access import AuthTokenAccess
+from h1.models.backup import Backup
 from h1.models.billing import Billing
 from h1.models.billing_address import BillingAddress
 from h1.models.billing_address1 import BillingAddress1
@@ -131,6 +133,7 @@ from h1.models.iam_project_sa_create import IamProjectSaCreate
 from h1.models.iam_project_sa_credential_patch import IamProjectSaCredentialPatch
 from h1.models.iam_project_sa_update import IamProjectSaUpdate
 from h1.models.iam_project_threshold_create import IamProjectThresholdCreate
+from h1.models.iam_project_transfer import IamProjectTransfer
 from h1.models.iam_project_update import IamProjectUpdate
 from h1.models.iam_user_credential_patch import IamUserCredentialPatch
 from h1.models.iam_user_update import IamUserUpdate
@@ -155,6 +158,7 @@ from h1.models.iso_metadata import IsoMetadata
 from h1.models.iso_metadata_source import IsoMetadataSource
 from h1.models.journal import Journal
 from h1.models.journal_credential import JournalCredential
+from h1.models.log import Log
 from h1.models.message_data import MessageData
 from h1.models.metric import Metric
 from h1.models.metric_dimension import MetricDimension
@@ -205,6 +209,8 @@ from h1.models.provider_project_agent_update import ProviderProjectAgentUpdate
 from h1.models.quota import Quota
 from h1.models.quota_limit import QuotaLimit
 from h1.models.quota_metric import QuotaMetric
+from h1.models.recovery_project_backup_create import RecoveryProjectBackupCreate
+from h1.models.recovery_project_backup_update import RecoveryProjectBackupUpdate
 from h1.models.registry import Registry
 from h1.models.registry_credential import RegistryCredential
 from h1.models.replica import Replica
@@ -241,6 +247,7 @@ from h1.models.support_message import SupportMessage
 from h1.models.support_project_ticket_create import SupportProjectTicketCreate
 from h1.models.tag import Tag
 from h1.models.ticket import Ticket
+from h1.models.transfer import Transfer
 from h1.models.user import User
 from h1.models.user_credential import UserCredential
 from h1.models.user_limit import UserLimit
@@ -255,7 +262,6 @@ from h1.models.website_env import WebsiteEnv
 from h1.models.website_link import WebsiteLink
 from h1.models.website_project_instance_create import WebsiteProjectInstanceCreate
 from h1.models.website_project_instance_credential_patch import WebsiteProjectInstanceCredentialPatch
-from h1.models.website_project_instance_log import WebsiteProjectInstanceLog
 from h1.models.website_project_instance_snapshot_download import WebsiteProjectInstanceSnapshotDownload
 from h1.models.website_project_instance_transfer import WebsiteProjectInstanceTransfer
 from h1.models.website_project_instance_update import WebsiteProjectInstanceUpdate

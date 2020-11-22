@@ -3256,21 +3256,293 @@ class WebsiteProjectInstanceApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def website_project_instance_log(self, project_id, location_id, instance_id, website_project_instance_log, **kwargs):  # noqa: E501
-        """Log website/instance  # noqa: E501
+    def website_project_instance_log_get(self, project_id, location_id, instance_id, log_id, **kwargs):  # noqa: E501
+        """Get website/instance.log  # noqa: E501
 
-        action log  # noqa: E501
+        Get website/instance.log  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.website_project_instance_log(project_id, location_id, instance_id, website_project_instance_log, async_req=True)
+        >>> thread = api.website_project_instance_log_get(project_id, location_id, instance_id, log_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str project_id: Project Id (required)
         :param str location_id: Location Id (required)
         :param str instance_id: Instance Id (required)
-        :param WebsiteProjectInstanceLog website_project_instance_log: (required)
-        :param str x_idempotency_key: Idempotency key
+        :param str log_id: logId (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Log
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.website_project_instance_log_get_with_http_info(project_id, location_id, instance_id, log_id, **kwargs)  # noqa: E501
+
+    def website_project_instance_log_get_with_http_info(self, project_id, location_id, instance_id, log_id, **kwargs):  # noqa: E501
+        """Get website/instance.log  # noqa: E501
+
+        Get website/instance.log  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.website_project_instance_log_get_with_http_info(project_id, location_id, instance_id, log_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str instance_id: Instance Id (required)
+        :param str log_id: logId (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Log, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'instance_id',
+            'log_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method website_project_instance_log_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `website_project_instance_log_get`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `website_project_instance_log_get`")  # noqa: E501
+        # verify the required parameter 'instance_id' is set
+        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['instance_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `instance_id` when calling `website_project_instance_log_get`")  # noqa: E501
+        # verify the required parameter 'log_id' is set
+        if self.api_client.client_side_validation and ('log_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['log_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `log_id` when calling `website_project_instance_log_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'instance_id' in local_var_params:
+            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+        if 'log_id' in local_var_params:
+            path_params['logId'] = local_var_params['log_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/website/{locationId}/project/{projectId}/instance/{instanceId}/log/{logId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Log',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def website_project_instance_log_list(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
+        """List website/instance.log  # noqa: E501
+
+        List website/instance.log  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.website_project_instance_log_list(project_id, location_id, instance_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str instance_id: Instance Id (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Log]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.website_project_instance_log_list_with_http_info(project_id, location_id, instance_id, **kwargs)  # noqa: E501
+
+    def website_project_instance_log_list_with_http_info(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
+        """List website/instance.log  # noqa: E501
+
+        List website/instance.log  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.website_project_instance_log_list_with_http_info(project_id, location_id, instance_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str instance_id: Instance Id (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Log], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'instance_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method website_project_instance_log_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `website_project_instance_log_list`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `website_project_instance_log_list`")  # noqa: E501
+        # verify the required parameter 'instance_id' is set
+        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['instance_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `instance_id` when calling `website_project_instance_log_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'instance_id' in local_var_params:
+            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/website/{locationId}/project/{projectId}/instance/{instanceId}/log', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Log]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def website_project_instance_log_read(self, project_id, location_id, instance_id, log_id, **kwargs):  # noqa: E501
+        """Read website/instance.log  # noqa: E501
+
+        action read  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.website_project_instance_log_read(project_id, location_id, instance_id, log_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str instance_id: Instance Id (required)
+        :param str log_id: logId (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -3283,23 +3555,22 @@ class WebsiteProjectInstanceApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.website_project_instance_log_with_http_info(project_id, location_id, instance_id, website_project_instance_log, **kwargs)  # noqa: E501
+        return self.website_project_instance_log_read_with_http_info(project_id, location_id, instance_id, log_id, **kwargs)  # noqa: E501
 
-    def website_project_instance_log_with_http_info(self, project_id, location_id, instance_id, website_project_instance_log, **kwargs):  # noqa: E501
-        """Log website/instance  # noqa: E501
+    def website_project_instance_log_read_with_http_info(self, project_id, location_id, instance_id, log_id, **kwargs):  # noqa: E501
+        """Read website/instance.log  # noqa: E501
 
-        action log  # noqa: E501
+        action read  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.website_project_instance_log_with_http_info(project_id, location_id, instance_id, website_project_instance_log, async_req=True)
+        >>> thread = api.website_project_instance_log_read_with_http_info(project_id, location_id, instance_id, log_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
         :param str project_id: Project Id (required)
         :param str location_id: Location Id (required)
         :param str instance_id: Instance Id (required)
-        :param WebsiteProjectInstanceLog website_project_instance_log: (required)
-        :param str x_idempotency_key: Idempotency key
+        :param str log_id: logId (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -3320,8 +3591,7 @@ class WebsiteProjectInstanceApi(object):
             'project_id',
             'location_id',
             'instance_id',
-            'website_project_instance_log',
-            'x_idempotency_key'
+            'log_id'
         ]
         all_params.extend(
             [
@@ -3336,26 +3606,26 @@ class WebsiteProjectInstanceApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method website_project_instance_log" % key
+                    " to method website_project_instance_log_read" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'project_id' is set
         if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `website_project_instance_log`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `website_project_instance_log_read`")  # noqa: E501
         # verify the required parameter 'location_id' is set
         if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `website_project_instance_log`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `website_project_instance_log_read`")  # noqa: E501
         # verify the required parameter 'instance_id' is set
         if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `website_project_instance_log`")  # noqa: E501
-        # verify the required parameter 'website_project_instance_log' is set
-        if self.api_client.client_side_validation and ('website_project_instance_log' not in local_var_params or  # noqa: E501
-                                                        local_var_params['website_project_instance_log'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `website_project_instance_log` when calling `website_project_instance_log`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `instance_id` when calling `website_project_instance_log_read`")  # noqa: E501
+        # verify the required parameter 'log_id' is set
+        if self.api_client.client_side_validation and ('log_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['log_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `log_id` when calling `website_project_instance_log_read`")  # noqa: E501
 
         collection_formats = {}
 
@@ -3366,32 +3636,26 @@ class WebsiteProjectInstanceApi(object):
             path_params['locationId'] = local_var_params['location_id']  # noqa: E501
         if 'instance_id' in local_var_params:
             path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+        if 'log_id' in local_var_params:
+            path_params['logId'] = local_var_params['log_id']  # noqa: E501
 
         query_params = []
 
         header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'website_project_instance_log' in local_var_params:
-            body_params = local_var_params['website_project_instance_log']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['BearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/website/{locationId}/project/{projectId}/instance/{instanceId}/actions/log', 'POST',
+            '/website/{locationId}/project/{projectId}/instance/{instanceId}/log/{logId}/actions/read', 'POST',
             path_params,
             query_params,
             header_params,

@@ -27,7 +27,9 @@ Method | HTTP request | Description
 [**website_project_instance_link_get**](WebsiteProjectInstanceApi.md#website_project_instance_link_get) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/link/{linkId} | Get website/instance.link
 [**website_project_instance_link_list**](WebsiteProjectInstanceApi.md#website_project_instance_link_list) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/link | List website/instance.link
 [**website_project_instance_list**](WebsiteProjectInstanceApi.md#website_project_instance_list) | **GET** /website/{locationId}/project/{projectId}/instance | List website/instance
-[**website_project_instance_log**](WebsiteProjectInstanceApi.md#website_project_instance_log) | **POST** /website/{locationId}/project/{projectId}/instance/{instanceId}/actions/log | Log website/instance
+[**website_project_instance_log_get**](WebsiteProjectInstanceApi.md#website_project_instance_log_get) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/log/{logId} | Get website/instance.log
+[**website_project_instance_log_list**](WebsiteProjectInstanceApi.md#website_project_instance_log_list) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/log | List website/instance.log
+[**website_project_instance_log_read**](WebsiteProjectInstanceApi.md#website_project_instance_log_read) | **POST** /website/{locationId}/project/{projectId}/instance/{instanceId}/log/{logId}/actions/read | Read website/instance.log
 [**website_project_instance_metric_get**](WebsiteProjectInstanceApi.md#website_project_instance_metric_get) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/metric/{metricId} | Get website/instance.metric
 [**website_project_instance_metric_list**](WebsiteProjectInstanceApi.md#website_project_instance_metric_list) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/metric | List website/instance.metric
 [**website_project_instance_metric_point_list**](WebsiteProjectInstanceApi.md#website_project_instance_metric_point_list) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/metric/{metricId}/point | List website/instance.point
@@ -1885,12 +1887,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **website_project_instance_log**
-> website_project_instance_log(project_id, location_id, instance_id, website_project_instance_log, x_idempotency_key=x_idempotency_key)
+# **website_project_instance_log_get**
+> Log website_project_instance_log_get(project_id, location_id, instance_id, log_id)
 
-Log website/instance
+Get website/instance.log
 
-action log
+Get website/instance.log
 
 ### Example
 
@@ -1924,14 +1926,14 @@ with h1.ApiClient(configuration) as api_client:
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 instance_id = 'instance_id_example' # str | Instance Id
-website_project_instance_log = h1.WebsiteProjectInstanceLog() # WebsiteProjectInstanceLog | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+log_id = 'log_id_example' # str | logId
 
     try:
-        # Log website/instance
-        api_instance.website_project_instance_log(project_id, location_id, instance_id, website_project_instance_log, x_idempotency_key=x_idempotency_key)
+        # Get website/instance.log
+        api_response = api_instance.website_project_instance_log_get(project_id, location_id, instance_id, log_id)
+        pprint(api_response)
     except ApiException as e:
-        print("Exception when calling WebsiteProjectInstanceApi->website_project_instance_log: %s\n" % e)
+        print("Exception when calling WebsiteProjectInstanceApi->website_project_instance_log_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -1941,8 +1943,164 @@ Name | Type | Description  | Notes
  **project_id** | **str**| Project Id | 
  **location_id** | **str**| Location Id | 
  **instance_id** | **str**| Instance Id | 
- **website_project_instance_log** | [**WebsiteProjectInstanceLog**](WebsiteProjectInstanceLog.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **log_id** | **str**| logId | 
+
+### Return type
+
+[**Log**](Log.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **website_project_instance_log_list**
+> list[Log] website_project_instance_log_list(project_id, location_id, instance_id)
+
+List website/instance.log
+
+List website/instance.log
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.WebsiteProjectInstanceApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+instance_id = 'instance_id_example' # str | Instance Id
+
+    try:
+        # List website/instance.log
+        api_response = api_instance.website_project_instance_log_list(project_id, location_id, instance_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling WebsiteProjectInstanceApi->website_project_instance_log_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **instance_id** | **str**| Instance Id | 
+
+### Return type
+
+[**list[Log]**](Log.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **website_project_instance_log_read**
+> website_project_instance_log_read(project_id, location_id, instance_id, log_id)
+
+Read website/instance.log
+
+action read
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.WebsiteProjectInstanceApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+instance_id = 'instance_id_example' # str | Instance Id
+log_id = 'log_id_example' # str | logId
+
+    try:
+        # Read website/instance.log
+        api_instance.website_project_instance_log_read(project_id, location_id, instance_id, log_id)
+    except ApiException as e:
+        print("Exception when calling WebsiteProjectInstanceApi->website_project_instance_log_read: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **instance_id** | **str**| Instance Id | 
+ **log_id** | **str**| logId | 
 
 ### Return type
 
@@ -1954,7 +2112,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
