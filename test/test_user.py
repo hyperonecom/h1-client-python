@@ -47,13 +47,7 @@ class TestUser(unittest.TestCase):
                 limit = h1.models.user_limit.user_limit(
                     organisation = h1.models.user_limit_organisation.user_limit_organisation(
                         count = 1.337, ), ), 
-                uri = '0', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
+                uri = '0'
             )
         else :
             return User(

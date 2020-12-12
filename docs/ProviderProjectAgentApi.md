@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**provider_project_agent_metric_list**](ProviderProjectAgentApi.md#provider_project_agent_metric_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric | List provider/agent.metric
 [**provider_project_agent_metric_point_list**](ProviderProjectAgentApi.md#provider_project_agent_metric_point_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}/point | List provider/agent.point
 [**provider_project_agent_resource_event_list**](ProviderProjectAgentApi.md#provider_project_agent_resource_event_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/event | List provider/agent.event
+[**provider_project_agent_resource_get**](ProviderProjectAgentApi.md#provider_project_agent_resource_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId} | Get provider/agent.resource
 [**provider_project_agent_resource_inspect**](ProviderProjectAgentApi.md#provider_project_agent_resource_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/inspect | Inspect provider/agent.resource
 [**provider_project_agent_resource_list**](ProviderProjectAgentApi.md#provider_project_agent_resource_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource | List provider/agent.resource
 [**provider_project_agent_resource_recreate**](ProviderProjectAgentApi.md#provider_project_agent_resource_recreate) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/recreate | Recreate provider/agent.resource
@@ -1239,7 +1240,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_list**
-> list[Agent] provider_project_agent_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> list[Agent] provider_project_agent_list(project_id, location_id, name=name, enabled_services=enabled_services, tag_value=tag_value, tag_key=tag_key)
 
 List provider/agent
 
@@ -1277,12 +1278,13 @@ with h1.ApiClient(configuration) as api_client:
     project_id = 'project_id_example' # str | Project Id
 location_id = 'location_id_example' # str | Location Id
 name = 'name_example' # str | Filter by name (optional)
+enabled_services = 'enabled_services_example' # str | Filter by enabledServices (optional)
 tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
 tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
     try:
         # List provider/agent
-        api_response = api_instance.provider_project_agent_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+        api_response = api_instance.provider_project_agent_list(project_id, location_id, name=name, enabled_services=enabled_services, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_list: %s\n" % e)
@@ -1295,6 +1297,7 @@ Name | Type | Description  | Notes
  **project_id** | **str**| Project Id | 
  **location_id** | **str**| Location Id | 
  **name** | **str**| Filter by name | [optional] 
+ **enabled_services** | **str**| Filter by enabledServices | [optional] 
  **tag_value** | **str**| Filter by tag.value | [optional] 
  **tag_key** | **str**| Filter by tag.key | [optional] 
 
@@ -1563,7 +1566,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_event_list**
-> list[AgentResourceEvent] provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id, limit=limit, skip=skip)
+> list[ProviderAgentResourceEvent] provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id, limit=limit, skip=skip)
 
 List provider/agent.event
 
@@ -1626,7 +1629,87 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[AgentResourceEvent]**](AgentResourceEvent.md)
+[**list[ProviderAgentResourceEvent]**](ProviderAgentResourceEvent.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **provider_project_agent_resource_get**
+> ProviderAgentResource provider_project_agent_resource_get(project_id, location_id, agent_id, resource_id)
+
+Get provider/agent.resource
+
+Get provider/agent.resource
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.ProviderProjectAgentApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+agent_id = 'agent_id_example' # str | Agent Id
+resource_id = 'resource_id_example' # str | resourceId
+
+    try:
+        # Get provider/agent.resource
+        api_response = api_instance.provider_project_agent_resource_get(project_id, location_id, agent_id, resource_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **agent_id** | **str**| Agent Id | 
+ **resource_id** | **str**| resourceId | 
+
+### Return type
+
+[**ProviderAgentResource**](ProviderAgentResource.md)
 
 ### Authorization
 
@@ -1727,7 +1810,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_list**
-> list[AgentResource] provider_project_agent_resource_list(project_id, location_id, agent_id)
+> list[ProviderAgentResource] provider_project_agent_resource_list(project_id, location_id, agent_id)
 
 List provider/agent.resource
 
@@ -1784,7 +1867,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[AgentResource]**](AgentResource.md)
+[**list[ProviderAgentResource]**](ProviderAgentResource.md)
 
 ### Authorization
 
@@ -1805,7 +1888,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_recreate**
-> AgentResource provider_project_agent_resource_recreate(project_id, location_id, agent_id, resource_id)
+> ProviderAgentResource provider_project_agent_resource_recreate(project_id, location_id, agent_id, resource_id)
 
 Recreate provider/agent.resource
 
@@ -1864,7 +1947,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AgentResource**](AgentResource.md)
+[**ProviderAgentResource**](ProviderAgentResource.md)
 
 ### Authorization
 

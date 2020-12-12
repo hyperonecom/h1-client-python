@@ -596,6 +596,156 @@ class RecoveryProjectBackupApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def recovery_project_backup_export(self, project_id, location_id, backup_id, recovery_project_backup_export, **kwargs):  # noqa: E501
+        """Export recovery/backup  # noqa: E501
+
+        action export  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param RecoveryProjectBackupExport recovery_project_backup_export: (required)
+        :param str x_idempotency_key: Idempotency key
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Backup
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.recovery_project_backup_export_with_http_info(project_id, location_id, backup_id, recovery_project_backup_export, **kwargs)  # noqa: E501
+
+    def recovery_project_backup_export_with_http_info(self, project_id, location_id, backup_id, recovery_project_backup_export, **kwargs):  # noqa: E501
+        """Export recovery/backup  # noqa: E501
+
+        action export  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_export_with_http_info(project_id, location_id, backup_id, recovery_project_backup_export, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param RecoveryProjectBackupExport recovery_project_backup_export: (required)
+        :param str x_idempotency_key: Idempotency key
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Backup, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'backup_id',
+            'recovery_project_backup_export',
+            'x_idempotency_key'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method recovery_project_backup_export" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `recovery_project_backup_export`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `recovery_project_backup_export`")  # noqa: E501
+        # verify the required parameter 'backup_id' is set
+        if self.api_client.client_side_validation and ('backup_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['backup_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `backup_id` when calling `recovery_project_backup_export`")  # noqa: E501
+        # verify the required parameter 'recovery_project_backup_export' is set
+        if self.api_client.client_side_validation and ('recovery_project_backup_export' not in local_var_params or  # noqa: E501
+                                                        local_var_params['recovery_project_backup_export'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `recovery_project_backup_export` when calling `recovery_project_backup_export`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'backup_id' in local_var_params:
+            path_params['backupId'] = local_var_params['backup_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+        if 'x_idempotency_key' in local_var_params:
+            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'recovery_project_backup_export' in local_var_params:
+            body_params = local_var_params['recovery_project_backup_export']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/recovery/{locationId}/project/{projectId}/backup/{backupId}/actions/export', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Backup',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def recovery_project_backup_get(self, project_id, location_id, backup_id, **kwargs):  # noqa: E501
         """Get recovery/backup  # noqa: E501
 
@@ -864,6 +1014,430 @@ class RecoveryProjectBackupApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='list[Backup]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def recovery_project_backup_metric_get(self, project_id, location_id, backup_id, metric_id, **kwargs):  # noqa: E501
+        """Get recovery/backup.metric  # noqa: E501
+
+        Get recovery/backup.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_get(project_id, location_id, backup_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param str metric_id: metricId (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Metric
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.recovery_project_backup_metric_get_with_http_info(project_id, location_id, backup_id, metric_id, **kwargs)  # noqa: E501
+
+    def recovery_project_backup_metric_get_with_http_info(self, project_id, location_id, backup_id, metric_id, **kwargs):  # noqa: E501
+        """Get recovery/backup.metric  # noqa: E501
+
+        Get recovery/backup.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_get_with_http_info(project_id, location_id, backup_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param str metric_id: metricId (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Metric, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'backup_id',
+            'metric_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method recovery_project_backup_metric_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `recovery_project_backup_metric_get`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `recovery_project_backup_metric_get`")  # noqa: E501
+        # verify the required parameter 'backup_id' is set
+        if self.api_client.client_side_validation and ('backup_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['backup_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `backup_id` when calling `recovery_project_backup_metric_get`")  # noqa: E501
+        # verify the required parameter 'metric_id' is set
+        if self.api_client.client_side_validation and ('metric_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['metric_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `metric_id` when calling `recovery_project_backup_metric_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'backup_id' in local_var_params:
+            path_params['backupId'] = local_var_params['backup_id']  # noqa: E501
+        if 'metric_id' in local_var_params:
+            path_params['metricId'] = local_var_params['metric_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Metric',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def recovery_project_backup_metric_list(self, project_id, location_id, backup_id, **kwargs):  # noqa: E501
+        """List recovery/backup.metric  # noqa: E501
+
+        List recovery/backup.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_list(project_id, location_id, backup_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Metric]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.recovery_project_backup_metric_list_with_http_info(project_id, location_id, backup_id, **kwargs)  # noqa: E501
+
+    def recovery_project_backup_metric_list_with_http_info(self, project_id, location_id, backup_id, **kwargs):  # noqa: E501
+        """List recovery/backup.metric  # noqa: E501
+
+        List recovery/backup.metric  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_list_with_http_info(project_id, location_id, backup_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Metric], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'backup_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method recovery_project_backup_metric_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `recovery_project_backup_metric_list`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `recovery_project_backup_metric_list`")  # noqa: E501
+        # verify the required parameter 'backup_id' is set
+        if self.api_client.client_side_validation and ('backup_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['backup_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `backup_id` when calling `recovery_project_backup_metric_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'backup_id' in local_var_params:
+            path_params['backupId'] = local_var_params['backup_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/recovery/{locationId}/project/{projectId}/backup/{backupId}/metric', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Metric]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def recovery_project_backup_metric_point_list(self, project_id, location_id, backup_id, metric_id, **kwargs):  # noqa: E501
+        """List recovery/backup.point  # noqa: E501
+
+        List recovery/backup.point  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param str metric_id: metricId (required)
+        :param str interval: interval
+        :param str timespan: timespan
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: list[Point]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.recovery_project_backup_metric_point_list_with_http_info(project_id, location_id, backup_id, metric_id, **kwargs)  # noqa: E501
+
+    def recovery_project_backup_metric_point_list_with_http_info(self, project_id, location_id, backup_id, metric_id, **kwargs):  # noqa: E501
+        """List recovery/backup.point  # noqa: E501
+
+        List recovery/backup.point  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.recovery_project_backup_metric_point_list_with_http_info(project_id, location_id, backup_id, metric_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str backup_id: Backup Id (required)
+        :param str metric_id: metricId (required)
+        :param str interval: interval
+        :param str timespan: timespan
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(list[Point], status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'backup_id',
+            'metric_id',
+            'interval',
+            'timespan'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method recovery_project_backup_metric_point_list" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `recovery_project_backup_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `recovery_project_backup_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'backup_id' is set
+        if self.api_client.client_side_validation and ('backup_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['backup_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `backup_id` when calling `recovery_project_backup_metric_point_list`")  # noqa: E501
+        # verify the required parameter 'metric_id' is set
+        if self.api_client.client_side_validation and ('metric_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['metric_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `metric_id` when calling `recovery_project_backup_metric_point_list`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'backup_id' in local_var_params:
+            path_params['backupId'] = local_var_params['backup_id']  # noqa: E501
+        if 'metric_id' in local_var_params:
+            path_params['metricId'] = local_var_params['metric_id']  # noqa: E501
+
+        query_params = []
+        if 'interval' in local_var_params and local_var_params['interval'] is not None:  # noqa: E501
+            query_params.append(('interval', local_var_params['interval']))  # noqa: E501
+        if 'timespan' in local_var_params and local_var_params['timespan'] is not None:  # noqa: E501
+            query_params.append(('timespan', local_var_params['timespan']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId}/point', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='list[Point]',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501

@@ -16,8 +16,6 @@ from __future__ import absolute_import
 # import models into model package
 from h1.models.agent import Agent
 from h1.models.agent_credential import AgentCredential
-from h1.models.agent_resource import AgentResource
-from h1.models.agent_resource_event import AgentResourceEvent
 from h1.models.attempt import Attempt
 from h1.models.auth_token import AuthToken
 from h1.models.auth_token_access import AuthTokenAccess
@@ -31,6 +29,7 @@ from h1.models.billing_project_reservation_create import BillingProjectReservati
 from h1.models.billing_project_reservation_update import BillingProjectReservationUpdate
 from h1.models.billing_resource import BillingResource
 from h1.models.billing_service import BillingService
+from h1.models.bucket import Bucket
 from h1.models.compute_project_replica_create import ComputeProjectReplicaCreate
 from h1.models.compute_project_vm_connect_open import ComputeProjectVmConnectOpen
 from h1.models.compute_project_vm_create import ComputeProjectVmCreate
@@ -82,6 +81,7 @@ from h1.models.iam_project_credential_store_patch import IamProjectCredentialSto
 from h1.models.iam_project_invitation_accept import IamProjectInvitationAccept
 from h1.models.iam_project_ownership_create import IamProjectOwnershipCreate
 from h1.models.iam_project_policy_create import IamProjectPolicyCreate
+from h1.models.iam_project_policy_create_actor import IamProjectPolicyCreateActor
 from h1.models.iam_project_policy_update import IamProjectPolicyUpdate
 from h1.models.iam_project_quota_limit_patch import IamProjectQuotaLimitPatch
 from h1.models.iam_project_role_create import IamProjectRoleCreate
@@ -143,7 +143,6 @@ from h1.models.networking_rule import NetworkingRule
 from h1.models.organisation import Organisation
 from h1.models.organisation_billing import OrganisationBilling
 from h1.models.organisation_billing1 import OrganisationBilling1
-from h1.models.organisation_transfer import OrganisationTransfer
 from h1.models.ownership import Ownership
 from h1.models.payment import Payment
 from h1.models.point import Point
@@ -153,12 +152,11 @@ from h1.models.proforma_array import ProformaArray
 from h1.models.proforma_seller import ProformaSeller
 from h1.models.project import Project
 from h1.models.project_billing import ProjectBilling
-from h1.models.project_compliance import ProjectCompliance
 from h1.models.project_credential import ProjectCredential
 from h1.models.project_feature import ProjectFeature
-from h1.models.project_network_acl import ProjectNetworkAcl
 from h1.models.project_threshold import ProjectThreshold
-from h1.models.project_transfer import ProjectTransfer
+from h1.models.provider_agent_resource import ProviderAgentResource
+from h1.models.provider_agent_resource_event import ProviderAgentResourceEvent
 from h1.models.provider_project_agent_create import ProviderProjectAgentCreate
 from h1.models.provider_project_agent_credential_patch import ProviderProjectAgentCredentialPatch
 from h1.models.provider_project_agent_transfer import ProviderProjectAgentTransfer
@@ -167,11 +165,13 @@ from h1.models.quota import Quota
 from h1.models.quota_limit import QuotaLimit
 from h1.models.quota_metric import QuotaMetric
 from h1.models.recovery_project_backup_create import RecoveryProjectBackupCreate
+from h1.models.recovery_project_backup_export import RecoveryProjectBackupExport
 from h1.models.recovery_project_backup_update import RecoveryProjectBackupUpdate
 from h1.models.registry import Registry
 from h1.models.registry_credential import RegistryCredential
 from h1.models.replica import Replica
 from h1.models.reservation import Reservation
+from h1.models.resource_connect import ResourceConnect
 from h1.models.resource_service import ResourceService
 from h1.models.role import Role
 from h1.models.sa import Sa
@@ -182,6 +182,8 @@ from h1.models.service_billing_price import ServiceBillingPrice
 from h1.models.service_billing_reservations import ServiceBillingReservations
 from h1.models.service_display import ServiceDisplay
 from h1.models.service_display_unit import ServiceDisplayUnit
+from h1.models.storage_object import StorageObject
+from h1.models.storage_project_bucket_upload import StorageProjectBucketUpload
 from h1.models.storage_project_disk_create import StorageProjectDiskCreate
 from h1.models.storage_project_disk_resize import StorageProjectDiskResize
 from h1.models.storage_project_disk_transfer import StorageProjectDiskTransfer
@@ -199,6 +201,7 @@ from h1.models.storage_project_vault_delete import StorageProjectVaultDelete
 from h1.models.storage_project_vault_resize import StorageProjectVaultResize
 from h1.models.storage_project_vault_snapshot_create import StorageProjectVaultSnapshotCreate
 from h1.models.storage_project_vault_update import StorageProjectVaultUpdate
+from h1.models.storage_s3credential import StorageS3credential
 from h1.models.storage_snapshot import StorageSnapshot
 from h1.models.support_message import SupportMessage
 from h1.models.support_project_ticket_create import SupportProjectTicketCreate

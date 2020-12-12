@@ -168,6 +168,13 @@ class TestProviderProjectAgentApi(unittest.TestCase):
         """
         pass
 
+    def test_provider_project_agent_resource_get(self):
+        """Test case for provider_project_agent_resource_get
+
+        Get provider/agent.resource  # noqa: E501
+        """
+        pass
+
     def test_provider_project_agent_resource_inspect(self):
         """Test case for provider_project_agent_resource_inspect
 

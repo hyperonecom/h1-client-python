@@ -28,6 +28,20 @@ class TestStorageProjectVaultApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_storage_project_vault_connect_get(self):
+        """Test case for storage_project_vault_connect_get
+
+        Get storage/vault.connect  # noqa: E501
+        """
+        pass
+
+    def test_storage_project_vault_connect_list(self):
+        """Test case for storage_project_vault_connect_list
+
+        List storage/vault.connect  # noqa: E501
+        """
+        pass
+
     def test_storage_project_vault_create(self):
         """Test case for storage_project_vault_create
 

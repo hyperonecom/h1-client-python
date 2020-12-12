@@ -8,8 +8,12 @@ Method | HTTP request | Description
 [**recovery_project_backup_delete**](RecoveryProjectBackupApi.md#recovery_project_backup_delete) | **DELETE** /recovery/{locationId}/project/{projectId}/backup/{backupId} | Delete recovery/backup
 [**recovery_project_backup_event_get**](RecoveryProjectBackupApi.md#recovery_project_backup_event_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/event/{eventId} | Get recovery/backup.event
 [**recovery_project_backup_event_list**](RecoveryProjectBackupApi.md#recovery_project_backup_event_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/event | List recovery/backup.event
+[**recovery_project_backup_export**](RecoveryProjectBackupApi.md#recovery_project_backup_export) | **POST** /recovery/{locationId}/project/{projectId}/backup/{backupId}/actions/export | Export recovery/backup
 [**recovery_project_backup_get**](RecoveryProjectBackupApi.md#recovery_project_backup_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId} | Get recovery/backup
 [**recovery_project_backup_list**](RecoveryProjectBackupApi.md#recovery_project_backup_list) | **GET** /recovery/{locationId}/project/{projectId}/backup | List recovery/backup
+[**recovery_project_backup_metric_get**](RecoveryProjectBackupApi.md#recovery_project_backup_metric_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId} | Get recovery/backup.metric
+[**recovery_project_backup_metric_list**](RecoveryProjectBackupApi.md#recovery_project_backup_metric_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric | List recovery/backup.metric
+[**recovery_project_backup_metric_point_list**](RecoveryProjectBackupApi.md#recovery_project_backup_metric_point_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId}/point | List recovery/backup.point
 [**recovery_project_backup_service_get**](RecoveryProjectBackupApi.md#recovery_project_backup_service_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/service/{serviceId} | Get recovery/backup.service
 [**recovery_project_backup_service_list**](RecoveryProjectBackupApi.md#recovery_project_backup_service_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/service | List recovery/backup.service
 [**recovery_project_backup_tag_create**](RecoveryProjectBackupApi.md#recovery_project_backup_tag_create) | **POST** /recovery/{locationId}/project/{projectId}/backup/{backupId}/tag | Create recovery/backup.tag
@@ -339,6 +343,89 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **recovery_project_backup_export**
+> Backup recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, x_idempotency_key=x_idempotency_key)
+
+Export recovery/backup
+
+action export
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.RecoveryProjectBackupApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+backup_id = 'backup_id_example' # str | Backup Id
+recovery_project_backup_export = h1.RecoveryProjectBackupExport() # RecoveryProjectBackupExport | 
+x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+
+    try:
+        # Export recovery/backup
+        api_response = api_instance.recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, x_idempotency_key=x_idempotency_key)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_export: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **backup_id** | **str**| Backup Id | 
+ **recovery_project_backup_export** | [**RecoveryProjectBackupExport**](RecoveryProjectBackupExport.md)|  | 
+ **x_idempotency_key** | **str**| Idempotency key | [optional] 
+
+### Return type
+
+[**Backup**](Backup.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**202** | operation queued |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **recovery_project_backup_get**
 > Backup recovery_project_backup_get(project_id, location_id, backup_id)
 
@@ -482,6 +569,248 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**list[Backup]**](Backup.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **recovery_project_backup_metric_get**
+> Metric recovery_project_backup_metric_get(project_id, location_id, backup_id, metric_id)
+
+Get recovery/backup.metric
+
+Get recovery/backup.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.RecoveryProjectBackupApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+backup_id = 'backup_id_example' # str | Backup Id
+metric_id = 'metric_id_example' # str | metricId
+
+    try:
+        # Get recovery/backup.metric
+        api_response = api_instance.recovery_project_backup_metric_get(project_id, location_id, backup_id, metric_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **backup_id** | **str**| Backup Id | 
+ **metric_id** | **str**| metricId | 
+
+### Return type
+
+[**Metric**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **recovery_project_backup_metric_list**
+> list[Metric] recovery_project_backup_metric_list(project_id, location_id, backup_id)
+
+List recovery/backup.metric
+
+List recovery/backup.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.RecoveryProjectBackupApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+backup_id = 'backup_id_example' # str | Backup Id
+
+    try:
+        # List recovery/backup.metric
+        api_response = api_instance.recovery_project_backup_metric_list(project_id, location_id, backup_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **backup_id** | **str**| Backup Id | 
+
+### Return type
+
+[**list[Metric]**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **recovery_project_backup_metric_point_list**
+> list[Point] recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id, interval=interval, timespan=timespan)
+
+List recovery/backup.point
+
+List recovery/backup.point
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.RecoveryProjectBackupApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+backup_id = 'backup_id_example' # str | Backup Id
+metric_id = 'metric_id_example' # str | metricId
+interval = 'interval_example' # str | interval (optional)
+timespan = 'timespan_example' # str | timespan (optional)
+
+    try:
+        # List recovery/backup.point
+        api_response = api_instance.recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id, interval=interval, timespan=timespan)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_point_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **backup_id** | **str**| Backup Id | 
+ **metric_id** | **str**| metricId | 
+ **interval** | **str**| interval | [optional] 
+ **timespan** | **str**| timespan | [optional] 
+
+### Return type
+
+[**list[Point]**](Point.md)
 
 ### Authorization
 

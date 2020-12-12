@@ -36,8 +36,7 @@ class TestIamProjectQuotaLimitPatch(unittest.TestCase):
         # model = h1.models.iam_project_quota_limit_patch.IamProjectQuotaLimitPatch()  # noqa: E501
         if include_optional :
             return IamProjectQuotaLimitPatch(
-                user = 1.337, 
-                effective = 1.337
+                user = 1.337
             )
         else :
             return IamProjectQuotaLimitPatch(

@@ -37,7 +37,6 @@ class TestRecoveryProjectBackupCreate(unittest.TestCase):
         if include_optional :
             return RecoveryProjectBackupCreate(
                 name = '0', 
-                service = '0', 
                 source = '0', 
                 tag = [
                     h1.models.tag.tag(
@@ -49,7 +48,7 @@ class TestRecoveryProjectBackupCreate(unittest.TestCase):
         else :
             return RecoveryProjectBackupCreate(
                 name = '0',
-                service = '0',
+                source = '0',
         )
 
     def testRecoveryProjectBackupCreate(self):

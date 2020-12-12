@@ -15,9 +15,6 @@ Name | Type | Description | Notes
 **uri** | **str** |  | [optional] 
 **bank_account** | **str** |  | [optional] 
 **billing** | [**ProjectBilling**](ProjectBilling.md) |  | [optional] 
-**network_acl** | [**list[ProjectNetworkAcl]**](ProjectNetworkAcl.md) |  | [optional] 
-**compliance** | [**ProjectCompliance**](ProjectCompliance.md) |  | [optional] 
-**transfer** | [**ProjectTransfer**](ProjectTransfer.md) |  | [optional] 
 **tag** | [**list[Tag]**](Tag.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -56,6 +56,13 @@ class TestRecoveryProjectBackupApi(unittest.TestCase):
         """
         pass
 
+    def test_recovery_project_backup_export(self):
+        """Test case for recovery_project_backup_export
+
+        Export recovery/backup  # noqa: E501
+        """
+        pass
+
     def test_recovery_project_backup_get(self):
         """Test case for recovery_project_backup_get
 
@@ -67,6 +74,27 @@ class TestRecoveryProjectBackupApi(unittest.TestCase):
         """Test case for recovery_project_backup_list
 
         List recovery/backup  # noqa: E501
+        """
+        pass
+
+    def test_recovery_project_backup_metric_get(self):
+        """Test case for recovery_project_backup_metric_get
+
+        Get recovery/backup.metric  # noqa: E501
+        """
+        pass
+
+    def test_recovery_project_backup_metric_list(self):
+        """Test case for recovery_project_backup_metric_list
+
+        List recovery/backup.metric  # noqa: E501
+        """
+        pass
+
+    def test_recovery_project_backup_metric_point_list(self):
+        """Test case for recovery_project_backup_metric_point_list
+
+        List recovery/backup.point  # noqa: E501
         """
         pass
 

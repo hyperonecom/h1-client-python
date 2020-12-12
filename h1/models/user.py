@@ -42,8 +42,7 @@ class User(object):
         'lang': 'str',
         'phone': 'str',
         'limit': 'UserLimit',
-        'uri': 'str',
-        'tag': 'list[Tag]'
+        'uri': 'str'
     }
 
     attribute_map = {
@@ -56,11 +55,10 @@ class User(object):
         'lang': 'lang',
         'phone': 'phone',
         'limit': 'limit',
-        'uri': 'uri',
-        'tag': 'tag'
+        'uri': 'uri'
     }
 
-    def __init__(self, id=None, first_name=None, family_name=None, name=None, created_on=None, modified_on=None, lang=None, phone=None, limit=None, uri=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, first_name=None, family_name=None, name=None, created_on=None, modified_on=None, lang=None, phone=None, limit=None, uri=None, local_vars_configuration=None):  # noqa: E501
         """User - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -76,7 +74,6 @@ class User(object):
         self._phone = None
         self._limit = None
         self._uri = None
-        self._tag = None
         self.discriminator = None
 
         if id is not None:
@@ -99,8 +96,6 @@ class User(object):
             self.limit = limit
         if uri is not None:
             self.uri = uri
-        if tag is not None:
-            self.tag = tag
 
     @property
     def id(self):
@@ -317,27 +312,6 @@ class User(object):
         """
 
         self._uri = uri
-
-    @property
-    def tag(self):
-        """Gets the tag of this User.  # noqa: E501
-
-
-        :return: The tag of this User.  # noqa: E501
-        :rtype: list[Tag]
-        """
-        return self._tag
-
-    @tag.setter
-    def tag(self, tag):
-        """Sets the tag of this User.
-
-
-        :param tag: The tag of this User.  # noqa: E501
-        :type: list[Tag]
-        """
-
-        self._tag = tag
 
     def to_dict(self):
         """Returns the model properties as a dict"""

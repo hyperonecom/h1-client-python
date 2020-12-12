@@ -33,29 +33,24 @@ class IamProjectQuotaLimitPatch(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'user': 'float',
-        'effective': 'float'
+        'user': 'float'
     }
 
     attribute_map = {
-        'user': 'user',
-        'effective': 'effective'
+        'user': 'user'
     }
 
-    def __init__(self, user=None, effective=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, user=None, local_vars_configuration=None):  # noqa: E501
         """IamProjectQuotaLimitPatch - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._user = None
-        self._effective = None
         self.discriminator = None
 
         if user is not None:
             self.user = user
-        if effective is not None:
-            self.effective = effective
 
     @property
     def user(self):
@@ -77,27 +72,6 @@ class IamProjectQuotaLimitPatch(object):
         """
 
         self._user = user
-
-    @property
-    def effective(self):
-        """Gets the effective of this IamProjectQuotaLimitPatch.  # noqa: E501
-
-
-        :return: The effective of this IamProjectQuotaLimitPatch.  # noqa: E501
-        :rtype: float
-        """
-        return self._effective
-
-    @effective.setter
-    def effective(self, effective):
-        """Sets the effective of this IamProjectQuotaLimitPatch.
-
-
-        :param effective: The effective of this IamProjectQuotaLimitPatch.  # noqa: E501
-        :type: float
-        """
-
-        self._effective = effective
 
     def to_dict(self):
         """Returns the model properties as a dict"""

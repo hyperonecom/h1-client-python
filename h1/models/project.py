@@ -45,9 +45,6 @@ class Project(object):
         'uri': 'str',
         'bank_account': 'str',
         'billing': 'ProjectBilling',
-        'network_acl': 'list[ProjectNetworkAcl]',
-        'compliance': 'ProjectCompliance',
-        'transfer': 'ProjectTransfer',
         'tag': 'list[Tag]'
     }
 
@@ -64,13 +61,10 @@ class Project(object):
         'uri': 'uri',
         'bank_account': 'bankAccount',
         'billing': 'billing',
-        'network_acl': 'networkAcl',
-        'compliance': 'compliance',
-        'transfer': 'transfer',
         'tag': 'tag'
     }
 
-    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, organisation=None, uri=None, bank_account=None, billing=None, network_acl=None, compliance=None, transfer=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, organisation=None, uri=None, bank_account=None, billing=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """Project - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -88,9 +82,6 @@ class Project(object):
         self._uri = None
         self._bank_account = None
         self._billing = None
-        self._network_acl = None
-        self._compliance = None
-        self._transfer = None
         self._tag = None
         self.discriminator = None
 
@@ -118,12 +109,6 @@ class Project(object):
             self.bank_account = bank_account
         if billing is not None:
             self.billing = billing
-        if network_acl is not None:
-            self.network_acl = network_acl
-        if compliance is not None:
-            self.compliance = compliance
-        if transfer is not None:
-            self.transfer = transfer
         if tag is not None:
             self.tag = tag
 
@@ -292,7 +277,7 @@ class Project(object):
         :param state: The state of this Project.  # noqa: E501
         :type: str
         """
-        allowed_values = ["Active", "Inactive", "Limited", "Processing", "NotCreated"]  # noqa: E501
+        allowed_values = ["Active", "Inactive", "Limited", "Transferring", "Processing", "NotCreated"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and state not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `state` ({0}), must be one of {1}"  # noqa: E501
@@ -384,69 +369,6 @@ class Project(object):
         """
 
         self._billing = billing
-
-    @property
-    def network_acl(self):
-        """Gets the network_acl of this Project.  # noqa: E501
-
-
-        :return: The network_acl of this Project.  # noqa: E501
-        :rtype: list[ProjectNetworkAcl]
-        """
-        return self._network_acl
-
-    @network_acl.setter
-    def network_acl(self, network_acl):
-        """Sets the network_acl of this Project.
-
-
-        :param network_acl: The network_acl of this Project.  # noqa: E501
-        :type: list[ProjectNetworkAcl]
-        """
-
-        self._network_acl = network_acl
-
-    @property
-    def compliance(self):
-        """Gets the compliance of this Project.  # noqa: E501
-
-
-        :return: The compliance of this Project.  # noqa: E501
-        :rtype: ProjectCompliance
-        """
-        return self._compliance
-
-    @compliance.setter
-    def compliance(self, compliance):
-        """Sets the compliance of this Project.
-
-
-        :param compliance: The compliance of this Project.  # noqa: E501
-        :type: ProjectCompliance
-        """
-
-        self._compliance = compliance
-
-    @property
-    def transfer(self):
-        """Gets the transfer of this Project.  # noqa: E501
-
-
-        :return: The transfer of this Project.  # noqa: E501
-        :rtype: ProjectTransfer
-        """
-        return self._transfer
-
-    @transfer.setter
-    def transfer(self, transfer):
-        """Sets the transfer of this Project.
-
-
-        :param transfer: The transfer of this Project.  # noqa: E501
-        :type: ProjectTransfer
-        """
-
-        self._transfer = transfer
 
     @property
     def tag(self):

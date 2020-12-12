@@ -55,16 +55,7 @@ class TestOrganisation(unittest.TestCase):
                         city = '0', 
                         country = '0', ), 
                     nip = '0', ), 
-                transfer = h1.models.organisation_transfer.organisation_transfer(
-                    name = '0', 
-                    id = '0', ), 
-                bank_account = '0', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
+                bank_account = '0'
             )
         else :
             return Organisation(

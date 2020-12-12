@@ -28,6 +28,20 @@ class TestWebsiteProjectInstanceApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_website_project_instance_connect_get(self):
+        """Test case for website_project_instance_connect_get
+
+        Get website/instance.connect  # noqa: E501
+        """
+        pass
+
+    def test_website_project_instance_connect_list(self):
+        """Test case for website_project_instance_connect_list
+
+        List website/instance.connect  # noqa: E501
+        """
+        pass
+
     def test_website_project_instance_create(self):
         """Test case for website_project_instance_create
 

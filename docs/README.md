@@ -187,6 +187,8 @@ Class | Method | HTTP request | Description
 *ContainerProjectRegistryApi* | [**container_project_registry_tag_put**](./ContainerProjectRegistryApi.md#container_project_registry_tag_put) | **PUT** /container/{locationId}/project/{projectId}/registry/{registryId}/tag | Replace container/registry.tag
 *ContainerProjectRegistryApi* | [**container_project_registry_transfer**](./ContainerProjectRegistryApi.md#container_project_registry_transfer) | **POST** /container/{locationId}/project/{projectId}/registry/{registryId}/actions/transfer | Transfer container/registry
 *ContainerProjectRegistryApi* | [**container_project_registry_update**](./ContainerProjectRegistryApi.md#container_project_registry_update) | **PATCH** /container/{locationId}/project/{projectId}/registry/{registryId} | Update container/registry
+*DatabaseProjectInstanceApi* | [**database_project_instance_connect_get**](./DatabaseProjectInstanceApi.md#database_project_instance_connect_get) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/connect/{connectId} | Get database/instance.connect
+*DatabaseProjectInstanceApi* | [**database_project_instance_connect_list**](./DatabaseProjectInstanceApi.md#database_project_instance_connect_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/connect | List database/instance.connect
 *DatabaseProjectInstanceApi* | [**database_project_instance_create**](./DatabaseProjectInstanceApi.md#database_project_instance_create) | **POST** /database/{locationId}/project/{projectId}/instance | Create database/instance
 *DatabaseProjectInstanceApi* | [**database_project_instance_credential_create**](./DatabaseProjectInstanceApi.md#database_project_instance_credential_create) | **POST** /database/{locationId}/project/{projectId}/instance/{instanceId}/credential | Create database/instance.credential
 *DatabaseProjectInstanceApi* | [**database_project_instance_credential_delete**](./DatabaseProjectInstanceApi.md#database_project_instance_credential_delete) | **DELETE** /database/{locationId}/project/{projectId}/instance/{instanceId}/credential/{credentialId} | Delete database/instance.credential
@@ -539,6 +541,7 @@ Class | Method | HTTP request | Description
 *ProviderProjectAgentApi* | [**provider_project_agent_metric_list**](./ProviderProjectAgentApi.md#provider_project_agent_metric_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric | List provider/agent.metric
 *ProviderProjectAgentApi* | [**provider_project_agent_metric_point_list**](./ProviderProjectAgentApi.md#provider_project_agent_metric_point_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/metric/{metricId}/point | List provider/agent.point
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_event_list**](./ProviderProjectAgentApi.md#provider_project_agent_resource_event_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/event | List provider/agent.event
+*ProviderProjectAgentApi* | [**provider_project_agent_resource_get**](./ProviderProjectAgentApi.md#provider_project_agent_resource_get) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId} | Get provider/agent.resource
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_inspect**](./ProviderProjectAgentApi.md#provider_project_agent_resource_inspect) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/inspect | Inspect provider/agent.resource
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_list**](./ProviderProjectAgentApi.md#provider_project_agent_resource_list) | **GET** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource | List provider/agent.resource
 *ProviderProjectAgentApi* | [**provider_project_agent_resource_recreate**](./ProviderProjectAgentApi.md#provider_project_agent_resource_recreate) | **POST** /provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}/actions/recreate | Recreate provider/agent.resource
@@ -557,8 +560,12 @@ Class | Method | HTTP request | Description
 *RecoveryProjectBackupApi* | [**recovery_project_backup_delete**](./RecoveryProjectBackupApi.md#recovery_project_backup_delete) | **DELETE** /recovery/{locationId}/project/{projectId}/backup/{backupId} | Delete recovery/backup
 *RecoveryProjectBackupApi* | [**recovery_project_backup_event_get**](./RecoveryProjectBackupApi.md#recovery_project_backup_event_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/event/{eventId} | Get recovery/backup.event
 *RecoveryProjectBackupApi* | [**recovery_project_backup_event_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_event_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/event | List recovery/backup.event
+*RecoveryProjectBackupApi* | [**recovery_project_backup_export**](./RecoveryProjectBackupApi.md#recovery_project_backup_export) | **POST** /recovery/{locationId}/project/{projectId}/backup/{backupId}/actions/export | Export recovery/backup
 *RecoveryProjectBackupApi* | [**recovery_project_backup_get**](./RecoveryProjectBackupApi.md#recovery_project_backup_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId} | Get recovery/backup
 *RecoveryProjectBackupApi* | [**recovery_project_backup_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_list) | **GET** /recovery/{locationId}/project/{projectId}/backup | List recovery/backup
+*RecoveryProjectBackupApi* | [**recovery_project_backup_metric_get**](./RecoveryProjectBackupApi.md#recovery_project_backup_metric_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId} | Get recovery/backup.metric
+*RecoveryProjectBackupApi* | [**recovery_project_backup_metric_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_metric_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric | List recovery/backup.metric
+*RecoveryProjectBackupApi* | [**recovery_project_backup_metric_point_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_metric_point_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/metric/{metricId}/point | List recovery/backup.point
 *RecoveryProjectBackupApi* | [**recovery_project_backup_service_get**](./RecoveryProjectBackupApi.md#recovery_project_backup_service_get) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/service/{serviceId} | Get recovery/backup.service
 *RecoveryProjectBackupApi* | [**recovery_project_backup_service_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_service_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/service | List recovery/backup.service
 *RecoveryProjectBackupApi* | [**recovery_project_backup_tag_create**](./RecoveryProjectBackupApi.md#recovery_project_backup_tag_create) | **POST** /recovery/{locationId}/project/{projectId}/backup/{backupId}/tag | Create recovery/backup.tag
@@ -567,6 +574,13 @@ Class | Method | HTTP request | Description
 *RecoveryProjectBackupApi* | [**recovery_project_backup_tag_list**](./RecoveryProjectBackupApi.md#recovery_project_backup_tag_list) | **GET** /recovery/{locationId}/project/{projectId}/backup/{backupId}/tag | List recovery/backup.tag
 *RecoveryProjectBackupApi* | [**recovery_project_backup_tag_put**](./RecoveryProjectBackupApi.md#recovery_project_backup_tag_put) | **PUT** /recovery/{locationId}/project/{projectId}/backup/{backupId}/tag | Replace recovery/backup.tag
 *RecoveryProjectBackupApi* | [**recovery_project_backup_update**](./RecoveryProjectBackupApi.md#recovery_project_backup_update) | **PATCH** /recovery/{locationId}/project/{projectId}/backup/{backupId} | Update recovery/backup
+*StorageProjectBucketApi* | [**storage_project_bucket_get**](./StorageProjectBucketApi.md#storage_project_bucket_get) | **GET** /storage/{locationId}/project/{projectId}/bucket/{bucketId} | Get storage/bucket
+*StorageProjectBucketApi* | [**storage_project_bucket_list**](./StorageProjectBucketApi.md#storage_project_bucket_list) | **GET** /storage/{locationId}/project/{projectId}/bucket | List storage/bucket
+*StorageProjectBucketApi* | [**storage_project_bucket_object_delete**](./StorageProjectBucketApi.md#storage_project_bucket_object_delete) | **DELETE** /storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId} | Delete storage/bucket.object
+*StorageProjectBucketApi* | [**storage_project_bucket_object_download**](./StorageProjectBucketApi.md#storage_project_bucket_object_download) | **POST** /storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}/actions/download | Download storage/bucket.object
+*StorageProjectBucketApi* | [**storage_project_bucket_object_get**](./StorageProjectBucketApi.md#storage_project_bucket_object_get) | **GET** /storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId} | Get storage/bucket.object
+*StorageProjectBucketApi* | [**storage_project_bucket_object_list**](./StorageProjectBucketApi.md#storage_project_bucket_object_list) | **GET** /storage/{locationId}/project/{projectId}/bucket/{bucketId}/object | List storage/bucket.object
+*StorageProjectBucketApi* | [**storage_project_bucket_upload**](./StorageProjectBucketApi.md#storage_project_bucket_upload) | **POST** /storage/{locationId}/project/{projectId}/bucket/{bucketId}/actions/upload | Upload storage/bucket
 *StorageProjectDiskApi* | [**storage_project_disk_create**](./StorageProjectDiskApi.md#storage_project_disk_create) | **POST** /storage/{locationId}/project/{projectId}/disk | Create storage/disk
 *StorageProjectDiskApi* | [**storage_project_disk_delete**](./StorageProjectDiskApi.md#storage_project_disk_delete) | **DELETE** /storage/{locationId}/project/{projectId}/disk/{diskId} | Delete storage/disk
 *StorageProjectDiskApi* | [**storage_project_disk_detach**](./StorageProjectDiskApi.md#storage_project_disk_detach) | **POST** /storage/{locationId}/project/{projectId}/disk/{diskId}/actions/detach | Detach storage/disk
@@ -620,6 +634,8 @@ Class | Method | HTTP request | Description
 *StorageProjectIsoApi* | [**storage_project_iso_tag_put**](./StorageProjectIsoApi.md#storage_project_iso_tag_put) | **PUT** /storage/{locationId}/project/{projectId}/iso/{isoId}/tag | Replace storage/iso.tag
 *StorageProjectIsoApi* | [**storage_project_iso_transfer**](./StorageProjectIsoApi.md#storage_project_iso_transfer) | **POST** /storage/{locationId}/project/{projectId}/iso/{isoId}/actions/transfer | Transfer storage/iso
 *StorageProjectIsoApi* | [**storage_project_iso_update**](./StorageProjectIsoApi.md#storage_project_iso_update) | **PATCH** /storage/{locationId}/project/{projectId}/iso/{isoId} | Update storage/iso
+*StorageProjectVaultApi* | [**storage_project_vault_connect_get**](./StorageProjectVaultApi.md#storage_project_vault_connect_get) | **GET** /storage/{locationId}/project/{projectId}/vault/{vaultId}/connect/{connectId} | Get storage/vault.connect
+*StorageProjectVaultApi* | [**storage_project_vault_connect_list**](./StorageProjectVaultApi.md#storage_project_vault_connect_list) | **GET** /storage/{locationId}/project/{projectId}/vault/{vaultId}/connect | List storage/vault.connect
 *StorageProjectVaultApi* | [**storage_project_vault_create**](./StorageProjectVaultApi.md#storage_project_vault_create) | **POST** /storage/{locationId}/project/{projectId}/vault | Create storage/vault
 *StorageProjectVaultApi* | [**storage_project_vault_credential_create**](./StorageProjectVaultApi.md#storage_project_vault_credential_create) | **POST** /storage/{locationId}/project/{projectId}/vault/{vaultId}/credential | Create storage/vault.credential
 *StorageProjectVaultApi* | [**storage_project_vault_credential_delete**](./StorageProjectVaultApi.md#storage_project_vault_credential_delete) | **DELETE** /storage/{locationId}/project/{projectId}/vault/{vaultId}/credential/{credentialId} | Delete storage/vault.credential
@@ -664,6 +680,8 @@ Class | Method | HTTP request | Description
 *VmhostProjectInstanceApi* | [**vmhost_project_instance_tag_get**](./VmhostProjectInstanceApi.md#vmhost_project_instance_tag_get) | **GET** /vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag/{tagId} | Get vmhost/instance.tag
 *VmhostProjectInstanceApi* | [**vmhost_project_instance_tag_list**](./VmhostProjectInstanceApi.md#vmhost_project_instance_tag_list) | **GET** /vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag | List vmhost/instance.tag
 *VmhostProjectInstanceApi* | [**vmhost_project_instance_tag_put**](./VmhostProjectInstanceApi.md#vmhost_project_instance_tag_put) | **PUT** /vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag | Replace vmhost/instance.tag
+*WebsiteProjectInstanceApi* | [**website_project_instance_connect_get**](./WebsiteProjectInstanceApi.md#website_project_instance_connect_get) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/connect/{connectId} | Get website/instance.connect
+*WebsiteProjectInstanceApi* | [**website_project_instance_connect_list**](./WebsiteProjectInstanceApi.md#website_project_instance_connect_list) | **GET** /website/{locationId}/project/{projectId}/instance/{instanceId}/connect | List website/instance.connect
 *WebsiteProjectInstanceApi* | [**website_project_instance_create**](./WebsiteProjectInstanceApi.md#website_project_instance_create) | **POST** /website/{locationId}/project/{projectId}/instance | Create website/instance
 *WebsiteProjectInstanceApi* | [**website_project_instance_credential_create**](./WebsiteProjectInstanceApi.md#website_project_instance_credential_create) | **POST** /website/{locationId}/project/{projectId}/instance/{instanceId}/credential | Create website/instance.credential
 *WebsiteProjectInstanceApi* | [**website_project_instance_credential_delete**](./WebsiteProjectInstanceApi.md#website_project_instance_credential_delete) | **DELETE** /website/{locationId}/project/{projectId}/instance/{instanceId}/credential/{credentialId} | Delete website/instance.credential
@@ -720,8 +738,6 @@ Class | Method | HTTP request | Description
 
  - [Agent](./Agent.md)
  - [AgentCredential](./AgentCredential.md)
- - [AgentResource](./AgentResource.md)
- - [AgentResourceEvent](./AgentResourceEvent.md)
  - [Attempt](./Attempt.md)
  - [AuthToken](./AuthToken.md)
  - [AuthTokenAccess](./AuthTokenAccess.md)
@@ -735,6 +751,7 @@ Class | Method | HTTP request | Description
  - [BillingProjectReservationUpdate](./BillingProjectReservationUpdate.md)
  - [BillingResource](./BillingResource.md)
  - [BillingService](./BillingService.md)
+ - [Bucket](./Bucket.md)
  - [ComputeProjectReplicaCreate](./ComputeProjectReplicaCreate.md)
  - [ComputeProjectVmConnectOpen](./ComputeProjectVmConnectOpen.md)
  - [ComputeProjectVmCreate](./ComputeProjectVmCreate.md)
@@ -786,6 +803,7 @@ Class | Method | HTTP request | Description
  - [IamProjectInvitationAccept](./IamProjectInvitationAccept.md)
  - [IamProjectOwnershipCreate](./IamProjectOwnershipCreate.md)
  - [IamProjectPolicyCreate](./IamProjectPolicyCreate.md)
+ - [IamProjectPolicyCreateActor](./IamProjectPolicyCreateActor.md)
  - [IamProjectPolicyUpdate](./IamProjectPolicyUpdate.md)
  - [IamProjectQuotaLimitPatch](./IamProjectQuotaLimitPatch.md)
  - [IamProjectRoleCreate](./IamProjectRoleCreate.md)
@@ -847,7 +865,6 @@ Class | Method | HTTP request | Description
  - [Organisation](./Organisation.md)
  - [OrganisationBilling](./OrganisationBilling.md)
  - [OrganisationBilling1](./OrganisationBilling1.md)
- - [OrganisationTransfer](./OrganisationTransfer.md)
  - [Ownership](./Ownership.md)
  - [Payment](./Payment.md)
  - [Point](./Point.md)
@@ -857,12 +874,11 @@ Class | Method | HTTP request | Description
  - [ProformaSeller](./ProformaSeller.md)
  - [Project](./Project.md)
  - [ProjectBilling](./ProjectBilling.md)
- - [ProjectCompliance](./ProjectCompliance.md)
  - [ProjectCredential](./ProjectCredential.md)
  - [ProjectFeature](./ProjectFeature.md)
- - [ProjectNetworkAcl](./ProjectNetworkAcl.md)
  - [ProjectThreshold](./ProjectThreshold.md)
- - [ProjectTransfer](./ProjectTransfer.md)
+ - [ProviderAgentResource](./ProviderAgentResource.md)
+ - [ProviderAgentResourceEvent](./ProviderAgentResourceEvent.md)
  - [ProviderProjectAgentCreate](./ProviderProjectAgentCreate.md)
  - [ProviderProjectAgentCredentialPatch](./ProviderProjectAgentCredentialPatch.md)
  - [ProviderProjectAgentTransfer](./ProviderProjectAgentTransfer.md)
@@ -871,11 +887,13 @@ Class | Method | HTTP request | Description
  - [QuotaLimit](./QuotaLimit.md)
  - [QuotaMetric](./QuotaMetric.md)
  - [RecoveryProjectBackupCreate](./RecoveryProjectBackupCreate.md)
+ - [RecoveryProjectBackupExport](./RecoveryProjectBackupExport.md)
  - [RecoveryProjectBackupUpdate](./RecoveryProjectBackupUpdate.md)
  - [Registry](./Registry.md)
  - [RegistryCredential](./RegistryCredential.md)
  - [Replica](./Replica.md)
  - [Reservation](./Reservation.md)
+ - [ResourceConnect](./ResourceConnect.md)
  - [ResourceService](./ResourceService.md)
  - [Role](./Role.md)
  - [Sa](./Sa.md)
@@ -886,6 +904,8 @@ Class | Method | HTTP request | Description
  - [ServiceBillingReservations](./ServiceBillingReservations.md)
  - [ServiceDisplay](./ServiceDisplay.md)
  - [ServiceDisplayUnit](./ServiceDisplayUnit.md)
+ - [StorageObject](./StorageObject.md)
+ - [StorageProjectBucketUpload](./StorageProjectBucketUpload.md)
  - [StorageProjectDiskCreate](./StorageProjectDiskCreate.md)
  - [StorageProjectDiskResize](./StorageProjectDiskResize.md)
  - [StorageProjectDiskTransfer](./StorageProjectDiskTransfer.md)
@@ -903,6 +923,7 @@ Class | Method | HTTP request | Description
  - [StorageProjectVaultResize](./StorageProjectVaultResize.md)
  - [StorageProjectVaultSnapshotCreate](./StorageProjectVaultSnapshotCreate.md)
  - [StorageProjectVaultUpdate](./StorageProjectVaultUpdate.md)
+ - [StorageS3credential](./StorageS3credential.md)
  - [StorageSnapshot](./StorageSnapshot.md)
  - [SupportMessage](./SupportMessage.md)
  - [SupportProjectTicketCreate](./SupportProjectTicketCreate.md)
@@ -980,7 +1001,6 @@ Class | Method | HTTP request | Description
  - **iam/project.quota/list**: 
  - **iam/project.quota/get**: 
  - **iam/project.quota.user/update**: 
- - **iam/project.quota.effective/update**: 
  - **iam/project.invitation/list**: 
  - **iam/project.invitation/get**: 
  - **iam/project.invitation/delete**: 
@@ -996,13 +1016,6 @@ Class | Method | HTTP request | Description
  - **iam/project.tag/get**: 
  - **iam/project.event/list**: 
  - **iam/project.event/get**: 
- - **support/ticket/create**: 
- - **support/ticket/list**: 
- - **support/ticket/get**: 
- - **support/ticket/close**: 
- - **support/ticket.message/list**: 
- - **support/ticket.message/create**: 
- - **support/ticket.message/get**: 
  - **iam/organisation/get**: 
  - **iam/organisation.name/update**: 
  - **iam/organisation.billing/update**: 
@@ -1041,10 +1054,6 @@ Class | Method | HTTP request | Description
  - **provider/agent/suspend**: 
  - **provider/agent/inspect**: 
  - **provider/agent/transfer**: 
- - **provider/agent.resource/list**: 
- - **provider/agent.resource/recreate**: 
- - **provider/agent.resource/inspect**: 
- - **provider/agent.resource.event/list**: 
  - **provider/agent.credential/list**: 
  - **provider/agent.credential/create**: 
  - **provider/agent.credential/get**: 
@@ -1054,6 +1063,11 @@ Class | Method | HTTP request | Description
  - **provider/agent.enabledService/create**: 
  - **provider/agent.enabledService/get**: 
  - **provider/agent.enabledService/delete**: 
+ - **provider/agent.resource/list**: 
+ - **provider/agent.resource/get**: 
+ - **provider/agent.resource/recreate**: 
+ - **provider/agent.resource/inspect**: 
+ - **provider/agent.resource.event/list**: 
  - **provider/agent.metric/list**: 
  - **provider/agent.metric/get**: 
  - **provider/agent.point/list**: 
@@ -1065,12 +1079,16 @@ Class | Method | HTTP request | Description
  - **provider/agent.tag/get**: 
  - **provider/agent.event/list**: 
  - **provider/agent.event/get**: 
- - **website/instance/use**: 
  - **recovery/backup/create**: 
  - **recovery/backup/list**: 
  - **recovery/backup/get**: 
  - **recovery/backup.name/update**: 
  - **recovery/backup/delete**: 
+ - **storage/bucket/upload**: 
+ - **recovery/backup/export**: 
+ - **recovery/backup.metric/list**: 
+ - **recovery/backup.metric/get**: 
+ - **recovery/backup.point/list**: 
  - **recovery/backup.service/list**: 
  - **recovery/backup.service/get**: 
  - **recovery/backup.tag/list**: 
@@ -1079,6 +1097,7 @@ Class | Method | HTTP request | Description
  - **recovery/backup.tag/get**: 
  - **recovery/backup.event/list**: 
  - **recovery/backup.event/get**: 
+ - **recovery/backup/use**: 
  - **database/instance/create**: 
  - **database/instance/list**: 
  - **database/instance/get**: 
@@ -1092,6 +1111,8 @@ Class | Method | HTTP request | Description
  - **database/instance.credential/get**: 
  - **database/instance.credential.name/update**: 
  - **database/instance.credential/delete**: 
+ - **database/instance.connect/list**: 
+ - **database/instance.connect/get**: 
  - **database/instance.service/list**: 
  - **database/instance.service/get**: 
  - **database/instance.tag/list**: 
@@ -1100,6 +1121,8 @@ Class | Method | HTTP request | Description
  - **database/instance.tag/get**: 
  - **database/instance.event/list**: 
  - **database/instance.event/get**: 
+ - **database/instance/read**: 
+ - **database/instance/use**: 
  - **insight/journal/create**: 
  - **insight/journal/list**: 
  - **insight/journal/get**: 
@@ -1189,6 +1212,8 @@ Class | Method | HTTP request | Description
  - **website/instance.credential/get**: 
  - **website/instance.credential.name/update**: 
  - **website/instance.credential/delete**: 
+ - **website/instance.connect/list**: 
+ - **website/instance.connect/get**: 
  - **website/instance.domain/list**: 
  - **website/instance.domain/create**: 
  - **website/instance.domain/get**: 
@@ -1207,6 +1232,7 @@ Class | Method | HTTP request | Description
  - **website/instance.tag/get**: 
  - **website/instance.event/list**: 
  - **website/instance.event/get**: 
+ - **website/instance/use**: 
  - **dns/zone/create**: 
  - **dns/zone/list**: 
  - **dns/zone/get**: 
@@ -1456,6 +1482,8 @@ Class | Method | HTTP request | Description
  - **storage/vault.credential/get**: 
  - **storage/vault.credential.name/update**: 
  - **storage/vault.credential/delete**: 
+ - **storage/vault.connect/list**: 
+ - **storage/vault.connect/get**: 
  - **storage/vault.service/list**: 
  - **storage/vault.service/get**: 
  - **storage/vault.tag/list**: 
@@ -1519,6 +1547,19 @@ Class | Method | HTTP request | Description
  - **vmhost/instance.tag/get**: 
  - **vmhost/instance.event/list**: 
  - **vmhost/instance.event/get**: 
+ - **storage/bucket/list**: 
+ - **storage/bucket/get**: 
+ - **storage/bucket.object/list**: 
+ - **storage/bucket.object/get**: 
+ - **storage/bucket.object/delete**: 
+ - **storage/bucket.actions/create**: 
+ - **support/ticket/create**: 
+ - **support/ticket/list**: 
+ - **support/ticket/get**: 
+ - **support/ticket/close**: 
+ - **support/ticket.message/list**: 
+ - **support/ticket.message/create**: 
+ - **support/ticket.message/get**: 
  - **billing/service/list**: 
  - **billing/service/get**: 
 

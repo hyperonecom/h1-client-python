@@ -4,6 +4,8 @@ All URIs are relative to *https://api.hyperone.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**database_project_instance_connect_get**](DatabaseProjectInstanceApi.md#database_project_instance_connect_get) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/connect/{connectId} | Get database/instance.connect
+[**database_project_instance_connect_list**](DatabaseProjectInstanceApi.md#database_project_instance_connect_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/connect | List database/instance.connect
 [**database_project_instance_create**](DatabaseProjectInstanceApi.md#database_project_instance_create) | **POST** /database/{locationId}/project/{projectId}/instance | Create database/instance
 [**database_project_instance_credential_create**](DatabaseProjectInstanceApi.md#database_project_instance_credential_create) | **POST** /database/{locationId}/project/{projectId}/instance/{instanceId}/credential | Create database/instance.credential
 [**database_project_instance_credential_delete**](DatabaseProjectInstanceApi.md#database_project_instance_credential_delete) | **DELETE** /database/{locationId}/project/{projectId}/instance/{instanceId}/credential/{credentialId} | Delete database/instance.credential
@@ -27,6 +29,164 @@ Method | HTTP request | Description
 [**database_project_instance_transfer**](DatabaseProjectInstanceApi.md#database_project_instance_transfer) | **POST** /database/{locationId}/project/{projectId}/instance/{instanceId}/actions/transfer | Transfer database/instance
 [**database_project_instance_update**](DatabaseProjectInstanceApi.md#database_project_instance_update) | **PATCH** /database/{locationId}/project/{projectId}/instance/{instanceId} | Update database/instance
 
+
+# **database_project_instance_connect_get**
+> ResourceConnect database_project_instance_connect_get(project_id, location_id, instance_id, connect_id)
+
+Get database/instance.connect
+
+Get database/instance.connect
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.DatabaseProjectInstanceApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+instance_id = 'instance_id_example' # str | Instance Id
+connect_id = 'connect_id_example' # str | connectId
+
+    try:
+        # Get database/instance.connect
+        api_response = api_instance.database_project_instance_connect_get(project_id, location_id, instance_id, connect_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_connect_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **instance_id** | **str**| Instance Id | 
+ **connect_id** | **str**| connectId | 
+
+### Return type
+
+[**ResourceConnect**](ResourceConnect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **database_project_instance_connect_list**
+> list[ResourceConnect] database_project_instance_connect_list(project_id, location_id, instance_id)
+
+List database/instance.connect
+
+List database/instance.connect
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.DatabaseProjectInstanceApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+instance_id = 'instance_id_example' # str | Instance Id
+
+    try:
+        # List database/instance.connect
+        api_response = api_instance.database_project_instance_connect_list(project_id, location_id, instance_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_connect_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **instance_id** | **str**| Instance Id | 
+
+### Return type
+
+[**list[ResourceConnect]**](ResourceConnect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **database_project_instance_create**
 > Database database_project_instance_create(project_id, location_id, database_project_instance_create, x_idempotency_key=x_idempotency_key)

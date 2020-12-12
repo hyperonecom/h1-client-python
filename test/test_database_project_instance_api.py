@@ -28,6 +28,20 @@ class TestDatabaseProjectInstanceApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_database_project_instance_connect_get(self):
+        """Test case for database_project_instance_connect_get
+
+        Get database/instance.connect  # noqa: E501
+        """
+        pass
+
+    def test_database_project_instance_connect_list(self):
+        """Test case for database_project_instance_connect_list
+
+        List database/instance.connect  # noqa: E501
+        """
+        pass
+
     def test_database_project_instance_create(self):
         """Test case for database_project_instance_create
 

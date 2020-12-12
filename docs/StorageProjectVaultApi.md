@@ -4,6 +4,8 @@ All URIs are relative to *https://api.hyperone.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**storage_project_vault_connect_get**](StorageProjectVaultApi.md#storage_project_vault_connect_get) | **GET** /storage/{locationId}/project/{projectId}/vault/{vaultId}/connect/{connectId} | Get storage/vault.connect
+[**storage_project_vault_connect_list**](StorageProjectVaultApi.md#storage_project_vault_connect_list) | **GET** /storage/{locationId}/project/{projectId}/vault/{vaultId}/connect | List storage/vault.connect
 [**storage_project_vault_create**](StorageProjectVaultApi.md#storage_project_vault_create) | **POST** /storage/{locationId}/project/{projectId}/vault | Create storage/vault
 [**storage_project_vault_credential_create**](StorageProjectVaultApi.md#storage_project_vault_credential_create) | **POST** /storage/{locationId}/project/{projectId}/vault/{vaultId}/credential | Create storage/vault.credential
 [**storage_project_vault_credential_delete**](StorageProjectVaultApi.md#storage_project_vault_credential_delete) | **DELETE** /storage/{locationId}/project/{projectId}/vault/{vaultId}/credential/{credentialId} | Delete storage/vault.credential
@@ -31,6 +33,164 @@ Method | HTTP request | Description
 [**storage_project_vault_tag_put**](StorageProjectVaultApi.md#storage_project_vault_tag_put) | **PUT** /storage/{locationId}/project/{projectId}/vault/{vaultId}/tag | Replace storage/vault.tag
 [**storage_project_vault_update**](StorageProjectVaultApi.md#storage_project_vault_update) | **PATCH** /storage/{locationId}/project/{projectId}/vault/{vaultId} | Update storage/vault
 
+
+# **storage_project_vault_connect_get**
+> ResourceConnect storage_project_vault_connect_get(project_id, location_id, vault_id, connect_id)
+
+Get storage/vault.connect
+
+Get storage/vault.connect
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.StorageProjectVaultApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+vault_id = 'vault_id_example' # str | Vault Id
+connect_id = 'connect_id_example' # str | connectId
+
+    try:
+        # Get storage/vault.connect
+        api_response = api_instance.storage_project_vault_connect_get(project_id, location_id, vault_id, connect_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling StorageProjectVaultApi->storage_project_vault_connect_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **vault_id** | **str**| Vault Id | 
+ **connect_id** | **str**| connectId | 
+
+### Return type
+
+[**ResourceConnect**](ResourceConnect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **storage_project_vault_connect_list**
+> list[ResourceConnect] storage_project_vault_connect_list(project_id, location_id, vault_id)
+
+List storage/vault.connect
+
+List storage/vault.connect
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+from __future__ import print_function
+import time
+import h1
+from h1.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = h1.StorageProjectVaultApi(api_client)
+    project_id = 'project_id_example' # str | Project Id
+location_id = 'location_id_example' # str | Location Id
+vault_id = 'vault_id_example' # str | Vault Id
+
+    try:
+        # List storage/vault.connect
+        api_response = api_instance.storage_project_vault_connect_list(project_id, location_id, vault_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling StorageProjectVaultApi->storage_project_vault_connect_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id | 
+ **location_id** | **str**| Location Id | 
+ **vault_id** | **str**| Vault Id | 
+
+### Return type
+
+[**list[ResourceConnect]**](ResourceConnect.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_vault_create**
 > Vault storage_project_vault_create(project_id, location_id, storage_project_vault_create, x_idempotency_key=x_idempotency_key)

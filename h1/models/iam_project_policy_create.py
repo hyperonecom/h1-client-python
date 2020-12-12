@@ -36,6 +36,7 @@ class IamProjectPolicyCreate(object):
         'name': 'str',
         'role': 'str',
         'resource': 'str',
+        'actor': 'list[IamProjectPolicyCreateActor]',
         'tag': 'list[Tag]'
     }
 
@@ -43,10 +44,11 @@ class IamProjectPolicyCreate(object):
         'name': 'name',
         'role': 'role',
         'resource': 'resource',
+        'actor': 'actor',
         'tag': 'tag'
     }
 
-    def __init__(self, name=None, role=None, resource=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, name=None, role=None, resource=None, actor=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """IamProjectPolicyCreate - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -55,12 +57,15 @@ class IamProjectPolicyCreate(object):
         self._name = None
         self._role = None
         self._resource = None
+        self._actor = None
         self._tag = None
         self.discriminator = None
 
         self.name = name
         self.role = role
         self.resource = resource
+        if actor is not None:
+            self.actor = actor
         if tag is not None:
             self.tag = tag
 
@@ -135,6 +140,27 @@ class IamProjectPolicyCreate(object):
             raise ValueError(r"Invalid value for `resource`, must be a follow pattern or equal to `/^\/(?<namespace>[a-z]+)(\/(?<location>[a-z0-9-]+))?\/(?<parent>(project|organisation))\/(?<parentId>[a-f0-9]{24})(\/(?<type>[a-z]+))?(\/(?<resource>[a-f0-9]{24}))?(?<subresource>(\/[a-z0-9]+)+)?$/`")  # noqa: E501
 
         self._resource = resource
+
+    @property
+    def actor(self):
+        """Gets the actor of this IamProjectPolicyCreate.  # noqa: E501
+
+
+        :return: The actor of this IamProjectPolicyCreate.  # noqa: E501
+        :rtype: list[IamProjectPolicyCreateActor]
+        """
+        return self._actor
+
+    @actor.setter
+    def actor(self, actor):
+        """Sets the actor of this IamProjectPolicyCreate.
+
+
+        :param actor: The actor of this IamProjectPolicyCreate.  # noqa: E501
+        :type: list[IamProjectPolicyCreateActor]
+        """
+
+        self._actor = actor
 
     @property
     def tag(self):

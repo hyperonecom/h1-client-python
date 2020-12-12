@@ -43,9 +43,7 @@ class Organisation(object):
         'state': 'str',
         'uri': 'str',
         'billing': 'OrganisationBilling',
-        'transfer': 'OrganisationTransfer',
-        'bank_account': 'str',
-        'tag': 'list[Tag]'
+        'bank_account': 'str'
     }
 
     attribute_map = {
@@ -59,12 +57,10 @@ class Organisation(object):
         'state': 'state',
         'uri': 'uri',
         'billing': 'billing',
-        'transfer': 'transfer',
-        'bank_account': 'bankAccount',
-        'tag': 'tag'
+        'bank_account': 'bankAccount'
     }
 
-    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, uri=None, billing=None, transfer=None, bank_account=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, flavour=None, modified_on=None, modified_by=None, created_on=None, created_by=None, state=None, uri=None, billing=None, bank_account=None, local_vars_configuration=None):  # noqa: E501
         """Organisation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -80,9 +76,7 @@ class Organisation(object):
         self._state = None
         self._uri = None
         self._billing = None
-        self._transfer = None
         self._bank_account = None
-        self._tag = None
         self.discriminator = None
 
         if id is not None:
@@ -105,12 +99,8 @@ class Organisation(object):
             self.uri = uri
         if billing is not None:
             self.billing = billing
-        if transfer is not None:
-            self.transfer = transfer
         if bank_account is not None:
             self.bank_account = bank_account
-        if tag is not None:
-            self.tag = tag
 
     @property
     def id(self):
@@ -329,27 +319,6 @@ class Organisation(object):
         self._billing = billing
 
     @property
-    def transfer(self):
-        """Gets the transfer of this Organisation.  # noqa: E501
-
-
-        :return: The transfer of this Organisation.  # noqa: E501
-        :rtype: OrganisationTransfer
-        """
-        return self._transfer
-
-    @transfer.setter
-    def transfer(self, transfer):
-        """Sets the transfer of this Organisation.
-
-
-        :param transfer: The transfer of this Organisation.  # noqa: E501
-        :type: OrganisationTransfer
-        """
-
-        self._transfer = transfer
-
-    @property
     def bank_account(self):
         """Gets the bank_account of this Organisation.  # noqa: E501
 
@@ -369,27 +338,6 @@ class Organisation(object):
         """
 
         self._bank_account = bank_account
-
-    @property
-    def tag(self):
-        """Gets the tag of this Organisation.  # noqa: E501
-
-
-        :return: The tag of this Organisation.  # noqa: E501
-        :rtype: list[Tag]
-        """
-        return self._tag
-
-    @tag.setter
-    def tag(self, tag):
-        """Sets the tag of this Organisation.
-
-
-        :param tag: The tag of this Organisation.  # noqa: E501
-        :type: list[Tag]
-        """
-
-        self._tag = tag
 
     def to_dict(self):
         """Returns the model properties as a dict"""

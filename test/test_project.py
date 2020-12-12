@@ -51,17 +51,6 @@ class TestProject(unittest.TestCase):
                     credits = 1.337, 
                     credits_bonus = 1.337, 
                     credit_limit = 1.337, ), 
-                network_acl = [
-                    h1.models.project_network_acl.project_networkAcl(
-                        type = 'subnet', 
-                        value = '0', 
-                        name = '0', 
-                        id = '0', )
-                    ], 
-                compliance = h1.models.project_compliance.project_compliance(
-                    journal = '0', ), 
-                transfer = h1.models.project_transfer.project_transfer(
-                    organisation = '0', ), 
                 tag = [
                     h1.models.tag.tag(
                         id = '0', 

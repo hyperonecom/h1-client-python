@@ -39,6 +39,10 @@ class TestIamProjectPolicyCreate(unittest.TestCase):
                 name = '0', 
                 role = '0', 
                 resource = 'a', 
+                actor = [
+                    h1.models.iam_project_policy_create_actor.iam_project_policy_create_actor(
+                        value = 'a', )
+                    ], 
                 tag = [
                     h1.models.tag.tag(
                         id = '0', 

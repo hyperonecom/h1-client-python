@@ -2150,6 +2150,7 @@ class ProviderProjectAgentApi(object):
         :param str project_id: Project Id (required)
         :param str location_id: Location Id (required)
         :param str name: Filter by name
+        :param str enabled_services: Filter by enabledServices
         :param str tag_value: Filter by tag.value
         :param str tag_key: Filter by tag.key
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -2179,6 +2180,7 @@ class ProviderProjectAgentApi(object):
         :param str project_id: Project Id (required)
         :param str location_id: Location Id (required)
         :param str name: Filter by name
+        :param str enabled_services: Filter by enabledServices
         :param str tag_value: Filter by tag.value
         :param str tag_key: Filter by tag.key
         :param _return_http_data_only: response data without head status code
@@ -2201,6 +2203,7 @@ class ProviderProjectAgentApi(object):
             'project_id',
             'location_id',
             'name',
+            'enabled_services',
             'tag_value',
             'tag_key'
         ]
@@ -2241,6 +2244,8 @@ class ProviderProjectAgentApi(object):
         query_params = []
         if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
             query_params.append(('name', local_var_params['name']))  # noqa: E501
+        if 'enabled_services' in local_var_params and local_var_params['enabled_services'] is not None:  # noqa: E501
+            query_params.append(('enabledServices', local_var_params['enabled_services']))  # noqa: E501
         if 'tag_value' in local_var_params and local_var_params['tag_value'] is not None:  # noqa: E501
             query_params.append(('tag.value', local_var_params['tag_value']))  # noqa: E501
         if 'tag_key' in local_var_params and local_var_params['tag_key'] is not None:  # noqa: E501
@@ -2722,7 +2727,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: list[AgentResourceEvent]
+        :return: list[ProviderAgentResourceEvent]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2754,7 +2759,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: tuple(list[AgentResourceEvent], status_code(int), headers(HTTPHeaderDict))
+        :return: tuple(list[ProviderAgentResourceEvent], status_code(int), headers(HTTPHeaderDict))
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2842,7 +2847,148 @@ class ProviderProjectAgentApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[AgentResourceEvent]',  # noqa: E501
+            response_type='list[ProviderAgentResourceEvent]',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def provider_project_agent_resource_get(self, project_id, location_id, agent_id, resource_id, **kwargs):  # noqa: E501
+        """Get provider/agent.resource  # noqa: E501
+
+        Get provider/agent.resource  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_resource_get(project_id, location_id, agent_id, resource_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str resource_id: resourceId (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: ProviderAgentResource
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.provider_project_agent_resource_get_with_http_info(project_id, location_id, agent_id, resource_id, **kwargs)  # noqa: E501
+
+    def provider_project_agent_resource_get_with_http_info(self, project_id, location_id, agent_id, resource_id, **kwargs):  # noqa: E501
+        """Get provider/agent.resource  # noqa: E501
+
+        Get provider/agent.resource  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.provider_project_agent_resource_get_with_http_info(project_id, location_id, agent_id, resource_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str project_id: Project Id (required)
+        :param str location_id: Location Id (required)
+        :param str agent_id: Agent Id (required)
+        :param str resource_id: resourceId (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(ProviderAgentResource, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'location_id',
+            'agent_id',
+            'resource_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method provider_project_agent_resource_get" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `provider_project_agent_resource_get`")  # noqa: E501
+        # verify the required parameter 'location_id' is set
+        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['location_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `location_id` when calling `provider_project_agent_resource_get`")  # noqa: E501
+        # verify the required parameter 'agent_id' is set
+        if self.api_client.client_side_validation and ('agent_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['agent_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `agent_id` when calling `provider_project_agent_resource_get`")  # noqa: E501
+        # verify the required parameter 'resource_id' is set
+        if self.api_client.client_side_validation and ('resource_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['resource_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `resource_id` when calling `provider_project_agent_resource_get`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
+        if 'location_id' in local_var_params:
+            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+        if 'agent_id' in local_var_params:
+            path_params['agentId'] = local_var_params['agent_id']  # noqa: E501
+        if 'resource_id' in local_var_params:
+            path_params['resourceId'] = local_var_params['resource_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['BearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/provider/{locationId}/project/{projectId}/agent/{agentId}/resource/{resourceId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='ProviderAgentResource',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -3011,7 +3157,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: list[AgentResource]
+        :return: list[ProviderAgentResource]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3040,7 +3186,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: tuple(list[AgentResource], status_code(int), headers(HTTPHeaderDict))
+        :return: tuple(list[ProviderAgentResource], status_code(int), headers(HTTPHeaderDict))
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3115,7 +3261,7 @@ class ProviderProjectAgentApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[AgentResource]',  # noqa: E501
+            response_type='list[ProviderAgentResource]',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -3144,7 +3290,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: AgentResource
+        :return: ProviderAgentResource
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3174,7 +3320,7 @@ class ProviderProjectAgentApi(object):
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :return: tuple(AgentResource, status_code(int), headers(HTTPHeaderDict))
+        :return: tuple(ProviderAgentResource, status_code(int), headers(HTTPHeaderDict))
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3256,7 +3402,7 @@ class ProviderProjectAgentApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='AgentResource',  # noqa: E501
+            response_type='ProviderAgentResource',  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501

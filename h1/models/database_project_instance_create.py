@@ -35,16 +35,18 @@ class DatabaseProjectInstanceCreate(object):
     openapi_types = {
         'name': 'str',
         'service': 'str',
+        'source': 'str',
         'tag': 'list[Tag]'
     }
 
     attribute_map = {
         'name': 'name',
         'service': 'service',
+        'source': 'source',
         'tag': 'tag'
     }
 
-    def __init__(self, name=None, service=None, tag=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, name=None, service=None, source=None, tag=None, local_vars_configuration=None):  # noqa: E501
         """DatabaseProjectInstanceCreate - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -52,11 +54,14 @@ class DatabaseProjectInstanceCreate(object):
 
         self._name = None
         self._service = None
+        self._source = None
         self._tag = None
         self.discriminator = None
 
         self.name = name
         self.service = service
+        if source is not None:
+            self.source = source
         if tag is not None:
             self.tag = tag
 
@@ -105,6 +110,27 @@ class DatabaseProjectInstanceCreate(object):
             raise ValueError("Invalid value for `service`, must not be `None`")  # noqa: E501
 
         self._service = service
+
+    @property
+    def source(self):
+        """Gets the source of this DatabaseProjectInstanceCreate.  # noqa: E501
+
+
+        :return: The source of this DatabaseProjectInstanceCreate.  # noqa: E501
+        :rtype: str
+        """
+        return self._source
+
+    @source.setter
+    def source(self, source):
+        """Sets the source of this DatabaseProjectInstanceCreate.
+
+
+        :param source: The source of this DatabaseProjectInstanceCreate.  # noqa: E501
+        :type: str
+        """
+
+        self._source = source
 
     @property
     def tag(self):
