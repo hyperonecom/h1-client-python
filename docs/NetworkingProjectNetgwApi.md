@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **networking_project_netgw_attach**
-> Netgw networking_project_netgw_attach(project_id, location_id, netgw_id, networking_project_netgw_attach, x_idempotency_key=x_idempotency_key)
+> Netgw networking_project_netgw_attach(project_id, location_id, netgw_id, networking_project_netgw_attach)
 
 Attach networking/netgw
 
@@ -33,10 +33,12 @@ action attach
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.networking_project_netgw_attach import NetworkingProjectNetgwAttach
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -57,18 +59,33 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-networking_project_netgw_attach = h1.NetworkingProjectNetgwAttach() # NetworkingProjectNetgwAttach | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    networking_project_netgw_attach = NetworkingProjectNetgwAttach(
+        private=NetgwPrivate(
+            network="network_example",
+        ),
+    ) # NetworkingProjectNetgwAttach | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Attach networking/netgw
-        api_response = api_instance.networking_project_netgw_attach(project_id, location_id, netgw_id, networking_project_netgw_attach, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_netgw_attach(project_id, location_id, netgw_id, networking_project_netgw_attach)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_attach: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Attach networking/netgw
+        api_response = api_instance.networking_project_netgw_attach(project_id, location_id, netgw_id, networking_project_netgw_attach, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_attach: %s\n" % e)
 ```
 
@@ -76,11 +93,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **networking_project_netgw_attach** | [**NetworkingProjectNetgwAttach**](NetworkingProjectNetgwAttach.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **networking_project_netgw_attach** | [**NetworkingProjectNetgwAttach**](NetworkingProjectNetgwAttach.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -106,7 +124,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_create**
-> Netgw networking_project_netgw_create(project_id, location_id, networking_project_netgw_create, x_idempotency_key=x_idempotency_key)
+> Netgw networking_project_netgw_create(project_id, location_id, networking_project_netgw_create)
 
 Create networking/netgw
 
@@ -116,10 +134,12 @@ Create netgw
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.networking_project_netgw_create import NetworkingProjectNetgwCreate
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -140,17 +160,40 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-networking_project_netgw_create = h1.NetworkingProjectNetgwCreate() # NetworkingProjectNetgwCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    networking_project_netgw_create = NetworkingProjectNetgwCreate(
+        name="name_example",
+        public=NetgwPublic(
+            ip="ip_example",
+        ),
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # NetworkingProjectNetgwCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/netgw
-        api_response = api_instance.networking_project_netgw_create(project_id, location_id, networking_project_netgw_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_netgw_create(project_id, location_id, networking_project_netgw_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create networking/netgw
+        api_response = api_instance.networking_project_netgw_create(project_id, location_id, networking_project_netgw_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_create: %s\n" % e)
 ```
 
@@ -158,10 +201,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **networking_project_netgw_create** | [**NetworkingProjectNetgwCreate**](NetworkingProjectNetgwCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **networking_project_netgw_create** | [**NetworkingProjectNetgwCreate**](NetworkingProjectNetgwCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -197,10 +241,10 @@ Delete netgw
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -221,15 +265,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/netgw
         api_instance.networking_project_netgw_delete(project_id, location_id, netgw_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_delete: %s\n" % e)
 ```
 
@@ -237,9 +282,9 @@ netgw_id = 'netgw_id_example' # str | Netgw Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
 
 ### Return type
 
@@ -263,7 +308,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_detach**
-> Netgw networking_project_netgw_detach(project_id, location_id, netgw_id, x_idempotency_key=x_idempotency_key)
+> Netgw networking_project_netgw_detach(project_id, location_id, netgw_id)
 
 Detach networking/netgw
 
@@ -273,10 +318,11 @@ action detach
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -297,17 +343,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Detach networking/netgw
-        api_response = api_instance.networking_project_netgw_detach(project_id, location_id, netgw_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_netgw_detach(project_id, location_id, netgw_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_detach: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Detach networking/netgw
+        api_response = api_instance.networking_project_netgw_detach(project_id, location_id, netgw_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_detach: %s\n" % e)
 ```
 
@@ -315,10 +372,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -354,10 +412,11 @@ Get networking/netgw.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -378,17 +437,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netgw.event
         api_response = api_instance.networking_project_netgw_event_get(project_id, location_id, netgw_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_event_get: %s\n" % e)
 ```
 
@@ -396,10 +456,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -424,7 +484,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_event_list**
-> list[Event] networking_project_netgw_event_list(project_id, location_id, netgw_id, limit=limit, skip=skip)
+> [Event] networking_project_netgw_event_list(project_id, location_id, netgw_id)
 
 List networking/netgw.event
 
@@ -434,10 +494,11 @@ List networking/netgw.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -458,18 +519,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/netgw.event
+        api_response = api_instance.networking_project_netgw_event_list(project_id, location_id, netgw_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/netgw.event
         api_response = api_instance.networking_project_netgw_event_list(project_id, location_id, netgw_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_event_list: %s\n" % e)
 ```
 
@@ -477,15 +548,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -516,10 +587,11 @@ Returns a single netgw
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -540,16 +612,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netgw
         api_response = api_instance.networking_project_netgw_get(project_id, location_id, netgw_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_get: %s\n" % e)
 ```
 
@@ -557,9 +630,9 @@ netgw_id = 'netgw_id_example' # str | Netgw Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
 
 ### Return type
 
@@ -584,7 +657,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_list**
-> list[Netgw] networking_project_netgw_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Netgw] networking_project_netgw_list(project_id, location_id)
 
 List networking/netgw
 
@@ -594,10 +667,11 @@ List netgw
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -618,18 +692,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/netgw
+        api_response = api_instance.networking_project_netgw_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/netgw
         api_response = api_instance.networking_project_netgw_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_list: %s\n" % e)
 ```
 
@@ -637,15 +721,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Netgw]**](Netgw.md)
+[**[Netgw]**](Netgw.md)
 
 ### Authorization
 
@@ -676,10 +760,11 @@ Get networking/netgw.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -700,17 +785,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netgw.service
         api_response = api_instance.networking_project_netgw_service_get(project_id, location_id, netgw_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_service_get: %s\n" % e)
 ```
 
@@ -718,10 +804,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -746,7 +832,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_service_list**
-> list[ResourceService] networking_project_netgw_service_list(project_id, location_id, netgw_id)
+> [ResourceService] networking_project_netgw_service_list(project_id, location_id, netgw_id)
 
 List networking/netgw.service
 
@@ -756,10 +842,11 @@ List networking/netgw.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -780,16 +867,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/netgw.service
         api_response = api_instance.networking_project_netgw_service_list(project_id, location_id, netgw_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_service_list: %s\n" % e)
 ```
 
@@ -797,13 +885,13 @@ netgw_id = 'netgw_id_example' # str | Netgw Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -834,10 +922,11 @@ Create networking/netgw.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -858,17 +947,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-tag = h1.Tag() # Tag | 
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/netgw.tag
         api_response = api_instance.networking_project_netgw_tag_create(project_id, location_id, netgw_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_tag_create: %s\n" % e)
 ```
 
@@ -876,10 +970,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -914,10 +1008,10 @@ Delete networking/netgw.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -938,16 +1032,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/netgw.tag
         api_instance.networking_project_netgw_tag_delete(project_id, location_id, netgw_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_tag_delete: %s\n" % e)
 ```
 
@@ -955,10 +1050,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -993,10 +1088,11 @@ Get networking/netgw.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1017,17 +1113,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netgw.tag
         api_response = api_instance.networking_project_netgw_tag_get(project_id, location_id, netgw_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_tag_get: %s\n" % e)
 ```
 
@@ -1035,10 +1132,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1063,7 +1160,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_tag_list**
-> list[Tag] networking_project_netgw_tag_list(project_id, location_id, netgw_id)
+> [Tag] networking_project_netgw_tag_list(project_id, location_id, netgw_id)
 
 List networking/netgw.tag
 
@@ -1073,10 +1170,11 @@ List networking/netgw.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1097,16 +1195,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/netgw.tag
         api_response = api_instance.networking_project_netgw_tag_list(project_id, location_id, netgw_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_tag_list: %s\n" % e)
 ```
 
@@ -1114,13 +1213,13 @@ netgw_id = 'netgw_id_example' # str | Netgw Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1141,7 +1240,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netgw_tag_put**
-> list[Tag] networking_project_netgw_tag_put(project_id, location_id, netgw_id, tag)
+> [Tag] networking_project_netgw_tag_put(project_id, location_id, netgw_id, tag_array)
 
 Replace networking/netgw.tag
 
@@ -1151,10 +1250,12 @@ Replace networking/netgw.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1175,17 +1276,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace networking/netgw.tag
-        api_response = api_instance.networking_project_netgw_tag_put(project_id, location_id, netgw_id, tag)
+        api_response = api_instance.networking_project_netgw_tag_put(project_id, location_id, netgw_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_tag_put: %s\n" % e)
 ```
 
@@ -1193,14 +1301,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1231,10 +1339,12 @@ Returns modified netgw
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netgw_api
+from h1.model.networking_project_netgw_update import NetworkingProjectNetgwUpdate
+from h1.model.netgw import Netgw
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1255,17 +1365,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetgwApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netgw_id = 'netgw_id_example' # str | Netgw Id
-networking_project_netgw_update = h1.NetworkingProjectNetgwUpdate() # NetworkingProjectNetgwUpdate | 
+    api_instance = networking_project_netgw_api.NetworkingProjectNetgwApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netgw_id = "netgwId_example" # str | Netgw Id
+    networking_project_netgw_update = NetworkingProjectNetgwUpdate(
+        name="name_example",
+    ) # NetworkingProjectNetgwUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update networking/netgw
         api_response = api_instance.networking_project_netgw_update(project_id, location_id, netgw_id, networking_project_netgw_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetgwApi->networking_project_netgw_update: %s\n" % e)
 ```
 
@@ -1273,10 +1386,10 @@ networking_project_netgw_update = h1.NetworkingProjectNetgwUpdate() # Networking
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netgw_id** | **str**| Netgw Id | 
- **networking_project_netgw_update** | [**NetworkingProjectNetgwUpdate**](NetworkingProjectNetgwUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netgw_id** | **str**| Netgw Id |
+ **networking_project_netgw_update** | [**NetworkingProjectNetgwUpdate**](NetworkingProjectNetgwUpdate.md)|  |
 
 ### Return type
 

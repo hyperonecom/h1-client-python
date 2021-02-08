@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.inline_response400 import InlineResponse400  # noqa: E501
-from h1.rest import ApiException
+from h1.model.inline_response400 import InlineResponse400
+
 
 class TestInlineResponse400(unittest.TestCase):
     """InlineResponse400 unit test stubs"""
@@ -28,24 +24,11 @@ class TestInlineResponse400(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test InlineResponse400
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.inline_response400.InlineResponse400()  # noqa: E501
-        if include_optional :
-            return InlineResponse400(
-                message = '0'
-            )
-        else :
-            return InlineResponse400(
-        )
-
     def testInlineResponse400(self):
         """Test InlineResponse400"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = InlineResponse400()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

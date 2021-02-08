@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.dns_project_zone_create import DnsProjectZoneCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.tag_array import TagArray
+from h1.model.zone_source import ZoneSource
+globals()['TagArray'] = TagArray
+globals()['ZoneSource'] = ZoneSource
+from h1.model.dns_project_zone_create import DnsProjectZoneCreate
+
 
 class TestDnsProjectZoneCreate(unittest.TestCase):
     """DnsProjectZoneCreate unit test stubs"""
@@ -28,37 +28,11 @@ class TestDnsProjectZoneCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test DnsProjectZoneCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.dns_project_zone_create.DnsProjectZoneCreate()  # noqa: E501
-        if include_optional :
-            return DnsProjectZoneCreate(
-                name = '0', 
-                service = '0', 
-                dns_name = '0', 
-                source = h1.models.zone_source.Zone_source(
-                    dns_probing = True, ), 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return DnsProjectZoneCreate(
-                name = '0',
-                service = '0',
-                dns_name = '0',
-        )
-
     def testDnsProjectZoneCreate(self):
         """Test DnsProjectZoneCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = DnsProjectZoneCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

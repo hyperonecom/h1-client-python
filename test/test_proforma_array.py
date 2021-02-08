@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.proforma_array import ProformaArray  # noqa: E501
-from h1.rest import ApiException
+from h1.model.proforma_array import ProformaArray
+
 
 class TestProformaArray(unittest.TestCase):
     """ProformaArray unit test stubs"""
@@ -28,29 +24,11 @@ class TestProformaArray(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ProformaArray
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.proforma_array.ProformaArray()  # noqa: E501
-        if include_optional :
-            return ProformaArray(
-                id = '0', 
-                invoice_no = '0', 
-                issue_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                summary = '0', 
-                project = '0', 
-                uri = '0'
-            )
-        else :
-            return ProformaArray(
-        )
-
     def testProformaArray(self):
         """Test ProformaArray"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ProformaArray()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

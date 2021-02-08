@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.storage_project_iso_create import StorageProjectIsoCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.tag_array import TagArray
+globals()['TagArray'] = TagArray
+from h1.model.storage_project_iso_create import StorageProjectIsoCreate
+
 
 class TestStorageProjectIsoCreate(unittest.TestCase):
     """StorageProjectIsoCreate unit test stubs"""
@@ -28,33 +26,11 @@ class TestStorageProjectIsoCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test StorageProjectIsoCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.storage_project_iso_create.StorageProjectIsoCreate()  # noqa: E501
-        if include_optional :
-            return StorageProjectIsoCreate(
-                name = '0', 
-                source = 'a', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return StorageProjectIsoCreate(
-                name = '0',
-                source = 'a',
-        )
-
     def testStorageProjectIsoCreate(self):
         """Test StorageProjectIsoCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = StorageProjectIsoCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

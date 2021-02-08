@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,25 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.resource_service import ResourceService
+from h1.model.tag import Tag
+from h1.model.tag_array import TagArray
+from h1.model.vmhost import Vmhost
 
 
 class VmhostProjectInstanceApi(object):
@@ -36,1526 +41,1607 @@ class VmhostProjectInstanceApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def vmhost_project_instance_event_get(self, project_id, location_id, instance_id, event_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.event  # noqa: E501
+        def __vmhost_project_instance_event_get(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            event_id,
+            **kwargs
+        ):
+            """Get vmhost/instance.event  # noqa: E501
 
-        Get vmhost/instance.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_event_get(project_id, location_id, instance_id, event_id, async_req=True)
-        >>> result = thread.get()
+            Get vmhost/instance.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str event_id: eventId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Event
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_event_get_with_http_info(project_id, location_id, instance_id, event_id, **kwargs)  # noqa: E501
+            >>> thread = api.vmhost_project_instance_event_get(project_id, location_id, instance_id, event_id, async_req=True)
+            >>> result = thread.get()
 
-    def vmhost_project_instance_event_get_with_http_info(self, project_id, location_id, instance_id, event_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.event  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                event_id (str): eventId
 
-        Get vmhost/instance.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_event_get_with_http_info(project_id, location_id, instance_id, event_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str event_id: eventId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Event, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                Event
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['event_id'] = \
+                event_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'event_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_event_get = _Endpoint(
+            settings={
+                'response_type': (Event,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/event/{eventId}',
+                'operation_id': 'vmhost_project_instance_event_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'event_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'event_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'event_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                    'event_id': 'eventId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'event_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_event_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_event_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_event_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_event_get`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_event_get`")  # noqa: E501
-        # verify the required parameter 'event_id' is set
-        if self.api_client.client_side_validation and ('event_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['event_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `event_id` when calling `vmhost_project_instance_event_get`")  # noqa: E501
+        def __vmhost_project_instance_event_list(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            **kwargs
+        ):
+            """List vmhost/instance.event  # noqa: E501
 
-        collection_formats = {}
+            List vmhost/instance.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
-        if 'event_id' in local_var_params:
-            path_params['eventId'] = local_var_params['event_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_event_list(project_id, location_id, instance_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
 
-        header_params = {}
+            Keyword Args:
+                limit (float): $limit. [optional] if omitted the server will use the default value of 100
+                skip (float): $skip. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Event]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.vmhost_project_instance_event_list = _Endpoint(
+            settings={
+                'response_type': ([Event],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/event',
+                'operation_id': 'vmhost_project_instance_event_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'limit',
+                    'skip',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'limit',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('limit',): {
 
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/event/{eventId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Event',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_event_list(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.event  # noqa: E501
-
-        List vmhost/instance.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_event_list(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Event]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_event_list_with_http_info(project_id, location_id, instance_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_event_list_with_http_info(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.event  # noqa: E501
-
-        List vmhost/instance.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_event_list_with_http_info(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Event], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'limit',
-            'skip'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 1,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'limit':
+                        (float,),
+                    'skip':
+                        (float,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                    'limit': '$limit',
+                    'skip': '$skip',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'limit': 'query',
+                    'skip': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_event_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_event_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_event_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_event_list`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_event_list`")  # noqa: E501
+        def __vmhost_project_instance_get(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            **kwargs
+        ):
+            """Get vmhost/instance  # noqa: E501
 
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `vmhost_project_instance_event_list`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `vmhost_project_instance_event_list`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
+            Returns a single instance  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_get(project_id, location_id, instance_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'limit' in local_var_params and local_var_params['limit'] is not None:  # noqa: E501
-            query_params.append(('$limit', local_var_params['limit']))  # noqa: E501
-        if 'skip' in local_var_params and local_var_params['skip'] is not None:  # noqa: E501
-            query_params.append(('$skip', local_var_params['skip']))  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Vmhost
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/event', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Event]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_get(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance  # noqa: E501
-
-        Returns a single instance  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_get(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Vmhost
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_get_with_http_info(project_id, location_id, instance_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_get_with_http_info(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance  # noqa: E501
-
-        Returns a single instance  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_get_with_http_info(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Vmhost, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_get = _Endpoint(
+            settings={
+                'response_type': (Vmhost,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}',
+                'operation_id': 'vmhost_project_instance_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_get`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_get`")  # noqa: E501
+        def __vmhost_project_instance_list(
+            self,
+            project_id,
+            location_id,
+            **kwargs
+        ):
+            """List vmhost/instance  # noqa: E501
 
-        collection_formats = {}
+            List instance  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_list(project_id, location_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
 
-        header_params = {}
+            Keyword Args:
+                enabled_services (str): Filter by enabledServices. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Vmhost]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Vmhost',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_list(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List vmhost/instance  # noqa: E501
-
-        List instance  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_list(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str enabled_services: Filter by enabledServices
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Vmhost]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_list_with_http_info(project_id, location_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_list_with_http_info(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List vmhost/instance  # noqa: E501
-
-        List instance  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_list_with_http_info(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str enabled_services: Filter by enabledServices
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Vmhost], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'enabled_services'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_list = _Endpoint(
+            settings={
+                'response_type': ([Vmhost],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance',
+                'operation_id': 'vmhost_project_instance_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'enabled_services',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'enabled_services':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'enabled_services': 'enabledServices',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'enabled_services': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_list`")  # noqa: E501
+        def __vmhost_project_instance_service_get(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            service_id,
+            **kwargs
+        ):
+            """Get vmhost/instance.service  # noqa: E501
 
-        collection_formats = {}
+            Get vmhost/instance.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_service_get(project_id, location_id, instance_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'enabled_services' in local_var_params and local_var_params['enabled_services'] is not None:  # noqa: E501
-            query_params.append(('enabledServices', local_var_params['enabled_services']))  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                service_id (str): serviceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ResourceService
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Vmhost]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_service_get(self, project_id, location_id, instance_id, service_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.service  # noqa: E501
-
-        Get vmhost/instance.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_service_get(project_id, location_id, instance_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str service_id: serviceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ResourceService
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_service_get_with_http_info(project_id, location_id, instance_id, service_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_service_get_with_http_info(self, project_id, location_id, instance_id, service_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.service  # noqa: E501
-
-        Get vmhost/instance.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_service_get_with_http_info(project_id, location_id, instance_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str service_id: serviceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_service_get = _Endpoint(
+            settings={
+                'response_type': (ResourceService,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/service/{serviceId}',
+                'operation_id': 'vmhost_project_instance_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'service_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_service_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_service_get`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `vmhost_project_instance_service_get`")  # noqa: E501
+        def __vmhost_project_instance_service_list(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            **kwargs
+        ):
+            """List vmhost/instance.service  # noqa: E501
 
-        collection_formats = {}
+            List vmhost/instance.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_service_list(project_id, location_id, instance_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ResourceService]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ResourceService',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_service_list(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.service  # noqa: E501
-
-        List vmhost/instance.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_service_list(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ResourceService]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_service_list_with_http_info(project_id, location_id, instance_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_service_list_with_http_info(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.service  # noqa: E501
-
-        List vmhost/instance.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_service_list_with_http_info(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_service_list = _Endpoint(
+            settings={
+                'response_type': ([ResourceService],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/service',
+                'operation_id': 'vmhost_project_instance_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_service_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_service_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_service_list`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_service_list`")  # noqa: E501
+        def __vmhost_project_instance_tag_create(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            tag,
+            **kwargs
+        ):
+            """Create vmhost/instance.tag  # noqa: E501
 
-        collection_formats = {}
+            Create vmhost/instance.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_tag_create(project_id, location_id, instance_id, tag, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                tag (Tag):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['tag'] = \
+                tag
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ResourceService]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_tag_create(self, project_id, location_id, instance_id, tag, **kwargs):  # noqa: E501
-        """Create vmhost/instance.tag  # noqa: E501
-
-        Create vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_create(project_id, location_id, instance_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param Tag tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_tag_create_with_http_info(project_id, location_id, instance_id, tag, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_tag_create_with_http_info(self, project_id, location_id, instance_id, tag, **kwargs):  # noqa: E501
-        """Create vmhost/instance.tag  # noqa: E501
-
-        Create vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_create_with_http_info(project_id, location_id, instance_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param Tag tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_tag_create = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag',
+                'operation_id': 'vmhost_project_instance_tag_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'tag':
+                        (Tag,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'tag': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_tag_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_tag_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_tag_create`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_tag_create`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_tag_create`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `vmhost_project_instance_tag_create`")  # noqa: E501
+        def __vmhost_project_instance_tag_delete(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            tag_id,
+            **kwargs
+        ):
+            """Delete vmhost/instance.tag  # noqa: E501
 
-        collection_formats = {}
+            Delete vmhost/instance.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_tag_delete(project_id, location_id, instance_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_tag_delete(self, project_id, location_id, instance_id, tag_id, **kwargs):  # noqa: E501
-        """Delete vmhost/instance.tag  # noqa: E501
-
-        Delete vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_delete(project_id, location_id, instance_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_tag_delete_with_http_info(project_id, location_id, instance_id, tag_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_tag_delete_with_http_info(self, project_id, location_id, instance_id, tag_id, **kwargs):  # noqa: E501
-        """Delete vmhost/instance.tag  # noqa: E501
-
-        Delete vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_delete_with_http_info(project_id, location_id, instance_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_tag_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag/{tagId}',
+                'operation_id': 'vmhost_project_instance_tag_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_tag_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_tag_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_tag_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_tag_delete`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_tag_delete`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `vmhost_project_instance_tag_delete`")  # noqa: E501
+        def __vmhost_project_instance_tag_get(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            tag_id,
+            **kwargs
+        ):
+            """Get vmhost/instance.tag  # noqa: E501
 
-        collection_formats = {}
+            Get vmhost/instance.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_tag_get(project_id, location_id, instance_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag/{tagId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_tag_get(self, project_id, location_id, instance_id, tag_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.tag  # noqa: E501
-
-        Get vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_get(project_id, location_id, instance_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_tag_get_with_http_info(project_id, location_id, instance_id, tag_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_tag_get_with_http_info(self, project_id, location_id, instance_id, tag_id, **kwargs):  # noqa: E501
-        """Get vmhost/instance.tag  # noqa: E501
-
-        Get vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_get_with_http_info(project_id, location_id, instance_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_tag_get = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag/{tagId}',
+                'operation_id': 'vmhost_project_instance_tag_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_tag_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_tag_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_tag_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_tag_get`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_tag_get`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `vmhost_project_instance_tag_get`")  # noqa: E501
+        def __vmhost_project_instance_tag_list(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            **kwargs
+        ):
+            """List vmhost/instance.tag  # noqa: E501
 
-        collection_formats = {}
+            List vmhost/instance.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_tag_list(project_id, location_id, instance_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag/{tagId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_tag_list(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.tag  # noqa: E501
-
-        List vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_list(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_tag_list_with_http_info(project_id, location_id, instance_id, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_tag_list_with_http_info(self, project_id, location_id, instance_id, **kwargs):  # noqa: E501
-        """List vmhost/instance.tag  # noqa: E501
-
-        List vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_list_with_http_info(project_id, location_id, instance_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_tag_list = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag',
+                'operation_id': 'vmhost_project_instance_tag_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_tag_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_tag_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_tag_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_tag_list`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_tag_list`")  # noqa: E501
+        def __vmhost_project_instance_tag_put(
+            self,
+            project_id,
+            location_id,
+            instance_id,
+            tag_array,
+            **kwargs
+        ):
+            """Replace vmhost/instance.tag  # noqa: E501
 
-        collection_formats = {}
+            Replace vmhost/instance.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
+            >>> thread = api.vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag_array, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                instance_id (str): Instance Id
+                tag_array (TagArray):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['instance_id'] = \
+                instance_id
+            kwargs['tag_array'] = \
+                tag_array
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def vmhost_project_instance_tag_put(self, project_id, location_id, instance_id, tag, **kwargs):  # noqa: E501
-        """Replace vmhost/instance.tag  # noqa: E501
-
-        Replace vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param list[Tag] tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.vmhost_project_instance_tag_put_with_http_info(project_id, location_id, instance_id, tag, **kwargs)  # noqa: E501
-
-    def vmhost_project_instance_tag_put_with_http_info(self, project_id, location_id, instance_id, tag, **kwargs):  # noqa: E501
-        """Replace vmhost/instance.tag  # noqa: E501
-
-        Replace vmhost/instance.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.vmhost_project_instance_tag_put_with_http_info(project_id, location_id, instance_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str instance_id: Instance Id (required)
-        :param list[Tag] tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'instance_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.vmhost_project_instance_tag_put = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag',
+                'operation_id': 'vmhost_project_instance_tag_put',
+                'http_method': 'PUT',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_array',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'instance_id',
+                    'tag_array',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'instance_id':
+                        (str,),
+                    'tag_array':
+                        (TagArray,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'instance_id': 'instanceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'instance_id': 'path',
+                    'tag_array': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__vmhost_project_instance_tag_put
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method vmhost_project_instance_tag_put" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `vmhost_project_instance_tag_put`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `vmhost_project_instance_tag_put`")  # noqa: E501
-        # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `instance_id` when calling `vmhost_project_instance_tag_put`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `vmhost_project_instance_tag_put`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'instance_id' in local_var_params:
-            path_params['instanceId'] = local_var_params['instance_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/vmhost/{locationId}/project/{projectId}/instance/{instanceId}/tag', 'PUT',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

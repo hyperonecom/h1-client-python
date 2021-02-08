@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.organisation_billing1 import OrganisationBilling1  # noqa: E501
-from h1.rest import ApiException
+from h1.model.billing_address1 import BillingAddress1
+globals()['BillingAddress1'] = BillingAddress1
+from h1.model.organisation_billing1 import OrganisationBilling1
+
 
 class TestOrganisationBilling1(unittest.TestCase):
     """OrganisationBilling1 unit test stubs"""
@@ -28,29 +26,11 @@ class TestOrganisationBilling1(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test OrganisationBilling1
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.organisation_billing1.OrganisationBilling1()  # noqa: E501
-        if include_optional :
-            return OrganisationBilling1(
-                email = '0', 
-                company = '0', 
-                address = h1.models.billing_address_1.Billing_address_1(
-                    city = '0', 
-                    zipcode = '0', 
-                    street = '0', )
-            )
-        else :
-            return OrganisationBilling1(
-        )
-
     def testOrganisationBilling1(self):
         """Test OrganisationBilling1"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = OrganisationBilling1()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

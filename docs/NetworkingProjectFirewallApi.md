@@ -32,7 +32,7 @@ Method | HTTP request | Description
 
 
 # **networking_project_firewall_create**
-> Firewall networking_project_firewall_create(project_id, location_id, networking_project_firewall_create, x_idempotency_key=x_idempotency_key)
+> Firewall networking_project_firewall_create(project_id, location_id, networking_project_firewall_create)
 
 Create networking/firewall
 
@@ -42,10 +42,12 @@ Create firewall
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.firewall import Firewall
+from h1.model.networking_project_firewall_create import NetworkingProjectFirewallCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -66,17 +68,52 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-networking_project_firewall_create = h1.NetworkingProjectFirewallCreate() # NetworkingProjectFirewallCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    networking_project_firewall_create = NetworkingProjectFirewallCreate(
+        name="name_example",
+        service="5bacaf7202deee0c100eda3b",
+        ingress=NetworkingRuleArray([
+            NetworkingRule(
+                id="id_example",
+                name="name_example",
+                action="allow",
+                priority=3.14,
+                filter=[
+                    "filter_example",
+                ],
+                external=["0.0.0.0/0"],
+                internal=["*"],
+            ),
+        ]),
+        egress=NetworkingRuleArray(NetworkingRuleArray),
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # NetworkingProjectFirewallCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/firewall
-        api_response = api_instance.networking_project_firewall_create(project_id, location_id, networking_project_firewall_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_firewall_create(project_id, location_id, networking_project_firewall_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create networking/firewall
+        api_response = api_instance.networking_project_firewall_create(project_id, location_id, networking_project_firewall_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_create: %s\n" % e)
 ```
 
@@ -84,10 +121,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **networking_project_firewall_create** | [**NetworkingProjectFirewallCreate**](NetworkingProjectFirewallCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **networking_project_firewall_create** | [**NetworkingProjectFirewallCreate**](NetworkingProjectFirewallCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -123,10 +161,10 @@ Delete firewall
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -147,15 +185,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/firewall
         api_instance.networking_project_firewall_delete(project_id, location_id, firewall_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_delete: %s\n" % e)
 ```
 
@@ -163,9 +202,9 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
@@ -199,10 +238,11 @@ Create networking/firewall.egress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -223,17 +263,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_rule = h1.NetworkingRule() # NetworkingRule | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_rule = NetworkingRule(
+        id="id_example",
+        name="name_example",
+        action="allow",
+        priority=3.14,
+        filter=[
+            "filter_example",
+        ],
+        external=["0.0.0.0/0"],
+        internal=["*"],
+    ) # NetworkingRule | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/firewall.egress
         api_response = api_instance.networking_project_firewall_egress_create(project_id, location_id, firewall_id, networking_rule)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_create: %s\n" % e)
 ```
 
@@ -241,10 +292,10 @@ networking_rule = h1.NetworkingRule() # NetworkingRule |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_rule** | [**NetworkingRule**](NetworkingRule.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_rule** | [**NetworkingRule**](NetworkingRule.md)|  |
 
 ### Return type
 
@@ -279,10 +330,10 @@ Delete networking/firewall.egress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -303,16 +354,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-egress_id = 'egress_id_example' # str | egressId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    egress_id = "egressId_example" # str | egressId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/firewall.egress
         api_instance.networking_project_firewall_egress_delete(project_id, location_id, firewall_id, egress_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_delete: %s\n" % e)
 ```
 
@@ -320,10 +372,10 @@ egress_id = 'egress_id_example' # str | egressId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **egress_id** | **str**| egressId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **egress_id** | **str**| egressId |
 
 ### Return type
 
@@ -358,10 +410,11 @@ Get networking/firewall.egress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -382,17 +435,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-egress_id = 'egress_id_example' # str | egressId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    egress_id = "egressId_example" # str | egressId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall.egress
         api_response = api_instance.networking_project_firewall_egress_get(project_id, location_id, firewall_id, egress_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_get: %s\n" % e)
 ```
 
@@ -400,10 +454,10 @@ egress_id = 'egress_id_example' # str | egressId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **egress_id** | **str**| egressId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **egress_id** | **str**| egressId |
 
 ### Return type
 
@@ -428,7 +482,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_egress_list**
-> list[NetworkingRule] networking_project_firewall_egress_list(project_id, location_id, firewall_id)
+> [NetworkingRule] networking_project_firewall_egress_list(project_id, location_id, firewall_id)
 
 List networking/firewall.egress
 
@@ -438,10 +492,11 @@ List networking/firewall.egress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -462,16 +517,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/firewall.egress
         api_response = api_instance.networking_project_firewall_egress_list(project_id, location_id, firewall_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_list: %s\n" % e)
 ```
 
@@ -479,13 +535,13 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
-[**list[NetworkingRule]**](NetworkingRule.md)
+[**[NetworkingRule]**](NetworkingRule.md)
 
 ### Authorization
 
@@ -506,7 +562,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_egress_put**
-> list[NetworkingRule] networking_project_firewall_egress_put(project_id, location_id, firewall_id, networking_rule)
+> [NetworkingRule] networking_project_firewall_egress_put(project_id, location_id, firewall_id, networking_rule_array)
 
 Replace networking/firewall.egress
 
@@ -516,10 +572,12 @@ Replace networking/firewall.egress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule_array import NetworkingRuleArray
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -540,17 +598,30 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_rule = [h1.NetworkingRule()] # list[NetworkingRule] | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_rule_array = NetworkingRuleArray([
+        NetworkingRule(
+            id="id_example",
+            name="name_example",
+            action="allow",
+            priority=3.14,
+            filter=[
+                "filter_example",
+            ],
+            external=["0.0.0.0/0"],
+            internal=["*"],
+        ),
+    ]) # NetworkingRuleArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace networking/firewall.egress
-        api_response = api_instance.networking_project_firewall_egress_put(project_id, location_id, firewall_id, networking_rule)
+        api_response = api_instance.networking_project_firewall_egress_put(project_id, location_id, firewall_id, networking_rule_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_put: %s\n" % e)
 ```
 
@@ -558,14 +629,14 @@ networking_rule = [h1.NetworkingRule()] # list[NetworkingRule] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_rule** | [**list[NetworkingRule]**](NetworkingRule.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_rule_array** | [**NetworkingRuleArray**](NetworkingRuleArray.md)|  |
 
 ### Return type
 
-[**list[NetworkingRule]**](NetworkingRule.md)
+[**[NetworkingRule]**](NetworkingRule.md)
 
 ### Authorization
 
@@ -596,10 +667,11 @@ Get networking/firewall.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -620,17 +692,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall.event
         api_response = api_instance.networking_project_firewall_event_get(project_id, location_id, firewall_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_event_get: %s\n" % e)
 ```
 
@@ -638,10 +711,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -666,7 +739,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_event_list**
-> list[Event] networking_project_firewall_event_list(project_id, location_id, firewall_id, limit=limit, skip=skip)
+> [Event] networking_project_firewall_event_list(project_id, location_id, firewall_id)
 
 List networking/firewall.event
 
@@ -676,10 +749,11 @@ List networking/firewall.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -700,18 +774,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/firewall.event
+        api_response = api_instance.networking_project_firewall_event_list(project_id, location_id, firewall_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/firewall.event
         api_response = api_instance.networking_project_firewall_event_list(project_id, location_id, firewall_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_event_list: %s\n" % e)
 ```
 
@@ -719,15 +803,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -758,10 +842,11 @@ Returns a single firewall
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.firewall import Firewall
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -782,16 +867,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall
         api_response = api_instance.networking_project_firewall_get(project_id, location_id, firewall_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_get: %s\n" % e)
 ```
 
@@ -799,9 +885,9 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
@@ -836,10 +922,11 @@ Create networking/firewall.ingress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -860,17 +947,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_rule = h1.NetworkingRule() # NetworkingRule | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_rule = NetworkingRule(
+        id="id_example",
+        name="name_example",
+        action="allow",
+        priority=3.14,
+        filter=[
+            "filter_example",
+        ],
+        external=["0.0.0.0/0"],
+        internal=["*"],
+    ) # NetworkingRule | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/firewall.ingress
         api_response = api_instance.networking_project_firewall_ingress_create(project_id, location_id, firewall_id, networking_rule)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_create: %s\n" % e)
 ```
 
@@ -878,10 +976,10 @@ networking_rule = h1.NetworkingRule() # NetworkingRule |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_rule** | [**NetworkingRule**](NetworkingRule.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_rule** | [**NetworkingRule**](NetworkingRule.md)|  |
 
 ### Return type
 
@@ -916,10 +1014,10 @@ Delete networking/firewall.ingress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -940,16 +1038,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-ingress_id = 'ingress_id_example' # str | ingressId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    ingress_id = "ingressId_example" # str | ingressId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/firewall.ingress
         api_instance.networking_project_firewall_ingress_delete(project_id, location_id, firewall_id, ingress_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_delete: %s\n" % e)
 ```
 
@@ -957,10 +1056,10 @@ ingress_id = 'ingress_id_example' # str | ingressId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **ingress_id** | **str**| ingressId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **ingress_id** | **str**| ingressId |
 
 ### Return type
 
@@ -995,10 +1094,11 @@ Get networking/firewall.ingress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1019,17 +1119,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-ingress_id = 'ingress_id_example' # str | ingressId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    ingress_id = "ingressId_example" # str | ingressId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall.ingress
         api_response = api_instance.networking_project_firewall_ingress_get(project_id, location_id, firewall_id, ingress_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_get: %s\n" % e)
 ```
 
@@ -1037,10 +1138,10 @@ ingress_id = 'ingress_id_example' # str | ingressId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **ingress_id** | **str**| ingressId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **ingress_id** | **str**| ingressId |
 
 ### Return type
 
@@ -1065,7 +1166,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_ingress_list**
-> list[NetworkingRule] networking_project_firewall_ingress_list(project_id, location_id, firewall_id)
+> [NetworkingRule] networking_project_firewall_ingress_list(project_id, location_id, firewall_id)
 
 List networking/firewall.ingress
 
@@ -1075,10 +1176,11 @@ List networking/firewall.ingress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1099,16 +1201,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/firewall.ingress
         api_response = api_instance.networking_project_firewall_ingress_list(project_id, location_id, firewall_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_list: %s\n" % e)
 ```
 
@@ -1116,13 +1219,13 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
-[**list[NetworkingRule]**](NetworkingRule.md)
+[**[NetworkingRule]**](NetworkingRule.md)
 
 ### Authorization
 
@@ -1143,7 +1246,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_ingress_put**
-> list[NetworkingRule] networking_project_firewall_ingress_put(project_id, location_id, firewall_id, networking_rule)
+> [NetworkingRule] networking_project_firewall_ingress_put(project_id, location_id, firewall_id, networking_rule_array)
 
 Replace networking/firewall.ingress
 
@@ -1153,10 +1256,12 @@ Replace networking/firewall.ingress
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.networking_rule_array import NetworkingRuleArray
+from h1.model.networking_rule import NetworkingRule
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1177,17 +1282,30 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_rule = [h1.NetworkingRule()] # list[NetworkingRule] | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_rule_array = NetworkingRuleArray([
+        NetworkingRule(
+            id="id_example",
+            name="name_example",
+            action="allow",
+            priority=3.14,
+            filter=[
+                "filter_example",
+            ],
+            external=["0.0.0.0/0"],
+            internal=["*"],
+        ),
+    ]) # NetworkingRuleArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace networking/firewall.ingress
-        api_response = api_instance.networking_project_firewall_ingress_put(project_id, location_id, firewall_id, networking_rule)
+        api_response = api_instance.networking_project_firewall_ingress_put(project_id, location_id, firewall_id, networking_rule_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_put: %s\n" % e)
 ```
 
@@ -1195,14 +1313,14 @@ networking_rule = [h1.NetworkingRule()] # list[NetworkingRule] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_rule** | [**list[NetworkingRule]**](NetworkingRule.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_rule_array** | [**NetworkingRuleArray**](NetworkingRuleArray.md)|  |
 
 ### Return type
 
-[**list[NetworkingRule]**](NetworkingRule.md)
+[**[NetworkingRule]**](NetworkingRule.md)
 
 ### Authorization
 
@@ -1223,7 +1341,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_list**
-> list[Firewall] networking_project_firewall_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Firewall] networking_project_firewall_list(project_id, location_id)
 
 List networking/firewall
 
@@ -1233,10 +1351,11 @@ List firewall
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.firewall import Firewall
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1257,18 +1376,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/firewall
+        api_response = api_instance.networking_project_firewall_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/firewall
         api_response = api_instance.networking_project_firewall_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_list: %s\n" % e)
 ```
 
@@ -1276,15 +1405,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Firewall]**](Firewall.md)
+[**[Firewall]**](Firewall.md)
 
 ### Authorization
 
@@ -1315,10 +1444,11 @@ Get networking/firewall.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1339,17 +1469,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall.service
         api_response = api_instance.networking_project_firewall_service_get(project_id, location_id, firewall_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_service_get: %s\n" % e)
 ```
 
@@ -1357,10 +1488,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1385,7 +1516,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_service_list**
-> list[ResourceService] networking_project_firewall_service_list(project_id, location_id, firewall_id)
+> [ResourceService] networking_project_firewall_service_list(project_id, location_id, firewall_id)
 
 List networking/firewall.service
 
@@ -1395,10 +1526,11 @@ List networking/firewall.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1419,16 +1551,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/firewall.service
         api_response = api_instance.networking_project_firewall_service_list(project_id, location_id, firewall_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_service_list: %s\n" % e)
 ```
 
@@ -1436,13 +1569,13 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1473,10 +1606,11 @@ Create networking/firewall.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1497,17 +1631,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-tag = h1.Tag() # Tag | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/firewall.tag
         api_response = api_instance.networking_project_firewall_tag_create(project_id, location_id, firewall_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_create: %s\n" % e)
 ```
 
@@ -1515,10 +1654,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1553,10 +1692,10 @@ Delete networking/firewall.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1577,16 +1716,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/firewall.tag
         api_instance.networking_project_firewall_tag_delete(project_id, location_id, firewall_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_delete: %s\n" % e)
 ```
 
@@ -1594,10 +1734,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1632,10 +1772,11 @@ Get networking/firewall.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1656,17 +1797,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/firewall.tag
         api_response = api_instance.networking_project_firewall_tag_get(project_id, location_id, firewall_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_get: %s\n" % e)
 ```
 
@@ -1674,10 +1816,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1702,7 +1844,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_tag_list**
-> list[Tag] networking_project_firewall_tag_list(project_id, location_id, firewall_id)
+> [Tag] networking_project_firewall_tag_list(project_id, location_id, firewall_id)
 
 List networking/firewall.tag
 
@@ -1712,10 +1854,11 @@ List networking/firewall.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1736,16 +1879,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/firewall.tag
         api_response = api_instance.networking_project_firewall_tag_list(project_id, location_id, firewall_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_list: %s\n" % e)
 ```
 
@@ -1753,13 +1897,13 @@ firewall_id = 'firewall_id_example' # str | Firewall Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1780,7 +1924,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_tag_put**
-> list[Tag] networking_project_firewall_tag_put(project_id, location_id, firewall_id, tag)
+> [Tag] networking_project_firewall_tag_put(project_id, location_id, firewall_id, tag_array)
 
 Replace networking/firewall.tag
 
@@ -1790,10 +1934,12 @@ Replace networking/firewall.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1814,17 +1960,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace networking/firewall.tag
-        api_response = api_instance.networking_project_firewall_tag_put(project_id, location_id, firewall_id, tag)
+        api_response = api_instance.networking_project_firewall_tag_put(project_id, location_id, firewall_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_put: %s\n" % e)
 ```
 
@@ -1832,14 +1985,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1860,7 +2013,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_firewall_transfer**
-> Firewall networking_project_firewall_transfer(project_id, location_id, firewall_id, networking_project_firewall_transfer, x_idempotency_key=x_idempotency_key)
+> Firewall networking_project_firewall_transfer(project_id, location_id, firewall_id, networking_project_firewall_transfer)
 
 Transfer networking/firewall
 
@@ -1870,10 +2023,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.firewall import Firewall
+from h1.model.networking_project_firewall_transfer import NetworkingProjectFirewallTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1894,18 +2049,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_project_firewall_transfer = h1.NetworkingProjectFirewallTransfer() # NetworkingProjectFirewallTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_project_firewall_transfer = NetworkingProjectFirewallTransfer(
+        project="project_example",
+    ) # NetworkingProjectFirewallTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer networking/firewall
-        api_response = api_instance.networking_project_firewall_transfer(project_id, location_id, firewall_id, networking_project_firewall_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_firewall_transfer(project_id, location_id, firewall_id, networking_project_firewall_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer networking/firewall
+        api_response = api_instance.networking_project_firewall_transfer(project_id, location_id, firewall_id, networking_project_firewall_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_transfer: %s\n" % e)
 ```
 
@@ -1913,11 +2081,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_project_firewall_transfer** | [**NetworkingProjectFirewallTransfer**](NetworkingProjectFirewallTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_project_firewall_transfer** | [**NetworkingProjectFirewallTransfer**](NetworkingProjectFirewallTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1953,10 +2122,12 @@ Returns modified firewall
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_firewall_api
+from h1.model.firewall import Firewall
+from h1.model.networking_project_firewall_update import NetworkingProjectFirewallUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1977,17 +2148,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectFirewallApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-firewall_id = 'firewall_id_example' # str | Firewall Id
-networking_project_firewall_update = h1.NetworkingProjectFirewallUpdate() # NetworkingProjectFirewallUpdate | 
+    api_instance = networking_project_firewall_api.NetworkingProjectFirewallApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    firewall_id = "firewallId_example" # str | Firewall Id
+    networking_project_firewall_update = NetworkingProjectFirewallUpdate(
+        name="name_example",
+    ) # NetworkingProjectFirewallUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update networking/firewall
         api_response = api_instance.networking_project_firewall_update(project_id, location_id, firewall_id, networking_project_firewall_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_update: %s\n" % e)
 ```
 
@@ -1995,10 +2169,10 @@ networking_project_firewall_update = h1.NetworkingProjectFirewallUpdate() # Netw
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **firewall_id** | **str**| Firewall Id | 
- **networking_project_firewall_update** | [**NetworkingProjectFirewallUpdate**](NetworkingProjectFirewallUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **firewall_id** | **str**| Firewall Id |
+ **networking_project_firewall_update** | [**NetworkingProjectFirewallUpdate**](NetworkingProjectFirewallUpdate.md)|  |
 
 ### Return type
 

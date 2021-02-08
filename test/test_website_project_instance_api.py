@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.website_project_instance_api import WebsiteProjectInstanceApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestWebsiteProjectInstanceApi(unittest.TestCase):
     """WebsiteProjectInstanceApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.website_project_instance_api.WebsiteProjectInstanceApi()  # noqa: E501
+        self.api = WebsiteProjectInstanceApi()  # noqa: E501
 
     def tearDown(self):
         pass
@@ -266,20 +261,6 @@ class TestWebsiteProjectInstanceApi(unittest.TestCase):
         """
         pass
 
-    def test_website_project_instance_sideapp_create(self):
-        """Test case for website_project_instance_sideapp_create
-
-        Create website/instance.sideapp  # noqa: E501
-        """
-        pass
-
-    def test_website_project_instance_sideapp_delete(self):
-        """Test case for website_project_instance_sideapp_delete
-
-        Delete website/instance.sideapp  # noqa: E501
-        """
-        pass
-
     def test_website_project_instance_sideapp_get(self):
         """Test case for website_project_instance_sideapp_get
 
@@ -291,6 +272,13 @@ class TestWebsiteProjectInstanceApi(unittest.TestCase):
         """Test case for website_project_instance_sideapp_list
 
         List website/instance.sideapp  # noqa: E501
+        """
+        pass
+
+    def test_website_project_instance_sideapp_open(self):
+        """Test case for website_project_instance_sideapp_open
+
+        Open website/instance.sideapp  # noqa: E501
         """
         pass
 

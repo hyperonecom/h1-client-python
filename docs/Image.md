@@ -16,8 +16,8 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **disks** | **float** |  | [optional] 
 **file_size** | **float** |  | [optional] 
-**license** | **list[str]** |  | [optional] 
-**tag** | [**list[Tag]**](Tag.md) |  | [optional] 
+**license** | **[str]** |  | [optional] 
+**tag** | [**[Tag]**](Tag.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

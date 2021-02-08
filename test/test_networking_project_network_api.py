@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.networking_project_network_api import NetworkingProjectNetworkApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestNetworkingProjectNetworkApi(unittest.TestCase):
     """NetworkingProjectNetworkApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.networking_project_network_api.NetworkingProjectNetworkApi()  # noqa: E501
+        self.api = NetworkingProjectNetworkApi()  # noqa: E501
 
     def tearDown(self):
         pass

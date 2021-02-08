@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.vm import Vm  # noqa: E501
-from h1.rest import ApiException
+from h1.model.tag import Tag
+globals()['Tag'] = Tag
+from h1.model.vm import Vm
+
 
 class TestVm(unittest.TestCase):
     """Vm unit test stubs"""
@@ -28,43 +26,11 @@ class TestVm(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Vm
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.vm.Vm()  # noqa: E501
-        if include_optional :
-            return Vm(
-                id = '0', 
-                name = '0', 
-                flavour = '0', 
-                modified_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                modified_by = '0', 
-                created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                created_by = '0', 
-                state = 'Other', 
-                project = '0', 
-                uri = '0', 
-                user_metadata = '0', 
-                cpu = 1.337, 
-                memory = 1.337, 
-                fqdn = '0', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return Vm(
-        )
-
     def testVm(self):
         """Test Vm"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Vm()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

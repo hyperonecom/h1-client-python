@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.recovery_project_backup_api import RecoveryProjectBackupApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestRecoveryProjectBackupApi(unittest.TestCase):
     """RecoveryProjectBackupApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.recovery_project_backup_api.RecoveryProjectBackupApi()  # noqa: E501
+        self.api = RecoveryProjectBackupApi()  # noqa: E501
 
     def tearDown(self):
         pass

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.networking_project_firewall_create import NetworkingProjectFirewallCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.networking_rule_array import NetworkingRuleArray
+from h1.model.tag_array import TagArray
+globals()['NetworkingRuleArray'] = NetworkingRuleArray
+globals()['TagArray'] = TagArray
+from h1.model.networking_project_firewall_create import NetworkingProjectFirewallCreate
+
 
 class TestNetworkingProjectFirewallCreate(unittest.TestCase):
     """NetworkingProjectFirewallCreate unit test stubs"""
@@ -28,64 +28,11 @@ class TestNetworkingProjectFirewallCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test NetworkingProjectFirewallCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.networking_project_firewall_create.NetworkingProjectFirewallCreate()  # noqa: E501
-        if include_optional :
-            return NetworkingProjectFirewallCreate(
-                name = '0', 
-                service = '5bacaf7202deee0c100eda3b', 
-                ingress = [
-                    h1.models.networking/rule.networking.rule(
-                        id = '0', 
-                        name = '0', 
-                        action = 'allow', 
-                        priority = 1.337, 
-                        filter = [
-                            '0'
-                            ], 
-                        external = [
-                            '0'
-                            ], 
-                        internal = [
-                            '0'
-                            ], )
-                    ], 
-                egress = [
-                    h1.models.networking/rule.networking.rule(
-                        id = '0', 
-                        name = '0', 
-                        action = 'allow', 
-                        priority = 1.337, 
-                        filter = [
-                            '0'
-                            ], 
-                        external = [
-                            '0'
-                            ], 
-                        internal = [
-                            '0'
-                            ], )
-                    ], 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return NetworkingProjectFirewallCreate(
-                name = '0',
-        )
-
     def testNetworkingProjectFirewallCreate(self):
         """Test NetworkingProjectFirewallCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = NetworkingProjectFirewallCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

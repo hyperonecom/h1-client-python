@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,18 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.billing import Billing  # noqa: E501
-from h1.rest import ApiException
+from h1.model.billing_charges import BillingCharges
+from h1.model.billing_resource import BillingResource
+from h1.model.billing_service import BillingService
+globals()['BillingCharges'] = BillingCharges
+globals()['BillingResource'] = BillingResource
+globals()['BillingService'] = BillingService
+from h1.model.billing import Billing
+
 
 class TestBilling(unittest.TestCase):
     """Billing unit test stubs"""
@@ -28,49 +30,11 @@ class TestBilling(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Billing
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.billing.Billing()  # noqa: E501
-        if include_optional :
-            return Billing(
-                id = '0', 
-                period = '0', 
-                price = 1.337, 
-                quantity = 1.337, 
-                project = '0', 
-                one_time = True, 
-                service = h1.models.billing_service.billing_service(
-                    id = '0', 
-                    type = '0', 
-                    name = '0', ), 
-                resource = h1.models.billing_resource.billing_resource(
-                    id = '0', 
-                    type = '0', 
-                    name = '0', 
-                    deleted = True, ), 
-                charges = [
-                    h1.models.billing_charges.billing_charges(
-                        id = '0', 
-                        value = 1.337, 
-                        start = '0', 
-                        end = '0', 
-                        price = 1.337, 
-                        quantity = 1.337, 
-                        paid_from = '0', 
-                        paid_on = '0', )
-                    ]
-            )
-        else :
-            return Billing(
-        )
-
     def testBilling(self):
         """Test Billing"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Billing()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

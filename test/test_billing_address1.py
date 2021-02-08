@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.billing_address1 import BillingAddress1  # noqa: E501
-from h1.rest import ApiException
+from h1.model.billing_address1 import BillingAddress1
+
 
 class TestBillingAddress1(unittest.TestCase):
     """BillingAddress1 unit test stubs"""
@@ -28,26 +24,11 @@ class TestBillingAddress1(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test BillingAddress1
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.billing_address1.BillingAddress1()  # noqa: E501
-        if include_optional :
-            return BillingAddress1(
-                city = '0', 
-                zipcode = '0', 
-                street = '0'
-            )
-        else :
-            return BillingAddress1(
-        )
-
     def testBillingAddress1(self):
         """Test BillingAddress1"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = BillingAddress1()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

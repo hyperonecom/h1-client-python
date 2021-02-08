@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.provider_project_agent_credential_patch import ProviderProjectAgentCredentialPatch  # noqa: E501
-from h1.rest import ApiException
+from h1.model.provider_project_agent_credential_patch import ProviderProjectAgentCredentialPatch
+
 
 class TestProviderProjectAgentCredentialPatch(unittest.TestCase):
     """ProviderProjectAgentCredentialPatch unit test stubs"""
@@ -28,25 +24,11 @@ class TestProviderProjectAgentCredentialPatch(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ProviderProjectAgentCredentialPatch
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.provider_project_agent_credential_patch.ProviderProjectAgentCredentialPatch()  # noqa: E501
-        if include_optional :
-            return ProviderProjectAgentCredentialPatch(
-                name = '0'
-            )
-        else :
-            return ProviderProjectAgentCredentialPatch(
-                name = '0',
-        )
-
     def testProviderProjectAgentCredentialPatch(self):
         """Test ProviderProjectAgentCredentialPatch"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ProviderProjectAgentCredentialPatch()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,23 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.bucket import Bucket
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.storage_object import StorageObject
+from h1.model.storage_project_bucket_upload import StorageProjectBucketUpload
 
 
 class StorageProjectBucketApi(object):
@@ -36,962 +39,1018 @@ class StorageProjectBucketApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def storage_project_bucket_get(self, project_id, location_id, bucket_id, **kwargs):  # noqa: E501
-        """Get storage/bucket  # noqa: E501
+        def __storage_project_bucket_get(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            **kwargs
+        ):
+            """Get storage/bucket  # noqa: E501
 
-        Returns a single bucket  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_get(project_id, location_id, bucket_id, async_req=True)
-        >>> result = thread.get()
+            Returns a single bucket  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Bucket
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_get_with_http_info(project_id, location_id, bucket_id, **kwargs)  # noqa: E501
+            >>> thread = api.storage_project_bucket_get(project_id, location_id, bucket_id, async_req=True)
+            >>> result = thread.get()
 
-    def storage_project_bucket_get_with_http_info(self, project_id, location_id, bucket_id, **kwargs):  # noqa: E501
-        """Get storage/bucket  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
 
-        Returns a single bucket  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_get_with_http_info(project_id, location_id, bucket_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Bucket, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                Bucket
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_get = _Endpoint(
+            settings={
+                'response_type': (Bucket,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}',
+                'operation_id': 'storage_project_bucket_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_get`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_get`")  # noqa: E501
+        def __storage_project_bucket_list(
+            self,
+            project_id,
+            location_id,
+            **kwargs
+        ):
+            """List storage/bucket  # noqa: E501
 
-        collection_formats = {}
+            List bucket  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_list(project_id, location_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Bucket]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Bucket',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_list(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List storage/bucket  # noqa: E501
-
-        List bucket  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_list(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Bucket]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_list_with_http_info(project_id, location_id, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_list_with_http_info(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List storage/bucket  # noqa: E501
-
-        List bucket  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_list_with_http_info(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Bucket], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_list = _Endpoint(
+            settings={
+                'response_type': ([Bucket],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket',
+                'operation_id': 'storage_project_bucket_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_list`")  # noqa: E501
+        def __storage_project_bucket_object_delete(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            object_id,
+            **kwargs
+        ):
+            """Delete storage/bucket.object  # noqa: E501
 
-        collection_formats = {}
+            Delete storage/bucket.object  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_object_delete(project_id, location_id, bucket_id, object_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
+                object_id (str): objectId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            kwargs['object_id'] = \
+                object_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Bucket]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_object_delete(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Delete storage/bucket.object  # noqa: E501
-
-        Delete storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_delete(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_object_delete_with_http_info(project_id, location_id, bucket_id, object_id, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_object_delete_with_http_info(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Delete storage/bucket.object  # noqa: E501
-
-        Delete storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_delete_with_http_info(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id',
-            'object_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_object_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}',
+                'operation_id': 'storage_project_bucket_object_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                    'object_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                    'object_id': 'objectId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                    'object_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_object_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_object_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_object_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_object_delete`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_object_delete`")  # noqa: E501
-        # verify the required parameter 'object_id' is set
-        if self.api_client.client_side_validation and ('object_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['object_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `object_id` when calling `storage_project_bucket_object_delete`")  # noqa: E501
+        def __storage_project_bucket_object_download(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            object_id,
+            **kwargs
+        ):
+            """Download storage/bucket.object  # noqa: E501
 
-        collection_formats = {}
+            action download  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
-        if 'object_id' in local_var_params:
-            path_params['objectId'] = local_var_params['object_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_object_download(project_id, location_id, bucket_id, object_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
+                object_id (str): objectId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            kwargs['object_id'] = \
+                object_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_object_download(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Download storage/bucket.object  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_download(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_object_download_with_http_info(project_id, location_id, bucket_id, object_id, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_object_download_with_http_info(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Download storage/bucket.object  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_download_with_http_info(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id',
-            'object_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_object_download = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}/actions/download',
+                'operation_id': 'storage_project_bucket_object_download',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                    'object_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                    'object_id': 'objectId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                    'object_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_object_download
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_object_download" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_object_download`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_object_download`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_object_download`")  # noqa: E501
-        # verify the required parameter 'object_id' is set
-        if self.api_client.client_side_validation and ('object_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['object_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `object_id` when calling `storage_project_bucket_object_download`")  # noqa: E501
+        def __storage_project_bucket_object_get(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            object_id,
+            **kwargs
+        ):
+            """Get storage/bucket.object  # noqa: E501
 
-        collection_formats = {}
+            Get storage/bucket.object  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
-        if 'object_id' in local_var_params:
-            path_params['objectId'] = local_var_params['object_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_object_get(project_id, location_id, bucket_id, object_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
+                object_id (str): objectId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                StorageObject
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            kwargs['object_id'] = \
+                object_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}/actions/download', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_object_get(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Get storage/bucket.object  # noqa: E501
-
-        Get storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_get(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: StorageObject
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_object_get_with_http_info(project_id, location_id, bucket_id, object_id, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_object_get_with_http_info(self, project_id, location_id, bucket_id, object_id, **kwargs):  # noqa: E501
-        """Get storage/bucket.object  # noqa: E501
-
-        Get storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_get_with_http_info(project_id, location_id, bucket_id, object_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param str object_id: objectId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(StorageObject, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id',
-            'object_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_object_get = _Endpoint(
+            settings={
+                'response_type': (StorageObject,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}',
+                'operation_id': 'storage_project_bucket_object_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'object_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                    'object_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                    'object_id': 'objectId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                    'object_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_object_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_object_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_object_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_object_get`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_object_get`")  # noqa: E501
-        # verify the required parameter 'object_id' is set
-        if self.api_client.client_side_validation and ('object_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['object_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `object_id` when calling `storage_project_bucket_object_get`")  # noqa: E501
+        def __storage_project_bucket_object_list(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            **kwargs
+        ):
+            """List storage/bucket.object  # noqa: E501
 
-        collection_formats = {}
+            List storage/bucket.object  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
-        if 'object_id' in local_var_params:
-            path_params['objectId'] = local_var_params['object_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_object_list(project_id, location_id, bucket_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [StorageObject]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object/{objectId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='StorageObject',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_object_list(self, project_id, location_id, bucket_id, **kwargs):  # noqa: E501
-        """List storage/bucket.object  # noqa: E501
-
-        List storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_list(project_id, location_id, bucket_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[StorageObject]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_object_list_with_http_info(project_id, location_id, bucket_id, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_object_list_with_http_info(self, project_id, location_id, bucket_id, **kwargs):  # noqa: E501
-        """List storage/bucket.object  # noqa: E501
-
-        List storage/bucket.object  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_object_list_with_http_info(project_id, location_id, bucket_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[StorageObject], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_object_list = _Endpoint(
+            settings={
+                'response_type': ([StorageObject],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object',
+                'operation_id': 'storage_project_bucket_object_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_object_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_object_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_object_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_object_list`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_object_list`")  # noqa: E501
+        def __storage_project_bucket_upload(
+            self,
+            project_id,
+            location_id,
+            bucket_id,
+            storage_project_bucket_upload,
+            **kwargs
+        ):
+            """Upload storage/bucket  # noqa: E501
 
-        collection_formats = {}
+            action upload  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
+            >>> thread = api.storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                bucket_id (str): Bucket Id
+                storage_project_bucket_upload (StorageProjectBucketUpload):
 
-        header_params = {}
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Bucket
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['bucket_id'] = \
+                bucket_id
+            kwargs['storage_project_bucket_upload'] = \
+                storage_project_bucket_upload
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/object', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[StorageObject]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def storage_project_bucket_upload(self, project_id, location_id, bucket_id, storage_project_bucket_upload, **kwargs):  # noqa: E501
-        """Upload storage/bucket  # noqa: E501
-
-        action upload  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param StorageProjectBucketUpload storage_project_bucket_upload: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Bucket
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.storage_project_bucket_upload_with_http_info(project_id, location_id, bucket_id, storage_project_bucket_upload, **kwargs)  # noqa: E501
-
-    def storage_project_bucket_upload_with_http_info(self, project_id, location_id, bucket_id, storage_project_bucket_upload, **kwargs):  # noqa: E501
-        """Upload storage/bucket  # noqa: E501
-
-        action upload  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.storage_project_bucket_upload_with_http_info(project_id, location_id, bucket_id, storage_project_bucket_upload, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str bucket_id: Bucket Id (required)
-        :param StorageProjectBucketUpload storage_project_bucket_upload: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Bucket, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'bucket_id',
-            'storage_project_bucket_upload',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.storage_project_bucket_upload = _Endpoint(
+            settings={
+                'response_type': (Bucket,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/actions/upload',
+                'operation_id': 'storage_project_bucket_upload',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'storage_project_bucket_upload',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'bucket_id',
+                    'storage_project_bucket_upload',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'bucket_id':
+                        (str,),
+                    'storage_project_bucket_upload':
+                        (StorageProjectBucketUpload,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'bucket_id': 'bucketId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'bucket_id': 'path',
+                    'storage_project_bucket_upload': 'body',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__storage_project_bucket_upload
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_project_bucket_upload" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `storage_project_bucket_upload`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `storage_project_bucket_upload`")  # noqa: E501
-        # verify the required parameter 'bucket_id' is set
-        if self.api_client.client_side_validation and ('bucket_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bucket_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bucket_id` when calling `storage_project_bucket_upload`")  # noqa: E501
-        # verify the required parameter 'storage_project_bucket_upload' is set
-        if self.api_client.client_side_validation and ('storage_project_bucket_upload' not in local_var_params or  # noqa: E501
-                                                        local_var_params['storage_project_bucket_upload'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `storage_project_bucket_upload` when calling `storage_project_bucket_upload`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'bucket_id' in local_var_params:
-            path_params['bucketId'] = local_var_params['bucket_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'storage_project_bucket_upload' in local_var_params:
-            body_params = local_var_params['storage_project_bucket_upload']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/storage/{locationId}/project/{projectId}/bucket/{bucketId}/actions/upload', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Bucket',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] [readonly] 
 **name** | **str** |  | 
+**id** | **str** |  | [optional] [readonly] 
 **creation** | **datetime** |  | [optional] [readonly] 
 **used** | **float** |  | [optional] [readonly] 
 

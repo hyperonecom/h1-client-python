@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.journal_credential import JournalCredential  # noqa: E501
-from h1.rest import ApiException
+from h1.model.journal_credential import JournalCredential
+
 
 class TestJournalCredential(unittest.TestCase):
     """JournalCredential unit test stubs"""
@@ -28,34 +24,11 @@ class TestJournalCredential(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test JournalCredential
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.journal_credential.JournalCredential()  # noqa: E501
-        if include_optional :
-            return JournalCredential(
-                id = '0', 
-                name = '0', 
-                created_by = '0', 
-                created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                type = 'sha512', 
-                value = '0', 
-                fingerprint = '0', 
-                token = '0'
-            )
-        else :
-            return JournalCredential(
-                name = '0',
-                type = 'sha512',
-                value = '0',
-        )
-
     def testJournalCredential(self):
         """Test JournalCredential"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = JournalCredential()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

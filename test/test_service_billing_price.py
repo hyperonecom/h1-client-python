@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.service_billing_price import ServiceBillingPrice  # noqa: E501
-from h1.rest import ApiException
+from h1.model.service_billing_price import ServiceBillingPrice
+
 
 class TestServiceBillingPrice(unittest.TestCase):
     """ServiceBillingPrice unit test stubs"""
@@ -28,27 +24,11 @@ class TestServiceBillingPrice(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ServiceBillingPrice
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.service_billing_price.ServiceBillingPrice()  # noqa: E501
-        if include_optional :
-            return ServiceBillingPrice(
-                pln = 1.337, 
-                eur = 1.337, 
-                usd = 1.337, 
-                gbp = 1.337
-            )
-        else :
-            return ServiceBillingPrice(
-        )
-
     def testServiceBillingPrice(self):
         """Test ServiceBillingPrice"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ServiceBillingPrice()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

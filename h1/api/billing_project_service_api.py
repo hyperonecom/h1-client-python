@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,21 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.service import Service
 
 
 class BillingProjectServiceApi(object):
@@ -36,256 +37,268 @@ class BillingProjectServiceApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def billing_project_service_get(self, project_id, service_id, **kwargs):  # noqa: E501
-        """Get billing/service  # noqa: E501
+        def __billing_project_service_get(
+            self,
+            project_id,
+            service_id,
+            **kwargs
+        ):
+            """Get billing/service  # noqa: E501
 
-        Returns a single service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.billing_project_service_get(project_id, service_id, async_req=True)
-        >>> result = thread.get()
+            Returns a single service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str service_id: Service Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Service
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.billing_project_service_get_with_http_info(project_id, service_id, **kwargs)  # noqa: E501
+            >>> thread = api.billing_project_service_get(project_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-    def billing_project_service_get_with_http_info(self, project_id, service_id, **kwargs):  # noqa: E501
-        """Get billing/service  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                service_id (str): Service Id
 
-        Returns a single service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.billing_project_service_get_with_http_info(project_id, service_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str service_id: Service Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Service, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                Service
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.billing_project_service_get = _Endpoint(
+            settings={
+                'response_type': (Service,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/billing/project/{projectId}/service/{serviceId}',
+                'operation_id': 'billing_project_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'service_id',
+                ],
+                'required': [
+                    'project_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__billing_project_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method billing_project_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `billing_project_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `billing_project_service_get`")  # noqa: E501
+        def __billing_project_service_list(
+            self,
+            project_id,
+            **kwargs
+        ):
+            """List billing/service  # noqa: E501
 
-        collection_formats = {}
+            List service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.billing_project_service_list(project_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
 
-        header_params = {}
+            Keyword Args:
+                kind (str): Filter by kind. [optional]
+                name (str): Filter by name. [optional]
+                type (str): Filter by type. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Service]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/billing/project/{projectId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Service',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def billing_project_service_list(self, project_id, **kwargs):  # noqa: E501
-        """List billing/service  # noqa: E501
-
-        List service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.billing_project_service_list(project_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str kind: Filter by kind
-        :param str name: Filter by name
-        :param str type: Filter by type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Service]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.billing_project_service_list_with_http_info(project_id, **kwargs)  # noqa: E501
-
-    def billing_project_service_list_with_http_info(self, project_id, **kwargs):  # noqa: E501
-        """List billing/service  # noqa: E501
-
-        List service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.billing_project_service_list_with_http_info(project_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str kind: Filter by kind
-        :param str name: Filter by name
-        :param str type: Filter by type
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Service], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'kind',
-            'name',
-            'type'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.billing_project_service_list = _Endpoint(
+            settings={
+                'response_type': ([Service],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/billing/project/{projectId}/service',
+                'operation_id': 'billing_project_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'kind',
+                    'name',
+                    'type',
+                ],
+                'required': [
+                    'project_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'kind':
+                        (str,),
+                    'name':
+                        (str,),
+                    'type':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'kind': 'kind',
+                    'name': 'name',
+                    'type': 'type',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'kind': 'query',
+                    'name': 'query',
+                    'type': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__billing_project_service_list
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method billing_project_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `billing_project_service_list`")  # noqa: E501
-
-        if self.api_client.client_side_validation and 'kind' in local_var_params and not re.search(r'^[a-z]+\/[a-z]+$', local_var_params['kind']):  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `kind` when calling `billing_project_service_list`, must conform to the pattern `/^[a-z]+\/[a-z]+$/`")  # noqa: E501
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-
-        query_params = []
-        if 'kind' in local_var_params and local_var_params['kind'] is not None:  # noqa: E501
-            query_params.append(('kind', local_var_params['kind']))  # noqa: E501
-        if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
-            query_params.append(('name', local_var_params['name']))  # noqa: E501
-        if 'type' in local_var_params and local_var_params['type'] is not None:  # noqa: E501
-            query_params.append(('type', local_var_params['type']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/billing/project/{projectId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Service]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

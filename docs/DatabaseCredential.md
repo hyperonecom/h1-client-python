@@ -3,12 +3,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] [readonly] 
 **name** | **str** |  | 
-**created_by** | **str** |  | [optional] [readonly] 
-**created_on** | **datetime** |  | [optional] [readonly] 
 **type** | **str** |  | 
 **value** | **str** |  | 
+**id** | **str** |  | [optional] [readonly] 
+**created_by** | **str** |  | [optional] [readonly] 
+**created_on** | **datetime** |  | [optional] [readonly] 
 **fingerprint** | **str** |  | [optional] [readonly] 
 **token** | **str** |  | [optional] 
 

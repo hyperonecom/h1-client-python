@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 
 # **recovery_project_backup_create**
-> Backup recovery_project_backup_create(project_id, location_id, recovery_project_backup_create, x_idempotency_key=x_idempotency_key)
+> Backup recovery_project_backup_create(project_id, location_id, recovery_project_backup_create)
 
 Create recovery/backup
 
@@ -35,10 +35,12 @@ Create backup
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.backup import Backup
+from h1.model.recovery_project_backup_create import RecoveryProjectBackupCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -59,17 +61,38 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-recovery_project_backup_create = h1.RecoveryProjectBackupCreate() # RecoveryProjectBackupCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    recovery_project_backup_create = RecoveryProjectBackupCreate(
+        name="name_example",
+        source="source_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # RecoveryProjectBackupCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create recovery/backup
-        api_response = api_instance.recovery_project_backup_create(project_id, location_id, recovery_project_backup_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.recovery_project_backup_create(project_id, location_id, recovery_project_backup_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create recovery/backup
+        api_response = api_instance.recovery_project_backup_create(project_id, location_id, recovery_project_backup_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_create: %s\n" % e)
 ```
 
@@ -77,10 +100,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **recovery_project_backup_create** | [**RecoveryProjectBackupCreate**](RecoveryProjectBackupCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **recovery_project_backup_create** | [**RecoveryProjectBackupCreate**](RecoveryProjectBackupCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -116,10 +140,10 @@ Delete backup
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -140,15 +164,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete recovery/backup
         api_instance.recovery_project_backup_delete(project_id, location_id, backup_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_delete: %s\n" % e)
 ```
 
@@ -156,9 +181,9 @@ backup_id = 'backup_id_example' # str | Backup Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
 
 ### Return type
 
@@ -192,10 +217,11 @@ Get recovery/backup.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -216,17 +242,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get recovery/backup.event
         api_response = api_instance.recovery_project_backup_event_get(project_id, location_id, backup_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_event_get: %s\n" % e)
 ```
 
@@ -234,10 +261,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -262,7 +289,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_event_list**
-> list[Event] recovery_project_backup_event_list(project_id, location_id, backup_id, limit=limit, skip=skip)
+> [Event] recovery_project_backup_event_list(project_id, location_id, backup_id)
 
 List recovery/backup.event
 
@@ -272,10 +299,11 @@ List recovery/backup.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -296,18 +324,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List recovery/backup.event
+        api_response = api_instance.recovery_project_backup_event_list(project_id, location_id, backup_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List recovery/backup.event
         api_response = api_instance.recovery_project_backup_event_list(project_id, location_id, backup_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_event_list: %s\n" % e)
 ```
 
@@ -315,15 +353,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -344,7 +382,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_export**
-> Backup recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, x_idempotency_key=x_idempotency_key)
+> Backup recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export)
 
 Export recovery/backup
 
@@ -354,10 +392,12 @@ action export
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.backup import Backup
+from h1.model.recovery_project_backup_export import RecoveryProjectBackupExport
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -378,18 +418,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-recovery_project_backup_export = h1.RecoveryProjectBackupExport() # RecoveryProjectBackupExport | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    recovery_project_backup_export = RecoveryProjectBackupExport(
+        bucket="bucket_example",
+    ) # RecoveryProjectBackupExport | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Export recovery/backup
-        api_response = api_instance.recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_export: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Export recovery/backup
+        api_response = api_instance.recovery_project_backup_export(project_id, location_id, backup_id, recovery_project_backup_export, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_export: %s\n" % e)
 ```
 
@@ -397,11 +450,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **recovery_project_backup_export** | [**RecoveryProjectBackupExport**](RecoveryProjectBackupExport.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **recovery_project_backup_export** | [**RecoveryProjectBackupExport**](RecoveryProjectBackupExport.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -437,10 +491,11 @@ Returns a single backup
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.backup import Backup
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -461,16 +516,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get recovery/backup
         api_response = api_instance.recovery_project_backup_get(project_id, location_id, backup_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_get: %s\n" % e)
 ```
 
@@ -478,9 +534,9 @@ backup_id = 'backup_id_example' # str | Backup Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
 
 ### Return type
 
@@ -505,7 +561,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_list**
-> list[Backup] recovery_project_backup_list(project_id, location_id, name=name, source=source, tag_value=tag_value, tag_key=tag_key)
+> [Backup] recovery_project_backup_list(project_id, location_id)
 
 List recovery/backup
 
@@ -515,10 +571,11 @@ List backup
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.backup import Backup
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -539,19 +596,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-source = 'source_example' # str | Filter by source (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    source = "source_example" # str | Filter by source (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List recovery/backup
+        api_response = api_instance.recovery_project_backup_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List recovery/backup
         api_response = api_instance.recovery_project_backup_list(project_id, location_id, name=name, source=source, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_list: %s\n" % e)
 ```
 
@@ -559,16 +626,16 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **source** | **str**| Filter by source | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **source** | **str**| Filter by source | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Backup]**](Backup.md)
+[**[Backup]**](Backup.md)
 
 ### Authorization
 
@@ -599,10 +666,11 @@ Get recovery/backup.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -623,17 +691,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-metric_id = 'metric_id_example' # str | metricId
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    metric_id = "metricId_example" # str | metricId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get recovery/backup.metric
         api_response = api_instance.recovery_project_backup_metric_get(project_id, location_id, backup_id, metric_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_get: %s\n" % e)
 ```
 
@@ -641,10 +710,10 @@ metric_id = 'metric_id_example' # str | metricId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **metric_id** | **str**| metricId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **metric_id** | **str**| metricId |
 
 ### Return type
 
@@ -669,7 +738,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_metric_list**
-> list[Metric] recovery_project_backup_metric_list(project_id, location_id, backup_id)
+> [Metric] recovery_project_backup_metric_list(project_id, location_id, backup_id)
 
 List recovery/backup.metric
 
@@ -679,10 +748,11 @@ List recovery/backup.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -703,16 +773,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List recovery/backup.metric
         api_response = api_instance.recovery_project_backup_metric_list(project_id, location_id, backup_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_list: %s\n" % e)
 ```
 
@@ -720,13 +791,13 @@ backup_id = 'backup_id_example' # str | Backup Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
 
 ### Return type
 
-[**list[Metric]**](Metric.md)
+[**[Metric]**](Metric.md)
 
 ### Authorization
 
@@ -747,7 +818,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_metric_point_list**
-> list[Point] recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id, interval=interval, timespan=timespan)
+> [Point] recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id)
 
 List recovery/backup.point
 
@@ -757,10 +828,11 @@ List recovery/backup.point
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -781,19 +853,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-metric_id = 'metric_id_example' # str | metricId
-interval = 'interval_example' # str | interval (optional)
-timespan = 'timespan_example' # str | timespan (optional)
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List recovery/backup.point
+        api_response = api_instance.recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List recovery/backup.point
         api_response = api_instance.recovery_project_backup_metric_point_list(project_id, location_id, backup_id, metric_id, interval=interval, timespan=timespan)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_metric_point_list: %s\n" % e)
 ```
 
@@ -801,16 +883,16 @@ timespan = 'timespan_example' # str | timespan (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **metric_id** | **str**| metricId | 
- **interval** | **str**| interval | [optional] 
- **timespan** | **str**| timespan | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
 
 ### Return type
 
-[**list[Point]**](Point.md)
+[**[Point]**](Point.md)
 
 ### Authorization
 
@@ -841,10 +923,11 @@ Get recovery/backup.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -865,17 +948,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get recovery/backup.service
         api_response = api_instance.recovery_project_backup_service_get(project_id, location_id, backup_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_service_get: %s\n" % e)
 ```
 
@@ -883,10 +967,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -911,7 +995,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_service_list**
-> list[ResourceService] recovery_project_backup_service_list(project_id, location_id, backup_id)
+> [ResourceService] recovery_project_backup_service_list(project_id, location_id, backup_id)
 
 List recovery/backup.service
 
@@ -921,10 +1005,11 @@ List recovery/backup.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -945,16 +1030,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List recovery/backup.service
         api_response = api_instance.recovery_project_backup_service_list(project_id, location_id, backup_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_service_list: %s\n" % e)
 ```
 
@@ -962,13 +1048,13 @@ backup_id = 'backup_id_example' # str | Backup Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -999,10 +1085,11 @@ Create recovery/backup.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1023,17 +1110,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-tag = h1.Tag() # Tag | 
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create recovery/backup.tag
         api_response = api_instance.recovery_project_backup_tag_create(project_id, location_id, backup_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_tag_create: %s\n" % e)
 ```
 
@@ -1041,10 +1133,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1079,10 +1171,10 @@ Delete recovery/backup.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1103,16 +1195,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete recovery/backup.tag
         api_instance.recovery_project_backup_tag_delete(project_id, location_id, backup_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_tag_delete: %s\n" % e)
 ```
 
@@ -1120,10 +1213,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1158,10 +1251,11 @@ Get recovery/backup.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1182,17 +1276,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get recovery/backup.tag
         api_response = api_instance.recovery_project_backup_tag_get(project_id, location_id, backup_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_tag_get: %s\n" % e)
 ```
 
@@ -1200,10 +1295,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1228,7 +1323,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_tag_list**
-> list[Tag] recovery_project_backup_tag_list(project_id, location_id, backup_id)
+> [Tag] recovery_project_backup_tag_list(project_id, location_id, backup_id)
 
 List recovery/backup.tag
 
@@ -1238,10 +1333,11 @@ List recovery/backup.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1262,16 +1358,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List recovery/backup.tag
         api_response = api_instance.recovery_project_backup_tag_list(project_id, location_id, backup_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_tag_list: %s\n" % e)
 ```
 
@@ -1279,13 +1376,13 @@ backup_id = 'backup_id_example' # str | Backup Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1306,7 +1403,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **recovery_project_backup_tag_put**
-> list[Tag] recovery_project_backup_tag_put(project_id, location_id, backup_id, tag)
+> [Tag] recovery_project_backup_tag_put(project_id, location_id, backup_id, tag_array)
 
 Replace recovery/backup.tag
 
@@ -1316,10 +1413,12 @@ Replace recovery/backup.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1340,17 +1439,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace recovery/backup.tag
-        api_response = api_instance.recovery_project_backup_tag_put(project_id, location_id, backup_id, tag)
+        api_response = api_instance.recovery_project_backup_tag_put(project_id, location_id, backup_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_tag_put: %s\n" % e)
 ```
 
@@ -1358,14 +1464,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1396,10 +1502,12 @@ Returns modified backup
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import recovery_project_backup_api
+from h1.model.backup import Backup
+from h1.model.recovery_project_backup_update import RecoveryProjectBackupUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1420,17 +1528,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.RecoveryProjectBackupApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-backup_id = 'backup_id_example' # str | Backup Id
-recovery_project_backup_update = h1.RecoveryProjectBackupUpdate() # RecoveryProjectBackupUpdate | 
+    api_instance = recovery_project_backup_api.RecoveryProjectBackupApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    backup_id = "backupId_example" # str | Backup Id
+    recovery_project_backup_update = RecoveryProjectBackupUpdate(
+        name="name_example",
+    ) # RecoveryProjectBackupUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update recovery/backup
         api_response = api_instance.recovery_project_backup_update(project_id, location_id, backup_id, recovery_project_backup_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling RecoveryProjectBackupApi->recovery_project_backup_update: %s\n" % e)
 ```
 
@@ -1438,10 +1549,10 @@ recovery_project_backup_update = h1.RecoveryProjectBackupUpdate() # RecoveryProj
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **backup_id** | **str**| Backup Id | 
- **recovery_project_backup_update** | [**RecoveryProjectBackupUpdate**](RecoveryProjectBackupUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **backup_id** | **str**| Backup Id |
+ **recovery_project_backup_update** | [**RecoveryProjectBackupUpdate**](RecoveryProjectBackupUpdate.md)|  |
 
 ### Return type
 

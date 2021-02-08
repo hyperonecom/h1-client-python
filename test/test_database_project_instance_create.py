@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.database_project_instance_create import DatabaseProjectInstanceCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.tag_array import TagArray
+globals()['TagArray'] = TagArray
+from h1.model.database_project_instance_create import DatabaseProjectInstanceCreate
+
 
 class TestDatabaseProjectInstanceCreate(unittest.TestCase):
     """DatabaseProjectInstanceCreate unit test stubs"""
@@ -28,34 +26,11 @@ class TestDatabaseProjectInstanceCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test DatabaseProjectInstanceCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.database_project_instance_create.DatabaseProjectInstanceCreate()  # noqa: E501
-        if include_optional :
-            return DatabaseProjectInstanceCreate(
-                name = '0', 
-                service = '0', 
-                source = '0', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return DatabaseProjectInstanceCreate(
-                name = '0',
-                service = '0',
-        )
-
     def testDatabaseProjectInstanceCreate(self):
         """Test DatabaseProjectInstanceCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = DatabaseProjectInstanceCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 
 # **iam_project_role_create**
-> Role iam_project_role_create(project_id, iam_project_role_create, x_idempotency_key=x_idempotency_key)
+> Role iam_project_role_create(project_id, iam_project_role_create)
 
 Create iam/role
 
@@ -36,10 +36,12 @@ Create role
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_project_role_create import IamProjectRoleCreate
+from h1.model.role import Role
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -60,16 +62,44 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-iam_project_role_create = h1.IamProjectRoleCreate() # IamProjectRoleCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    iam_project_role_create = IamProjectRoleCreate(
+        name="name_example",
+        service="5e679c282b39c4353cd86f34",
+        description="description_example",
+        permission=IamPermissionArray([
+            IamPermission(
+                id="id_example",
+                value="value_example",
+            ),
+        ]),
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # IamProjectRoleCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/role
-        api_response = api_instance.iam_project_role_create(project_id, iam_project_role_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.iam_project_role_create(project_id, iam_project_role_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectRoleApi->iam_project_role_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create iam/role
+        api_response = api_instance.iam_project_role_create(project_id, iam_project_role_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_create: %s\n" % e)
 ```
 
@@ -77,9 +107,10 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **iam_project_role_create** | [**IamProjectRoleCreate**](IamProjectRoleCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **iam_project_role_create** | [**IamProjectRoleCreate**](IamProjectRoleCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -115,10 +146,10 @@ Delete role
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -139,14 +170,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/role
         api_instance.iam_project_role_delete(project_id, role_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_delete: %s\n" % e)
 ```
 
@@ -154,8 +186,8 @@ role_id = 'role_id_example' # str | Role Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
 
 ### Return type
 
@@ -189,10 +221,11 @@ Get iam/role.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -213,16 +246,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/role.event
         api_response = api_instance.iam_project_role_event_get(project_id, role_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_event_get: %s\n" % e)
 ```
 
@@ -230,9 +264,9 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -257,7 +291,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_event_list**
-> list[Event] iam_project_role_event_list(project_id, role_id, limit=limit, skip=skip)
+> [Event] iam_project_role_event_list(project_id, role_id)
 
 List iam/role.event
 
@@ -267,10 +301,11 @@ List iam/role.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -291,17 +326,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/role.event
+        api_response = api_instance.iam_project_role_event_list(project_id, role_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectRoleApi->iam_project_role_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/role.event
         api_response = api_instance.iam_project_role_event_list(project_id, role_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_event_list: %s\n" % e)
 ```
 
@@ -309,14 +354,14 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -347,10 +392,11 @@ Returns a single role
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.role import Role
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -371,15 +417,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/role
         api_response = api_instance.iam_project_role_get(project_id, role_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_get: %s\n" % e)
 ```
 
@@ -387,8 +434,8 @@ role_id = 'role_id_example' # str | Role Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
 
 ### Return type
 
@@ -413,7 +460,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_list**
-> list[Role] iam_project_role_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Role] iam_project_role_list(project_id)
 
 List iam/role
 
@@ -423,10 +470,11 @@ List role
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.role import Role
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -447,17 +495,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/role
+        api_response = api_instance.iam_project_role_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectRoleApi->iam_project_role_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/role
         api_response = api_instance.iam_project_role_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_list: %s\n" % e)
 ```
 
@@ -465,14 +523,14 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Role]**](Role.md)
+[**[Role]**](Role.md)
 
 ### Authorization
 
@@ -503,10 +561,11 @@ Create iam/role.permission
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_permission import IamPermission
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -527,16 +586,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-iam_permission = h1.IamPermission() # IamPermission | 
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    iam_permission = IamPermission(
+        id="id_example",
+        value="value_example",
+    ) # IamPermission | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/role.permission
         api_response = api_instance.iam_project_role_permission_create(project_id, role_id, iam_permission)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_permission_create: %s\n" % e)
 ```
 
@@ -544,9 +607,9 @@ iam_permission = h1.IamPermission() # IamPermission |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **iam_permission** | [**IamPermission**](IamPermission.md)|  | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **iam_permission** | [**IamPermission**](IamPermission.md)|  |
 
 ### Return type
 
@@ -581,10 +644,11 @@ Delete iam/role.permission
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_permission import IamPermission
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -605,16 +669,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-permission_id = 'permission_id_example' # str | permissionId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    permission_id = "permissionId_example" # str | permissionId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/role.permission
         api_response = api_instance.iam_project_role_permission_delete(project_id, role_id, permission_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_permission_delete: %s\n" % e)
 ```
 
@@ -622,9 +687,9 @@ permission_id = 'permission_id_example' # str | permissionId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **permission_id** | **str**| permissionId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **permission_id** | **str**| permissionId |
 
 ### Return type
 
@@ -659,10 +724,11 @@ Get iam/role.permission
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_permission import IamPermission
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -683,16 +749,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-permission_id = 'permission_id_example' # str | permissionId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    permission_id = "permissionId_example" # str | permissionId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/role.permission
         api_response = api_instance.iam_project_role_permission_get(project_id, role_id, permission_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_permission_get: %s\n" % e)
 ```
 
@@ -700,9 +767,9 @@ permission_id = 'permission_id_example' # str | permissionId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **permission_id** | **str**| permissionId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **permission_id** | **str**| permissionId |
 
 ### Return type
 
@@ -727,7 +794,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_permission_list**
-> list[IamPermission] iam_project_role_permission_list(project_id, role_id)
+> [IamPermission] iam_project_role_permission_list(project_id, role_id)
 
 List iam/role.permission
 
@@ -737,10 +804,11 @@ List iam/role.permission
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_permission import IamPermission
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -761,15 +829,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/role.permission
         api_response = api_instance.iam_project_role_permission_list(project_id, role_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_permission_list: %s\n" % e)
 ```
 
@@ -777,12 +846,12 @@ role_id = 'role_id_example' # str | Role Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
 
 ### Return type
 
-[**list[IamPermission]**](IamPermission.md)
+[**[IamPermission]**](IamPermission.md)
 
 ### Authorization
 
@@ -803,7 +872,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_permission_put**
-> list[IamPermission] iam_project_role_permission_put(project_id, role_id, iam_permission)
+> [IamPermission] iam_project_role_permission_put(project_id, role_id, iam_permission_array)
 
 Replace iam/role.permission
 
@@ -813,10 +882,12 @@ Replace iam/role.permission
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_permission import IamPermission
+from h1.model.iam_permission_array import IamPermissionArray
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -837,16 +908,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-iam_permission = [h1.IamPermission()] # list[IamPermission] | 
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    iam_permission_array = IamPermissionArray([
+        IamPermission(
+            id="id_example",
+            value="value_example",
+        ),
+    ]) # IamPermissionArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace iam/role.permission
-        api_response = api_instance.iam_project_role_permission_put(project_id, role_id, iam_permission)
+        api_response = api_instance.iam_project_role_permission_put(project_id, role_id, iam_permission_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_permission_put: %s\n" % e)
 ```
 
@@ -854,13 +931,13 @@ iam_permission = [h1.IamPermission()] # list[IamPermission] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **iam_permission** | [**list[IamPermission]**](IamPermission.md)|  | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **iam_permission_array** | [**IamPermissionArray**](IamPermissionArray.md)|  |
 
 ### Return type
 
-[**list[IamPermission]**](IamPermission.md)
+[**[IamPermission]**](IamPermission.md)
 
 ### Authorization
 
@@ -891,10 +968,11 @@ Get iam/role.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -915,16 +993,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/role.service
         api_response = api_instance.iam_project_role_service_get(project_id, role_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_service_get: %s\n" % e)
 ```
 
@@ -932,9 +1011,9 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -959,7 +1038,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_service_list**
-> list[ResourceService] iam_project_role_service_list(project_id, role_id)
+> [ResourceService] iam_project_role_service_list(project_id, role_id)
 
 List iam/role.service
 
@@ -969,10 +1048,11 @@ List iam/role.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -993,15 +1073,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/role.service
         api_response = api_instance.iam_project_role_service_list(project_id, role_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_service_list: %s\n" % e)
 ```
 
@@ -1009,12 +1090,12 @@ role_id = 'role_id_example' # str | Role Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1045,10 +1126,11 @@ Create iam/role.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1069,16 +1151,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-tag = h1.Tag() # Tag | 
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/role.tag
         api_response = api_instance.iam_project_role_tag_create(project_id, role_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_tag_create: %s\n" % e)
 ```
 
@@ -1086,9 +1173,9 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1123,10 +1210,10 @@ Delete iam/role.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1147,15 +1234,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/role.tag
         api_instance.iam_project_role_tag_delete(project_id, role_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_tag_delete: %s\n" % e)
 ```
 
@@ -1163,9 +1251,9 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1200,10 +1288,11 @@ Get iam/role.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1224,16 +1313,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/role.tag
         api_response = api_instance.iam_project_role_tag_get(project_id, role_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_tag_get: %s\n" % e)
 ```
 
@@ -1241,9 +1331,9 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1268,7 +1358,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_tag_list**
-> list[Tag] iam_project_role_tag_list(project_id, role_id)
+> [Tag] iam_project_role_tag_list(project_id, role_id)
 
 List iam/role.tag
 
@@ -1278,10 +1368,11 @@ List iam/role.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1302,15 +1393,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/role.tag
         api_response = api_instance.iam_project_role_tag_list(project_id, role_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_tag_list: %s\n" % e)
 ```
 
@@ -1318,12 +1410,12 @@ role_id = 'role_id_example' # str | Role Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1344,7 +1436,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_role_tag_put**
-> list[Tag] iam_project_role_tag_put(project_id, role_id, tag)
+> [Tag] iam_project_role_tag_put(project_id, role_id, tag_array)
 
 Replace iam/role.tag
 
@@ -1354,10 +1446,12 @@ Replace iam/role.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1378,16 +1472,23 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace iam/role.tag
-        api_response = api_instance.iam_project_role_tag_put(project_id, role_id, tag)
+        api_response = api_instance.iam_project_role_tag_put(project_id, role_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_tag_put: %s\n" % e)
 ```
 
@@ -1395,13 +1496,13 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1432,10 +1533,12 @@ Returns modified role
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_role_api
+from h1.model.iam_project_role_update import IamProjectRoleUpdate
+from h1.model.role import Role
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1456,16 +1559,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectRoleApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-role_id = 'role_id_example' # str | Role Id
-iam_project_role_update = h1.IamProjectRoleUpdate() # IamProjectRoleUpdate | 
+    api_instance = iam_project_role_api.IamProjectRoleApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    role_id = "roleId_example" # str | Role Id
+    iam_project_role_update = IamProjectRoleUpdate(
+        name="name_example",
+        description="description_example",
+    ) # IamProjectRoleUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/role
         api_response = api_instance.iam_project_role_update(project_id, role_id, iam_project_role_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectRoleApi->iam_project_role_update: %s\n" % e)
 ```
 
@@ -1473,9 +1580,9 @@ iam_project_role_update = h1.IamProjectRoleUpdate() # IamProjectRoleUpdate |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **role_id** | **str**| Role Id | 
- **iam_project_role_update** | [**IamProjectRoleUpdate**](IamProjectRoleUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **role_id** | **str**| Role Id |
+ **iam_project_role_update** | [**IamProjectRoleUpdate**](IamProjectRoleUpdate.md)|  |
 
 ### Return type
 

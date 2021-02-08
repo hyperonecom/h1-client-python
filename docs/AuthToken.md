@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **expiry** | **datetime** |  | [optional] 
 **created_by** | **str** |  | [optional] 
 **created_on** | **datetime** |  | [optional] 
-**access** | [**list[AuthTokenAccess]**](AuthTokenAccess.md) |  | [optional] 
+**access** | [**[AuthTokenAccess]**](AuthTokenAccess.md) |  | [optional] 
 **name** | **str** |  | [optional] 
 **client_ip** | **str** |  | [optional] 
 **user_agent** | **str** |  | [optional] 

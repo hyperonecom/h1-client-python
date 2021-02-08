@@ -48,10 +48,11 @@ Get compute/vm.connect
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.connect import Connect
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -72,17 +73,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-connect_id = 'connect_id_example' # str | connectId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    connect_id = "connectId_example" # str | connectId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm.connect
         api_response = api_instance.compute_project_vm_connect_get(project_id, location_id, vm_id, connect_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_get: %s\n" % e)
 ```
 
@@ -90,10 +92,10 @@ connect_id = 'connect_id_example' # str | connectId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **connect_id** | **str**| connectId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **connect_id** | **str**| connectId |
 
 ### Return type
 
@@ -118,7 +120,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_connect_list**
-> list[Connect] compute_project_vm_connect_list(project_id, location_id, vm_id)
+> [Connect] compute_project_vm_connect_list(project_id, location_id, vm_id)
 
 List compute/vm.connect
 
@@ -128,10 +130,11 @@ List compute/vm.connect
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.connect import Connect
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -152,16 +155,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.connect
         api_response = api_instance.compute_project_vm_connect_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_list: %s\n" % e)
 ```
 
@@ -169,13 +173,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[Connect]**](Connect.md)
+[**[Connect]**](Connect.md)
 
 ### Authorization
 
@@ -206,10 +210,11 @@ action open
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.compute_project_vm_connect_open import ComputeProjectVmConnectOpen
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -230,17 +235,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-connect_id = 'connect_id_example' # str | connectId
-compute_project_vm_connect_open = h1.ComputeProjectVmConnectOpen() # ComputeProjectVmConnectOpen | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    connect_id = "connectId_example" # str | connectId
+    compute_project_vm_connect_open = ComputeProjectVmConnectOpen(
+        protocol="http",
+    ) # ComputeProjectVmConnectOpen | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Open compute/vm.connect
         api_instance.compute_project_vm_connect_open(project_id, location_id, vm_id, connect_id, compute_project_vm_connect_open)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_connect_open: %s\n" % e)
 ```
 
@@ -248,11 +256,11 @@ compute_project_vm_connect_open = h1.ComputeProjectVmConnectOpen() # ComputeProj
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **connect_id** | **str**| connectId | 
- **compute_project_vm_connect_open** | [**ComputeProjectVmConnectOpen**](ComputeProjectVmConnectOpen.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **connect_id** | **str**| connectId |
+ **compute_project_vm_connect_open** | [**ComputeProjectVmConnectOpen**](ComputeProjectVmConnectOpen.md)|  |
 
 ### Return type
 
@@ -277,7 +285,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_create**
-> Vm compute_project_vm_create(project_id, location_id, compute_project_vm_create, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_create(project_id, location_id, compute_project_vm_create)
 
 Create compute/vm
 
@@ -287,10 +295,12 @@ Create vm
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.compute_project_vm_create import ComputeProjectVmCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -311,17 +321,65 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-compute_project_vm_create = h1.ComputeProjectVmCreate() # ComputeProjectVmCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    compute_project_vm_create = ComputeProjectVmCreate(
+        name="name_example",
+        service="service_example",
+        image="image_example",
+        iso="iso_example",
+        username="username_example",
+        user_metadata="user_metadata_example",
+        start=True,
+        credential=[
+            ComputeProjectVmCreateCredential(
+                type="ssh",
+                value="value_example",
+            ),
+        ],
+        disk=[
+            ComputeProjectVmCreateDisk(
+                name="name_example",
+                service="service_example",
+                size=3.14,
+            ),
+        ],
+        netadp=[
+            ComputeProjectVmCreateNetadp(
+                network="network_example",
+                firewall="firewall_example",
+                ip=[
+                    "ip_example",
+                ],
+            ),
+        ],
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # ComputeProjectVmCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/vm
-        api_response = api_instance.compute_project_vm_create(project_id, location_id, compute_project_vm_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_create(project_id, location_id, compute_project_vm_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create compute/vm
+        api_response = api_instance.compute_project_vm_create(project_id, location_id, compute_project_vm_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_create: %s\n" % e)
 ```
 
@@ -329,10 +387,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **compute_project_vm_create** | [**ComputeProjectVmCreate**](ComputeProjectVmCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **compute_project_vm_create** | [**ComputeProjectVmCreate**](ComputeProjectVmCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -368,10 +427,10 @@ Delete vm
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -392,15 +451,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete compute/vm
         api_instance.compute_project_vm_delete(project_id, location_id, vm_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_delete: %s\n" % e)
 ```
 
@@ -408,9 +468,9 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
@@ -444,10 +504,12 @@ Create compute/vm.disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.compute_project_vm_disk_create import ComputeProjectVmDiskCreate
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -468,17 +530,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_disk_create = h1.ComputeProjectVmDiskCreate() # ComputeProjectVmDiskCreate | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_disk_create = ComputeProjectVmDiskCreate(
+        disk="disk_example",
+    ) # ComputeProjectVmDiskCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/vm.disk
         api_response = api_instance.compute_project_vm_disk_create(project_id, location_id, vm_id, compute_project_vm_disk_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_disk_create: %s\n" % e)
 ```
 
@@ -486,10 +551,10 @@ compute_project_vm_disk_create = h1.ComputeProjectVmDiskCreate() # ComputeProjec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_disk_create** | [**ComputeProjectVmDiskCreate**](ComputeProjectVmDiskCreate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_disk_create** | [**ComputeProjectVmDiskCreate**](ComputeProjectVmDiskCreate.md)|  |
 
 ### Return type
 
@@ -514,7 +579,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_disk_list**
-> list[Disk] compute_project_vm_disk_list(project_id, location_id, vm_id)
+> [Disk] compute_project_vm_disk_list(project_id, location_id, vm_id)
 
 List compute/vm.disk
 
@@ -524,10 +589,11 @@ List compute/vm.disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -548,16 +614,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.disk
         api_response = api_instance.compute_project_vm_disk_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_disk_list: %s\n" % e)
 ```
 
@@ -565,13 +632,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[Disk]**](Disk.md)
+[**[Disk]**](Disk.md)
 
 ### Authorization
 
@@ -602,10 +669,11 @@ Get compute/vm.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -626,17 +694,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm.event
         api_response = api_instance.compute_project_vm_event_get(project_id, location_id, vm_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_event_get: %s\n" % e)
 ```
 
@@ -644,10 +713,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -672,7 +741,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_event_list**
-> list[Event] compute_project_vm_event_list(project_id, location_id, vm_id, limit=limit, skip=skip)
+> [Event] compute_project_vm_event_list(project_id, location_id, vm_id)
 
 List compute/vm.event
 
@@ -682,10 +751,11 @@ List compute/vm.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -706,18 +776,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List compute/vm.event
+        api_response = api_instance.compute_project_vm_event_list(project_id, location_id, vm_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List compute/vm.event
         api_response = api_instance.compute_project_vm_event_list(project_id, location_id, vm_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_event_list: %s\n" % e)
 ```
 
@@ -725,15 +805,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -754,7 +834,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_flavour**
-> Vm compute_project_vm_flavour(project_id, location_id, vm_id, compute_project_vm_flavour, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_flavour(project_id, location_id, vm_id, compute_project_vm_flavour)
 
 Flavour compute/vm
 
@@ -764,10 +844,12 @@ action flavour
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.compute_project_vm_flavour import ComputeProjectVmFlavour
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -788,18 +870,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_flavour = h1.ComputeProjectVmFlavour() # ComputeProjectVmFlavour | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_flavour = ComputeProjectVmFlavour(
+        service="service_example",
+    ) # ComputeProjectVmFlavour | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Flavour compute/vm
-        api_response = api_instance.compute_project_vm_flavour(project_id, location_id, vm_id, compute_project_vm_flavour, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_flavour(project_id, location_id, vm_id, compute_project_vm_flavour)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_flavour: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Flavour compute/vm
+        api_response = api_instance.compute_project_vm_flavour(project_id, location_id, vm_id, compute_project_vm_flavour, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_flavour: %s\n" % e)
 ```
 
@@ -807,11 +902,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_flavour** | [**ComputeProjectVmFlavour**](ComputeProjectVmFlavour.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_flavour** | [**ComputeProjectVmFlavour**](ComputeProjectVmFlavour.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -847,10 +943,11 @@ Returns a single vm
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -871,16 +968,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm
         api_response = api_instance.compute_project_vm_get(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_get: %s\n" % e)
 ```
 
@@ -888,9 +986,9 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
@@ -925,10 +1023,12 @@ Create compute/vm.iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.compute_project_vm_iso_create import ComputeProjectVmIsoCreate
+from h1.model.iso import Iso
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -949,17 +1049,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_iso_create = h1.ComputeProjectVmIsoCreate() # ComputeProjectVmIsoCreate | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_iso_create = ComputeProjectVmIsoCreate(
+        iso="iso_example",
+    ) # ComputeProjectVmIsoCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/vm.iso
         api_response = api_instance.compute_project_vm_iso_create(project_id, location_id, vm_id, compute_project_vm_iso_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_iso_create: %s\n" % e)
 ```
 
@@ -967,10 +1070,10 @@ compute_project_vm_iso_create = h1.ComputeProjectVmIsoCreate() # ComputeProjectV
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_iso_create** | [**ComputeProjectVmIsoCreate**](ComputeProjectVmIsoCreate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_iso_create** | [**ComputeProjectVmIsoCreate**](ComputeProjectVmIsoCreate.md)|  |
 
 ### Return type
 
@@ -995,7 +1098,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_iso_list**
-> list[Iso] compute_project_vm_iso_list(project_id, location_id, vm_id)
+> [Iso] compute_project_vm_iso_list(project_id, location_id, vm_id)
 
 List compute/vm.iso
 
@@ -1005,10 +1108,11 @@ List compute/vm.iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.iso import Iso
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1029,16 +1133,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.iso
         api_response = api_instance.compute_project_vm_iso_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_iso_list: %s\n" % e)
 ```
 
@@ -1046,13 +1151,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[Iso]**](Iso.md)
+[**[Iso]**](Iso.md)
 
 ### Authorization
 
@@ -1073,7 +1178,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_list**
-> list[Vm] compute_project_vm_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Vm] compute_project_vm_list(project_id, location_id)
 
 List compute/vm
 
@@ -1083,10 +1188,11 @@ List vm
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1107,18 +1213,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List compute/vm
+        api_response = api_instance.compute_project_vm_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List compute/vm
         api_response = api_instance.compute_project_vm_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_list: %s\n" % e)
 ```
 
@@ -1126,15 +1242,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Vm]**](Vm.md)
+[**[Vm]**](Vm.md)
 
 ### Authorization
 
@@ -1165,10 +1281,11 @@ Get compute/vm.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1189,17 +1306,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-metric_id = 'metric_id_example' # str | metricId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    metric_id = "metricId_example" # str | metricId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm.metric
         api_response = api_instance.compute_project_vm_metric_get(project_id, location_id, vm_id, metric_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_metric_get: %s\n" % e)
 ```
 
@@ -1207,10 +1325,10 @@ metric_id = 'metric_id_example' # str | metricId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **metric_id** | **str**| metricId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **metric_id** | **str**| metricId |
 
 ### Return type
 
@@ -1235,7 +1353,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_metric_list**
-> list[Metric] compute_project_vm_metric_list(project_id, location_id, vm_id)
+> [Metric] compute_project_vm_metric_list(project_id, location_id, vm_id)
 
 List compute/vm.metric
 
@@ -1245,10 +1363,11 @@ List compute/vm.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1269,16 +1388,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.metric
         api_response = api_instance.compute_project_vm_metric_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_metric_list: %s\n" % e)
 ```
 
@@ -1286,13 +1406,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[Metric]**](Metric.md)
+[**[Metric]**](Metric.md)
 
 ### Authorization
 
@@ -1313,7 +1433,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_metric_point_list**
-> list[Point] compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id, interval=interval, timespan=timespan)
+> [Point] compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id)
 
 List compute/vm.point
 
@@ -1323,10 +1443,11 @@ List compute/vm.point
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1347,19 +1468,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-metric_id = 'metric_id_example' # str | metricId
-interval = 'interval_example' # str | interval (optional)
-timespan = 'timespan_example' # str | timespan (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List compute/vm.point
+        api_response = api_instance.compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List compute/vm.point
         api_response = api_instance.compute_project_vm_metric_point_list(project_id, location_id, vm_id, metric_id, interval=interval, timespan=timespan)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_metric_point_list: %s\n" % e)
 ```
 
@@ -1367,16 +1498,16 @@ timespan = 'timespan_example' # str | timespan (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **metric_id** | **str**| metricId | 
- **interval** | **str**| interval | [optional] 
- **timespan** | **str**| timespan | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
 
 ### Return type
 
-[**list[Point]**](Point.md)
+[**[Point]**](Point.md)
 
 ### Authorization
 
@@ -1397,7 +1528,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_password_reset**
-> Vm compute_project_vm_password_reset(project_id, location_id, vm_id, compute_project_vm_password_reset, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_password_reset(project_id, location_id, vm_id, compute_project_vm_password_reset)
 
 Password reset compute/vm
 
@@ -1407,10 +1538,12 @@ action password_reset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.compute_project_vm_password_reset import ComputeProjectVmPasswordReset
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1431,18 +1564,33 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_password_reset = h1.ComputeProjectVmPasswordReset() # ComputeProjectVmPasswordReset | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_password_reset = ComputeProjectVmPasswordReset(
+        user_name="user_name_example",
+        modulus="modulus_example",
+        exponent="exponent_example",
+    ) # ComputeProjectVmPasswordReset | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Password reset compute/vm
-        api_response = api_instance.compute_project_vm_password_reset(project_id, location_id, vm_id, compute_project_vm_password_reset, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_password_reset(project_id, location_id, vm_id, compute_project_vm_password_reset)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_password_reset: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Password reset compute/vm
+        api_response = api_instance.compute_project_vm_password_reset(project_id, location_id, vm_id, compute_project_vm_password_reset, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_password_reset: %s\n" % e)
 ```
 
@@ -1450,11 +1598,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_password_reset** | [**ComputeProjectVmPasswordReset**](ComputeProjectVmPasswordReset.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_password_reset** | [**ComputeProjectVmPasswordReset**](ComputeProjectVmPasswordReset.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1480,7 +1629,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_restart**
-> Vm compute_project_vm_restart(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_restart(project_id, location_id, vm_id)
 
 Restart compute/vm
 
@@ -1490,10 +1639,11 @@ action restart
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1514,17 +1664,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Restart compute/vm
-        api_response = api_instance.compute_project_vm_restart(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_restart(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_restart: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Restart compute/vm
+        api_response = api_instance.compute_project_vm_restart(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_restart: %s\n" % e)
 ```
 
@@ -1532,10 +1693,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1561,7 +1723,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_serialport**
-> file compute_project_vm_serialport(project_id, location_id, vm_id, compute_project_vm_serialport, x_idempotency_key=x_idempotency_key)
+> file_type compute_project_vm_serialport(project_id, location_id, vm_id, compute_project_vm_serialport)
 
 Serialport compute/vm
 
@@ -1571,10 +1733,11 @@ action serialport
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.compute_project_vm_serialport import ComputeProjectVmSerialport
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1595,18 +1758,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_serialport = h1.ComputeProjectVmSerialport() # ComputeProjectVmSerialport | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_serialport = ComputeProjectVmSerialport(
+        number="1",
+    ) # ComputeProjectVmSerialport | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Serialport compute/vm
-        api_response = api_instance.compute_project_vm_serialport(project_id, location_id, vm_id, compute_project_vm_serialport, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_serialport(project_id, location_id, vm_id, compute_project_vm_serialport)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_serialport: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Serialport compute/vm
+        api_response = api_instance.compute_project_vm_serialport(project_id, location_id, vm_id, compute_project_vm_serialport, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_serialport: %s\n" % e)
 ```
 
@@ -1614,15 +1790,16 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_serialport** | [**ComputeProjectVmSerialport**](ComputeProjectVmSerialport.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_serialport** | [**ComputeProjectVmSerialport**](ComputeProjectVmSerialport.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
-**file**
+**file_type**
 
 ### Authorization
 
@@ -1653,10 +1830,11 @@ Get compute/vm.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1677,17 +1855,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm.service
         api_response = api_instance.compute_project_vm_service_get(project_id, location_id, vm_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_service_get: %s\n" % e)
 ```
 
@@ -1695,10 +1874,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1723,7 +1902,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_service_list**
-> list[ResourceService] compute_project_vm_service_list(project_id, location_id, vm_id)
+> [ResourceService] compute_project_vm_service_list(project_id, location_id, vm_id)
 
 List compute/vm.service
 
@@ -1733,10 +1912,11 @@ List compute/vm.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1757,16 +1937,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.service
         api_response = api_instance.compute_project_vm_service_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_service_list: %s\n" % e)
 ```
 
@@ -1774,13 +1955,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1801,7 +1982,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_start**
-> Vm compute_project_vm_start(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_start(project_id, location_id, vm_id)
 
 Start compute/vm
 
@@ -1811,10 +1992,11 @@ action start
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1835,17 +2017,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Start compute/vm
-        api_response = api_instance.compute_project_vm_start(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_start(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_start: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Start compute/vm
+        api_response = api_instance.compute_project_vm_start(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_start: %s\n" % e)
 ```
 
@@ -1853,10 +2046,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1882,7 +2076,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_stop**
-> Vm compute_project_vm_stop(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_stop(project_id, location_id, vm_id)
 
 Stop compute/vm
 
@@ -1892,10 +2086,11 @@ action stop
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1916,17 +2111,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Stop compute/vm
-        api_response = api_instance.compute_project_vm_stop(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_stop(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_stop: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Stop compute/vm
+        api_response = api_instance.compute_project_vm_stop(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_stop: %s\n" % e)
 ```
 
@@ -1934,10 +2140,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1973,10 +2180,11 @@ Create compute/vm.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1997,17 +2205,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-tag = h1.Tag() # Tag | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/vm.tag
         api_response = api_instance.compute_project_vm_tag_create(project_id, location_id, vm_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_tag_create: %s\n" % e)
 ```
 
@@ -2015,10 +2228,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -2053,10 +2266,10 @@ Delete compute/vm.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2077,16 +2290,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete compute/vm.tag
         api_instance.compute_project_vm_tag_delete(project_id, location_id, vm_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_tag_delete: %s\n" % e)
 ```
 
@@ -2094,10 +2308,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2132,10 +2346,11 @@ Get compute/vm.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2156,17 +2371,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/vm.tag
         api_response = api_instance.compute_project_vm_tag_get(project_id, location_id, vm_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_tag_get: %s\n" % e)
 ```
 
@@ -2174,10 +2390,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2202,7 +2418,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_tag_list**
-> list[Tag] compute_project_vm_tag_list(project_id, location_id, vm_id)
+> [Tag] compute_project_vm_tag_list(project_id, location_id, vm_id)
 
 List compute/vm.tag
 
@@ -2212,10 +2428,11 @@ List compute/vm.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2236,16 +2453,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/vm.tag
         api_response = api_instance.compute_project_vm_tag_list(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_tag_list: %s\n" % e)
 ```
 
@@ -2253,13 +2471,13 @@ vm_id = 'vm_id_example' # str | Vm Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2280,7 +2498,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_tag_put**
-> list[Tag] compute_project_vm_tag_put(project_id, location_id, vm_id, tag)
+> [Tag] compute_project_vm_tag_put(project_id, location_id, vm_id, tag_array)
 
 Replace compute/vm.tag
 
@@ -2290,10 +2508,12 @@ Replace compute/vm.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2314,17 +2534,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace compute/vm.tag
-        api_response = api_instance.compute_project_vm_tag_put(project_id, location_id, vm_id, tag)
+        api_response = api_instance.compute_project_vm_tag_put(project_id, location_id, vm_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_tag_put: %s\n" % e)
 ```
 
@@ -2332,14 +2559,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2360,7 +2587,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_vm_turnoff**
-> Vm compute_project_vm_turnoff(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+> Vm compute_project_vm_turnoff(project_id, location_id, vm_id)
 
 Turnoff compute/vm
 
@@ -2370,10 +2597,11 @@ action turnoff
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2394,17 +2622,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Turnoff compute/vm
-        api_response = api_instance.compute_project_vm_turnoff(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_vm_turnoff(project_id, location_id, vm_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectVmApi->compute_project_vm_turnoff: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Turnoff compute/vm
+        api_response = api_instance.compute_project_vm_turnoff(project_id, location_id, vm_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_turnoff: %s\n" % e)
 ```
 
@@ -2412,10 +2651,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2451,10 +2691,12 @@ Returns modified vm
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_vm_api
+from h1.model.vm import Vm
+from h1.model.compute_project_vm_update import ComputeProjectVmUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2475,17 +2717,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectVmApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-vm_id = 'vm_id_example' # str | Vm Id
-compute_project_vm_update = h1.ComputeProjectVmUpdate() # ComputeProjectVmUpdate | 
+    api_instance = compute_project_vm_api.ComputeProjectVmApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    vm_id = "vmId_example" # str | Vm Id
+    compute_project_vm_update = ComputeProjectVmUpdate(
+        user_metadata="user_metadata_example",
+        name="name_example",
+    ) # ComputeProjectVmUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update compute/vm
         api_response = api_instance.compute_project_vm_update(project_id, location_id, vm_id, compute_project_vm_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectVmApi->compute_project_vm_update: %s\n" % e)
 ```
 
@@ -2493,10 +2739,10 @@ compute_project_vm_update = h1.ComputeProjectVmUpdate() # ComputeProjectVmUpdate
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **vm_id** | **str**| Vm Id | 
- **compute_project_vm_update** | [**ComputeProjectVmUpdate**](ComputeProjectVmUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **vm_id** | **str**| Vm Id |
+ **compute_project_vm_update** | [**ComputeProjectVmUpdate**](ComputeProjectVmUpdate.md)|  |
 
 ### Return type
 

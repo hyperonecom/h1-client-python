@@ -42,7 +42,7 @@ Method | HTTP request | Description
 
 
 # **provider_project_agent_create**
-> Agent provider_project_agent_create(project_id, location_id, provider_project_agent_create, x_idempotency_key=x_idempotency_key)
+> Agent provider_project_agent_create(project_id, location_id, provider_project_agent_create)
 
 Create provider/agent
 
@@ -52,10 +52,12 @@ Create agent
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_project_agent_create import ProviderProjectAgentCreate
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -76,17 +78,38 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-provider_project_agent_create = h1.ProviderProjectAgentCreate() # ProviderProjectAgentCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    provider_project_agent_create = ProviderProjectAgentCreate(
+        name="name_example",
+        service="service_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # ProviderProjectAgentCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create provider/agent
-        api_response = api_instance.provider_project_agent_create(project_id, location_id, provider_project_agent_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.provider_project_agent_create(project_id, location_id, provider_project_agent_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create provider/agent
+        api_response = api_instance.provider_project_agent_create(project_id, location_id, provider_project_agent_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_create: %s\n" % e)
 ```
 
@@ -94,10 +117,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **provider_project_agent_create** | [**ProviderProjectAgentCreate**](ProviderProjectAgentCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **provider_project_agent_create** | [**ProviderProjectAgentCreate**](ProviderProjectAgentCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -133,10 +157,11 @@ Create provider/agent.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent_credential import AgentCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -157,17 +182,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-agent_credential = h1.AgentCredential() # AgentCredential | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    agent_credential = AgentCredential(
+        id="id_example",
+        name="name_example",
+        created_by="created_by_example",
+        created_on=dateutil_parser('1970-01-01T00:00:00.00Z'),
+        type="ssh",
+        value="value_example",
+        fingerprint="fingerprint_example",
+        token="token_example",
+    ) # AgentCredential | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create provider/agent.credential
         api_response = api_instance.provider_project_agent_credential_create(project_id, location_id, agent_id, agent_credential)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_credential_create: %s\n" % e)
 ```
 
@@ -175,10 +210,10 @@ agent_credential = h1.AgentCredential() # AgentCredential |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **agent_credential** | [**AgentCredential**](AgentCredential.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **agent_credential** | [**AgentCredential**](AgentCredential.md)|  |
 
 ### Return type
 
@@ -213,10 +248,11 @@ Delete provider/agent.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -237,17 +273,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete provider/agent.credential
         api_response = api_instance.provider_project_agent_credential_delete(project_id, location_id, agent_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_credential_delete: %s\n" % e)
 ```
 
@@ -255,10 +292,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -294,10 +331,11 @@ Get provider/agent.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent_credential import AgentCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -318,17 +356,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.credential
         api_response = api_instance.provider_project_agent_credential_get(project_id, location_id, agent_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_credential_get: %s\n" % e)
 ```
 
@@ -336,10 +375,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -364,7 +403,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_credential_list**
-> list[AgentCredential] provider_project_agent_credential_list(project_id, location_id, agent_id)
+> [AgentCredential] provider_project_agent_credential_list(project_id, location_id, agent_id)
 
 List provider/agent.credential
 
@@ -374,10 +413,11 @@ List provider/agent.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent_credential import AgentCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -398,16 +438,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.credential
         api_response = api_instance.provider_project_agent_credential_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_credential_list: %s\n" % e)
 ```
 
@@ -415,13 +456,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[AgentCredential]**](AgentCredential.md)
+[**[AgentCredential]**](AgentCredential.md)
 
 ### Authorization
 
@@ -452,10 +493,12 @@ Update provider/agent.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent_credential import AgentCredential
+from h1.model.provider_project_agent_credential_patch import ProviderProjectAgentCredentialPatch
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -476,18 +519,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-credential_id = 'credential_id_example' # str | credentialId
-provider_project_agent_credential_patch = h1.ProviderProjectAgentCredentialPatch() # ProviderProjectAgentCredentialPatch | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    credential_id = "credentialId_example" # str | credentialId
+    provider_project_agent_credential_patch = ProviderProjectAgentCredentialPatch(
+        name="name_example",
+    ) # ProviderProjectAgentCredentialPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update provider/agent.credential
         api_response = api_instance.provider_project_agent_credential_patch(project_id, location_id, agent_id, credential_id, provider_project_agent_credential_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_credential_patch: %s\n" % e)
 ```
 
@@ -495,11 +541,11 @@ provider_project_agent_credential_patch = h1.ProviderProjectAgentCredentialPatch
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **credential_id** | **str**| credentialId | 
- **provider_project_agent_credential_patch** | [**ProviderProjectAgentCredentialPatch**](ProviderProjectAgentCredentialPatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **credential_id** | **str**| credentialId |
+ **provider_project_agent_credential_patch** | [**ProviderProjectAgentCredentialPatch**](ProviderProjectAgentCredentialPatch.md)|  |
 
 ### Return type
 
@@ -534,10 +580,10 @@ Delete agent
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -558,15 +604,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete provider/agent
         api_instance.provider_project_agent_delete(project_id, location_id, agent_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_delete: %s\n" % e)
 ```
 
@@ -574,9 +621,9 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
@@ -610,10 +657,11 @@ Create provider/agent.enabledService
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.enabled_service import EnabledService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -634,17 +682,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-enabled_service = h1.EnabledService() # EnabledService | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    enabled_service = EnabledService(
+        id="id_example",
+        name="name_example",
+        service="service_example",
+    ) # EnabledService | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create provider/agent.enabledService
         api_response = api_instance.provider_project_agent_enabled_service_create(project_id, location_id, agent_id, enabled_service)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_enabled_service_create: %s\n" % e)
 ```
 
@@ -652,10 +705,10 @@ enabled_service = h1.EnabledService() # EnabledService |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **enabled_service** | [**EnabledService**](EnabledService.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **enabled_service** | [**EnabledService**](EnabledService.md)|  |
 
 ### Return type
 
@@ -690,10 +743,11 @@ Delete provider/agent.enabledService
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -714,17 +768,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-enabled_service_id = 'enabled_service_id_example' # str | enabledServiceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    enabled_service_id = "enabledServiceId_example" # str | enabledServiceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete provider/agent.enabledService
         api_response = api_instance.provider_project_agent_enabled_service_delete(project_id, location_id, agent_id, enabled_service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_enabled_service_delete: %s\n" % e)
 ```
 
@@ -732,10 +787,10 @@ enabled_service_id = 'enabled_service_id_example' # str | enabledServiceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **enabled_service_id** | **str**| enabledServiceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **enabled_service_id** | **str**| enabledServiceId |
 
 ### Return type
 
@@ -771,10 +826,11 @@ Get provider/agent.enabledService
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.enabled_service import EnabledService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -795,17 +851,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-enabled_service_id = 'enabled_service_id_example' # str | enabledServiceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    enabled_service_id = "enabledServiceId_example" # str | enabledServiceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.enabledService
         api_response = api_instance.provider_project_agent_enabled_service_get(project_id, location_id, agent_id, enabled_service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_enabled_service_get: %s\n" % e)
 ```
 
@@ -813,10 +870,10 @@ enabled_service_id = 'enabled_service_id_example' # str | enabledServiceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **enabled_service_id** | **str**| enabledServiceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **enabled_service_id** | **str**| enabledServiceId |
 
 ### Return type
 
@@ -841,7 +898,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_enabled_service_list**
-> list[EnabledService] provider_project_agent_enabled_service_list(project_id, location_id, agent_id)
+> [EnabledService] provider_project_agent_enabled_service_list(project_id, location_id, agent_id)
 
 List provider/agent.enabledService
 
@@ -851,10 +908,11 @@ List provider/agent.enabledService
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.enabled_service import EnabledService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -875,16 +933,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.enabledService
         api_response = api_instance.provider_project_agent_enabled_service_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_enabled_service_list: %s\n" % e)
 ```
 
@@ -892,13 +951,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[EnabledService]**](EnabledService.md)
+[**[EnabledService]**](EnabledService.md)
 
 ### Authorization
 
@@ -929,10 +988,11 @@ Get provider/agent.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -953,17 +1013,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.event
         api_response = api_instance.provider_project_agent_event_get(project_id, location_id, agent_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_event_get: %s\n" % e)
 ```
 
@@ -971,10 +1032,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -999,7 +1060,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_event_list**
-> list[Event] provider_project_agent_event_list(project_id, location_id, agent_id, limit=limit, skip=skip)
+> [Event] provider_project_agent_event_list(project_id, location_id, agent_id)
 
 List provider/agent.event
 
@@ -1009,10 +1070,11 @@ List provider/agent.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1033,18 +1095,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List provider/agent.event
+        api_response = api_instance.provider_project_agent_event_list(project_id, location_id, agent_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List provider/agent.event
         api_response = api_instance.provider_project_agent_event_list(project_id, location_id, agent_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_event_list: %s\n" % e)
 ```
 
@@ -1052,15 +1124,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -1091,10 +1163,11 @@ Returns a single agent
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1115,16 +1188,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent
         api_response = api_instance.provider_project_agent_get(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_get: %s\n" % e)
 ```
 
@@ -1132,9 +1206,9 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
@@ -1159,7 +1233,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_inspect**
-> Agent provider_project_agent_inspect(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+> Agent provider_project_agent_inspect(project_id, location_id, agent_id)
 
 Inspect provider/agent
 
@@ -1169,10 +1243,11 @@ action inspect
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1193,17 +1268,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Inspect provider/agent
-        api_response = api_instance.provider_project_agent_inspect(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.provider_project_agent_inspect(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_inspect: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Inspect provider/agent
+        api_response = api_instance.provider_project_agent_inspect(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_inspect: %s\n" % e)
 ```
 
@@ -1211,10 +1297,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1240,7 +1327,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_list**
-> list[Agent] provider_project_agent_list(project_id, location_id, name=name, enabled_services=enabled_services, tag_value=tag_value, tag_key=tag_key)
+> [Agent] provider_project_agent_list(project_id, location_id)
 
 List provider/agent
 
@@ -1250,10 +1337,11 @@ List agent
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1274,19 +1362,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-enabled_services = 'enabled_services_example' # str | Filter by enabledServices (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    enabled_services = "enabledServices_example" # str | Filter by enabledServices (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List provider/agent
+        api_response = api_instance.provider_project_agent_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List provider/agent
         api_response = api_instance.provider_project_agent_list(project_id, location_id, name=name, enabled_services=enabled_services, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_list: %s\n" % e)
 ```
 
@@ -1294,16 +1392,16 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **enabled_services** | **str**| Filter by enabledServices | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **enabled_services** | **str**| Filter by enabledServices | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Agent]**](Agent.md)
+[**[Agent]**](Agent.md)
 
 ### Authorization
 
@@ -1334,10 +1432,11 @@ Get provider/agent.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1358,17 +1457,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-metric_id = 'metric_id_example' # str | metricId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    metric_id = "metricId_example" # str | metricId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.metric
         api_response = api_instance.provider_project_agent_metric_get(project_id, location_id, agent_id, metric_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_get: %s\n" % e)
 ```
 
@@ -1376,10 +1476,10 @@ metric_id = 'metric_id_example' # str | metricId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **metric_id** | **str**| metricId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **metric_id** | **str**| metricId |
 
 ### Return type
 
@@ -1404,7 +1504,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_metric_list**
-> list[Metric] provider_project_agent_metric_list(project_id, location_id, agent_id)
+> [Metric] provider_project_agent_metric_list(project_id, location_id, agent_id)
 
 List provider/agent.metric
 
@@ -1414,10 +1514,11 @@ List provider/agent.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1438,16 +1539,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.metric
         api_response = api_instance.provider_project_agent_metric_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_list: %s\n" % e)
 ```
 
@@ -1455,13 +1557,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[Metric]**](Metric.md)
+[**[Metric]**](Metric.md)
 
 ### Authorization
 
@@ -1482,7 +1584,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_metric_point_list**
-> list[Point] provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id, interval=interval, timespan=timespan)
+> [Point] provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id)
 
 List provider/agent.point
 
@@ -1492,10 +1594,11 @@ List provider/agent.point
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1516,19 +1619,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-metric_id = 'metric_id_example' # str | metricId
-interval = 'interval_example' # str | interval (optional)
-timespan = 'timespan_example' # str | timespan (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List provider/agent.point
+        api_response = api_instance.provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List provider/agent.point
         api_response = api_instance.provider_project_agent_metric_point_list(project_id, location_id, agent_id, metric_id, interval=interval, timespan=timespan)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_metric_point_list: %s\n" % e)
 ```
 
@@ -1536,16 +1649,16 @@ timespan = 'timespan_example' # str | timespan (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **metric_id** | **str**| metricId | 
- **interval** | **str**| interval | [optional] 
- **timespan** | **str**| timespan | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
 
 ### Return type
 
-[**list[Point]**](Point.md)
+[**[Point]**](Point.md)
 
 ### Authorization
 
@@ -1566,7 +1679,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_event_list**
-> list[ProviderAgentResourceEvent] provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id, limit=limit, skip=skip)
+> [ProviderAgentResourceEvent] provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id)
 
 List provider/agent.event
 
@@ -1576,10 +1689,11 @@ List provider/agent.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_agent_resource_event import ProviderAgentResourceEvent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1600,19 +1714,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-resource_id = 'resource_id_example' # str | resourceId
-limit = 3.4 # float | $limit (optional)
-skip = 3.4 # float | $skip (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    resource_id = "resourceId_example" # str | resourceId
+    limit = 3.14 # float | $limit (optional)
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List provider/agent.event
+        api_response = api_instance.provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List provider/agent.event
         api_response = api_instance.provider_project_agent_resource_event_list(project_id, location_id, agent_id, resource_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_event_list: %s\n" % e)
 ```
 
@@ -1620,16 +1744,16 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **resource_id** | **str**| resourceId | 
- **limit** | **float**| $limit | [optional] 
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **resource_id** | **str**| resourceId |
+ **limit** | **float**| $limit | [optional]
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[ProviderAgentResourceEvent]**](ProviderAgentResourceEvent.md)
+[**[ProviderAgentResourceEvent]**](ProviderAgentResourceEvent.md)
 
 ### Authorization
 
@@ -1660,10 +1784,11 @@ Get provider/agent.resource
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_agent_resource import ProviderAgentResource
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1684,17 +1809,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-resource_id = 'resource_id_example' # str | resourceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    resource_id = "resourceId_example" # str | resourceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.resource
         api_response = api_instance.provider_project_agent_resource_get(project_id, location_id, agent_id, resource_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_get: %s\n" % e)
 ```
 
@@ -1702,10 +1828,10 @@ resource_id = 'resource_id_example' # str | resourceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **resource_id** | **str**| resourceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **resource_id** | **str**| resourceId |
 
 ### Return type
 
@@ -1730,7 +1856,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_inspect**
-> object provider_project_agent_resource_inspect(project_id, location_id, agent_id, resource_id)
+> bool, date, datetime, dict, float, int, list, str, none_type provider_project_agent_resource_inspect(project_id, location_id, agent_id, resource_id)
 
 Inspect provider/agent.resource
 
@@ -1740,10 +1866,10 @@ action inspect
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1764,17 +1890,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-resource_id = 'resource_id_example' # str | resourceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    resource_id = "resourceId_example" # str | resourceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Inspect provider/agent.resource
         api_response = api_instance.provider_project_agent_resource_inspect(project_id, location_id, agent_id, resource_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_inspect: %s\n" % e)
 ```
 
@@ -1782,14 +1909,14 @@ resource_id = 'resource_id_example' # str | resourceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **resource_id** | **str**| resourceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **resource_id** | **str**| resourceId |
 
 ### Return type
 
-**object**
+**bool, date, datetime, dict, float, int, list, str, none_type**
 
 ### Authorization
 
@@ -1810,7 +1937,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_resource_list**
-> list[ProviderAgentResource] provider_project_agent_resource_list(project_id, location_id, agent_id)
+> [ProviderAgentResource] provider_project_agent_resource_list(project_id, location_id, agent_id)
 
 List provider/agent.resource
 
@@ -1820,10 +1947,11 @@ List provider/agent.resource
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_agent_resource import ProviderAgentResource
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1844,16 +1972,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.resource
         api_response = api_instance.provider_project_agent_resource_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_list: %s\n" % e)
 ```
 
@@ -1861,13 +1990,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[ProviderAgentResource]**](ProviderAgentResource.md)
+[**[ProviderAgentResource]**](ProviderAgentResource.md)
 
 ### Authorization
 
@@ -1898,10 +2027,11 @@ action recreate
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_agent_resource import ProviderAgentResource
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1922,17 +2052,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-resource_id = 'resource_id_example' # str | resourceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    resource_id = "resourceId_example" # str | resourceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Recreate provider/agent.resource
         api_response = api_instance.provider_project_agent_resource_recreate(project_id, location_id, agent_id, resource_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_resource_recreate: %s\n" % e)
 ```
 
@@ -1940,10 +2071,10 @@ resource_id = 'resource_id_example' # str | resourceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **resource_id** | **str**| resourceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **resource_id** | **str**| resourceId |
 
 ### Return type
 
@@ -1978,10 +2109,11 @@ Get provider/agent.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2002,17 +2134,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.service
         api_response = api_instance.provider_project_agent_service_get(project_id, location_id, agent_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_service_get: %s\n" % e)
 ```
 
@@ -2020,10 +2153,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -2048,7 +2181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_service_list**
-> list[ResourceService] provider_project_agent_service_list(project_id, location_id, agent_id)
+> [ResourceService] provider_project_agent_service_list(project_id, location_id, agent_id)
 
 List provider/agent.service
 
@@ -2058,10 +2191,11 @@ List provider/agent.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2082,16 +2216,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.service
         api_response = api_instance.provider_project_agent_service_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_service_list: %s\n" % e)
 ```
 
@@ -2099,13 +2234,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -2126,7 +2261,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_start**
-> Agent provider_project_agent_start(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+> Agent provider_project_agent_start(project_id, location_id, agent_id)
 
 Start provider/agent
 
@@ -2136,10 +2271,11 @@ action start
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2160,17 +2296,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Start provider/agent
-        api_response = api_instance.provider_project_agent_start(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.provider_project_agent_start(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_start: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Start provider/agent
+        api_response = api_instance.provider_project_agent_start(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_start: %s\n" % e)
 ```
 
@@ -2178,10 +2325,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2207,7 +2355,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_suspend**
-> Agent provider_project_agent_suspend(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+> Agent provider_project_agent_suspend(project_id, location_id, agent_id)
 
 Suspend provider/agent
 
@@ -2217,10 +2365,11 @@ action suspend
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2241,17 +2390,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Suspend provider/agent
-        api_response = api_instance.provider_project_agent_suspend(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.provider_project_agent_suspend(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_suspend: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Suspend provider/agent
+        api_response = api_instance.provider_project_agent_suspend(project_id, location_id, agent_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_suspend: %s\n" % e)
 ```
 
@@ -2259,10 +2419,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2298,10 +2459,11 @@ Create provider/agent.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2322,17 +2484,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-tag = h1.Tag() # Tag | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create provider/agent.tag
         api_response = api_instance.provider_project_agent_tag_create(project_id, location_id, agent_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_tag_create: %s\n" % e)
 ```
 
@@ -2340,10 +2507,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -2378,10 +2545,10 @@ Delete provider/agent.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2402,16 +2569,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete provider/agent.tag
         api_instance.provider_project_agent_tag_delete(project_id, location_id, agent_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_tag_delete: %s\n" % e)
 ```
 
@@ -2419,10 +2587,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2457,10 +2625,11 @@ Get provider/agent.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2481,17 +2650,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get provider/agent.tag
         api_response = api_instance.provider_project_agent_tag_get(project_id, location_id, agent_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_tag_get: %s\n" % e)
 ```
 
@@ -2499,10 +2669,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2527,7 +2697,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_tag_list**
-> list[Tag] provider_project_agent_tag_list(project_id, location_id, agent_id)
+> [Tag] provider_project_agent_tag_list(project_id, location_id, agent_id)
 
 List provider/agent.tag
 
@@ -2537,10 +2707,11 @@ List provider/agent.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2561,16 +2732,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List provider/agent.tag
         api_response = api_instance.provider_project_agent_tag_list(project_id, location_id, agent_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_tag_list: %s\n" % e)
 ```
 
@@ -2578,13 +2750,13 @@ agent_id = 'agent_id_example' # str | Agent Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2605,7 +2777,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_tag_put**
-> list[Tag] provider_project_agent_tag_put(project_id, location_id, agent_id, tag)
+> [Tag] provider_project_agent_tag_put(project_id, location_id, agent_id, tag_array)
 
 Replace provider/agent.tag
 
@@ -2615,10 +2787,12 @@ Replace provider/agent.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2639,17 +2813,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace provider/agent.tag
-        api_response = api_instance.provider_project_agent_tag_put(project_id, location_id, agent_id, tag)
+        api_response = api_instance.provider_project_agent_tag_put(project_id, location_id, agent_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_tag_put: %s\n" % e)
 ```
 
@@ -2657,14 +2838,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2685,7 +2866,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_transfer**
-> Agent provider_project_agent_transfer(project_id, location_id, agent_id, provider_project_agent_transfer, x_idempotency_key=x_idempotency_key)
+> Agent provider_project_agent_transfer(project_id, location_id, agent_id, provider_project_agent_transfer)
 
 Transfer provider/agent
 
@@ -2695,10 +2876,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_project_agent_transfer import ProviderProjectAgentTransfer
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2719,18 +2902,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-provider_project_agent_transfer = h1.ProviderProjectAgentTransfer() # ProviderProjectAgentTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    provider_project_agent_transfer = ProviderProjectAgentTransfer(
+        project="project_example",
+    ) # ProviderProjectAgentTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer provider/agent
-        api_response = api_instance.provider_project_agent_transfer(project_id, location_id, agent_id, provider_project_agent_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.provider_project_agent_transfer(project_id, location_id, agent_id, provider_project_agent_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ProviderProjectAgentApi->provider_project_agent_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer provider/agent
+        api_response = api_instance.provider_project_agent_transfer(project_id, location_id, agent_id, provider_project_agent_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_transfer: %s\n" % e)
 ```
 
@@ -2738,11 +2934,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **provider_project_agent_transfer** | [**ProviderProjectAgentTransfer**](ProviderProjectAgentTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **provider_project_agent_transfer** | [**ProviderProjectAgentTransfer**](ProviderProjectAgentTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2778,10 +2975,12 @@ Returns modified agent
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import provider_project_agent_api
+from h1.model.provider_project_agent_update import ProviderProjectAgentUpdate
+from h1.model.agent import Agent
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2802,17 +3001,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ProviderProjectAgentApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-agent_id = 'agent_id_example' # str | Agent Id
-provider_project_agent_update = h1.ProviderProjectAgentUpdate() # ProviderProjectAgentUpdate | 
+    api_instance = provider_project_agent_api.ProviderProjectAgentApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    agent_id = "agentId_example" # str | Agent Id
+    provider_project_agent_update = ProviderProjectAgentUpdate(
+        name="name_example",
+    ) # ProviderProjectAgentUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update provider/agent
         api_response = api_instance.provider_project_agent_update(project_id, location_id, agent_id, provider_project_agent_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ProviderProjectAgentApi->provider_project_agent_update: %s\n" % e)
 ```
 
@@ -2820,10 +3022,10 @@ provider_project_agent_update = h1.ProviderProjectAgentUpdate() # ProviderProjec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **agent_id** | **str**| Agent Id | 
- **provider_project_agent_update** | [**ProviderProjectAgentUpdate**](ProviderProjectAgentUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **agent_id** | **str**| Agent Id |
+ **provider_project_agent_update** | [**ProviderProjectAgentUpdate**](ProviderProjectAgentUpdate.md)|  |
 
 ### Return type
 

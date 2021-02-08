@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.provider_project_agent_update import ProviderProjectAgentUpdate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.provider_project_agent_update import ProviderProjectAgentUpdate
+
 
 class TestProviderProjectAgentUpdate(unittest.TestCase):
     """ProviderProjectAgentUpdate unit test stubs"""
@@ -28,24 +24,11 @@ class TestProviderProjectAgentUpdate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ProviderProjectAgentUpdate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.provider_project_agent_update.ProviderProjectAgentUpdate()  # noqa: E501
-        if include_optional :
-            return ProviderProjectAgentUpdate(
-                name = '0'
-            )
-        else :
-            return ProviderProjectAgentUpdate(
-        )
-
     def testProviderProjectAgentUpdate(self):
         """Test ProviderProjectAgentUpdate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ProviderProjectAgentUpdate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

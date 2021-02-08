@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,26 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.auth_token import AuthToken
+from h1.model.iam_user_credential_patch import IamUserCredentialPatch
+from h1.model.iam_user_update import IamUserUpdate
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.resource_service import ResourceService
+from h1.model.user import User
+from h1.model.user_credential import UserCredential
 
 
 class IamUserApi(object):
@@ -36,1463 +42,1523 @@ class IamUserApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def iam_user_credential_authtoken_delete(self, user_id, authtoken_id, **kwargs):  # noqa: E501
-        """Delete iam/user.credential  # noqa: E501
+        def __iam_user_credential_authtoken_delete(
+            self,
+            user_id,
+            authtoken_id,
+            **kwargs
+        ):
+            """Delete iam/user.credential  # noqa: E501
 
-        Delete iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_delete(user_id, authtoken_id, async_req=True)
-        >>> result = thread.get()
+            Delete iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str authtoken_id: authtokenId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_authtoken_delete_with_http_info(user_id, authtoken_id, **kwargs)  # noqa: E501
+            >>> thread = api.iam_user_credential_authtoken_delete(user_id, authtoken_id, async_req=True)
+            >>> result = thread.get()
 
-    def iam_user_credential_authtoken_delete_with_http_info(self, user_id, authtoken_id, **kwargs):  # noqa: E501
-        """Delete iam/user.credential  # noqa: E501
+            Args:
+                user_id (str): User Id
+                authtoken_id (str): authtokenId
 
-        Delete iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_delete_with_http_info(user_id, authtoken_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str authtoken_id: authtokenId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['authtoken_id'] = \
+                authtoken_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'authtoken_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_authtoken_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/authtoken/{authtokenId}',
+                'operation_id': 'iam_user_credential_authtoken_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'authtoken_id',
+                ],
+                'required': [
+                    'user_id',
+                    'authtoken_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'authtoken_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'authtoken_id': 'authtokenId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'authtoken_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_authtoken_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_authtoken_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_authtoken_delete`")  # noqa: E501
-        # verify the required parameter 'authtoken_id' is set
-        if self.api_client.client_side_validation and ('authtoken_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['authtoken_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `authtoken_id` when calling `iam_user_credential_authtoken_delete`")  # noqa: E501
+        def __iam_user_credential_authtoken_get(
+            self,
+            user_id,
+            authtoken_id,
+            **kwargs
+        ):
+            """Get iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            Get iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'authtoken_id' in local_var_params:
-            path_params['authtokenId'] = local_var_params['authtoken_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_authtoken_get(user_id, authtoken_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                authtoken_id (str): authtokenId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                AuthToken
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['authtoken_id'] = \
+                authtoken_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/authtoken/{authtokenId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_authtoken_get(self, user_id, authtoken_id, **kwargs):  # noqa: E501
-        """Get iam/user.credential  # noqa: E501
-
-        Get iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_get(user_id, authtoken_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str authtoken_id: authtokenId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: AuthToken
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_authtoken_get_with_http_info(user_id, authtoken_id, **kwargs)  # noqa: E501
-
-    def iam_user_credential_authtoken_get_with_http_info(self, user_id, authtoken_id, **kwargs):  # noqa: E501
-        """Get iam/user.credential  # noqa: E501
-
-        Get iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_get_with_http_info(user_id, authtoken_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str authtoken_id: authtokenId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(AuthToken, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'authtoken_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_authtoken_get = _Endpoint(
+            settings={
+                'response_type': (AuthToken,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/authtoken/{authtokenId}',
+                'operation_id': 'iam_user_credential_authtoken_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'authtoken_id',
+                ],
+                'required': [
+                    'user_id',
+                    'authtoken_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'authtoken_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'authtoken_id': 'authtokenId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'authtoken_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_authtoken_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_authtoken_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_authtoken_get`")  # noqa: E501
-        # verify the required parameter 'authtoken_id' is set
-        if self.api_client.client_side_validation and ('authtoken_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['authtoken_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `authtoken_id` when calling `iam_user_credential_authtoken_get`")  # noqa: E501
+        def __iam_user_credential_authtoken_list(
+            self,
+            user_id,
+            **kwargs
+        ):
+            """List iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            List iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'authtoken_id' in local_var_params:
-            path_params['authtokenId'] = local_var_params['authtoken_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_authtoken_list(user_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [AuthToken]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/authtoken/{authtokenId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='AuthToken',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_authtoken_list(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.credential  # noqa: E501
-
-        List iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_list(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[AuthToken]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_authtoken_list_with_http_info(user_id, **kwargs)  # noqa: E501
-
-    def iam_user_credential_authtoken_list_with_http_info(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.credential  # noqa: E501
-
-        List iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_authtoken_list_with_http_info(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[AuthToken], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_authtoken_list = _Endpoint(
+            settings={
+                'response_type': ([AuthToken],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/authtoken',
+                'operation_id': 'iam_user_credential_authtoken_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                ],
+                'required': [
+                    'user_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_authtoken_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_authtoken_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_authtoken_list`")  # noqa: E501
+        def __iam_user_credential_create(
+            self,
+            user_id,
+            user_credential,
+            **kwargs
+        ):
+            """Create iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            Create iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_create(user_id, user_credential, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                user_credential (UserCredential):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                UserCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['user_credential'] = \
+                user_credential
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/authtoken', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[AuthToken]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_create(self, user_id, user_credential, **kwargs):  # noqa: E501
-        """Create iam/user.credential  # noqa: E501
-
-        Create iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_create(user_id, user_credential, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param UserCredential user_credential: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: UserCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_create_with_http_info(user_id, user_credential, **kwargs)  # noqa: E501
-
-    def iam_user_credential_create_with_http_info(self, user_id, user_credential, **kwargs):  # noqa: E501
-        """Create iam/user.credential  # noqa: E501
-
-        Create iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_create_with_http_info(user_id, user_credential, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param UserCredential user_credential: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(UserCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'user_credential'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_create = _Endpoint(
+            settings={
+                'response_type': (UserCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential',
+                'operation_id': 'iam_user_credential_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'user_credential',
+                ],
+                'required': [
+                    'user_id',
+                    'user_credential',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'user_credential':
+                        (UserCredential,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'user_credential': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_create`")  # noqa: E501
-        # verify the required parameter 'user_credential' is set
-        if self.api_client.client_side_validation and ('user_credential' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_credential'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_credential` when calling `iam_user_credential_create`")  # noqa: E501
+        def __iam_user_credential_delete(
+            self,
+            user_id,
+            credential_id,
+            **kwargs
+        ):
+            """Delete iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            Delete iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_delete(user_id, credential_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                credential_id (str): credentialId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                User
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['credential_id'] = \
+                credential_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'user_credential' in local_var_params:
-            body_params = local_var_params['user_credential']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='UserCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_delete(self, user_id, credential_id, **kwargs):  # noqa: E501
-        """Delete iam/user.credential  # noqa: E501
-
-        Delete iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_delete(user_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: User
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_delete_with_http_info(user_id, credential_id, **kwargs)  # noqa: E501
-
-    def iam_user_credential_delete_with_http_info(self, user_id, credential_id, **kwargs):  # noqa: E501
-        """Delete iam/user.credential  # noqa: E501
-
-        Delete iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_delete_with_http_info(user_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(User, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'credential_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_delete = _Endpoint(
+            settings={
+                'response_type': (User,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/{credentialId}',
+                'operation_id': 'iam_user_credential_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'credential_id',
+                ],
+                'required': [
+                    'user_id',
+                    'credential_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'credential_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_delete`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `iam_user_credential_delete`")  # noqa: E501
+        def __iam_user_credential_get(
+            self,
+            user_id,
+            credential_id,
+            **kwargs
+        ):
+            """Get iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            Get iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_get(user_id, credential_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                credential_id (str): credentialId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                UserCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['credential_id'] = \
+                credential_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/{credentialId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='User',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_get(self, user_id, credential_id, **kwargs):  # noqa: E501
-        """Get iam/user.credential  # noqa: E501
-
-        Get iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_get(user_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: UserCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_get_with_http_info(user_id, credential_id, **kwargs)  # noqa: E501
-
-    def iam_user_credential_get_with_http_info(self, user_id, credential_id, **kwargs):  # noqa: E501
-        """Get iam/user.credential  # noqa: E501
-
-        Get iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_get_with_http_info(user_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(UserCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'credential_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_get = _Endpoint(
+            settings={
+                'response_type': (UserCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/{credentialId}',
+                'operation_id': 'iam_user_credential_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'credential_id',
+                ],
+                'required': [
+                    'user_id',
+                    'credential_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'credential_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_get`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `iam_user_credential_get`")  # noqa: E501
+        def __iam_user_credential_list(
+            self,
+            user_id,
+            **kwargs
+        ):
+            """List iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            List iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_list(user_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [UserCredential]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/{credentialId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='UserCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_list(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.credential  # noqa: E501
-
-        List iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_list(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[UserCredential]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_list_with_http_info(user_id, **kwargs)  # noqa: E501
-
-    def iam_user_credential_list_with_http_info(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.credential  # noqa: E501
-
-        List iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_list_with_http_info(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[UserCredential], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_list = _Endpoint(
+            settings={
+                'response_type': ([UserCredential],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential',
+                'operation_id': 'iam_user_credential_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                ],
+                'required': [
+                    'user_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_list`")  # noqa: E501
+        def __iam_user_credential_patch(
+            self,
+            user_id,
+            credential_id,
+            iam_user_credential_patch,
+            **kwargs
+        ):
+            """Update iam/user.credential  # noqa: E501
 
-        collection_formats = {}
+            Update iam/user.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
+            >>> thread = api.iam_user_credential_patch(user_id, credential_id, iam_user_credential_patch, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                credential_id (str): credentialId
+                iam_user_credential_patch (IamUserCredentialPatch):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                UserCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['credential_id'] = \
+                credential_id
+            kwargs['iam_user_credential_patch'] = \
+                iam_user_credential_patch
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[UserCredential]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_credential_patch(self, user_id, credential_id, iam_user_credential_patch, **kwargs):  # noqa: E501
-        """Update iam/user.credential  # noqa: E501
-
-        Update iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_patch(user_id, credential_id, iam_user_credential_patch, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param IamUserCredentialPatch iam_user_credential_patch: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: UserCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_credential_patch_with_http_info(user_id, credential_id, iam_user_credential_patch, **kwargs)  # noqa: E501
-
-    def iam_user_credential_patch_with_http_info(self, user_id, credential_id, iam_user_credential_patch, **kwargs):  # noqa: E501
-        """Update iam/user.credential  # noqa: E501
-
-        Update iam/user.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_credential_patch_with_http_info(user_id, credential_id, iam_user_credential_patch, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str credential_id: credentialId (required)
-        :param IamUserCredentialPatch iam_user_credential_patch: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(UserCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'credential_id',
-            'iam_user_credential_patch'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_credential_patch = _Endpoint(
+            settings={
+                'response_type': (UserCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/credential/{credentialId}',
+                'operation_id': 'iam_user_credential_patch',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'credential_id',
+                    'iam_user_credential_patch',
+                ],
+                'required': [
+                    'user_id',
+                    'credential_id',
+                    'iam_user_credential_patch',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                    'iam_user_credential_patch':
+                        (IamUserCredentialPatch,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'credential_id': 'path',
+                    'iam_user_credential_patch': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_user_credential_patch
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_credential_patch" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_credential_patch`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `iam_user_credential_patch`")  # noqa: E501
-        # verify the required parameter 'iam_user_credential_patch' is set
-        if self.api_client.client_side_validation and ('iam_user_credential_patch' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_user_credential_patch'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_user_credential_patch` when calling `iam_user_credential_patch`")  # noqa: E501
+        def __iam_user_get(
+            self,
+            user_id,
+            **kwargs
+        ):
+            """Get iam/user  # noqa: E501
 
-        collection_formats = {}
+            Returns a single user  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.iam_user_get(user_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                User
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_user_credential_patch' in local_var_params:
-            body_params = local_var_params['iam_user_credential_patch']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/credential/{credentialId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='UserCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_get(self, user_id, **kwargs):  # noqa: E501
-        """Get iam/user  # noqa: E501
-
-        Returns a single user  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_get(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: User
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_get_with_http_info(user_id, **kwargs)  # noqa: E501
-
-    def iam_user_get_with_http_info(self, user_id, **kwargs):  # noqa: E501
-        """Get iam/user  # noqa: E501
-
-        Returns a single user  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_get_with_http_info(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(User, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_get = _Endpoint(
+            settings={
+                'response_type': (User,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}',
+                'operation_id': 'iam_user_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                ],
+                'required': [
+                    'user_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_get`")  # noqa: E501
+        def __iam_user_service_get(
+            self,
+            user_id,
+            service_id,
+            **kwargs
+        ):
+            """Get iam/user.service  # noqa: E501
 
-        collection_formats = {}
+            Get iam/user.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
+            >>> thread = api.iam_user_service_get(user_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                service_id (str): serviceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ResourceService
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='User',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_service_get(self, user_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/user.service  # noqa: E501
-
-        Get iam/user.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_service_get(user_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str service_id: serviceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ResourceService
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_service_get_with_http_info(user_id, service_id, **kwargs)  # noqa: E501
-
-    def iam_user_service_get_with_http_info(self, user_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/user.service  # noqa: E501
-
-        Get iam/user.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_service_get_with_http_info(user_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param str service_id: serviceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_service_get = _Endpoint(
+            settings={
+                'response_type': (ResourceService,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/service/{serviceId}',
+                'operation_id': 'iam_user_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'service_id',
+                ],
+                'required': [
+                    'user_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `iam_user_service_get`")  # noqa: E501
+        def __iam_user_service_list(
+            self,
+            user_id,
+            **kwargs
+        ):
+            """List iam/user.service  # noqa: E501
 
-        collection_formats = {}
+            List iam/user.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.iam_user_service_list(user_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ResourceService]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ResourceService',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_service_list(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.service  # noqa: E501
-
-        List iam/user.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_service_list(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ResourceService]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_service_list_with_http_info(user_id, **kwargs)  # noqa: E501
-
-    def iam_user_service_list_with_http_info(self, user_id, **kwargs):  # noqa: E501
-        """List iam/user.service  # noqa: E501
-
-        List iam/user.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_service_list_with_http_info(user_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_service_list = _Endpoint(
+            settings={
+                'response_type': ([ResourceService],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}/service',
+                'operation_id': 'iam_user_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                ],
+                'required': [
+                    'user_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_user_service_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_service_list`")  # noqa: E501
+        def __iam_user_update(
+            self,
+            user_id,
+            iam_user_update,
+            **kwargs
+        ):
+            """Update iam/user  # noqa: E501
 
-        collection_formats = {}
+            Returns modified user  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
+            >>> thread = api.iam_user_update(user_id, iam_user_update, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                user_id (str): User Id
+                iam_user_update (IamUserUpdate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                User
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['user_id'] = \
+                user_id
+            kwargs['iam_user_update'] = \
+                iam_user_update
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ResourceService]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_user_update(self, user_id, iam_user_update, **kwargs):  # noqa: E501
-        """Update iam/user  # noqa: E501
-
-        Returns modified user  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_update(user_id, iam_user_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param IamUserUpdate iam_user_update: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: User
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_user_update_with_http_info(user_id, iam_user_update, **kwargs)  # noqa: E501
-
-    def iam_user_update_with_http_info(self, user_id, iam_user_update, **kwargs):  # noqa: E501
-        """Update iam/user  # noqa: E501
-
-        Returns modified user  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_user_update_with_http_info(user_id, iam_user_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str user_id: User Id (required)
-        :param IamUserUpdate iam_user_update: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(User, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'user_id',
-            'iam_user_update'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_user_update = _Endpoint(
+            settings={
+                'response_type': (User,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/user/{userId}',
+                'operation_id': 'iam_user_update',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_id',
+                    'iam_user_update',
+                ],
+                'required': [
+                    'user_id',
+                    'iam_user_update',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_id':
+                        (str,),
+                    'iam_user_update':
+                        (IamUserUpdate,),
+                },
+                'attribute_map': {
+                    'user_id': 'userId',
+                },
+                'location_map': {
+                    'user_id': 'path',
+                    'iam_user_update': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_user_update
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_user_update" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if self.api_client.client_side_validation and ('user_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['user_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `user_id` when calling `iam_user_update`")  # noqa: E501
-        # verify the required parameter 'iam_user_update' is set
-        if self.api_client.client_side_validation and ('iam_user_update' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_user_update'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_user_update` when calling `iam_user_update`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'user_id' in local_var_params:
-            path_params['userId'] = local_var_params['user_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'iam_user_update' in local_var_params:
-            body_params = local_var_params['iam_user_update']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/user/{userId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='User',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

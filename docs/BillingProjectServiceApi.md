@@ -19,10 +19,11 @@ Returns a single service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_service_api
+from h1.model.service import Service
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -43,15 +44,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectServiceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-service_id = 'service_id_example' # str | Service Id
+    api_instance = billing_project_service_api.BillingProjectServiceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    service_id = "serviceId_example" # str | Service Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get billing/service
         api_response = api_instance.billing_project_service_get(project_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectServiceApi->billing_project_service_get: %s\n" % e)
 ```
 
@@ -59,8 +61,8 @@ service_id = 'service_id_example' # str | Service Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **service_id** | **str**| Service Id | 
+ **project_id** | **str**| Project Id |
+ **service_id** | **str**| Service Id |
 
 ### Return type
 
@@ -85,7 +87,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_service_list**
-> list[Service] billing_project_service_list(project_id, kind=kind, name=name, type=type)
+> [Service] billing_project_service_list(project_id)
 
 List billing/service
 
@@ -95,10 +97,11 @@ List service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_service_api
+from h1.model.service import Service
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -119,17 +122,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectServiceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-kind = 'kind_example' # str | Filter by kind (optional)
-name = 'name_example' # str | Filter by name (optional)
-type = 'type_example' # str | Filter by type (optional)
+    api_instance = billing_project_service_api.BillingProjectServiceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    kind = "kind_example" # str | Filter by kind (optional)
+    name = "name_example" # str | Filter by name (optional)
+    type = "type_example" # str | Filter by type (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List billing/service
+        api_response = api_instance.billing_project_service_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectServiceApi->billing_project_service_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List billing/service
         api_response = api_instance.billing_project_service_list(project_id, kind=kind, name=name, type=type)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectServiceApi->billing_project_service_list: %s\n" % e)
 ```
 
@@ -137,14 +150,14 @@ type = 'type_example' # str | Filter by type (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **kind** | **str**| Filter by kind | [optional] 
- **name** | **str**| Filter by name | [optional] 
- **type** | **str**| Filter by type | [optional] 
+ **project_id** | **str**| Project Id |
+ **kind** | **str**| Filter by kind | [optional]
+ **name** | **str**| Filter by name | [optional]
+ **type** | **str**| Filter by type | [optional]
 
 ### Return type
 
-[**list[Service]**](Service.md)
+[**[Service]**](Service.md)
 
 ### Authorization
 

@@ -13,11 +13,11 @@ Name | Type | Description | Notes
 **state** | **str** |  | [optional] 
 **project** | **str** |  | [optional] 
 **uri** | **str** |  | [optional] 
-**rrsets** | [**list[ZoneRrsets]**](ZoneRrsets.md) |  | [optional] 
+**rrsets** | [**[ZoneRrsets]**](ZoneRrsets.md) |  | [optional] 
 **dns_name** | **str** |  | [optional] 
-**nameserver** | **list[str]** |  | [optional] 
+**nameserver** | **[str]** |  | [optional] 
 **fqdn** | **str** |  | [optional] 
-**tag** | [**list[Tag]**](Tag.md) |  | [optional] 
+**tag** | [**[Tag]**](Tag.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

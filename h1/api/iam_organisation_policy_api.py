@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,28 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.event import Event
+from h1.model.iam_actor import IamActor
+from h1.model.iam_project_policy_create import IamProjectPolicyCreate
+from h1.model.iam_project_policy_update import IamProjectPolicyUpdate
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.policy import Policy
+from h1.model.resource_service import ResourceService
+from h1.model.tag import Tag
+from h1.model.tag_array import TagArray
 
 
 class IamOrganisationPolicyApi(object):
@@ -36,2358 +44,2473 @@ class IamOrganisationPolicyApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def iam_organisation_policy_actor_create(self, organisation_id, policy_id, iam_actor, **kwargs):  # noqa: E501
-        """Create iam/policy.actor  # noqa: E501
+        def __iam_organisation_policy_actor_create(
+            self,
+            organisation_id,
+            policy_id,
+            iam_actor,
+            **kwargs
+        ):
+            """Create iam/policy.actor  # noqa: E501
 
-        Create iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_create(organisation_id, policy_id, iam_actor, async_req=True)
-        >>> result = thread.get()
+            Create iam/policy.actor  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param IamActor iam_actor: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: IamActor
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_actor_create_with_http_info(organisation_id, policy_id, iam_actor, **kwargs)  # noqa: E501
+            >>> thread = api.iam_organisation_policy_actor_create(organisation_id, policy_id, iam_actor, async_req=True)
+            >>> result = thread.get()
 
-    def iam_organisation_policy_actor_create_with_http_info(self, organisation_id, policy_id, iam_actor, **kwargs):  # noqa: E501
-        """Create iam/policy.actor  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                iam_actor (IamActor):
 
-        Create iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_create_with_http_info(organisation_id, policy_id, iam_actor, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param IamActor iam_actor: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(IamActor, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                IamActor
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['iam_actor'] = \
+                iam_actor
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'iam_actor'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_actor_create = _Endpoint(
+            settings={
+                'response_type': (IamActor,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/actor',
+                'operation_id': 'iam_organisation_policy_actor_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'iam_actor',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'iam_actor',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'iam_actor':
+                        (IamActor,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'iam_actor': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_actor_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_actor_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_actor_create`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_actor_create`")  # noqa: E501
-        # verify the required parameter 'iam_actor' is set
-        if self.api_client.client_side_validation and ('iam_actor' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_actor'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_actor` when calling `iam_organisation_policy_actor_create`")  # noqa: E501
+        def __iam_organisation_policy_actor_delete(
+            self,
+            organisation_id,
+            policy_id,
+            actor_id,
+            **kwargs
+        ):
+            """Delete iam/policy.actor  # noqa: E501
 
-        collection_formats = {}
+            Delete iam/policy.actor  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_actor_delete(organisation_id, policy_id, actor_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                actor_id (str): actorId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                IamActor
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['actor_id'] = \
+                actor_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_actor' in local_var_params:
-            body_params = local_var_params['iam_actor']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/actor', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='IamActor',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_actor_delete(self, organisation_id, policy_id, actor_id, **kwargs):  # noqa: E501
-        """Delete iam/policy.actor  # noqa: E501
-
-        Delete iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_delete(organisation_id, policy_id, actor_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str actor_id: actorId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: IamActor
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_actor_delete_with_http_info(organisation_id, policy_id, actor_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_actor_delete_with_http_info(self, organisation_id, policy_id, actor_id, **kwargs):  # noqa: E501
-        """Delete iam/policy.actor  # noqa: E501
-
-        Delete iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_delete_with_http_info(organisation_id, policy_id, actor_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str actor_id: actorId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(IamActor, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'actor_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_actor_delete = _Endpoint(
+            settings={
+                'response_type': (IamActor,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/actor/{actorId}',
+                'operation_id': 'iam_organisation_policy_actor_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'actor_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'actor_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'actor_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'actor_id': 'actorId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'actor_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_actor_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_actor_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_actor_delete`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_actor_delete`")  # noqa: E501
-        # verify the required parameter 'actor_id' is set
-        if self.api_client.client_side_validation and ('actor_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['actor_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `actor_id` when calling `iam_organisation_policy_actor_delete`")  # noqa: E501
+        def __iam_organisation_policy_actor_get(
+            self,
+            organisation_id,
+            policy_id,
+            actor_id,
+            **kwargs
+        ):
+            """Get iam/policy.actor  # noqa: E501
 
-        collection_formats = {}
+            Get iam/policy.actor  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'actor_id' in local_var_params:
-            path_params['actorId'] = local_var_params['actor_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_actor_get(organisation_id, policy_id, actor_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                actor_id (str): actorId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                IamActor
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['actor_id'] = \
+                actor_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/actor/{actorId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='IamActor',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_actor_get(self, organisation_id, policy_id, actor_id, **kwargs):  # noqa: E501
-        """Get iam/policy.actor  # noqa: E501
-
-        Get iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_get(organisation_id, policy_id, actor_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str actor_id: actorId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: IamActor
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_actor_get_with_http_info(organisation_id, policy_id, actor_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_actor_get_with_http_info(self, organisation_id, policy_id, actor_id, **kwargs):  # noqa: E501
-        """Get iam/policy.actor  # noqa: E501
-
-        Get iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_get_with_http_info(organisation_id, policy_id, actor_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str actor_id: actorId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(IamActor, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'actor_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_actor_get = _Endpoint(
+            settings={
+                'response_type': (IamActor,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/actor/{actorId}',
+                'operation_id': 'iam_organisation_policy_actor_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'actor_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'actor_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'actor_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'actor_id': 'actorId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'actor_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_actor_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_actor_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_actor_get`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_actor_get`")  # noqa: E501
-        # verify the required parameter 'actor_id' is set
-        if self.api_client.client_side_validation and ('actor_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['actor_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `actor_id` when calling `iam_organisation_policy_actor_get`")  # noqa: E501
+        def __iam_organisation_policy_actor_list(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """List iam/policy.actor  # noqa: E501
 
-        collection_formats = {}
+            List iam/policy.actor  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'actor_id' in local_var_params:
-            path_params['actorId'] = local_var_params['actor_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_actor_list(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [IamActor]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/actor/{actorId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='IamActor',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_actor_list(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.actor  # noqa: E501
-
-        List iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_list(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[IamActor]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_actor_list_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_actor_list_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.actor  # noqa: E501
-
-        List iam/policy.actor  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_actor_list_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[IamActor], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_actor_list = _Endpoint(
+            settings={
+                'response_type': ([IamActor],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/actor',
+                'operation_id': 'iam_organisation_policy_actor_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_actor_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_actor_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_actor_list`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_actor_list`")  # noqa: E501
+        def __iam_organisation_policy_create(
+            self,
+            organisation_id,
+            iam_project_policy_create,
+            **kwargs
+        ):
+            """Create iam/policy  # noqa: E501
 
-        collection_formats = {}
+            Create policy  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_create(organisation_id, iam_project_policy_create, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                iam_project_policy_create (IamProjectPolicyCreate):
 
-        header_params = {}
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Policy
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['iam_project_policy_create'] = \
+                iam_project_policy_create
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/actor', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[IamActor]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_create(self, organisation_id, iam_project_policy_create, **kwargs):  # noqa: E501
-        """Create iam/policy  # noqa: E501
-
-        Create policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_create(organisation_id, iam_project_policy_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamProjectPolicyCreate iam_project_policy_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Policy
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_create_with_http_info(organisation_id, iam_project_policy_create, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_create_with_http_info(self, organisation_id, iam_project_policy_create, **kwargs):  # noqa: E501
-        """Create iam/policy  # noqa: E501
-
-        Create policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_create_with_http_info(organisation_id, iam_project_policy_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamProjectPolicyCreate iam_project_policy_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Policy, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'iam_project_policy_create',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_create = _Endpoint(
+            settings={
+                'response_type': (Policy,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy',
+                'operation_id': 'iam_organisation_policy_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'iam_project_policy_create',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'organisation_id',
+                    'iam_project_policy_create',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'iam_project_policy_create':
+                        (IamProjectPolicyCreate,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'iam_project_policy_create': 'body',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_create`")  # noqa: E501
-        # verify the required parameter 'iam_project_policy_create' is set
-        if self.api_client.client_side_validation and ('iam_project_policy_create' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_project_policy_create'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_project_policy_create` when calling `iam_organisation_policy_create`")  # noqa: E501
+        def __iam_organisation_policy_delete(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """Delete iam/policy  # noqa: E501
 
-        collection_formats = {}
+            Delete policy  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_delete(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_project_policy_create' in local_var_params:
-            body_params = local_var_params['iam_project_policy_create']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Policy',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_delete(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """Delete iam/policy  # noqa: E501
-
-        Delete policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_delete(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_delete_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_delete_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """Delete iam/policy  # noqa: E501
-
-        Delete policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_delete_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}',
+                'operation_id': 'iam_organisation_policy_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_delete`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_delete`")  # noqa: E501
+        def __iam_organisation_policy_event_get(
+            self,
+            organisation_id,
+            policy_id,
+            event_id,
+            **kwargs
+        ):
+            """Get iam/policy.event  # noqa: E501
 
-        collection_formats = {}
+            Get iam/policy.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_event_get(organisation_id, policy_id, event_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                event_id (str): eventId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Event
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['event_id'] = \
+                event_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_event_get(self, organisation_id, policy_id, event_id, **kwargs):  # noqa: E501
-        """Get iam/policy.event  # noqa: E501
-
-        Get iam/policy.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_event_get(organisation_id, policy_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str event_id: eventId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Event
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_event_get_with_http_info(organisation_id, policy_id, event_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_event_get_with_http_info(self, organisation_id, policy_id, event_id, **kwargs):  # noqa: E501
-        """Get iam/policy.event  # noqa: E501
-
-        Get iam/policy.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_event_get_with_http_info(organisation_id, policy_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str event_id: eventId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Event, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'event_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_event_get = _Endpoint(
+            settings={
+                'response_type': (Event,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/event/{eventId}',
+                'operation_id': 'iam_organisation_policy_event_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'event_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'event_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'event_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'event_id': 'eventId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'event_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_event_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_event_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_event_get`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_event_get`")  # noqa: E501
-        # verify the required parameter 'event_id' is set
-        if self.api_client.client_side_validation and ('event_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['event_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `event_id` when calling `iam_organisation_policy_event_get`")  # noqa: E501
+        def __iam_organisation_policy_event_list(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """List iam/policy.event  # noqa: E501
 
-        collection_formats = {}
+            List iam/policy.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'event_id' in local_var_params:
-            path_params['eventId'] = local_var_params['event_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_event_list(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
+            Keyword Args:
+                limit (float): $limit. [optional] if omitted the server will use the default value of 100
+                skip (float): $skip. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Event]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.iam_organisation_policy_event_list = _Endpoint(
+            settings={
+                'response_type': ([Event],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/event',
+                'operation_id': 'iam_organisation_policy_event_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'limit',
+                    'skip',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'limit',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('limit',): {
 
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/event/{eventId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Event',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_event_list(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.event  # noqa: E501
-
-        List iam/policy.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_event_list(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Event]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_event_list_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_event_list_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.event  # noqa: E501
-
-        List iam/policy.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_event_list_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Event], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'limit',
-            'skip'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 1,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'limit':
+                        (float,),
+                    'skip':
+                        (float,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'limit': '$limit',
+                    'skip': '$skip',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'limit': 'query',
+                    'skip': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_event_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_event_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_event_list`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_event_list`")  # noqa: E501
+        def __iam_organisation_policy_get(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """Get iam/policy  # noqa: E501
 
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `iam_organisation_policy_event_list`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `iam_organisation_policy_event_list`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
+            Returns a single policy  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_get(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'limit' in local_var_params and local_var_params['limit'] is not None:  # noqa: E501
-            query_params.append(('$limit', local_var_params['limit']))  # noqa: E501
-        if 'skip' in local_var_params and local_var_params['skip'] is not None:  # noqa: E501
-            query_params.append(('$skip', local_var_params['skip']))  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Policy
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/event', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Event]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_get(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """Get iam/policy  # noqa: E501
-
-        Returns a single policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_get(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Policy
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_get_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_get_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """Get iam/policy  # noqa: E501
-
-        Returns a single policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_get_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Policy, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_get = _Endpoint(
+            settings={
+                'response_type': (Policy,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}',
+                'operation_id': 'iam_organisation_policy_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_get`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_get`")  # noqa: E501
+        def __iam_organisation_policy_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/policy  # noqa: E501
 
-        collection_formats = {}
+            List policy  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                name (str): Filter by name. [optional]
+                resource (str): Filter by resource. [optional]
+                tag_value (str): Filter by tag.value. [optional]
+                tag_key (str): Filter by tag.key. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Policy]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Policy',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/policy  # noqa: E501
-
-        List policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str name: Filter by name
-        :param str resource: Filter by resource
-        :param str tag_value: Filter by tag.value
-        :param str tag_key: Filter by tag.key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Policy]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/policy  # noqa: E501
-
-        List policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str name: Filter by name
-        :param str resource: Filter by resource
-        :param str tag_value: Filter by tag.value
-        :param str tag_key: Filter by tag.key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Policy], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'name',
-            'resource',
-            'tag_value',
-            'tag_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_list = _Endpoint(
+            settings={
+                'response_type': ([Policy],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy',
+                'operation_id': 'iam_organisation_policy_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'name',
+                    'resource',
+                    'tag_value',
+                    'tag_key',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'name':
+                        (str,),
+                    'resource':
+                        (str,),
+                    'tag_value':
+                        (str,),
+                    'tag_key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'name': 'name',
+                    'resource': 'resource',
+                    'tag_value': 'tag.value',
+                    'tag_key': 'tag.key',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'name': 'query',
+                    'resource': 'query',
+                    'tag_value': 'query',
+                    'tag_key': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_list`")  # noqa: E501
+        def __iam_organisation_policy_service_get(
+            self,
+            organisation_id,
+            policy_id,
+            service_id,
+            **kwargs
+        ):
+            """Get iam/policy.service  # noqa: E501
 
-        if self.api_client.client_side_validation and 'resource' in local_var_params and not re.search(r'^\/(?<namespace>[a-z]+)(\/(?<location>[a-z0-9-]+))?\/(?<parent>(project|organisation))\/(?<parentId>[a-f0-9]{24})(\/(?<type>[a-z]+))?(\/(?<resource>[a-f0-9]{24}))?(?<subresource>(\/[a-z0-9]+)+)?$', local_var_params['resource']):  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `resource` when calling `iam_organisation_policy_list`, must conform to the pattern `/^\/(?<namespace>[a-z]+)(\/(?<location>[a-z0-9-]+))?\/(?<parent>(project|organisation))\/(?<parentId>[a-f0-9]{24})(\/(?<type>[a-z]+))?(\/(?<resource>[a-f0-9]{24}))?(?<subresource>(\/[a-z0-9]+)+)?$/`")  # noqa: E501
-        collection_formats = {}
+            Get iam/policy.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_service_get(organisation_id, policy_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
-            query_params.append(('name', local_var_params['name']))  # noqa: E501
-        if 'resource' in local_var_params and local_var_params['resource'] is not None:  # noqa: E501
-            query_params.append(('resource', local_var_params['resource']))  # noqa: E501
-        if 'tag_value' in local_var_params and local_var_params['tag_value'] is not None:  # noqa: E501
-            query_params.append(('tag.value', local_var_params['tag_value']))  # noqa: E501
-        if 'tag_key' in local_var_params and local_var_params['tag_key'] is not None:  # noqa: E501
-            query_params.append(('tag.key', local_var_params['tag_key']))  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                service_id (str): serviceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ResourceService
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Policy]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_service_get(self, organisation_id, policy_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/policy.service  # noqa: E501
-
-        Get iam/policy.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_service_get(organisation_id, policy_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str service_id: serviceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ResourceService
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_service_get_with_http_info(organisation_id, policy_id, service_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_service_get_with_http_info(self, organisation_id, policy_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/policy.service  # noqa: E501
-
-        Get iam/policy.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_service_get_with_http_info(organisation_id, policy_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str service_id: serviceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_service_get = _Endpoint(
+            settings={
+                'response_type': (ResourceService,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/service/{serviceId}',
+                'operation_id': 'iam_organisation_policy_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'service_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_service_get`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `iam_organisation_policy_service_get`")  # noqa: E501
+        def __iam_organisation_policy_service_list(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """List iam/policy.service  # noqa: E501
 
-        collection_formats = {}
+            List iam/policy.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_service_list(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ResourceService]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ResourceService',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_service_list(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.service  # noqa: E501
-
-        List iam/policy.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_service_list(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ResourceService]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_service_list_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_service_list_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.service  # noqa: E501
-
-        List iam/policy.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_service_list_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_service_list = _Endpoint(
+            settings={
+                'response_type': ([ResourceService],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/service',
+                'operation_id': 'iam_organisation_policy_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_service_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_service_list`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_service_list`")  # noqa: E501
+        def __iam_organisation_policy_tag_create(
+            self,
+            organisation_id,
+            policy_id,
+            tag,
+            **kwargs
+        ):
+            """Create iam/policy.tag  # noqa: E501
 
-        collection_formats = {}
+            Create iam/policy.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_tag_create(organisation_id, policy_id, tag, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                tag (Tag):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['tag'] = \
+                tag
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ResourceService]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_tag_create(self, organisation_id, policy_id, tag, **kwargs):  # noqa: E501
-        """Create iam/policy.tag  # noqa: E501
-
-        Create iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_create(organisation_id, policy_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param Tag tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_tag_create_with_http_info(organisation_id, policy_id, tag, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_tag_create_with_http_info(self, organisation_id, policy_id, tag, **kwargs):  # noqa: E501
-        """Create iam/policy.tag  # noqa: E501
-
-        Create iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_create_with_http_info(organisation_id, policy_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param Tag tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_tag_create = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/tag',
+                'operation_id': 'iam_organisation_policy_tag_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'tag':
+                        (Tag,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'tag': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_tag_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_tag_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_tag_create`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_tag_create`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `iam_organisation_policy_tag_create`")  # noqa: E501
+        def __iam_organisation_policy_tag_delete(
+            self,
+            organisation_id,
+            policy_id,
+            tag_id,
+            **kwargs
+        ):
+            """Delete iam/policy.tag  # noqa: E501
 
-        collection_formats = {}
+            Delete iam/policy.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_tag_delete(organisation_id, policy_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/tag', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_tag_delete(self, organisation_id, policy_id, tag_id, **kwargs):  # noqa: E501
-        """Delete iam/policy.tag  # noqa: E501
-
-        Delete iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_delete(organisation_id, policy_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_tag_delete_with_http_info(organisation_id, policy_id, tag_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_tag_delete_with_http_info(self, organisation_id, policy_id, tag_id, **kwargs):  # noqa: E501
-        """Delete iam/policy.tag  # noqa: E501
-
-        Delete iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_delete_with_http_info(organisation_id, policy_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_tag_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/tag/{tagId}',
+                'operation_id': 'iam_organisation_policy_tag_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_tag_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_tag_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_tag_delete`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_tag_delete`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `iam_organisation_policy_tag_delete`")  # noqa: E501
+        def __iam_organisation_policy_tag_get(
+            self,
+            organisation_id,
+            policy_id,
+            tag_id,
+            **kwargs
+        ):
+            """Get iam/policy.tag  # noqa: E501
 
-        collection_formats = {}
+            Get iam/policy.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_tag_get(organisation_id, policy_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/tag/{tagId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_tag_get(self, organisation_id, policy_id, tag_id, **kwargs):  # noqa: E501
-        """Get iam/policy.tag  # noqa: E501
-
-        Get iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_get(organisation_id, policy_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_tag_get_with_http_info(organisation_id, policy_id, tag_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_tag_get_with_http_info(self, organisation_id, policy_id, tag_id, **kwargs):  # noqa: E501
-        """Get iam/policy.tag  # noqa: E501
-
-        Get iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_get_with_http_info(organisation_id, policy_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_tag_get = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/tag/{tagId}',
+                'operation_id': 'iam_organisation_policy_tag_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_tag_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_tag_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_tag_get`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_tag_get`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `iam_organisation_policy_tag_get`")  # noqa: E501
+        def __iam_organisation_policy_tag_list(
+            self,
+            organisation_id,
+            policy_id,
+            **kwargs
+        ):
+            """List iam/policy.tag  # noqa: E501
 
-        collection_formats = {}
+            List iam/policy.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_tag_list(organisation_id, policy_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/tag/{tagId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_tag_list(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.tag  # noqa: E501
-
-        List iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_list(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_tag_list_with_http_info(organisation_id, policy_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_tag_list_with_http_info(self, organisation_id, policy_id, **kwargs):  # noqa: E501
-        """List iam/policy.tag  # noqa: E501
-
-        List iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_list_with_http_info(organisation_id, policy_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_tag_list = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/tag',
+                'operation_id': 'iam_organisation_policy_tag_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_tag_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_tag_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_tag_list`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_tag_list`")  # noqa: E501
+        def __iam_organisation_policy_tag_put(
+            self,
+            organisation_id,
+            policy_id,
+            tag_array,
+            **kwargs
+        ):
+            """Replace iam/policy.tag  # noqa: E501
 
-        collection_formats = {}
+            Replace iam/policy.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_tag_put(organisation_id, policy_id, tag_array, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                tag_array (TagArray):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['tag_array'] = \
+                tag_array
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/tag', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_tag_put(self, organisation_id, policy_id, tag, **kwargs):  # noqa: E501
-        """Replace iam/policy.tag  # noqa: E501
-
-        Replace iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_put(organisation_id, policy_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param list[Tag] tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_tag_put_with_http_info(organisation_id, policy_id, tag, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_tag_put_with_http_info(self, organisation_id, policy_id, tag, **kwargs):  # noqa: E501
-        """Replace iam/policy.tag  # noqa: E501
-
-        Replace iam/policy.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_tag_put_with_http_info(organisation_id, policy_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param list[Tag] tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_tag_put = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}/tag',
+                'operation_id': 'iam_organisation_policy_tag_put',
+                'http_method': 'PUT',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_array',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'tag_array',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'tag_array':
+                        (TagArray,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'tag_array': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_tag_put
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_tag_put" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_tag_put`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_tag_put`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `iam_organisation_policy_tag_put`")  # noqa: E501
+        def __iam_organisation_policy_update(
+            self,
+            organisation_id,
+            policy_id,
+            iam_project_policy_update,
+            **kwargs
+        ):
+            """Update iam/policy  # noqa: E501
 
-        collection_formats = {}
+            Returns modified policy  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
+            >>> thread = api.iam_organisation_policy_update(organisation_id, policy_id, iam_project_policy_update, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                policy_id (str): Policy Id
+                iam_project_policy_update (IamProjectPolicyUpdate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Policy
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['policy_id'] = \
+                policy_id
+            kwargs['iam_project_policy_update'] = \
+                iam_project_policy_update
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}/tag', 'PUT',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_policy_update(self, organisation_id, policy_id, iam_project_policy_update, **kwargs):  # noqa: E501
-        """Update iam/policy  # noqa: E501
-
-        Returns modified policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_update(organisation_id, policy_id, iam_project_policy_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param IamProjectPolicyUpdate iam_project_policy_update: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Policy
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_policy_update_with_http_info(organisation_id, policy_id, iam_project_policy_update, **kwargs)  # noqa: E501
-
-    def iam_organisation_policy_update_with_http_info(self, organisation_id, policy_id, iam_project_policy_update, **kwargs):  # noqa: E501
-        """Update iam/policy  # noqa: E501
-
-        Returns modified policy  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_policy_update_with_http_info(organisation_id, policy_id, iam_project_policy_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str policy_id: Policy Id (required)
-        :param IamProjectPolicyUpdate iam_project_policy_update: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Policy, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'policy_id',
-            'iam_project_policy_update'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_policy_update = _Endpoint(
+            settings={
+                'response_type': (Policy,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/policy/{policyId}',
+                'operation_id': 'iam_organisation_policy_update',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'policy_id',
+                    'iam_project_policy_update',
+                ],
+                'required': [
+                    'organisation_id',
+                    'policy_id',
+                    'iam_project_policy_update',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'policy_id':
+                        (str,),
+                    'iam_project_policy_update':
+                        (IamProjectPolicyUpdate,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'policy_id': 'policyId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'policy_id': 'path',
+                    'iam_project_policy_update': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_policy_update
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_policy_update" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_policy_update`")  # noqa: E501
-        # verify the required parameter 'policy_id' is set
-        if self.api_client.client_side_validation and ('policy_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['policy_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `policy_id` when calling `iam_organisation_policy_update`")  # noqa: E501
-        # verify the required parameter 'iam_project_policy_update' is set
-        if self.api_client.client_side_validation and ('iam_project_policy_update' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_project_policy_update'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_project_policy_update` when calling `iam_organisation_policy_update`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'policy_id' in local_var_params:
-            path_params['policyId'] = local_var_params['policy_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'iam_project_policy_update' in local_var_params:
-            body_params = local_var_params['iam_project_policy_update']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/policy/{policyId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Policy',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

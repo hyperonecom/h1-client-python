@@ -28,10 +28,11 @@ Get vmhost/instance.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -52,17 +53,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get vmhost/instance.event
         api_response = api_instance.vmhost_project_instance_event_get(project_id, location_id, instance_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_event_get: %s\n" % e)
 ```
 
@@ -70,10 +72,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -98,7 +100,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **vmhost_project_instance_event_list**
-> list[Event] vmhost_project_instance_event_list(project_id, location_id, instance_id, limit=limit, skip=skip)
+> [Event] vmhost_project_instance_event_list(project_id, location_id, instance_id)
 
 List vmhost/instance.event
 
@@ -108,10 +110,11 @@ List vmhost/instance.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -132,18 +135,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List vmhost/instance.event
+        api_response = api_instance.vmhost_project_instance_event_list(project_id, location_id, instance_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List vmhost/instance.event
         api_response = api_instance.vmhost_project_instance_event_list(project_id, location_id, instance_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_event_list: %s\n" % e)
 ```
 
@@ -151,15 +164,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -190,10 +203,11 @@ Returns a single instance
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.vmhost import Vmhost
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -214,16 +228,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get vmhost/instance
         api_response = api_instance.vmhost_project_instance_get(project_id, location_id, instance_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_get: %s\n" % e)
 ```
 
@@ -231,9 +246,9 @@ instance_id = 'instance_id_example' # str | Instance Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
 
 ### Return type
 
@@ -258,7 +273,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **vmhost_project_instance_list**
-> list[Vmhost] vmhost_project_instance_list(project_id, location_id, enabled_services=enabled_services)
+> [Vmhost] vmhost_project_instance_list(project_id, location_id)
 
 List vmhost/instance
 
@@ -268,10 +283,11 @@ List instance
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.vmhost import Vmhost
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -292,16 +308,26 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-enabled_services = 'enabled_services_example' # str | Filter by enabledServices (optional)
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    enabled_services = "enabledServices_example" # str | Filter by enabledServices (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List vmhost/instance
+        api_response = api_instance.vmhost_project_instance_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List vmhost/instance
         api_response = api_instance.vmhost_project_instance_list(project_id, location_id, enabled_services=enabled_services)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_list: %s\n" % e)
 ```
 
@@ -309,13 +335,13 @@ enabled_services = 'enabled_services_example' # str | Filter by enabledServices 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **enabled_services** | **str**| Filter by enabledServices | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **enabled_services** | **str**| Filter by enabledServices | [optional]
 
 ### Return type
 
-[**list[Vmhost]**](Vmhost.md)
+[**[Vmhost]**](Vmhost.md)
 
 ### Authorization
 
@@ -346,10 +372,11 @@ Get vmhost/instance.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -370,17 +397,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get vmhost/instance.service
         api_response = api_instance.vmhost_project_instance_service_get(project_id, location_id, instance_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_service_get: %s\n" % e)
 ```
 
@@ -388,10 +416,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -416,7 +444,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **vmhost_project_instance_service_list**
-> list[ResourceService] vmhost_project_instance_service_list(project_id, location_id, instance_id)
+> [ResourceService] vmhost_project_instance_service_list(project_id, location_id, instance_id)
 
 List vmhost/instance.service
 
@@ -426,10 +454,11 @@ List vmhost/instance.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -450,16 +479,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List vmhost/instance.service
         api_response = api_instance.vmhost_project_instance_service_list(project_id, location_id, instance_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_service_list: %s\n" % e)
 ```
 
@@ -467,13 +497,13 @@ instance_id = 'instance_id_example' # str | Instance Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -504,10 +534,11 @@ Create vmhost/instance.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -528,17 +559,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-tag = h1.Tag() # Tag | 
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create vmhost/instance.tag
         api_response = api_instance.vmhost_project_instance_tag_create(project_id, location_id, instance_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_tag_create: %s\n" % e)
 ```
 
@@ -546,10 +582,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -584,10 +620,10 @@ Delete vmhost/instance.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -608,16 +644,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete vmhost/instance.tag
         api_instance.vmhost_project_instance_tag_delete(project_id, location_id, instance_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_tag_delete: %s\n" % e)
 ```
 
@@ -625,10 +662,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -663,10 +700,11 @@ Get vmhost/instance.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -687,17 +725,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get vmhost/instance.tag
         api_response = api_instance.vmhost_project_instance_tag_get(project_id, location_id, instance_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_tag_get: %s\n" % e)
 ```
 
@@ -705,10 +744,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -733,7 +772,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **vmhost_project_instance_tag_list**
-> list[Tag] vmhost_project_instance_tag_list(project_id, location_id, instance_id)
+> [Tag] vmhost_project_instance_tag_list(project_id, location_id, instance_id)
 
 List vmhost/instance.tag
 
@@ -743,10 +782,11 @@ List vmhost/instance.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -767,16 +807,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List vmhost/instance.tag
         api_response = api_instance.vmhost_project_instance_tag_list(project_id, location_id, instance_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_tag_list: %s\n" % e)
 ```
 
@@ -784,13 +825,13 @@ instance_id = 'instance_id_example' # str | Instance Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -811,7 +852,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **vmhost_project_instance_tag_put**
-> list[Tag] vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag)
+> [Tag] vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag_array)
 
 Replace vmhost/instance.tag
 
@@ -821,10 +862,12 @@ Replace vmhost/instance.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import vmhost_project_instance_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -845,17 +888,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.VmhostProjectInstanceApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-instance_id = 'instance_id_example' # str | Instance Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = vmhost_project_instance_api.VmhostProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace vmhost/instance.tag
-        api_response = api_instance.vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag)
+        api_response = api_instance.vmhost_project_instance_tag_put(project_id, location_id, instance_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling VmhostProjectInstanceApi->vmhost_project_instance_tag_put: %s\n" % e)
 ```
 
@@ -863,14 +913,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **instance_id** | **str**| Instance Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 

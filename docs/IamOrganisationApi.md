@@ -38,7 +38,7 @@ Method | HTTP request | Description
 
 
 # **iam_organisation_billing_list**
-> list[Billing] iam_organisation_billing_list(organisation_id, start=start, end=end, resource_type=resource_type)
+> [Billing] iam_organisation_billing_list(organisation_id)
 
 List iam/organisation.billing
 
@@ -48,10 +48,11 @@ List iam/organisation.billing
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.billing import Billing
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -72,17 +73,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-start = '2013-10-20T19:20:30+01:00' # datetime | start (optional)
-end = '2013-10-20T19:20:30+01:00' # datetime | end (optional)
-resource_type = 'resource_type_example' # str | resource.type (optional)
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    start = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | start (optional)
+    end = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | end (optional)
+    resource_type = "resource.type_example" # str | resource.type (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/organisation.billing
+        api_response = api_instance.iam_organisation_billing_list(organisation_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_billing_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/organisation.billing
         api_response = api_instance.iam_organisation_billing_list(organisation_id, start=start, end=end, resource_type=resource_type)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_billing_list: %s\n" % e)
 ```
 
@@ -90,14 +101,14 @@ resource_type = 'resource_type_example' # str | resource.type (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **start** | **datetime**| start | [optional] 
- **end** | **datetime**| end | [optional] 
- **resource_type** | **str**| resource.type | [optional] 
+ **organisation_id** | **str**| Organisation Id |
+ **start** | **datetime**| start | [optional]
+ **end** | **datetime**| end | [optional]
+ **resource_type** | **str**| resource.type | [optional]
 
 ### Return type
 
-[**list[Billing]**](Billing.md)
+[**[Billing]**](Billing.md)
 
 ### Authorization
 
@@ -118,7 +129,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_create**
-> Organisation iam_organisation_create(iam_organisation_create, x_idempotency_key=x_idempotency_key)
+> Organisation iam_organisation_create(iam_organisation_create)
 
 Create iam/organisation
 
@@ -128,10 +139,12 @@ Create organisation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.iam_organisation_create import IamOrganisationCreate
+from h1.model.organisation import Organisation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -152,15 +165,40 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    iam_organisation_create = h1.IamOrganisationCreate() # IamOrganisationCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    iam_organisation_create = IamOrganisationCreate(
+        name="name_example",
+        billing=OrganisationBilling(
+            nip="nip_example",
+            email="email_example",
+            company="company_example",
+            currency="PLN",
+            address=BillingAddress(
+                country="PL",
+                city="city_example",
+                street="street_example",
+                zipcode="zipcode_example",
+            ),
+        ),
+    ) # IamOrganisationCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/organisation
-        api_response = api_instance.iam_organisation_create(iam_organisation_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.iam_organisation_create(iam_organisation_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create iam/organisation
+        api_response = api_instance.iam_organisation_create(iam_organisation_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_create: %s\n" % e)
 ```
 
@@ -168,8 +206,9 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_organisation_create** | [**IamOrganisationCreate**](IamOrganisationCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **iam_organisation_create** | [**IamOrganisationCreate**](IamOrganisationCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -205,10 +244,10 @@ Delete organisation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -229,13 +268,14 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/organisation
         api_instance.iam_organisation_delete(organisation_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_delete: %s\n" % e)
 ```
 
@@ -243,7 +283,7 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
@@ -277,10 +317,11 @@ Get iam/organisation.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -301,15 +342,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.event
         api_response = api_instance.iam_organisation_event_get(organisation_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_event_get: %s\n" % e)
 ```
 
@@ -317,8 +359,8 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **event_id** | **str**| eventId | 
+ **organisation_id** | **str**| Organisation Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -343,7 +385,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_event_list**
-> list[Event] iam_organisation_event_list(organisation_id, limit=limit, skip=skip)
+> [Event] iam_organisation_event_list(organisation_id)
 
 List iam/organisation.event
 
@@ -353,10 +395,11 @@ List iam/organisation.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -377,16 +420,26 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/organisation.event
+        api_response = api_instance.iam_organisation_event_list(organisation_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/organisation.event
         api_response = api_instance.iam_organisation_event_list(organisation_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_event_list: %s\n" % e)
 ```
 
@@ -394,13 +447,13 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **organisation_id** | **str**| Organisation Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -431,10 +484,11 @@ Returns a single organisation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.organisation import Organisation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -455,14 +509,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation
         api_response = api_instance.iam_organisation_get(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_get: %s\n" % e)
 ```
 
@@ -470,7 +525,7 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
@@ -505,10 +560,12 @@ action accept
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.iam_organisation_invitation_accept import IamOrganisationInvitationAccept
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -529,16 +586,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-invitation_id = 'invitation_id_example' # str | invitationId
-iam_organisation_invitation_accept = h1.IamOrganisationInvitationAccept() # IamOrganisationInvitationAccept | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    invitation_id = "invitationId_example" # str | invitationId
+    iam_organisation_invitation_accept = IamOrganisationInvitationAccept(
+        token="token_example",
+    ) # IamOrganisationInvitationAccept | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Accept iam/organisation.invitation
         api_response = api_instance.iam_organisation_invitation_accept(organisation_id, invitation_id, iam_organisation_invitation_accept)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_accept: %s\n" % e)
 ```
 
@@ -546,9 +606,9 @@ iam_organisation_invitation_accept = h1.IamOrganisationInvitationAccept() # IamO
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **invitation_id** | **str**| invitationId | 
- **iam_organisation_invitation_accept** | [**IamOrganisationInvitationAccept**](IamOrganisationInvitationAccept.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **invitation_id** | **str**| invitationId |
+ **iam_organisation_invitation_accept** | [**IamOrganisationInvitationAccept**](IamOrganisationInvitationAccept.md)|  |
 
 ### Return type
 
@@ -583,10 +643,10 @@ Delete iam/organisation.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -607,14 +667,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-invitation_id = 'invitation_id_example' # str | invitationId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    invitation_id = "invitationId_example" # str | invitationId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/organisation.invitation
         api_instance.iam_organisation_invitation_delete(organisation_id, invitation_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_delete: %s\n" % e)
 ```
 
@@ -622,8 +683,8 @@ invitation_id = 'invitation_id_example' # str | invitationId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **invitation_id** | **str**| invitationId | 
+ **organisation_id** | **str**| Organisation Id |
+ **invitation_id** | **str**| invitationId |
 
 ### Return type
 
@@ -658,10 +719,11 @@ Get iam/organisation.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -682,15 +744,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-invitation_id = 'invitation_id_example' # str | invitationId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    invitation_id = "invitationId_example" # str | invitationId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.invitation
         api_response = api_instance.iam_organisation_invitation_get(organisation_id, invitation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_get: %s\n" % e)
 ```
 
@@ -698,8 +761,8 @@ invitation_id = 'invitation_id_example' # str | invitationId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **invitation_id** | **str**| invitationId | 
+ **organisation_id** | **str**| Organisation Id |
+ **invitation_id** | **str**| invitationId |
 
 ### Return type
 
@@ -724,7 +787,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_invitation_list**
-> list[Invitation] iam_organisation_invitation_list(organisation_id, resource=resource)
+> [Invitation] iam_organisation_invitation_list(organisation_id)
 
 List iam/organisation.invitation
 
@@ -734,10 +797,11 @@ List iam/organisation.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -758,15 +822,25 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-resource = 'resource_example' # str | resource (optional)
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    resource = "resource_example" # str | resource (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/organisation.invitation
+        api_response = api_instance.iam_organisation_invitation_list(organisation_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamOrganisationApi->iam_organisation_invitation_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/organisation.invitation
         api_response = api_instance.iam_organisation_invitation_list(organisation_id, resource=resource)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_list: %s\n" % e)
 ```
 
@@ -774,12 +848,12 @@ resource = 'resource_example' # str | resource (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **resource** | **str**| resource | [optional] 
+ **organisation_id** | **str**| Organisation Id |
+ **resource** | **str**| resource | [optional]
 
 ### Return type
 
-[**list[Invitation]**](Invitation.md)
+[**[Invitation]**](Invitation.md)
 
 ### Authorization
 
@@ -800,7 +874,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_invoice_download**
-> file iam_organisation_invoice_download(organisation_id, invoice_id)
+> file_type iam_organisation_invoice_download(organisation_id, invoice_id)
 
 Download iam/organisation.invoice
 
@@ -810,10 +884,10 @@ action download
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -834,15 +908,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-invoice_id = 'invoice_id_example' # str | invoiceId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    invoice_id = "invoiceId_example" # str | invoiceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Download iam/organisation.invoice
         api_response = api_instance.iam_organisation_invoice_download(organisation_id, invoice_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_download: %s\n" % e)
 ```
 
@@ -850,12 +925,12 @@ invoice_id = 'invoice_id_example' # str | invoiceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **invoice_id** | **str**| invoiceId | 
+ **organisation_id** | **str**| Organisation Id |
+ **invoice_id** | **str**| invoiceId |
 
 ### Return type
 
-**file**
+**file_type**
 
 ### Authorization
 
@@ -886,10 +961,11 @@ Get iam/organisation.invoice
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.invoice import Invoice
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -910,15 +986,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-invoice_id = 'invoice_id_example' # str | invoiceId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    invoice_id = "invoiceId_example" # str | invoiceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.invoice
         api_response = api_instance.iam_organisation_invoice_get(organisation_id, invoice_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_get: %s\n" % e)
 ```
 
@@ -926,8 +1003,8 @@ invoice_id = 'invoice_id_example' # str | invoiceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **invoice_id** | **str**| invoiceId | 
+ **organisation_id** | **str**| Organisation Id |
+ **invoice_id** | **str**| invoiceId |
 
 ### Return type
 
@@ -952,7 +1029,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_invoice_list**
-> list[Invoice] iam_organisation_invoice_list(organisation_id)
+> [Invoice] iam_organisation_invoice_list(organisation_id)
 
 List iam/organisation.invoice
 
@@ -962,10 +1039,11 @@ List iam/organisation.invoice
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.invoice import Invoice
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -986,14 +1064,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.invoice
         api_response = api_instance.iam_organisation_invoice_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_list: %s\n" % e)
 ```
 
@@ -1001,11 +1080,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[Invoice]**](Invoice.md)
+[**[Invoice]**](Invoice.md)
 
 ### Authorization
 
@@ -1026,7 +1105,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_list**
-> list[Organisation] iam_organisation_list(name=name, billing_company=billing_company, limit=limit, active=active)
+> [Organisation] iam_organisation_list()
 
 List iam/organisation
 
@@ -1036,10 +1115,11 @@ List organisation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.organisation import Organisation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1060,17 +1140,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    name = 'name_example' # str | Filter by name (optional)
-billing_company = 'billing_company_example' # str | Filter by billing.company (optional)
-limit = 3.4 # float | Filter by $limit (optional)
-active = False # bool | Filter by active (optional) (default to False)
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    name = "name_example" # str | Filter by name (optional)
+    billing_company = "billing.company_example" # str | Filter by billing.company (optional)
+    limit = 3.14 # float | Filter by $limit (optional)
+    active = False # bool | Filter by active (optional) if omitted the server will use the default value of False
 
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/organisation
         api_response = api_instance.iam_organisation_list(name=name, billing_company=billing_company, limit=limit, active=active)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_list: %s\n" % e)
 ```
 
@@ -1078,14 +1160,14 @@ active = False # bool | Filter by active (optional) (default to False)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**| Filter by name | [optional] 
- **billing_company** | **str**| Filter by billing.company | [optional] 
- **limit** | **float**| Filter by $limit | [optional] 
- **active** | **bool**| Filter by active | [optional] [default to False]
+ **name** | **str**| Filter by name | [optional]
+ **billing_company** | **str**| Filter by billing.company | [optional]
+ **limit** | **float**| Filter by $limit | [optional]
+ **active** | **bool**| Filter by active | [optional] if omitted the server will use the default value of False
 
 ### Return type
 
-[**list[Organisation]**](Organisation.md)
+[**[Organisation]**](Organisation.md)
 
 ### Authorization
 
@@ -1116,10 +1198,12 @@ Create iam/organisation.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.iam_organisation_ownership_create import IamOrganisationOwnershipCreate
+from h1.model.organisation import Organisation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1140,15 +1224,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-iam_organisation_ownership_create = h1.IamOrganisationOwnershipCreate() # IamOrganisationOwnershipCreate | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    iam_organisation_ownership_create = IamOrganisationOwnershipCreate(
+        email="email_example",
+    ) # IamOrganisationOwnershipCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/organisation.ownership
         api_response = api_instance.iam_organisation_ownership_create(organisation_id, iam_organisation_ownership_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_create: %s\n" % e)
 ```
 
@@ -1156,8 +1243,8 @@ iam_organisation_ownership_create = h1.IamOrganisationOwnershipCreate() # IamOrg
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **iam_organisation_ownership_create** | [**IamOrganisationOwnershipCreate**](IamOrganisationOwnershipCreate.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **iam_organisation_ownership_create** | [**IamOrganisationOwnershipCreate**](IamOrganisationOwnershipCreate.md)|  |
 
 ### Return type
 
@@ -1193,10 +1280,10 @@ Delete iam/organisation.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1217,14 +1304,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-ownership_id = 'ownership_id_example' # str | ownershipId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    ownership_id = "ownershipId_example" # str | ownershipId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/organisation.ownership
         api_instance.iam_organisation_ownership_delete(organisation_id, ownership_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_delete: %s\n" % e)
 ```
 
@@ -1232,8 +1320,8 @@ ownership_id = 'ownership_id_example' # str | ownershipId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **ownership_id** | **str**| ownershipId | 
+ **organisation_id** | **str**| Organisation Id |
+ **ownership_id** | **str**| ownershipId |
 
 ### Return type
 
@@ -1268,10 +1356,11 @@ Get iam/organisation.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.ownership import Ownership
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1292,15 +1381,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-ownership_id = 'ownership_id_example' # str | ownershipId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    ownership_id = "ownershipId_example" # str | ownershipId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.ownership
         api_response = api_instance.iam_organisation_ownership_get(organisation_id, ownership_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_get: %s\n" % e)
 ```
 
@@ -1308,8 +1398,8 @@ ownership_id = 'ownership_id_example' # str | ownershipId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **ownership_id** | **str**| ownershipId | 
+ **organisation_id** | **str**| Organisation Id |
+ **ownership_id** | **str**| ownershipId |
 
 ### Return type
 
@@ -1334,7 +1424,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_ownership_list**
-> list[Ownership] iam_organisation_ownership_list(organisation_id)
+> [Ownership] iam_organisation_ownership_list(organisation_id)
 
 List iam/organisation.ownership
 
@@ -1344,10 +1434,11 @@ List iam/organisation.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.ownership import Ownership
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1368,14 +1459,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.ownership
         api_response = api_instance.iam_organisation_ownership_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_list: %s\n" % e)
 ```
 
@@ -1383,11 +1475,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[Ownership]**](Ownership.md)
+[**[Ownership]**](Ownership.md)
 
 ### Authorization
 
@@ -1418,10 +1510,12 @@ action allocate
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.payment import Payment
+from h1.model.iam_organisation_payment_allocate import IamOrganisationPaymentAllocate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1442,16 +1536,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-payment_id = 'payment_id_example' # str | paymentId
-iam_organisation_payment_allocate = h1.IamOrganisationPaymentAllocate() # IamOrganisationPaymentAllocate | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    payment_id = "paymentId_example" # str | paymentId
+    iam_organisation_payment_allocate = IamOrganisationPaymentAllocate(
+        project="project_example",
+    ) # IamOrganisationPaymentAllocate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Allocate iam/organisation.payment
         api_response = api_instance.iam_organisation_payment_allocate(organisation_id, payment_id, iam_organisation_payment_allocate)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_allocate: %s\n" % e)
 ```
 
@@ -1459,9 +1556,9 @@ iam_organisation_payment_allocate = h1.IamOrganisationPaymentAllocate() # IamOrg
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **payment_id** | **str**| paymentId | 
- **iam_organisation_payment_allocate** | [**IamOrganisationPaymentAllocate**](IamOrganisationPaymentAllocate.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **payment_id** | **str**| paymentId |
+ **iam_organisation_payment_allocate** | [**IamOrganisationPaymentAllocate**](IamOrganisationPaymentAllocate.md)|  |
 
 ### Return type
 
@@ -1496,10 +1593,11 @@ Get iam/organisation.payment
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.payment import Payment
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1520,15 +1618,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-payment_id = 'payment_id_example' # str | paymentId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    payment_id = "paymentId_example" # str | paymentId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.payment
         api_response = api_instance.iam_organisation_payment_get(organisation_id, payment_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_get: %s\n" % e)
 ```
 
@@ -1536,8 +1635,8 @@ payment_id = 'payment_id_example' # str | paymentId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **payment_id** | **str**| paymentId | 
+ **organisation_id** | **str**| Organisation Id |
+ **payment_id** | **str**| paymentId |
 
 ### Return type
 
@@ -1562,7 +1661,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_payment_list**
-> list[Payment] iam_organisation_payment_list(organisation_id)
+> [Payment] iam_organisation_payment_list(organisation_id)
 
 List iam/organisation.payment
 
@@ -1572,10 +1671,11 @@ List iam/organisation.payment
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.payment import Payment
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1596,14 +1696,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.payment
         api_response = api_instance.iam_organisation_payment_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_list: %s\n" % e)
 ```
 
@@ -1611,11 +1712,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[Payment]**](Payment.md)
+[**[Payment]**](Payment.md)
 
 ### Authorization
 
@@ -1646,10 +1747,12 @@ Create iam/organisation.proforma
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.proforma import Proforma
+from h1.model.iam_organisation_proforma_create import IamOrganisationProformaCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1670,15 +1773,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-iam_organisation_proforma_create = h1.IamOrganisationProformaCreate() # IamOrganisationProformaCreate | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    iam_organisation_proforma_create = IamOrganisationProformaCreate(
+        amount=1,
+        project="project_example",
+    ) # IamOrganisationProformaCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/organisation.proforma
         api_response = api_instance.iam_organisation_proforma_create(organisation_id, iam_organisation_proforma_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_create: %s\n" % e)
 ```
 
@@ -1686,8 +1793,8 @@ iam_organisation_proforma_create = h1.IamOrganisationProformaCreate() # IamOrgan
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **iam_organisation_proforma_create** | [**IamOrganisationProformaCreate**](IamOrganisationProformaCreate.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **iam_organisation_proforma_create** | [**IamOrganisationProformaCreate**](IamOrganisationProformaCreate.md)|  |
 
 ### Return type
 
@@ -1712,7 +1819,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_proforma_download**
-> file iam_organisation_proforma_download(organisation_id, proforma_id)
+> file_type iam_organisation_proforma_download(organisation_id, proforma_id)
 
 Download iam/organisation.proforma
 
@@ -1722,10 +1829,10 @@ action download
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1746,15 +1853,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-proforma_id = 'proforma_id_example' # str | proformaId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    proforma_id = "proformaId_example" # str | proformaId
 
+    # example passing only required values which don't have defaults set
     try:
         # Download iam/organisation.proforma
         api_response = api_instance.iam_organisation_proforma_download(organisation_id, proforma_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_download: %s\n" % e)
 ```
 
@@ -1762,12 +1870,12 @@ proforma_id = 'proforma_id_example' # str | proformaId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **proforma_id** | **str**| proformaId | 
+ **organisation_id** | **str**| Organisation Id |
+ **proforma_id** | **str**| proformaId |
 
 ### Return type
 
-**file**
+**file_type**
 
 ### Authorization
 
@@ -1798,10 +1906,11 @@ Get iam/organisation.proforma
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.proforma import Proforma
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1822,15 +1931,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-proforma_id = 'proforma_id_example' # str | proformaId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    proforma_id = "proformaId_example" # str | proformaId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.proforma
         api_response = api_instance.iam_organisation_proforma_get(organisation_id, proforma_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_get: %s\n" % e)
 ```
 
@@ -1838,8 +1948,8 @@ proforma_id = 'proforma_id_example' # str | proformaId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **proforma_id** | **str**| proformaId | 
+ **organisation_id** | **str**| Organisation Id |
+ **proforma_id** | **str**| proformaId |
 
 ### Return type
 
@@ -1864,7 +1974,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_proforma_list**
-> list[Proforma] iam_organisation_proforma_list(organisation_id)
+> [Proforma] iam_organisation_proforma_list(organisation_id)
 
 List iam/organisation.proforma
 
@@ -1874,10 +1984,11 @@ List iam/organisation.proforma
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.proforma import Proforma
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1898,14 +2009,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.proforma
         api_response = api_instance.iam_organisation_proforma_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_list: %s\n" % e)
 ```
 
@@ -1913,11 +2025,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[Proforma]**](Proforma.md)
+[**[Proforma]**](Proforma.md)
 
 ### Authorization
 
@@ -1948,10 +2060,11 @@ Get iam/organisation.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1972,15 +2085,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.service
         api_response = api_instance.iam_organisation_service_get(organisation_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_service_get: %s\n" % e)
 ```
 
@@ -1988,8 +2102,8 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **service_id** | **str**| serviceId | 
+ **organisation_id** | **str**| Organisation Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -2014,7 +2128,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_service_list**
-> list[ResourceService] iam_organisation_service_list(organisation_id)
+> [ResourceService] iam_organisation_service_list(organisation_id)
 
 List iam/organisation.service
 
@@ -2024,10 +2138,11 @@ List iam/organisation.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2048,14 +2163,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.service
         api_response = api_instance.iam_organisation_service_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_service_list: %s\n" % e)
 ```
 
@@ -2063,11 +2179,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -2098,10 +2214,12 @@ action accept
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.iam_organisation_transfer_accept import IamOrganisationTransferAccept
+from h1.model.transfer import Transfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2122,16 +2240,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-transfer_id = 'transfer_id_example' # str | transferId
-iam_organisation_transfer_accept = h1.IamOrganisationTransferAccept() # IamOrganisationTransferAccept | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    transfer_id = "transferId_example" # str | transferId
+    iam_organisation_transfer_accept = IamOrganisationTransferAccept(
+        payment="payment_example",
+    ) # IamOrganisationTransferAccept | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Accept iam/organisation.transfer
         api_response = api_instance.iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_accept: %s\n" % e)
 ```
 
@@ -2139,9 +2260,9 @@ iam_organisation_transfer_accept = h1.IamOrganisationTransferAccept() # IamOrgan
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **transfer_id** | **str**| transferId | 
- **iam_organisation_transfer_accept** | [**IamOrganisationTransferAccept**](IamOrganisationTransferAccept.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **transfer_id** | **str**| transferId |
+ **iam_organisation_transfer_accept** | [**IamOrganisationTransferAccept**](IamOrganisationTransferAccept.md)|  |
 
 ### Return type
 
@@ -2176,10 +2297,11 @@ Get iam/organisation.transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.transfer import Transfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2200,15 +2322,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-transfer_id = 'transfer_id_example' # str | transferId
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    transfer_id = "transferId_example" # str | transferId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/organisation.transfer
         api_response = api_instance.iam_organisation_transfer_get(organisation_id, transfer_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_get: %s\n" % e)
 ```
 
@@ -2216,8 +2339,8 @@ transfer_id = 'transfer_id_example' # str | transferId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **transfer_id** | **str**| transferId | 
+ **organisation_id** | **str**| Organisation Id |
+ **transfer_id** | **str**| transferId |
 
 ### Return type
 
@@ -2242,7 +2365,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_organisation_transfer_list**
-> list[Transfer] iam_organisation_transfer_list(organisation_id)
+> [Transfer] iam_organisation_transfer_list(organisation_id)
 
 List iam/organisation.transfer
 
@@ -2252,10 +2375,11 @@ List iam/organisation.transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.transfer import Transfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2276,14 +2400,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/organisation.transfer
         api_response = api_instance.iam_organisation_transfer_list(organisation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_list: %s\n" % e)
 ```
 
@@ -2291,11 +2416,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
+ **organisation_id** | **str**| Organisation Id |
 
 ### Return type
 
-[**list[Transfer]**](Transfer.md)
+[**[Transfer]**](Transfer.md)
 
 ### Authorization
 
@@ -2326,10 +2451,12 @@ Returns modified organisation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_organisation_api
+from h1.model.organisation import Organisation
+from h1.model.iam_organisation_update import IamOrganisationUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2350,15 +2477,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamOrganisationApi(api_client)
-    organisation_id = 'organisation_id_example' # str | Organisation Id
-iam_organisation_update = h1.IamOrganisationUpdate() # IamOrganisationUpdate | 
+    api_instance = iam_organisation_api.IamOrganisationApi(api_client)
+    organisation_id = "organisationId_example" # str | Organisation Id
+    iam_organisation_update = IamOrganisationUpdate(
+        name="name_example",
+        billing=OrganisationBilling1(
+            email="email_example",
+            company="company_example",
+            address=BillingAddress1(
+                city="city_example",
+                zipcode="zipcode_example",
+                street="street_example",
+            ),
+        ),
+    ) # IamOrganisationUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/organisation
         api_response = api_instance.iam_organisation_update(organisation_id, iam_organisation_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamOrganisationApi->iam_organisation_update: %s\n" % e)
 ```
 
@@ -2366,8 +2505,8 @@ iam_organisation_update = h1.IamOrganisationUpdate() # IamOrganisationUpdate |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation_id** | **str**| Organisation Id | 
- **iam_organisation_update** | [**IamOrganisationUpdate**](IamOrganisationUpdate.md)|  | 
+ **organisation_id** | **str**| Organisation Id |
+ **iam_organisation_update** | [**IamOrganisationUpdate**](IamOrganisationUpdate.md)|  |
 
 ### Return type
 

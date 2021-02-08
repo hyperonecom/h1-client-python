@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.ticket import Ticket  # noqa: E501
-from h1.rest import ApiException
+from h1.model.ticket import Ticket
+
 
 class TestTicket(unittest.TestCase):
     """Ticket unit test stubs"""
@@ -28,32 +24,11 @@ class TestTicket(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Ticket
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.ticket.Ticket()  # noqa: E501
-        if include_optional :
-            return Ticket(
-                id = '0', 
-                type = '0', 
-                state = 'open', 
-                subject = '0', 
-                project = '0', 
-                created_on = '0', 
-                created_by = '0', 
-                modified_on = '0', 
-                modified_by = '0'
-            )
-        else :
-            return Ticket(
-        )
-
     def testTicket(self):
         """Test Ticket"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Ticket()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

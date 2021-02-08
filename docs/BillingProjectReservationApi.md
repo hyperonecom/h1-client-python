@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **billing_project_reservation_assign**
-> Reservation billing_project_reservation_assign(project_id, reservation_id, billing_project_reservation_assign, x_idempotency_key=x_idempotency_key)
+> Reservation billing_project_reservation_assign(project_id, reservation_id, billing_project_reservation_assign)
 
 Assign billing/reservation
 
@@ -33,10 +33,12 @@ action assign
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.billing_project_reservation_assign import BillingProjectReservationAssign
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -57,17 +59,30 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-billing_project_reservation_assign = h1.BillingProjectReservationAssign() # BillingProjectReservationAssign | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    billing_project_reservation_assign = BillingProjectReservationAssign(
+        resource="resource_example",
+    ) # BillingProjectReservationAssign | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Assign billing/reservation
-        api_response = api_instance.billing_project_reservation_assign(project_id, reservation_id, billing_project_reservation_assign, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.billing_project_reservation_assign(project_id, reservation_id, billing_project_reservation_assign)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectReservationApi->billing_project_reservation_assign: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Assign billing/reservation
+        api_response = api_instance.billing_project_reservation_assign(project_id, reservation_id, billing_project_reservation_assign, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_assign: %s\n" % e)
 ```
 
@@ -75,10 +90,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **billing_project_reservation_assign** | [**BillingProjectReservationAssign**](BillingProjectReservationAssign.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **billing_project_reservation_assign** | [**BillingProjectReservationAssign**](BillingProjectReservationAssign.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -104,7 +120,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_create**
-> Reservation billing_project_reservation_create(project_id, billing_project_reservation_create, x_idempotency_key=x_idempotency_key)
+> Reservation billing_project_reservation_create(project_id, billing_project_reservation_create)
 
 Create billing/reservation
 
@@ -114,10 +130,12 @@ Create reservation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.billing_project_reservation_create import BillingProjectReservationCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -138,16 +156,37 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-billing_project_reservation_create = h1.BillingProjectReservationCreate() # BillingProjectReservationCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    billing_project_reservation_create = BillingProjectReservationCreate(
+        name="name_example",
+        service="service_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # BillingProjectReservationCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create billing/reservation
-        api_response = api_instance.billing_project_reservation_create(project_id, billing_project_reservation_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.billing_project_reservation_create(project_id, billing_project_reservation_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectReservationApi->billing_project_reservation_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create billing/reservation
+        api_response = api_instance.billing_project_reservation_create(project_id, billing_project_reservation_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_create: %s\n" % e)
 ```
 
@@ -155,9 +194,10 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **billing_project_reservation_create** | [**BillingProjectReservationCreate**](BillingProjectReservationCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **billing_project_reservation_create** | [**BillingProjectReservationCreate**](BillingProjectReservationCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -193,10 +233,10 @@ Delete reservation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -217,14 +257,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete billing/reservation
         api_instance.billing_project_reservation_delete(project_id, reservation_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_delete: %s\n" % e)
 ```
 
@@ -232,8 +273,8 @@ reservation_id = 'reservation_id_example' # str | Reservation Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
 
 ### Return type
 
@@ -267,10 +308,11 @@ Get billing/reservation.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -291,16 +333,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get billing/reservation.event
         api_response = api_instance.billing_project_reservation_event_get(project_id, reservation_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_event_get: %s\n" % e)
 ```
 
@@ -308,9 +351,9 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -335,7 +378,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_event_list**
-> list[Event] billing_project_reservation_event_list(project_id, reservation_id, limit=limit, skip=skip)
+> [Event] billing_project_reservation_event_list(project_id, reservation_id)
 
 List billing/reservation.event
 
@@ -345,10 +388,11 @@ List billing/reservation.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -369,17 +413,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List billing/reservation.event
+        api_response = api_instance.billing_project_reservation_event_list(project_id, reservation_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectReservationApi->billing_project_reservation_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List billing/reservation.event
         api_response = api_instance.billing_project_reservation_event_list(project_id, reservation_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_event_list: %s\n" % e)
 ```
 
@@ -387,14 +441,14 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -415,7 +469,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_extend**
-> Reservation billing_project_reservation_extend(project_id, reservation_id, x_idempotency_key=x_idempotency_key)
+> Reservation billing_project_reservation_extend(project_id, reservation_id)
 
 Extend billing/reservation
 
@@ -425,10 +479,11 @@ action extend
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -449,16 +504,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Extend billing/reservation
-        api_response = api_instance.billing_project_reservation_extend(project_id, reservation_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.billing_project_reservation_extend(project_id, reservation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectReservationApi->billing_project_reservation_extend: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Extend billing/reservation
+        api_response = api_instance.billing_project_reservation_extend(project_id, reservation_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_extend: %s\n" % e)
 ```
 
@@ -466,9 +532,10 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -504,10 +571,11 @@ Returns a single reservation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -528,15 +596,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get billing/reservation
         api_response = api_instance.billing_project_reservation_get(project_id, reservation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_get: %s\n" % e)
 ```
 
@@ -544,8 +613,8 @@ reservation_id = 'reservation_id_example' # str | Reservation Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
 
 ### Return type
 
@@ -570,7 +639,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_list**
-> list[Reservation] billing_project_reservation_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Reservation] billing_project_reservation_list(project_id)
 
 List billing/reservation
 
@@ -580,10 +649,11 @@ List reservation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -604,17 +674,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List billing/reservation
+        api_response = api_instance.billing_project_reservation_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling BillingProjectReservationApi->billing_project_reservation_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List billing/reservation
         api_response = api_instance.billing_project_reservation_list(project_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_list: %s\n" % e)
 ```
 
@@ -622,14 +702,14 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Reservation]**](Reservation.md)
+[**[Reservation]**](Reservation.md)
 
 ### Authorization
 
@@ -660,10 +740,11 @@ Get billing/reservation.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -684,16 +765,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get billing/reservation.service
         api_response = api_instance.billing_project_reservation_service_get(project_id, reservation_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_service_get: %s\n" % e)
 ```
 
@@ -701,9 +783,9 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -728,7 +810,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_service_list**
-> list[ResourceService] billing_project_reservation_service_list(project_id, reservation_id)
+> [ResourceService] billing_project_reservation_service_list(project_id, reservation_id)
 
 List billing/reservation.service
 
@@ -738,10 +820,11 @@ List billing/reservation.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -762,15 +845,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List billing/reservation.service
         api_response = api_instance.billing_project_reservation_service_list(project_id, reservation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_service_list: %s\n" % e)
 ```
 
@@ -778,12 +862,12 @@ reservation_id = 'reservation_id_example' # str | Reservation Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -814,10 +898,11 @@ Create billing/reservation.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -838,16 +923,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-tag = h1.Tag() # Tag | 
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create billing/reservation.tag
         api_response = api_instance.billing_project_reservation_tag_create(project_id, reservation_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_tag_create: %s\n" % e)
 ```
 
@@ -855,9 +945,9 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -892,10 +982,10 @@ Delete billing/reservation.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -916,15 +1006,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete billing/reservation.tag
         api_instance.billing_project_reservation_tag_delete(project_id, reservation_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_tag_delete: %s\n" % e)
 ```
 
@@ -932,9 +1023,9 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -969,10 +1060,11 @@ Get billing/reservation.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -993,16 +1085,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get billing/reservation.tag
         api_response = api_instance.billing_project_reservation_tag_get(project_id, reservation_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_tag_get: %s\n" % e)
 ```
 
@@ -1010,9 +1103,9 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1037,7 +1130,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_tag_list**
-> list[Tag] billing_project_reservation_tag_list(project_id, reservation_id)
+> [Tag] billing_project_reservation_tag_list(project_id, reservation_id)
 
 List billing/reservation.tag
 
@@ -1047,10 +1140,11 @@ List billing/reservation.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1071,15 +1165,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List billing/reservation.tag
         api_response = api_instance.billing_project_reservation_tag_list(project_id, reservation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_tag_list: %s\n" % e)
 ```
 
@@ -1087,12 +1182,12 @@ reservation_id = 'reservation_id_example' # str | Reservation Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1113,7 +1208,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **billing_project_reservation_tag_put**
-> list[Tag] billing_project_reservation_tag_put(project_id, reservation_id, tag)
+> [Tag] billing_project_reservation_tag_put(project_id, reservation_id, tag_array)
 
 Replace billing/reservation.tag
 
@@ -1123,10 +1218,12 @@ Replace billing/reservation.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1147,16 +1244,23 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace billing/reservation.tag
-        api_response = api_instance.billing_project_reservation_tag_put(project_id, reservation_id, tag)
+        api_response = api_instance.billing_project_reservation_tag_put(project_id, reservation_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_tag_put: %s\n" % e)
 ```
 
@@ -1164,13 +1268,13 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1201,10 +1305,12 @@ Returns modified reservation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import billing_project_reservation_api
+from h1.model.reservation import Reservation
+from h1.model.billing_project_reservation_update import BillingProjectReservationUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1225,16 +1331,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.BillingProjectReservationApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-reservation_id = 'reservation_id_example' # str | Reservation Id
-billing_project_reservation_update = h1.BillingProjectReservationUpdate() # BillingProjectReservationUpdate | 
+    api_instance = billing_project_reservation_api.BillingProjectReservationApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    reservation_id = "reservationId_example" # str | Reservation Id
+    billing_project_reservation_update = BillingProjectReservationUpdate(
+        name="name_example",
+    ) # BillingProjectReservationUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update billing/reservation
         api_response = api_instance.billing_project_reservation_update(project_id, reservation_id, billing_project_reservation_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling BillingProjectReservationApi->billing_project_reservation_update: %s\n" % e)
 ```
 
@@ -1242,9 +1351,9 @@ billing_project_reservation_update = h1.BillingProjectReservationUpdate() # Bill
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **reservation_id** | **str**| Reservation Id | 
- **billing_project_reservation_update** | [**BillingProjectReservationUpdate**](BillingProjectReservationUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **reservation_id** | **str**| Reservation Id |
+ **billing_project_reservation_update** | [**BillingProjectReservationUpdate**](BillingProjectReservationUpdate.md)|  |
 
 ### Return type
 

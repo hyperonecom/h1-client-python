@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] [readonly] 
 **actor** | **str** |  | 
-**purpose** | **str** |  | 
 **resource** | **str** |  | 
+**purpose** | **str** |  | defaults to "logs"
+**id** | **str** |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,33 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.container_image import ContainerImage
+from h1.model.container_project_registry_create import ContainerProjectRegistryCreate
+from h1.model.container_project_registry_credential_patch import ContainerProjectRegistryCredentialPatch
+from h1.model.container_project_registry_transfer import ContainerProjectRegistryTransfer
+from h1.model.container_project_registry_update import ContainerProjectRegistryUpdate
+from h1.model.container_repository import ContainerRepository
+from h1.model.domain import Domain
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.registry import Registry
+from h1.model.registry_credential import RegistryCredential
+from h1.model.resource_service import ResourceService
+from h1.model.tag import Tag
+from h1.model.tag_array import TagArray
 
 
 class ContainerProjectRegistryApi(object):
@@ -36,4364 +49,4613 @@ class ContainerProjectRegistryApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def container_project_registry_create(self, project_id, location_id, container_project_registry_create, **kwargs):  # noqa: E501
-        """Create container/registry  # noqa: E501
+        def __container_project_registry_create(
+            self,
+            project_id,
+            location_id,
+            container_project_registry_create,
+            **kwargs
+        ):
+            """Create container/registry  # noqa: E501
 
-        Create registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_create(project_id, location_id, container_project_registry_create, async_req=True)
-        >>> result = thread.get()
+            Create registry  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param ContainerProjectRegistryCreate container_project_registry_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_create_with_http_info(project_id, location_id, container_project_registry_create, **kwargs)  # noqa: E501
+            >>> thread = api.container_project_registry_create(project_id, location_id, container_project_registry_create, async_req=True)
+            >>> result = thread.get()
 
-    def container_project_registry_create_with_http_info(self, project_id, location_id, container_project_registry_create, **kwargs):  # noqa: E501
-        """Create container/registry  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                container_project_registry_create (ContainerProjectRegistryCreate):
 
-        Create registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_create_with_http_info(project_id, location_id, container_project_registry_create, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param ContainerProjectRegistryCreate container_project_registry_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['container_project_registry_create'] = \
+                container_project_registry_create
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'container_project_registry_create',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_create = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry',
+                'operation_id': 'container_project_registry_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'container_project_registry_create',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'container_project_registry_create',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'container_project_registry_create':
+                        (ContainerProjectRegistryCreate,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'container_project_registry_create': 'body',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_create`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_create`")  # noqa: E501
-        # verify the required parameter 'container_project_registry_create' is set
-        if self.api_client.client_side_validation and ('container_project_registry_create' not in local_var_params or  # noqa: E501
-                                                        local_var_params['container_project_registry_create'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `container_project_registry_create` when calling `container_project_registry_create`")  # noqa: E501
+        def __container_project_registry_credential_create(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            registry_credential,
+            **kwargs
+        ):
+            """Create container/registry.credential  # noqa: E501
 
-        collection_formats = {}
+            Create container/registry.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+            >>> thread = api.container_project_registry_credential_create(project_id, location_id, registry_id, registry_credential, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                registry_credential (RegistryCredential):
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                RegistryCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['registry_credential'] = \
+                registry_credential
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'container_project_registry_create' in local_var_params:
-            body_params = local_var_params['container_project_registry_create']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_credential_create(self, project_id, location_id, registry_id, registry_credential, **kwargs):  # noqa: E501
-        """Create container/registry.credential  # noqa: E501
-
-        Create container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_create(project_id, location_id, registry_id, registry_credential, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param RegistryCredential registry_credential: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: RegistryCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_credential_create_with_http_info(project_id, location_id, registry_id, registry_credential, **kwargs)  # noqa: E501
-
-    def container_project_registry_credential_create_with_http_info(self, project_id, location_id, registry_id, registry_credential, **kwargs):  # noqa: E501
-        """Create container/registry.credential  # noqa: E501
-
-        Create container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_create_with_http_info(project_id, location_id, registry_id, registry_credential, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param RegistryCredential registry_credential: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(RegistryCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'registry_credential'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_credential_create = _Endpoint(
+            settings={
+                'response_type': (RegistryCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/credential',
+                'operation_id': 'container_project_registry_credential_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'registry_credential',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'registry_credential',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'registry_credential':
+                        (RegistryCredential,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'registry_credential': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_credential_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_credential_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_credential_create`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_credential_create`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_credential_create`")  # noqa: E501
-        # verify the required parameter 'registry_credential' is set
-        if self.api_client.client_side_validation and ('registry_credential' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_credential'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_credential` when calling `container_project_registry_credential_create`")  # noqa: E501
+        def __container_project_registry_credential_delete(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            credential_id,
+            **kwargs
+        ):
+            """Delete container/registry.credential  # noqa: E501
 
-        collection_formats = {}
+            Delete container/registry.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_credential_delete(project_id, location_id, registry_id, credential_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                credential_id (str): credentialId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['credential_id'] = \
+                credential_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'registry_credential' in local_var_params:
-            body_params = local_var_params['registry_credential']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/credential', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='RegistryCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_credential_delete(self, project_id, location_id, registry_id, credential_id, **kwargs):  # noqa: E501
-        """Delete container/registry.credential  # noqa: E501
-
-        Delete container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_delete(project_id, location_id, registry_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_credential_delete_with_http_info(project_id, location_id, registry_id, credential_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_credential_delete_with_http_info(self, project_id, location_id, registry_id, credential_id, **kwargs):  # noqa: E501
-        """Delete container/registry.credential  # noqa: E501
-
-        Delete container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_delete_with_http_info(project_id, location_id, registry_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'credential_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_credential_delete = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}',
+                'operation_id': 'container_project_registry_credential_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'credential_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_credential_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_credential_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_credential_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_credential_delete`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_credential_delete`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `container_project_registry_credential_delete`")  # noqa: E501
+        def __container_project_registry_credential_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            credential_id,
+            **kwargs
+        ):
+            """Get container/registry.credential  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.container_project_registry_credential_get(project_id, location_id, registry_id, credential_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                credential_id (str): credentialId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                RegistryCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['credential_id'] = \
+                credential_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_credential_get(self, project_id, location_id, registry_id, credential_id, **kwargs):  # noqa: E501
-        """Get container/registry.credential  # noqa: E501
-
-        Get container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_get(project_id, location_id, registry_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: RegistryCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_credential_get_with_http_info(project_id, location_id, registry_id, credential_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_credential_get_with_http_info(self, project_id, location_id, registry_id, credential_id, **kwargs):  # noqa: E501
-        """Get container/registry.credential  # noqa: E501
-
-        Get container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_get_with_http_info(project_id, location_id, registry_id, credential_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(RegistryCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'credential_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_credential_get = _Endpoint(
+            settings={
+                'response_type': (RegistryCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}',
+                'operation_id': 'container_project_registry_credential_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'credential_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_credential_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_credential_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_credential_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_credential_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_credential_get`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `container_project_registry_credential_get`")  # noqa: E501
+        def __container_project_registry_credential_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.credential  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.container_project_registry_credential_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [RegistryCredential]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='RegistryCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_credential_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.credential  # noqa: E501
-
-        List container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[RegistryCredential]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_credential_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_credential_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.credential  # noqa: E501
-
-        List container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[RegistryCredential], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_credential_list = _Endpoint(
+            settings={
+                'response_type': ([RegistryCredential],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/credential',
+                'operation_id': 'container_project_registry_credential_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_credential_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_credential_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_credential_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_credential_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_credential_list`")  # noqa: E501
+        def __container_project_registry_credential_patch(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            credential_id,
+            container_project_registry_credential_patch,
+            **kwargs
+        ):
+            """Update container/registry.credential  # noqa: E501
 
-        collection_formats = {}
+            Update container/registry.credential  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_credential_patch(project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                credential_id (str): credentialId
+                container_project_registry_credential_patch (ContainerProjectRegistryCredentialPatch):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                RegistryCredential
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['credential_id'] = \
+                credential_id
+            kwargs['container_project_registry_credential_patch'] = \
+                container_project_registry_credential_patch
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/credential', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[RegistryCredential]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_credential_patch(self, project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, **kwargs):  # noqa: E501
-        """Update container/registry.credential  # noqa: E501
-
-        Update container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_patch(project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param ContainerProjectRegistryCredentialPatch container_project_registry_credential_patch: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: RegistryCredential
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_credential_patch_with_http_info(project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, **kwargs)  # noqa: E501
-
-    def container_project_registry_credential_patch_with_http_info(self, project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, **kwargs):  # noqa: E501
-        """Update container/registry.credential  # noqa: E501
-
-        Update container/registry.credential  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_credential_patch_with_http_info(project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str credential_id: credentialId (required)
-        :param ContainerProjectRegistryCredentialPatch container_project_registry_credential_patch: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(RegistryCredential, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'credential_id',
-            'container_project_registry_credential_patch'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_credential_patch = _Endpoint(
+            settings={
+                'response_type': (RegistryCredential,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}',
+                'operation_id': 'container_project_registry_credential_patch',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                    'container_project_registry_credential_patch',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'credential_id',
+                    'container_project_registry_credential_patch',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'credential_id':
+                        (str,),
+                    'container_project_registry_credential_patch':
+                        (ContainerProjectRegistryCredentialPatch,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'credential_id': 'credentialId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'credential_id': 'path',
+                    'container_project_registry_credential_patch': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_credential_patch
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_credential_patch" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_credential_patch`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_credential_patch`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_credential_patch`")  # noqa: E501
-        # verify the required parameter 'credential_id' is set
-        if self.api_client.client_side_validation and ('credential_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['credential_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `credential_id` when calling `container_project_registry_credential_patch`")  # noqa: E501
-        # verify the required parameter 'container_project_registry_credential_patch' is set
-        if self.api_client.client_side_validation and ('container_project_registry_credential_patch' not in local_var_params or  # noqa: E501
-                                                        local_var_params['container_project_registry_credential_patch'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `container_project_registry_credential_patch` when calling `container_project_registry_credential_patch`")  # noqa: E501
+        def __container_project_registry_delete(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """Delete container/registry  # noqa: E501
 
-        collection_formats = {}
+            Delete registry  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'credential_id' in local_var_params:
-            path_params['credentialId'] = local_var_params['credential_id']  # noqa: E501
+            >>> thread = api.container_project_registry_delete(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'container_project_registry_credential_patch' in local_var_params:
-            body_params = local_var_params['container_project_registry_credential_patch']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/credential/{credentialId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='RegistryCredential',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_delete(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Delete container/registry  # noqa: E501
-
-        Delete registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_delete(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_delete_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_delete_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Delete container/registry  # noqa: E501
-
-        Delete registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_delete_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}',
+                'operation_id': 'container_project_registry_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_delete`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_delete`")  # noqa: E501
+        def __container_project_registry_domain_create(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            domain,
+            **kwargs
+        ):
+            """Create container/registry.domain  # noqa: E501
 
-        collection_formats = {}
+            Create container/registry.domain  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_domain_create(project_id, location_id, registry_id, domain, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                domain (Domain):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Domain
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['domain'] = \
+                domain
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_domain_create(self, project_id, location_id, registry_id, domain, **kwargs):  # noqa: E501
-        """Create container/registry.domain  # noqa: E501
-
-        Create container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_create(project_id, location_id, registry_id, domain, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param Domain domain: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Domain
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_domain_create_with_http_info(project_id, location_id, registry_id, domain, **kwargs)  # noqa: E501
-
-    def container_project_registry_domain_create_with_http_info(self, project_id, location_id, registry_id, domain, **kwargs):  # noqa: E501
-        """Create container/registry.domain  # noqa: E501
-
-        Create container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_create_with_http_info(project_id, location_id, registry_id, domain, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param Domain domain: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Domain, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'domain'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_domain_create = _Endpoint(
+            settings={
+                'response_type': (Domain,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/domain',
+                'operation_id': 'container_project_registry_domain_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'domain':
+                        (Domain,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'domain': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_domain_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_domain_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_domain_create`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_domain_create`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_domain_create`")  # noqa: E501
-        # verify the required parameter 'domain' is set
-        if self.api_client.client_side_validation and ('domain' not in local_var_params or  # noqa: E501
-                                                        local_var_params['domain'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `domain` when calling `container_project_registry_domain_create`")  # noqa: E501
+        def __container_project_registry_domain_delete(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            domain_id,
+            **kwargs
+        ):
+            """Delete container/registry.domain  # noqa: E501
 
-        collection_formats = {}
+            Delete container/registry.domain  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_domain_delete(project_id, location_id, registry_id, domain_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                domain_id (str): domainId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['domain_id'] = \
+                domain_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'domain' in local_var_params:
-            body_params = local_var_params['domain']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/domain', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Domain',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_domain_delete(self, project_id, location_id, registry_id, domain_id, **kwargs):  # noqa: E501
-        """Delete container/registry.domain  # noqa: E501
-
-        Delete container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_delete(project_id, location_id, registry_id, domain_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str domain_id: domainId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_domain_delete_with_http_info(project_id, location_id, registry_id, domain_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_domain_delete_with_http_info(self, project_id, location_id, registry_id, domain_id, **kwargs):  # noqa: E501
-        """Delete container/registry.domain  # noqa: E501
-
-        Delete container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_delete_with_http_info(project_id, location_id, registry_id, domain_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str domain_id: domainId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'domain_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_domain_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/domain/{domainId}',
+                'operation_id': 'container_project_registry_domain_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'domain_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'domain_id': 'domainId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'domain_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_domain_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_domain_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_domain_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_domain_delete`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_domain_delete`")  # noqa: E501
-        # verify the required parameter 'domain_id' is set
-        if self.api_client.client_side_validation and ('domain_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['domain_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `domain_id` when calling `container_project_registry_domain_delete`")  # noqa: E501
+        def __container_project_registry_domain_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            domain_id,
+            **kwargs
+        ):
+            """Get container/registry.domain  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.domain  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'domain_id' in local_var_params:
-            path_params['domainId'] = local_var_params['domain_id']  # noqa: E501
+            >>> thread = api.container_project_registry_domain_get(project_id, location_id, registry_id, domain_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                domain_id (str): domainId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Domain
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['domain_id'] = \
+                domain_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/domain/{domainId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_domain_get(self, project_id, location_id, registry_id, domain_id, **kwargs):  # noqa: E501
-        """Get container/registry.domain  # noqa: E501
-
-        Get container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_get(project_id, location_id, registry_id, domain_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str domain_id: domainId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Domain
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_domain_get_with_http_info(project_id, location_id, registry_id, domain_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_domain_get_with_http_info(self, project_id, location_id, registry_id, domain_id, **kwargs):  # noqa: E501
-        """Get container/registry.domain  # noqa: E501
-
-        Get container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_get_with_http_info(project_id, location_id, registry_id, domain_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str domain_id: domainId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Domain, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'domain_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_domain_get = _Endpoint(
+            settings={
+                'response_type': (Domain,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/domain/{domainId}',
+                'operation_id': 'container_project_registry_domain_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'domain_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'domain_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'domain_id': 'domainId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'domain_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_domain_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_domain_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_domain_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_domain_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_domain_get`")  # noqa: E501
-        # verify the required parameter 'domain_id' is set
-        if self.api_client.client_side_validation and ('domain_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['domain_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `domain_id` when calling `container_project_registry_domain_get`")  # noqa: E501
+        def __container_project_registry_domain_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.domain  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.domain  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'domain_id' in local_var_params:
-            path_params['domainId'] = local_var_params['domain_id']  # noqa: E501
+            >>> thread = api.container_project_registry_domain_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Domain]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/domain/{domainId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Domain',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_domain_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.domain  # noqa: E501
-
-        List container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Domain]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_domain_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_domain_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.domain  # noqa: E501
-
-        List container/registry.domain  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_domain_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Domain], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_domain_list = _Endpoint(
+            settings={
+                'response_type': ([Domain],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/domain',
+                'operation_id': 'container_project_registry_domain_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_domain_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_domain_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_domain_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_domain_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_domain_list`")  # noqa: E501
+        def __container_project_registry_event_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            event_id,
+            **kwargs
+        ):
+            """Get container/registry.event  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_event_get(project_id, location_id, registry_id, event_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                event_id (str): eventId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Event
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['event_id'] = \
+                event_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/domain', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Domain]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_event_get(self, project_id, location_id, registry_id, event_id, **kwargs):  # noqa: E501
-        """Get container/registry.event  # noqa: E501
-
-        Get container/registry.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_event_get(project_id, location_id, registry_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str event_id: eventId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Event
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_event_get_with_http_info(project_id, location_id, registry_id, event_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_event_get_with_http_info(self, project_id, location_id, registry_id, event_id, **kwargs):  # noqa: E501
-        """Get container/registry.event  # noqa: E501
-
-        Get container/registry.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_event_get_with_http_info(project_id, location_id, registry_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str event_id: eventId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Event, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'event_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_event_get = _Endpoint(
+            settings={
+                'response_type': (Event,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/event/{eventId}',
+                'operation_id': 'container_project_registry_event_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'event_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'event_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'event_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'event_id': 'eventId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'event_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_event_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_event_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_event_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_event_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_event_get`")  # noqa: E501
-        # verify the required parameter 'event_id' is set
-        if self.api_client.client_side_validation and ('event_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['event_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `event_id` when calling `container_project_registry_event_get`")  # noqa: E501
+        def __container_project_registry_event_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.event  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'event_id' in local_var_params:
-            path_params['eventId'] = local_var_params['event_id']  # noqa: E501
+            >>> thread = api.container_project_registry_event_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                limit (float): $limit. [optional] if omitted the server will use the default value of 100
+                skip (float): $skip. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Event]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.container_project_registry_event_list = _Endpoint(
+            settings={
+                'response_type': ([Event],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/event',
+                'operation_id': 'container_project_registry_event_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'limit',
+                    'skip',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'limit',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('limit',): {
 
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/event/{eventId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Event',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_event_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.event  # noqa: E501
-
-        List container/registry.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_event_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Event]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_event_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_event_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.event  # noqa: E501
-
-        List container/registry.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_event_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Event], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'limit',
-            'skip'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 1,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'limit':
+                        (float,),
+                    'skip':
+                        (float,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'limit': '$limit',
+                    'skip': '$skip',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'limit': 'query',
+                    'skip': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_event_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_event_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_event_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_event_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_event_list`")  # noqa: E501
+        def __container_project_registry_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """Get container/registry  # noqa: E501
 
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `container_project_registry_event_list`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `container_project_registry_event_list`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
+            Returns a single registry  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_get(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'limit' in local_var_params and local_var_params['limit'] is not None:  # noqa: E501
-            query_params.append(('$limit', local_var_params['limit']))  # noqa: E501
-        if 'skip' in local_var_params and local_var_params['skip'] is not None:  # noqa: E501
-            query_params.append(('$skip', local_var_params['skip']))  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/event', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Event]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_get(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Get container/registry  # noqa: E501
-
-        Returns a single registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_get(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_get_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_get_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Get container/registry  # noqa: E501
-
-        Returns a single registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_get_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_get = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}',
+                'operation_id': 'container_project_registry_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_get`")  # noqa: E501
+        def __container_project_registry_list(
+            self,
+            project_id,
+            location_id,
+            **kwargs
+        ):
+            """List container/registry  # noqa: E501
 
-        collection_formats = {}
+            List registry  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_list(project_id, location_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
 
-        header_params = {}
+            Keyword Args:
+                name (str): Filter by name. [optional]
+                tag_value (str): Filter by tag.value. [optional]
+                tag_key (str): Filter by tag.key. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Registry]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_list(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List container/registry  # noqa: E501
-
-        List registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_list(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str name: Filter by name
-        :param str tag_value: Filter by tag.value
-        :param str tag_key: Filter by tag.key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Registry]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_list_with_http_info(project_id, location_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_list_with_http_info(self, project_id, location_id, **kwargs):  # noqa: E501
-        """List container/registry  # noqa: E501
-
-        List registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_list_with_http_info(project_id, location_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str name: Filter by name
-        :param str tag_value: Filter by tag.value
-        :param str tag_key: Filter by tag.key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Registry], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'name',
-            'tag_value',
-            'tag_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_list = _Endpoint(
+            settings={
+                'response_type': ([Registry],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry',
+                'operation_id': 'container_project_registry_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'name',
+                    'tag_value',
+                    'tag_key',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'name':
+                        (str,),
+                    'tag_value':
+                        (str,),
+                    'tag_key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'name': 'name',
+                    'tag_value': 'tag.value',
+                    'tag_key': 'tag.key',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'name': 'query',
+                    'tag_value': 'query',
+                    'tag_key': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_list`")  # noqa: E501
+        def __container_project_registry_repository_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            repository_id,
+            **kwargs
+        ):
+            """Get container/registry.repository  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.repository  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
+            >>> thread = api.container_project_registry_repository_get(project_id, location_id, registry_id, repository_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
-            query_params.append(('name', local_var_params['name']))  # noqa: E501
-        if 'tag_value' in local_var_params and local_var_params['tag_value'] is not None:  # noqa: E501
-            query_params.append(('tag.value', local_var_params['tag_value']))  # noqa: E501
-        if 'tag_key' in local_var_params and local_var_params['tag_key'] is not None:  # noqa: E501
-            query_params.append(('tag.key', local_var_params['tag_key']))  # noqa: E501
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                repository_id (str): repositoryId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ContainerRepository
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['repository_id'] = \
+                repository_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Registry]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_repository_get(self, project_id, location_id, registry_id, repository_id, **kwargs):  # noqa: E501
-        """Get container/registry.repository  # noqa: E501
-
-        Get container/registry.repository  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_get(project_id, location_id, registry_id, repository_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ContainerRepository
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_repository_get_with_http_info(project_id, location_id, registry_id, repository_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_repository_get_with_http_info(self, project_id, location_id, registry_id, repository_id, **kwargs):  # noqa: E501
-        """Get container/registry.repository  # noqa: E501
-
-        Get container/registry.repository  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_get_with_http_info(project_id, location_id, registry_id, repository_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ContainerRepository, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'repository_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_repository_get = _Endpoint(
+            settings={
+                'response_type': (ContainerRepository,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}',
+                'operation_id': 'container_project_registry_repository_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'repository_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'repository_id': 'repositoryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'repository_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_repository_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_repository_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_repository_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_repository_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_repository_get`")  # noqa: E501
-        # verify the required parameter 'repository_id' is set
-        if self.api_client.client_side_validation and ('repository_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['repository_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `repository_id` when calling `container_project_registry_repository_get`")  # noqa: E501
+        def __container_project_registry_repository_image_delete(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            repository_id,
+            image_id,
+            **kwargs
+        ):
+            """Delete container/registry.image  # noqa: E501
 
-        collection_formats = {}
+            Delete container/registry.image  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'repository_id' in local_var_params:
-            path_params['repositoryId'] = local_var_params['repository_id']  # noqa: E501
+            >>> thread = api.container_project_registry_repository_image_delete(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                repository_id (str): repositoryId
+                image_id (str): imageId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['repository_id'] = \
+                repository_id
+            kwargs['image_id'] = \
+                image_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ContainerRepository',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_repository_image_delete(self, project_id, location_id, registry_id, repository_id, image_id, **kwargs):  # noqa: E501
-        """Delete container/registry.image  # noqa: E501
-
-        Delete container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_delete(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param str image_id: imageId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_repository_image_delete_with_http_info(project_id, location_id, registry_id, repository_id, image_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_repository_image_delete_with_http_info(self, project_id, location_id, registry_id, repository_id, image_id, **kwargs):  # noqa: E501
-        """Delete container/registry.image  # noqa: E501
-
-        Delete container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_delete_with_http_info(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param str image_id: imageId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'repository_id',
-            'image_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_repository_image_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image/{imageId}',
+                'operation_id': 'container_project_registry_repository_image_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                    'image_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                    'image_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'repository_id':
+                        (str,),
+                    'image_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'repository_id': 'repositoryId',
+                    'image_id': 'imageId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'repository_id': 'path',
+                    'image_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_repository_image_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_repository_image_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_repository_image_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_repository_image_delete`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_repository_image_delete`")  # noqa: E501
-        # verify the required parameter 'repository_id' is set
-        if self.api_client.client_side_validation and ('repository_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['repository_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `repository_id` when calling `container_project_registry_repository_image_delete`")  # noqa: E501
-        # verify the required parameter 'image_id' is set
-        if self.api_client.client_side_validation and ('image_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['image_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `image_id` when calling `container_project_registry_repository_image_delete`")  # noqa: E501
+        def __container_project_registry_repository_image_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            repository_id,
+            image_id,
+            **kwargs
+        ):
+            """Get container/registry.image  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.image  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'repository_id' in local_var_params:
-            path_params['repositoryId'] = local_var_params['repository_id']  # noqa: E501
-        if 'image_id' in local_var_params:
-            path_params['imageId'] = local_var_params['image_id']  # noqa: E501
+            >>> thread = api.container_project_registry_repository_image_get(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                repository_id (str): repositoryId
+                image_id (str): imageId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ContainerImage
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['repository_id'] = \
+                repository_id
+            kwargs['image_id'] = \
+                image_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image/{imageId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_repository_image_get(self, project_id, location_id, registry_id, repository_id, image_id, **kwargs):  # noqa: E501
-        """Get container/registry.image  # noqa: E501
-
-        Get container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_get(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param str image_id: imageId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ContainerImage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_repository_image_get_with_http_info(project_id, location_id, registry_id, repository_id, image_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_repository_image_get_with_http_info(self, project_id, location_id, registry_id, repository_id, image_id, **kwargs):  # noqa: E501
-        """Get container/registry.image  # noqa: E501
-
-        Get container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_get_with_http_info(project_id, location_id, registry_id, repository_id, image_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param str image_id: imageId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ContainerImage, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'repository_id',
-            'image_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_repository_image_get = _Endpoint(
+            settings={
+                'response_type': (ContainerImage,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image/{imageId}',
+                'operation_id': 'container_project_registry_repository_image_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                    'image_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                    'image_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'repository_id':
+                        (str,),
+                    'image_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'repository_id': 'repositoryId',
+                    'image_id': 'imageId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'repository_id': 'path',
+                    'image_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_repository_image_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_repository_image_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_repository_image_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_repository_image_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_repository_image_get`")  # noqa: E501
-        # verify the required parameter 'repository_id' is set
-        if self.api_client.client_side_validation and ('repository_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['repository_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `repository_id` when calling `container_project_registry_repository_image_get`")  # noqa: E501
-        # verify the required parameter 'image_id' is set
-        if self.api_client.client_side_validation and ('image_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['image_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `image_id` when calling `container_project_registry_repository_image_get`")  # noqa: E501
+        def __container_project_registry_repository_image_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            repository_id,
+            **kwargs
+        ):
+            """List container/registry.image  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.image  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'repository_id' in local_var_params:
-            path_params['repositoryId'] = local_var_params['repository_id']  # noqa: E501
-        if 'image_id' in local_var_params:
-            path_params['imageId'] = local_var_params['image_id']  # noqa: E501
+            >>> thread = api.container_project_registry_repository_image_list(project_id, location_id, registry_id, repository_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                repository_id (str): repositoryId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ContainerImage]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['repository_id'] = \
+                repository_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image/{imageId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ContainerImage',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_repository_image_list(self, project_id, location_id, registry_id, repository_id, **kwargs):  # noqa: E501
-        """List container/registry.image  # noqa: E501
-
-        List container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_list(project_id, location_id, registry_id, repository_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ContainerImage]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_repository_image_list_with_http_info(project_id, location_id, registry_id, repository_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_repository_image_list_with_http_info(self, project_id, location_id, registry_id, repository_id, **kwargs):  # noqa: E501
-        """List container/registry.image  # noqa: E501
-
-        List container/registry.image  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_image_list_with_http_info(project_id, location_id, registry_id, repository_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str repository_id: repositoryId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ContainerImage], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'repository_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_repository_image_list = _Endpoint(
+            settings={
+                'response_type': ([ContainerImage],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image',
+                'operation_id': 'container_project_registry_repository_image_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'repository_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'repository_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'repository_id': 'repositoryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'repository_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_repository_image_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_repository_image_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_repository_image_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_repository_image_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_repository_image_list`")  # noqa: E501
-        # verify the required parameter 'repository_id' is set
-        if self.api_client.client_side_validation and ('repository_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['repository_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `repository_id` when calling `container_project_registry_repository_image_list`")  # noqa: E501
+        def __container_project_registry_repository_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.repository  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.repository  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'repository_id' in local_var_params:
-            path_params['repositoryId'] = local_var_params['repository_id']  # noqa: E501
+            >>> thread = api.container_project_registry_repository_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ContainerRepository]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/repository/{repositoryId}/image', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ContainerImage]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_repository_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.repository  # noqa: E501
-
-        List container/registry.repository  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ContainerRepository]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_repository_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_repository_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.repository  # noqa: E501
-
-        List container/registry.repository  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_repository_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ContainerRepository], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_repository_list = _Endpoint(
+            settings={
+                'response_type': ([ContainerRepository],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/repository',
+                'operation_id': 'container_project_registry_repository_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_repository_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_repository_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_repository_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_repository_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_repository_list`")  # noqa: E501
+        def __container_project_registry_service_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            service_id,
+            **kwargs
+        ):
+            """Get container/registry.service  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_service_get(project_id, location_id, registry_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                service_id (str): serviceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ResourceService
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/repository', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ContainerRepository]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_service_get(self, project_id, location_id, registry_id, service_id, **kwargs):  # noqa: E501
-        """Get container/registry.service  # noqa: E501
-
-        Get container/registry.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_service_get(project_id, location_id, registry_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str service_id: serviceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ResourceService
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_service_get_with_http_info(project_id, location_id, registry_id, service_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_service_get_with_http_info(self, project_id, location_id, registry_id, service_id, **kwargs):  # noqa: E501
-        """Get container/registry.service  # noqa: E501
-
-        Get container/registry.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_service_get_with_http_info(project_id, location_id, registry_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str service_id: serviceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_service_get = _Endpoint(
+            settings={
+                'response_type': (ResourceService,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/service/{serviceId}',
+                'operation_id': 'container_project_registry_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'service_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_service_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_service_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `container_project_registry_service_get`")  # noqa: E501
+        def __container_project_registry_service_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.service  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.container_project_registry_service_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ResourceService]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ResourceService',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_service_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.service  # noqa: E501
-
-        List container/registry.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_service_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ResourceService]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_service_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_service_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.service  # noqa: E501
-
-        List container/registry.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_service_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_service_list = _Endpoint(
+            settings={
+                'response_type': ([ResourceService],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/service',
+                'operation_id': 'container_project_registry_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_service_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_service_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_service_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_service_list`")  # noqa: E501
+        def __container_project_registry_start(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """Start container/registry  # noqa: E501
 
-        collection_formats = {}
+            action start  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_start(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ResourceService]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_start(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Start container/registry  # noqa: E501
-
-        action start  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_start(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_start_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_start_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Start container/registry  # noqa: E501
-
-        action start  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_start_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_start = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/start',
+                'operation_id': 'container_project_registry_start',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_start
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_start" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_start`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_start`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_start`")  # noqa: E501
+        def __container_project_registry_stop(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """Stop container/registry  # noqa: E501
 
-        collection_formats = {}
+            action stop  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_stop(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/start', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_stop(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Stop container/registry  # noqa: E501
-
-        action stop  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_stop(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_stop_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_stop_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """Stop container/registry  # noqa: E501
-
-        action stop  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_stop_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_stop = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/stop',
+                'operation_id': 'container_project_registry_stop',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_stop
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_stop" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_stop`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_stop`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_stop`")  # noqa: E501
+        def __container_project_registry_tag_create(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            tag,
+            **kwargs
+        ):
+            """Create container/registry.tag  # noqa: E501
 
-        collection_formats = {}
+            Create container/registry.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_tag_create(project_id, location_id, registry_id, tag, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                tag (Tag):
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['tag'] = \
+                tag
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/stop', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_tag_create(self, project_id, location_id, registry_id, tag, **kwargs):  # noqa: E501
-        """Create container/registry.tag  # noqa: E501
-
-        Create container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_create(project_id, location_id, registry_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param Tag tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_tag_create_with_http_info(project_id, location_id, registry_id, tag, **kwargs)  # noqa: E501
-
-    def container_project_registry_tag_create_with_http_info(self, project_id, location_id, registry_id, tag, **kwargs):  # noqa: E501
-        """Create container/registry.tag  # noqa: E501
-
-        Create container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_create_with_http_info(project_id, location_id, registry_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param Tag tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_tag_create = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/tag',
+                'operation_id': 'container_project_registry_tag_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'tag':
+                        (Tag,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'tag': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_tag_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_tag_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_tag_create`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_tag_create`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_tag_create`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `container_project_registry_tag_create`")  # noqa: E501
+        def __container_project_registry_tag_delete(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            tag_id,
+            **kwargs
+        ):
+            """Delete container/registry.tag  # noqa: E501
 
-        collection_formats = {}
+            Delete container/registry.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_tag_delete(project_id, location_id, registry_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/tag', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_tag_delete(self, project_id, location_id, registry_id, tag_id, **kwargs):  # noqa: E501
-        """Delete container/registry.tag  # noqa: E501
-
-        Delete container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_delete(project_id, location_id, registry_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_tag_delete_with_http_info(project_id, location_id, registry_id, tag_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_tag_delete_with_http_info(self, project_id, location_id, registry_id, tag_id, **kwargs):  # noqa: E501
-        """Delete container/registry.tag  # noqa: E501
-
-        Delete container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_delete_with_http_info(project_id, location_id, registry_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_tag_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/tag/{tagId}',
+                'operation_id': 'container_project_registry_tag_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_tag_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_tag_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_tag_delete`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_tag_delete`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_tag_delete`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `container_project_registry_tag_delete`")  # noqa: E501
+        def __container_project_registry_tag_get(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            tag_id,
+            **kwargs
+        ):
+            """Get container/registry.tag  # noqa: E501
 
-        collection_formats = {}
+            Get container/registry.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.container_project_registry_tag_get(project_id, location_id, registry_id, tag_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                tag_id (str): tagId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Tag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['tag_id'] = \
+                tag_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/tag/{tagId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_tag_get(self, project_id, location_id, registry_id, tag_id, **kwargs):  # noqa: E501
-        """Get container/registry.tag  # noqa: E501
-
-        Get container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_get(project_id, location_id, registry_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str tag_id: tagId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Tag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_tag_get_with_http_info(project_id, location_id, registry_id, tag_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_tag_get_with_http_info(self, project_id, location_id, registry_id, tag_id, **kwargs):  # noqa: E501
-        """Get container/registry.tag  # noqa: E501
-
-        Get container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_get_with_http_info(project_id, location_id, registry_id, tag_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param str tag_id: tagId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Tag, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'tag_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_tag_get = _Endpoint(
+            settings={
+                'response_type': (Tag,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/tag/{tagId}',
+                'operation_id': 'container_project_registry_tag_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'tag_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'tag_id': 'tagId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'tag_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_tag_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_tag_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_tag_get`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_tag_get`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_tag_get`")  # noqa: E501
-        # verify the required parameter 'tag_id' is set
-        if self.api_client.client_side_validation and ('tag_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag_id` when calling `container_project_registry_tag_get`")  # noqa: E501
+        def __container_project_registry_tag_list(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            **kwargs
+        ):
+            """List container/registry.tag  # noqa: E501
 
-        collection_formats = {}
+            List container/registry.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-        if 'tag_id' in local_var_params:
-            path_params['tagId'] = local_var_params['tag_id']  # noqa: E501
+            >>> thread = api.container_project_registry_tag_list(project_id, location_id, registry_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/tag/{tagId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Tag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_tag_list(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.tag  # noqa: E501
-
-        List container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_list(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_tag_list_with_http_info(project_id, location_id, registry_id, **kwargs)  # noqa: E501
-
-    def container_project_registry_tag_list_with_http_info(self, project_id, location_id, registry_id, **kwargs):  # noqa: E501
-        """List container/registry.tag  # noqa: E501
-
-        List container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_list_with_http_info(project_id, location_id, registry_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_tag_list = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/tag',
+                'operation_id': 'container_project_registry_tag_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__container_project_registry_tag_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_tag_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_tag_list`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_tag_list`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_tag_list`")  # noqa: E501
+        def __container_project_registry_tag_put(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            tag_array,
+            **kwargs
+        ):
+            """Replace container/registry.tag  # noqa: E501
 
-        collection_formats = {}
+            Replace container/registry.tag  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_tag_put(project_id, location_id, registry_id, tag_array, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                tag_array (TagArray):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Tag]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['tag_array'] = \
+                tag_array
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/tag', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_tag_put(self, project_id, location_id, registry_id, tag, **kwargs):  # noqa: E501
-        """Replace container/registry.tag  # noqa: E501
-
-        Replace container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_put(project_id, location_id, registry_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param list[Tag] tag: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Tag]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_tag_put_with_http_info(project_id, location_id, registry_id, tag, **kwargs)  # noqa: E501
-
-    def container_project_registry_tag_put_with_http_info(self, project_id, location_id, registry_id, tag, **kwargs):  # noqa: E501
-        """Replace container/registry.tag  # noqa: E501
-
-        Replace container/registry.tag  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_tag_put_with_http_info(project_id, location_id, registry_id, tag, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param list[Tag] tag: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Tag], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'tag'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_tag_put = _Endpoint(
+            settings={
+                'response_type': ([Tag],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/tag',
+                'operation_id': 'container_project_registry_tag_put',
+                'http_method': 'PUT',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_array',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'tag_array',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'tag_array':
+                        (TagArray,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'tag_array': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_tag_put
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_tag_put" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_tag_put`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_tag_put`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_tag_put`")  # noqa: E501
-        # verify the required parameter 'tag' is set
-        if self.api_client.client_side_validation and ('tag' not in local_var_params or  # noqa: E501
-                                                        local_var_params['tag'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `tag` when calling `container_project_registry_tag_put`")  # noqa: E501
+        def __container_project_registry_transfer(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            container_project_registry_transfer,
+            **kwargs
+        ):
+            """Transfer container/registry  # noqa: E501
 
-        collection_formats = {}
+            action transfer  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                container_project_registry_transfer (ContainerProjectRegistryTransfer):
 
-        header_params = {}
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['container_project_registry_transfer'] = \
+                container_project_registry_transfer
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'tag' in local_var_params:
-            body_params = local_var_params['tag']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/tag', 'PUT',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Tag]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_transfer(self, project_id, location_id, registry_id, container_project_registry_transfer, **kwargs):  # noqa: E501
-        """Transfer container/registry  # noqa: E501
-
-        action transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param ContainerProjectRegistryTransfer container_project_registry_transfer: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_transfer_with_http_info(project_id, location_id, registry_id, container_project_registry_transfer, **kwargs)  # noqa: E501
-
-    def container_project_registry_transfer_with_http_info(self, project_id, location_id, registry_id, container_project_registry_transfer, **kwargs):  # noqa: E501
-        """Transfer container/registry  # noqa: E501
-
-        action transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_transfer_with_http_info(project_id, location_id, registry_id, container_project_registry_transfer, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param ContainerProjectRegistryTransfer container_project_registry_transfer: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'container_project_registry_transfer',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_transfer = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/transfer',
+                'operation_id': 'container_project_registry_transfer',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'container_project_registry_transfer',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'container_project_registry_transfer',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'container_project_registry_transfer':
+                        (ContainerProjectRegistryTransfer,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'container_project_registry_transfer': 'body',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_transfer
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_transfer" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_transfer`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_transfer`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_transfer`")  # noqa: E501
-        # verify the required parameter 'container_project_registry_transfer' is set
-        if self.api_client.client_side_validation and ('container_project_registry_transfer' not in local_var_params or  # noqa: E501
-                                                        local_var_params['container_project_registry_transfer'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `container_project_registry_transfer` when calling `container_project_registry_transfer`")  # noqa: E501
+        def __container_project_registry_update(
+            self,
+            project_id,
+            location_id,
+            registry_id,
+            container_project_registry_update,
+            **kwargs
+        ):
+            """Update container/registry  # noqa: E501
 
-        collection_formats = {}
+            Returns modified registry  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
+            >>> thread = api.container_project_registry_update(project_id, location_id, registry_id, container_project_registry_update, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                project_id (str): Project Id
+                location_id (str): Location Id
+                registry_id (str): Registry Id
+                container_project_registry_update (ContainerProjectRegistryUpdate):
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Registry
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['project_id'] = \
+                project_id
+            kwargs['location_id'] = \
+                location_id
+            kwargs['registry_id'] = \
+                registry_id
+            kwargs['container_project_registry_update'] = \
+                container_project_registry_update
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'container_project_registry_transfer' in local_var_params:
-            body_params = local_var_params['container_project_registry_transfer']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}/actions/transfer', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def container_project_registry_update(self, project_id, location_id, registry_id, container_project_registry_update, **kwargs):  # noqa: E501
-        """Update container/registry  # noqa: E501
-
-        Returns modified registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_update(project_id, location_id, registry_id, container_project_registry_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param ContainerProjectRegistryUpdate container_project_registry_update: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Registry
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.container_project_registry_update_with_http_info(project_id, location_id, registry_id, container_project_registry_update, **kwargs)  # noqa: E501
-
-    def container_project_registry_update_with_http_info(self, project_id, location_id, registry_id, container_project_registry_update, **kwargs):  # noqa: E501
-        """Update container/registry  # noqa: E501
-
-        Returns modified registry  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.container_project_registry_update_with_http_info(project_id, location_id, registry_id, container_project_registry_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str project_id: Project Id (required)
-        :param str location_id: Location Id (required)
-        :param str registry_id: Registry Id (required)
-        :param ContainerProjectRegistryUpdate container_project_registry_update: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Registry, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'project_id',
-            'location_id',
-            'registry_id',
-            'container_project_registry_update'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.container_project_registry_update = _Endpoint(
+            settings={
+                'response_type': (Registry,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/container/{locationId}/project/{projectId}/registry/{registryId}',
+                'operation_id': 'container_project_registry_update',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'container_project_registry_update',
+                ],
+                'required': [
+                    'project_id',
+                    'location_id',
+                    'registry_id',
+                    'container_project_registry_update',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'project_id':
+                        (str,),
+                    'location_id':
+                        (str,),
+                    'registry_id':
+                        (str,),
+                    'container_project_registry_update':
+                        (ContainerProjectRegistryUpdate,),
+                },
+                'attribute_map': {
+                    'project_id': 'projectId',
+                    'location_id': 'locationId',
+                    'registry_id': 'registryId',
+                },
+                'location_map': {
+                    'project_id': 'path',
+                    'location_id': 'path',
+                    'registry_id': 'path',
+                    'container_project_registry_update': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__container_project_registry_update
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method container_project_registry_update" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'project_id' is set
-        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `container_project_registry_update`")  # noqa: E501
-        # verify the required parameter 'location_id' is set
-        if self.api_client.client_side_validation and ('location_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['location_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `location_id` when calling `container_project_registry_update`")  # noqa: E501
-        # verify the required parameter 'registry_id' is set
-        if self.api_client.client_side_validation and ('registry_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['registry_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `registry_id` when calling `container_project_registry_update`")  # noqa: E501
-        # verify the required parameter 'container_project_registry_update' is set
-        if self.api_client.client_side_validation and ('container_project_registry_update' not in local_var_params or  # noqa: E501
-                                                        local_var_params['container_project_registry_update'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `container_project_registry_update` when calling `container_project_registry_update`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_id' in local_var_params:
-            path_params['projectId'] = local_var_params['project_id']  # noqa: E501
-        if 'location_id' in local_var_params:
-            path_params['locationId'] = local_var_params['location_id']  # noqa: E501
-        if 'registry_id' in local_var_params:
-            path_params['registryId'] = local_var_params['registry_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'container_project_registry_update' in local_var_params:
-            body_params = local_var_params['container_project_registry_update']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/container/{locationId}/project/{projectId}/registry/{registryId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Registry',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

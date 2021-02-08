@@ -38,7 +38,7 @@ Method | HTTP request | Description
 
 
 # **container_project_registry_create**
-> Registry container_project_registry_create(project_id, location_id, container_project_registry_create, x_idempotency_key=x_idempotency_key)
+> Registry container_project_registry_create(project_id, location_id, container_project_registry_create)
 
 Create container/registry
 
@@ -48,10 +48,12 @@ Create registry
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.container_project_registry_create import ContainerProjectRegistryCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -72,17 +74,38 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-container_project_registry_create = h1.ContainerProjectRegistryCreate() # ContainerProjectRegistryCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    container_project_registry_create = ContainerProjectRegistryCreate(
+        name="name_example",
+        service="service_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # ContainerProjectRegistryCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create container/registry
-        api_response = api_instance.container_project_registry_create(project_id, location_id, container_project_registry_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.container_project_registry_create(project_id, location_id, container_project_registry_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create container/registry
+        api_response = api_instance.container_project_registry_create(project_id, location_id, container_project_registry_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_create: %s\n" % e)
 ```
 
@@ -90,10 +113,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **container_project_registry_create** | [**ContainerProjectRegistryCreate**](ContainerProjectRegistryCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **container_project_registry_create** | [**ContainerProjectRegistryCreate**](ContainerProjectRegistryCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -129,10 +153,11 @@ Create container/registry.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry_credential import RegistryCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -153,17 +178,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-registry_credential = h1.RegistryCredential() # RegistryCredential | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    registry_credential = RegistryCredential(
+        id="id_example",
+        name="name_example",
+        created_by="created_by_example",
+        created_on=dateutil_parser('1970-01-01T00:00:00.00Z'),
+        type="sha512",
+        value="value_example",
+        fingerprint="fingerprint_example",
+        token="token_example",
+    ) # RegistryCredential | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create container/registry.credential
         api_response = api_instance.container_project_registry_credential_create(project_id, location_id, registry_id, registry_credential)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_create: %s\n" % e)
 ```
 
@@ -171,10 +206,10 @@ registry_credential = h1.RegistryCredential() # RegistryCredential |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **registry_credential** | [**RegistryCredential**](RegistryCredential.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **registry_credential** | [**RegistryCredential**](RegistryCredential.md)|  |
 
 ### Return type
 
@@ -209,10 +244,11 @@ Delete container/registry.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -233,17 +269,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete container/registry.credential
         api_response = api_instance.container_project_registry_credential_delete(project_id, location_id, registry_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_delete: %s\n" % e)
 ```
 
@@ -251,10 +288,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -290,10 +327,11 @@ Get container/registry.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry_credential import RegistryCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -314,17 +352,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.credential
         api_response = api_instance.container_project_registry_credential_get(project_id, location_id, registry_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_get: %s\n" % e)
 ```
 
@@ -332,10 +371,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -360,7 +399,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_credential_list**
-> list[RegistryCredential] container_project_registry_credential_list(project_id, location_id, registry_id)
+> [RegistryCredential] container_project_registry_credential_list(project_id, location_id, registry_id)
 
 List container/registry.credential
 
@@ -370,10 +409,11 @@ List container/registry.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry_credential import RegistryCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -394,16 +434,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.credential
         api_response = api_instance.container_project_registry_credential_list(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_list: %s\n" % e)
 ```
 
@@ -411,13 +452,13 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
-[**list[RegistryCredential]**](RegistryCredential.md)
+[**[RegistryCredential]**](RegistryCredential.md)
 
 ### Authorization
 
@@ -448,10 +489,12 @@ Update container/registry.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry_credential import RegistryCredential
+from h1.model.container_project_registry_credential_patch import ContainerProjectRegistryCredentialPatch
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -472,18 +515,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-credential_id = 'credential_id_example' # str | credentialId
-container_project_registry_credential_patch = h1.ContainerProjectRegistryCredentialPatch() # ContainerProjectRegistryCredentialPatch | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    credential_id = "credentialId_example" # str | credentialId
+    container_project_registry_credential_patch = ContainerProjectRegistryCredentialPatch(
+        name="name_example",
+    ) # ContainerProjectRegistryCredentialPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update container/registry.credential
         api_response = api_instance.container_project_registry_credential_patch(project_id, location_id, registry_id, credential_id, container_project_registry_credential_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_patch: %s\n" % e)
 ```
 
@@ -491,11 +537,11 @@ container_project_registry_credential_patch = h1.ContainerProjectRegistryCredent
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **credential_id** | **str**| credentialId | 
- **container_project_registry_credential_patch** | [**ContainerProjectRegistryCredentialPatch**](ContainerProjectRegistryCredentialPatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **credential_id** | **str**| credentialId |
+ **container_project_registry_credential_patch** | [**ContainerProjectRegistryCredentialPatch**](ContainerProjectRegistryCredentialPatch.md)|  |
 
 ### Return type
 
@@ -530,10 +576,10 @@ Delete registry
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -554,15 +600,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete container/registry
         api_instance.container_project_registry_delete(project_id, location_id, registry_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_delete: %s\n" % e)
 ```
 
@@ -570,9 +617,9 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
@@ -606,10 +653,11 @@ Create container/registry.domain
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.domain import Domain
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -630,17 +678,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-domain = h1.Domain() # Domain | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    domain = Domain(
+        id="id_example",
+        value="value_example",
+    ) # Domain | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create container/registry.domain
         api_response = api_instance.container_project_registry_domain_create(project_id, location_id, registry_id, domain)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_create: %s\n" % e)
 ```
 
@@ -648,10 +700,10 @@ domain = h1.Domain() # Domain |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **domain** | [**Domain**](Domain.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **domain** | [**Domain**](Domain.md)|  |
 
 ### Return type
 
@@ -686,10 +738,10 @@ Delete container/registry.domain
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -710,16 +762,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-domain_id = 'domain_id_example' # str | domainId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    domain_id = "domainId_example" # str | domainId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete container/registry.domain
         api_instance.container_project_registry_domain_delete(project_id, location_id, registry_id, domain_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_delete: %s\n" % e)
 ```
 
@@ -727,10 +780,10 @@ domain_id = 'domain_id_example' # str | domainId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **domain_id** | **str**| domainId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **domain_id** | **str**| domainId |
 
 ### Return type
 
@@ -765,10 +818,11 @@ Get container/registry.domain
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.domain import Domain
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -789,17 +843,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-domain_id = 'domain_id_example' # str | domainId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    domain_id = "domainId_example" # str | domainId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.domain
         api_response = api_instance.container_project_registry_domain_get(project_id, location_id, registry_id, domain_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_get: %s\n" % e)
 ```
 
@@ -807,10 +862,10 @@ domain_id = 'domain_id_example' # str | domainId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **domain_id** | **str**| domainId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **domain_id** | **str**| domainId |
 
 ### Return type
 
@@ -835,7 +890,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_domain_list**
-> list[Domain] container_project_registry_domain_list(project_id, location_id, registry_id)
+> [Domain] container_project_registry_domain_list(project_id, location_id, registry_id)
 
 List container/registry.domain
 
@@ -845,10 +900,11 @@ List container/registry.domain
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.domain import Domain
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -869,16 +925,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.domain
         api_response = api_instance.container_project_registry_domain_list(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_list: %s\n" % e)
 ```
 
@@ -886,13 +943,13 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
-[**list[Domain]**](Domain.md)
+[**[Domain]**](Domain.md)
 
 ### Authorization
 
@@ -923,10 +980,11 @@ Get container/registry.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -947,17 +1005,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.event
         api_response = api_instance.container_project_registry_event_get(project_id, location_id, registry_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_event_get: %s\n" % e)
 ```
 
@@ -965,10 +1024,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -993,7 +1052,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_event_list**
-> list[Event] container_project_registry_event_list(project_id, location_id, registry_id, limit=limit, skip=skip)
+> [Event] container_project_registry_event_list(project_id, location_id, registry_id)
 
 List container/registry.event
 
@@ -1003,10 +1062,11 @@ List container/registry.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1027,18 +1087,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List container/registry.event
+        api_response = api_instance.container_project_registry_event_list(project_id, location_id, registry_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List container/registry.event
         api_response = api_instance.container_project_registry_event_list(project_id, location_id, registry_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_event_list: %s\n" % e)
 ```
 
@@ -1046,15 +1116,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -1085,10 +1155,11 @@ Returns a single registry
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1109,16 +1180,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry
         api_response = api_instance.container_project_registry_get(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_get: %s\n" % e)
 ```
 
@@ -1126,9 +1198,9 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
@@ -1153,7 +1225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_list**
-> list[Registry] container_project_registry_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Registry] container_project_registry_list(project_id, location_id)
 
 List container/registry
 
@@ -1163,10 +1235,11 @@ List registry
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1187,18 +1260,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List container/registry
+        api_response = api_instance.container_project_registry_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List container/registry
         api_response = api_instance.container_project_registry_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_list: %s\n" % e)
 ```
 
@@ -1206,15 +1289,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Registry]**](Registry.md)
+[**[Registry]**](Registry.md)
 
 ### Authorization
 
@@ -1245,10 +1328,11 @@ Get container/registry.repository
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.container_repository import ContainerRepository
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1269,17 +1353,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-repository_id = 'repository_id_example' # str | repositoryId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    repository_id = "repositoryId_example" # str | repositoryId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.repository
         api_response = api_instance.container_project_registry_repository_get(project_id, location_id, registry_id, repository_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_get: %s\n" % e)
 ```
 
@@ -1287,10 +1372,10 @@ repository_id = 'repository_id_example' # str | repositoryId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **repository_id** | **str**| repositoryId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **repository_id** | **str**| repositoryId |
 
 ### Return type
 
@@ -1325,10 +1410,10 @@ Delete container/registry.image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1349,17 +1434,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-repository_id = 'repository_id_example' # str | repositoryId
-image_id = 'image_id_example' # str | imageId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    repository_id = "repositoryId_example" # str | repositoryId
+    image_id = "imageId_example" # str | imageId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete container/registry.image
         api_instance.container_project_registry_repository_image_delete(project_id, location_id, registry_id, repository_id, image_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_delete: %s\n" % e)
 ```
 
@@ -1367,11 +1453,11 @@ image_id = 'image_id_example' # str | imageId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **repository_id** | **str**| repositoryId | 
- **image_id** | **str**| imageId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **repository_id** | **str**| repositoryId |
+ **image_id** | **str**| imageId |
 
 ### Return type
 
@@ -1406,10 +1492,11 @@ Get container/registry.image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.container_image import ContainerImage
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1430,18 +1517,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-repository_id = 'repository_id_example' # str | repositoryId
-image_id = 'image_id_example' # str | imageId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    repository_id = "repositoryId_example" # str | repositoryId
+    image_id = "imageId_example" # str | imageId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.image
         api_response = api_instance.container_project_registry_repository_image_get(project_id, location_id, registry_id, repository_id, image_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_get: %s\n" % e)
 ```
 
@@ -1449,11 +1537,11 @@ image_id = 'image_id_example' # str | imageId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **repository_id** | **str**| repositoryId | 
- **image_id** | **str**| imageId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **repository_id** | **str**| repositoryId |
+ **image_id** | **str**| imageId |
 
 ### Return type
 
@@ -1478,7 +1566,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_repository_image_list**
-> list[ContainerImage] container_project_registry_repository_image_list(project_id, location_id, registry_id, repository_id)
+> [ContainerImage] container_project_registry_repository_image_list(project_id, location_id, registry_id, repository_id)
 
 List container/registry.image
 
@@ -1488,10 +1576,11 @@ List container/registry.image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.container_image import ContainerImage
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1512,17 +1601,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-repository_id = 'repository_id_example' # str | repositoryId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    repository_id = "repositoryId_example" # str | repositoryId
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.image
         api_response = api_instance.container_project_registry_repository_image_list(project_id, location_id, registry_id, repository_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_list: %s\n" % e)
 ```
 
@@ -1530,14 +1620,14 @@ repository_id = 'repository_id_example' # str | repositoryId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **repository_id** | **str**| repositoryId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **repository_id** | **str**| repositoryId |
 
 ### Return type
 
-[**list[ContainerImage]**](ContainerImage.md)
+[**[ContainerImage]**](ContainerImage.md)
 
 ### Authorization
 
@@ -1558,7 +1648,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_repository_list**
-> list[ContainerRepository] container_project_registry_repository_list(project_id, location_id, registry_id)
+> [ContainerRepository] container_project_registry_repository_list(project_id, location_id, registry_id)
 
 List container/registry.repository
 
@@ -1568,10 +1658,11 @@ List container/registry.repository
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.container_repository import ContainerRepository
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1592,16 +1683,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.repository
         api_response = api_instance.container_project_registry_repository_list(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_list: %s\n" % e)
 ```
 
@@ -1609,13 +1701,13 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
-[**list[ContainerRepository]**](ContainerRepository.md)
+[**[ContainerRepository]**](ContainerRepository.md)
 
 ### Authorization
 
@@ -1646,10 +1738,11 @@ Get container/registry.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1670,17 +1763,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.service
         api_response = api_instance.container_project_registry_service_get(project_id, location_id, registry_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_service_get: %s\n" % e)
 ```
 
@@ -1688,10 +1782,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1716,7 +1810,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_service_list**
-> list[ResourceService] container_project_registry_service_list(project_id, location_id, registry_id)
+> [ResourceService] container_project_registry_service_list(project_id, location_id, registry_id)
 
 List container/registry.service
 
@@ -1726,10 +1820,11 @@ List container/registry.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1750,16 +1845,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.service
         api_response = api_instance.container_project_registry_service_list(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_service_list: %s\n" % e)
 ```
 
@@ -1767,13 +1863,13 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1794,7 +1890,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_start**
-> Registry container_project_registry_start(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key)
+> Registry container_project_registry_start(project_id, location_id, registry_id)
 
 Start container/registry
 
@@ -1804,10 +1900,11 @@ action start
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1828,17 +1925,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Start container/registry
-        api_response = api_instance.container_project_registry_start(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.container_project_registry_start(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_start: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Start container/registry
+        api_response = api_instance.container_project_registry_start(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_start: %s\n" % e)
 ```
 
@@ -1846,10 +1954,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1875,7 +1984,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_stop**
-> Registry container_project_registry_stop(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key)
+> Registry container_project_registry_stop(project_id, location_id, registry_id)
 
 Stop container/registry
 
@@ -1885,10 +1994,11 @@ action stop
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1909,17 +2019,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Stop container/registry
-        api_response = api_instance.container_project_registry_stop(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.container_project_registry_stop(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_stop: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Stop container/registry
+        api_response = api_instance.container_project_registry_stop(project_id, location_id, registry_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_stop: %s\n" % e)
 ```
 
@@ -1927,10 +2048,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1966,10 +2088,11 @@ Create container/registry.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1990,17 +2113,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-tag = h1.Tag() # Tag | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create container/registry.tag
         api_response = api_instance.container_project_registry_tag_create(project_id, location_id, registry_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_create: %s\n" % e)
 ```
 
@@ -2008,10 +2136,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -2046,10 +2174,10 @@ Delete container/registry.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2070,16 +2198,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete container/registry.tag
         api_instance.container_project_registry_tag_delete(project_id, location_id, registry_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_delete: %s\n" % e)
 ```
 
@@ -2087,10 +2216,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2125,10 +2254,11 @@ Get container/registry.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2149,17 +2279,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get container/registry.tag
         api_response = api_instance.container_project_registry_tag_get(project_id, location_id, registry_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_get: %s\n" % e)
 ```
 
@@ -2167,10 +2298,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2195,7 +2326,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_tag_list**
-> list[Tag] container_project_registry_tag_list(project_id, location_id, registry_id)
+> [Tag] container_project_registry_tag_list(project_id, location_id, registry_id)
 
 List container/registry.tag
 
@@ -2205,10 +2336,11 @@ List container/registry.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2229,16 +2361,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List container/registry.tag
         api_response = api_instance.container_project_registry_tag_list(project_id, location_id, registry_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_list: %s\n" % e)
 ```
 
@@ -2246,13 +2379,13 @@ registry_id = 'registry_id_example' # str | Registry Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2273,7 +2406,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_tag_put**
-> list[Tag] container_project_registry_tag_put(project_id, location_id, registry_id, tag)
+> [Tag] container_project_registry_tag_put(project_id, location_id, registry_id, tag_array)
 
 Replace container/registry.tag
 
@@ -2283,10 +2416,12 @@ Replace container/registry.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2307,17 +2442,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace container/registry.tag
-        api_response = api_instance.container_project_registry_tag_put(project_id, location_id, registry_id, tag)
+        api_response = api_instance.container_project_registry_tag_put(project_id, location_id, registry_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_put: %s\n" % e)
 ```
 
@@ -2325,14 +2467,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2353,7 +2495,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **container_project_registry_transfer**
-> Registry container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer, x_idempotency_key=x_idempotency_key)
+> Registry container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer)
 
 Transfer container/registry
 
@@ -2363,10 +2505,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.container_project_registry_transfer import ContainerProjectRegistryTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2387,18 +2531,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-container_project_registry_transfer = h1.ContainerProjectRegistryTransfer() # ContainerProjectRegistryTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    container_project_registry_transfer = ContainerProjectRegistryTransfer(
+        project="project_example",
+    ) # ContainerProjectRegistryTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer container/registry
-        api_response = api_instance.container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ContainerProjectRegistryApi->container_project_registry_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer container/registry
+        api_response = api_instance.container_project_registry_transfer(project_id, location_id, registry_id, container_project_registry_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_transfer: %s\n" % e)
 ```
 
@@ -2406,11 +2563,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **container_project_registry_transfer** | [**ContainerProjectRegistryTransfer**](ContainerProjectRegistryTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **container_project_registry_transfer** | [**ContainerProjectRegistryTransfer**](ContainerProjectRegistryTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2446,10 +2604,12 @@ Returns modified registry
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import container_project_registry_api
+from h1.model.registry import Registry
+from h1.model.container_project_registry_update import ContainerProjectRegistryUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2470,17 +2630,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ContainerProjectRegistryApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-registry_id = 'registry_id_example' # str | Registry Id
-container_project_registry_update = h1.ContainerProjectRegistryUpdate() # ContainerProjectRegistryUpdate | 
+    api_instance = container_project_registry_api.ContainerProjectRegistryApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    registry_id = "registryId_example" # str | Registry Id
+    container_project_registry_update = ContainerProjectRegistryUpdate(
+        name="name_example",
+    ) # ContainerProjectRegistryUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update container/registry
         api_response = api_instance.container_project_registry_update(project_id, location_id, registry_id, container_project_registry_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_update: %s\n" % e)
 ```
 
@@ -2488,10 +2651,10 @@ container_project_registry_update = h1.ContainerProjectRegistryUpdate() # Contai
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **registry_id** | **str**| Registry Id | 
- **container_project_registry_update** | [**ContainerProjectRegistryUpdate**](ContainerProjectRegistryUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **registry_id** | **str**| Registry Id |
+ **container_project_registry_update** | [**ContainerProjectRegistryUpdate**](ContainerProjectRegistryUpdate.md)|  |
 
 ### Return type
 

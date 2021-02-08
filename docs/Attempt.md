@@ -5,9 +5,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
 **status** | **float** |  | [optional] 
-**error** | **bool** |  | [optional] [default to False]
-**stdout** | **dict(str, str)** |  | [optional] 
-**stderr** | **dict(str, str)** |  | [optional] 
+**error** | **bool** |  | [optional]  if omitted the server will use the default value of False
+**stdout** | **{str: (str,)}** |  | [optional] 
+**stderr** | **{str: (str,)}** |  | [optional] 
 **created_on** | **datetime** |  | [optional] 
 **agent** | **str** |  | [optional] 
 

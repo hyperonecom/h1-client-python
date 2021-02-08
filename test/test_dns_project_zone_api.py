@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.dns_project_zone_api import DnsProjectZoneApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestDnsProjectZoneApi(unittest.TestCase):
     """DnsProjectZoneApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.dns_project_zone_api.DnsProjectZoneApi()  # noqa: E501
+        self.api = DnsProjectZoneApi()  # noqa: E501
 
     def tearDown(self):
         pass

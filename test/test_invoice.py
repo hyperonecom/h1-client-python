@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,20 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.invoice import Invoice  # noqa: E501
-from h1.rest import ApiException
+from h1.model.invoice_buyer import InvoiceBuyer
+from h1.model.invoice_duplicate import InvoiceDuplicate
+from h1.model.invoice_items import InvoiceItems
+from h1.model.invoice_seller import InvoiceSeller
+globals()['InvoiceBuyer'] = InvoiceBuyer
+globals()['InvoiceDuplicate'] = InvoiceDuplicate
+globals()['InvoiceItems'] = InvoiceItems
+globals()['InvoiceSeller'] = InvoiceSeller
+from h1.model.invoice import Invoice
+
 
 class TestInvoice(unittest.TestCase):
     """Invoice unit test stubs"""
@@ -28,69 +32,11 @@ class TestInvoice(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Invoice
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.invoice.Invoice()  # noqa: E501
-        if include_optional :
-            return Invoice(
-                id = '0', 
-                additional_info = '0', 
-                corrections = [
-                    '0'
-                    ], 
-                invoice_info = '0', 
-                invoice_no = '0', 
-                issue_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                payments = [
-                    '0'
-                    ], 
-                seller = h1.models.invoice_seller.invoice_seller(
-                    company = '0', 
-                    address = h1.models.invoice_seller_address.invoice_seller_address(
-                        street = '0', 
-                        zipcode = '0', 
-                        city = '0', 
-                        country = '0', ), 
-                    nip = '0', ), 
-                items = [
-                    h1.models.invoice_items.invoice_items(
-                        name = '0', 
-                        price = '0', 
-                        netto = '0', 
-                        brutto = '0', 
-                        vat_amount = '0', 
-                        vat_rate = '0', 
-                        quantity = 1.337, )
-                    ], 
-                buyer = h1.models.invoice_buyer.invoice_buyer(
-                    company = '0', 
-                    address = h1.models.invoice_buyer_address.invoice_buyer_address(
-                        street = '0', 
-                        zipcode = '0', 
-                        city = '0', 
-                        country = '0', ), 
-                    nip = '0', 
-                    email = '0', ), 
-                type = 'vat', 
-                summary = '0', 
-                project = '0', 
-                duplicate = h1.models.invoice_duplicate.invoice_duplicate(
-                    created_on = '0', 
-                    id = '0', ), 
-                uri = '0', 
-                array__ = '0'
-            )
-        else :
-            return Invoice(
-        )
-
     def testInvoice(self):
         """Test Invoice"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Invoice()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **networking_project_netadp_create**
-> Netadp networking_project_netadp_create(project_id, location_id, networking_project_netadp_create, x_idempotency_key=x_idempotency_key)
+> Netadp networking_project_netadp_create(project_id, location_id, networking_project_netadp_create)
 
 Create networking/netadp
 
@@ -34,10 +34,12 @@ Create netadp
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.netadp import Netadp
+from h1.model.networking_project_netadp_create import NetworkingProjectNetadpCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -58,17 +60,42 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-networking_project_netadp_create = h1.NetworkingProjectNetadpCreate() # NetworkingProjectNetadpCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    networking_project_netadp_create = NetworkingProjectNetadpCreate(
+        vm="vm_example",
+        network="network_example",
+        firewall="firewall_example",
+        ip=[
+            "ip_example",
+        ],
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # NetworkingProjectNetadpCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/netadp
-        api_response = api_instance.networking_project_netadp_create(project_id, location_id, networking_project_netadp_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.networking_project_netadp_create(project_id, location_id, networking_project_netadp_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create networking/netadp
+        api_response = api_instance.networking_project_netadp_create(project_id, location_id, networking_project_netadp_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_create: %s\n" % e)
 ```
 
@@ -76,10 +103,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **networking_project_netadp_create** | [**NetworkingProjectNetadpCreate**](NetworkingProjectNetadpCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **networking_project_netadp_create** | [**NetworkingProjectNetadpCreate**](NetworkingProjectNetadpCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -115,10 +143,10 @@ Delete netadp
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -139,15 +167,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/netadp
         api_instance.networking_project_netadp_delete(project_id, location_id, netadp_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_delete: %s\n" % e)
 ```
 
@@ -155,9 +184,9 @@ netadp_id = 'netadp_id_example' # str | Netadp Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
 
 ### Return type
 
@@ -191,10 +220,11 @@ Get networking/netadp.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -215,17 +245,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netadp.event
         api_response = api_instance.networking_project_netadp_event_get(project_id, location_id, netadp_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_event_get: %s\n" % e)
 ```
 
@@ -233,10 +264,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -261,7 +292,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_event_list**
-> list[Event] networking_project_netadp_event_list(project_id, location_id, netadp_id, limit=limit, skip=skip)
+> [Event] networking_project_netadp_event_list(project_id, location_id, netadp_id)
 
 List networking/netadp.event
 
@@ -271,10 +302,11 @@ List networking/netadp.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -295,18 +327,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/netadp.event
+        api_response = api_instance.networking_project_netadp_event_list(project_id, location_id, netadp_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/netadp.event
         api_response = api_instance.networking_project_netadp_event_list(project_id, location_id, netadp_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_event_list: %s\n" % e)
 ```
 
@@ -314,15 +356,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -353,10 +395,11 @@ Returns a single netadp
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.netadp import Netadp
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -377,16 +420,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netadp
         api_response = api_instance.networking_project_netadp_get(project_id, location_id, netadp_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_get: %s\n" % e)
 ```
 
@@ -394,9 +438,9 @@ netadp_id = 'netadp_id_example' # str | Netadp Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
 
 ### Return type
 
@@ -421,7 +465,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_list**
-> list[Netadp] networking_project_netadp_list(project_id, location_id, assigned_resource=assigned_resource, assigned_id=assigned_id, network=network, tag_value=tag_value, tag_key=tag_key)
+> [Netadp] networking_project_netadp_list(project_id, location_id)
 
 List networking/netadp
 
@@ -431,10 +475,11 @@ List netadp
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.netadp import Netadp
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -455,20 +500,30 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-assigned_resource = 'assigned_resource_example' # str | Filter by assigned.resource (optional)
-assigned_id = 'assigned_id_example' # str | Filter by assigned.id (optional)
-network = 'network_example' # str | Filter by network (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    assigned_resource = "assigned.resource_example" # str | Filter by assigned.resource (optional)
+    assigned_id = "assigned.id_example" # str | Filter by assigned.id (optional)
+    network = "network_example" # str | Filter by network (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/netadp
+        api_response = api_instance.networking_project_netadp_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/netadp
         api_response = api_instance.networking_project_netadp_list(project_id, location_id, assigned_resource=assigned_resource, assigned_id=assigned_id, network=network, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_list: %s\n" % e)
 ```
 
@@ -476,17 +531,17 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **assigned_resource** | **str**| Filter by assigned.resource | [optional] 
- **assigned_id** | **str**| Filter by assigned.id | [optional] 
- **network** | **str**| Filter by network | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **assigned_resource** | **str**| Filter by assigned.resource | [optional]
+ **assigned_id** | **str**| Filter by assigned.id | [optional]
+ **network** | **str**| Filter by network | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Netadp]**](Netadp.md)
+[**[Netadp]**](Netadp.md)
 
 ### Authorization
 
@@ -517,10 +572,11 @@ Get networking/netadp.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -541,17 +597,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-metric_id = 'metric_id_example' # str | metricId
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    metric_id = "metricId_example" # str | metricId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netadp.metric
         api_response = api_instance.networking_project_netadp_metric_get(project_id, location_id, netadp_id, metric_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_metric_get: %s\n" % e)
 ```
 
@@ -559,10 +616,10 @@ metric_id = 'metric_id_example' # str | metricId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **metric_id** | **str**| metricId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **metric_id** | **str**| metricId |
 
 ### Return type
 
@@ -587,7 +644,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_metric_list**
-> list[Metric] networking_project_netadp_metric_list(project_id, location_id, netadp_id)
+> [Metric] networking_project_netadp_metric_list(project_id, location_id, netadp_id)
 
 List networking/netadp.metric
 
@@ -597,10 +654,11 @@ List networking/netadp.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -621,16 +679,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/netadp.metric
         api_response = api_instance.networking_project_netadp_metric_list(project_id, location_id, netadp_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_metric_list: %s\n" % e)
 ```
 
@@ -638,13 +697,13 @@ netadp_id = 'netadp_id_example' # str | Netadp Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
 
 ### Return type
 
-[**list[Metric]**](Metric.md)
+[**[Metric]**](Metric.md)
 
 ### Authorization
 
@@ -665,7 +724,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_metric_point_list**
-> list[Point] networking_project_netadp_metric_point_list(project_id, location_id, netadp_id, metric_id, interval=interval, timespan=timespan)
+> [Point] networking_project_netadp_metric_point_list(project_id, location_id, netadp_id, metric_id)
 
 List networking/netadp.point
 
@@ -675,10 +734,11 @@ List networking/netadp.point
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -699,19 +759,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-metric_id = 'metric_id_example' # str | metricId
-interval = 'interval_example' # str | interval (optional)
-timespan = 'timespan_example' # str | timespan (optional)
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List networking/netadp.point
+        api_response = api_instance.networking_project_netadp_metric_point_list(project_id, location_id, netadp_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List networking/netadp.point
         api_response = api_instance.networking_project_netadp_metric_point_list(project_id, location_id, netadp_id, metric_id, interval=interval, timespan=timespan)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_metric_point_list: %s\n" % e)
 ```
 
@@ -719,16 +789,16 @@ timespan = 'timespan_example' # str | timespan (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **metric_id** | **str**| metricId | 
- **interval** | **str**| interval | [optional] 
- **timespan** | **str**| timespan | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
 
 ### Return type
 
-[**list[Point]**](Point.md)
+[**[Point]**](Point.md)
 
 ### Authorization
 
@@ -759,10 +829,11 @@ Get networking/netadp.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -783,17 +854,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netadp.service
         api_response = api_instance.networking_project_netadp_service_get(project_id, location_id, netadp_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_service_get: %s\n" % e)
 ```
 
@@ -801,10 +873,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -829,7 +901,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_service_list**
-> list[ResourceService] networking_project_netadp_service_list(project_id, location_id, netadp_id)
+> [ResourceService] networking_project_netadp_service_list(project_id, location_id, netadp_id)
 
 List networking/netadp.service
 
@@ -839,10 +911,11 @@ List networking/netadp.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -863,16 +936,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/netadp.service
         api_response = api_instance.networking_project_netadp_service_list(project_id, location_id, netadp_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_service_list: %s\n" % e)
 ```
 
@@ -880,13 +954,13 @@ netadp_id = 'netadp_id_example' # str | Netadp Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -917,10 +991,11 @@ Create networking/netadp.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -941,17 +1016,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-tag = h1.Tag() # Tag | 
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create networking/netadp.tag
         api_response = api_instance.networking_project_netadp_tag_create(project_id, location_id, netadp_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_tag_create: %s\n" % e)
 ```
 
@@ -959,10 +1039,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -997,10 +1077,10 @@ Delete networking/netadp.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1021,16 +1101,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete networking/netadp.tag
         api_instance.networking_project_netadp_tag_delete(project_id, location_id, netadp_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_tag_delete: %s\n" % e)
 ```
 
@@ -1038,10 +1119,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1076,10 +1157,11 @@ Get networking/netadp.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1100,17 +1182,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get networking/netadp.tag
         api_response = api_instance.networking_project_netadp_tag_get(project_id, location_id, netadp_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_tag_get: %s\n" % e)
 ```
 
@@ -1118,10 +1201,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1146,7 +1229,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_tag_list**
-> list[Tag] networking_project_netadp_tag_list(project_id, location_id, netadp_id)
+> [Tag] networking_project_netadp_tag_list(project_id, location_id, netadp_id)
 
 List networking/netadp.tag
 
@@ -1156,10 +1239,11 @@ List networking/netadp.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1180,16 +1264,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List networking/netadp.tag
         api_response = api_instance.networking_project_netadp_tag_list(project_id, location_id, netadp_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_tag_list: %s\n" % e)
 ```
 
@@ -1197,13 +1282,13 @@ netadp_id = 'netadp_id_example' # str | Netadp Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1224,7 +1309,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **networking_project_netadp_tag_put**
-> list[Tag] networking_project_netadp_tag_put(project_id, location_id, netadp_id, tag)
+> [Tag] networking_project_netadp_tag_put(project_id, location_id, netadp_id, tag_array)
 
 Replace networking/netadp.tag
 
@@ -1234,10 +1319,12 @@ Replace networking/netadp.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1258,17 +1345,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace networking/netadp.tag
-        api_response = api_instance.networking_project_netadp_tag_put(project_id, location_id, netadp_id, tag)
+        api_response = api_instance.networking_project_netadp_tag_put(project_id, location_id, netadp_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_tag_put: %s\n" % e)
 ```
 
@@ -1276,14 +1370,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1314,10 +1408,12 @@ Returns modified netadp
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import networking_project_netadp_api
+from h1.model.networking_project_netadp_update import NetworkingProjectNetadpUpdate
+from h1.model.netadp import Netadp
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1338,17 +1434,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.NetworkingProjectNetadpApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-netadp_id = 'netadp_id_example' # str | Netadp Id
-networking_project_netadp_update = h1.NetworkingProjectNetadpUpdate() # NetworkingProjectNetadpUpdate | 
+    api_instance = networking_project_netadp_api.NetworkingProjectNetadpApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    netadp_id = "netadpId_example" # str | Netadp Id
+    networking_project_netadp_update = NetworkingProjectNetadpUpdate(
+        firewall="firewall_example",
+    ) # NetworkingProjectNetadpUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update networking/netadp
         api_response = api_instance.networking_project_netadp_update(project_id, location_id, netadp_id, networking_project_netadp_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling NetworkingProjectNetadpApi->networking_project_netadp_update: %s\n" % e)
 ```
 
@@ -1356,10 +1455,10 @@ networking_project_netadp_update = h1.NetworkingProjectNetadpUpdate() # Networki
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **netadp_id** | **str**| Netadp Id | 
- **networking_project_netadp_update** | [**NetworkingProjectNetadpUpdate**](NetworkingProjectNetadpUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **netadp_id** | **str**| Netadp Id |
+ **networking_project_netadp_update** | [**NetworkingProjectNetadpUpdate**](NetworkingProjectNetadpUpdate.md)|  |
 
 ### Return type
 

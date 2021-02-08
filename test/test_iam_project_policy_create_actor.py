@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.iam_project_policy_create_actor import IamProjectPolicyCreateActor  # noqa: E501
-from h1.rest import ApiException
+from h1.model.iam_project_policy_create_actor import IamProjectPolicyCreateActor
+
 
 class TestIamProjectPolicyCreateActor(unittest.TestCase):
     """IamProjectPolicyCreateActor unit test stubs"""
@@ -28,24 +24,11 @@ class TestIamProjectPolicyCreateActor(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test IamProjectPolicyCreateActor
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.iam_project_policy_create_actor.IamProjectPolicyCreateActor()  # noqa: E501
-        if include_optional :
-            return IamProjectPolicyCreateActor(
-                value = 'a'
-            )
-        else :
-            return IamProjectPolicyCreateActor(
-        )
-
     def testIamProjectPolicyCreateActor(self):
         """Test IamProjectPolicyCreateActor"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = IamProjectPolicyCreateActor()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

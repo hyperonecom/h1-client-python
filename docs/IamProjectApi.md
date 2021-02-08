@@ -46,7 +46,7 @@ Method | HTTP request | Description
 
 
 # **iam_project_billing_list**
-> list[Billing] iam_project_billing_list(project_id, start=start, end=end, resource_type=resource_type)
+> [Billing] iam_project_billing_list(project_id)
 
 List iam/project.billing
 
@@ -56,10 +56,11 @@ List iam/project.billing
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.billing import Billing
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -80,17 +81,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-start = '2013-10-20T19:20:30+01:00' # datetime | start (optional)
-end = '2013-10-20T19:20:30+01:00' # datetime | end (optional)
-resource_type = 'resource_type_example' # str | resource.type (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    start = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | start (optional)
+    end = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | end (optional)
+    resource_type = "resource.type_example" # str | resource.type (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/project.billing
+        api_response = api_instance.iam_project_billing_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_billing_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/project.billing
         api_response = api_instance.iam_project_billing_list(project_id, start=start, end=end, resource_type=resource_type)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_billing_list: %s\n" % e)
 ```
 
@@ -98,14 +109,14 @@ resource_type = 'resource_type_example' # str | resource.type (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **start** | **datetime**| start | [optional] 
- **end** | **datetime**| end | [optional] 
- **resource_type** | **str**| resource.type | [optional] 
+ **project_id** | **str**| Project Id |
+ **start** | **datetime**| start | [optional]
+ **end** | **datetime**| end | [optional]
+ **resource_type** | **str**| resource.type | [optional]
 
 ### Return type
 
-[**list[Billing]**](Billing.md)
+[**[Billing]**](Billing.md)
 
 ### Authorization
 
@@ -126,7 +137,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_create**
-> Project iam_project_create(iam_project_create, x_idempotency_key=x_idempotency_key)
+> Project iam_project_create(iam_project_create)
 
 Create iam/project
 
@@ -136,10 +147,12 @@ Create project
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.iam_project_create import IamProjectCreate
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -160,15 +173,36 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    iam_project_create = h1.IamProjectCreate() # IamProjectCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    iam_project_create = IamProjectCreate(
+        name="name_example",
+        organisation="organisation_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # IamProjectCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/project
-        api_response = api_instance.iam_project_create(iam_project_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.iam_project_create(iam_project_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create iam/project
+        api_response = api_instance.iam_project_create(iam_project_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_create: %s\n" % e)
 ```
 
@@ -176,8 +210,9 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iam_project_create** | [**IamProjectCreate**](IamProjectCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **iam_project_create** | [**IamProjectCreate**](IamProjectCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -213,10 +248,11 @@ Create iam/project.credentialStore
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_credential import ProjectCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -237,15 +273,25 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-project_credential = h1.ProjectCredential() # ProjectCredential | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    project_credential = ProjectCredential(
+        id="id_example",
+        name="name_example",
+        created_by="created_by_example",
+        created_on=dateutil_parser('1970-01-01T00:00:00.00Z'),
+        type="ssh",
+        value="value_example",
+        fingerprint="fingerprint_example",
+        token="token_example",
+    ) # ProjectCredential | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/project.credentialStore
         api_response = api_instance.iam_project_credential_store_create(project_id, project_credential)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_credential_store_create: %s\n" % e)
 ```
 
@@ -253,8 +299,8 @@ project_credential = h1.ProjectCredential() # ProjectCredential |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **project_credential** | [**ProjectCredential**](ProjectCredential.md)|  | 
+ **project_id** | **str**| Project Id |
+ **project_credential** | [**ProjectCredential**](ProjectCredential.md)|  |
 
 ### Return type
 
@@ -289,10 +335,11 @@ Delete iam/project.credentialStore
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -313,15 +360,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-credential_store_id = 'credential_store_id_example' # str | credentialStoreId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    credential_store_id = "credentialStoreId_example" # str | credentialStoreId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project.credentialStore
         api_response = api_instance.iam_project_credential_store_delete(project_id, credential_store_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_credential_store_delete: %s\n" % e)
 ```
 
@@ -329,8 +377,8 @@ credential_store_id = 'credential_store_id_example' # str | credentialStoreId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **credential_store_id** | **str**| credentialStoreId | 
+ **project_id** | **str**| Project Id |
+ **credential_store_id** | **str**| credentialStoreId |
 
 ### Return type
 
@@ -366,10 +414,11 @@ Get iam/project.credentialStore
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_credential import ProjectCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -390,15 +439,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-credential_store_id = 'credential_store_id_example' # str | credentialStoreId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    credential_store_id = "credentialStoreId_example" # str | credentialStoreId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.credentialStore
         api_response = api_instance.iam_project_credential_store_get(project_id, credential_store_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_credential_store_get: %s\n" % e)
 ```
 
@@ -406,8 +456,8 @@ credential_store_id = 'credential_store_id_example' # str | credentialStoreId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **credential_store_id** | **str**| credentialStoreId | 
+ **project_id** | **str**| Project Id |
+ **credential_store_id** | **str**| credentialStoreId |
 
 ### Return type
 
@@ -432,7 +482,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_credential_store_list**
-> list[ProjectCredential] iam_project_credential_store_list(project_id)
+> [ProjectCredential] iam_project_credential_store_list(project_id)
 
 List iam/project.credentialStore
 
@@ -442,10 +492,11 @@ List iam/project.credentialStore
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_credential import ProjectCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -466,14 +517,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.credentialStore
         api_response = api_instance.iam_project_credential_store_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_credential_store_list: %s\n" % e)
 ```
 
@@ -481,11 +533,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[ProjectCredential]**](ProjectCredential.md)
+[**[ProjectCredential]**](ProjectCredential.md)
 
 ### Authorization
 
@@ -516,10 +568,12 @@ Update iam/project.credentialStore
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_credential import ProjectCredential
+from h1.model.iam_project_credential_store_patch import IamProjectCredentialStorePatch
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -540,16 +594,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-credential_store_id = 'credential_store_id_example' # str | credentialStoreId
-iam_project_credential_store_patch = h1.IamProjectCredentialStorePatch() # IamProjectCredentialStorePatch | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    credential_store_id = "credentialStoreId_example" # str | credentialStoreId
+    iam_project_credential_store_patch = IamProjectCredentialStorePatch(
+        name="name_example",
+    ) # IamProjectCredentialStorePatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/project.credentialStore
         api_response = api_instance.iam_project_credential_store_patch(project_id, credential_store_id, iam_project_credential_store_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_credential_store_patch: %s\n" % e)
 ```
 
@@ -557,9 +614,9 @@ iam_project_credential_store_patch = h1.IamProjectCredentialStorePatch() # IamPr
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **credential_store_id** | **str**| credentialStoreId | 
- **iam_project_credential_store_patch** | [**IamProjectCredentialStorePatch**](IamProjectCredentialStorePatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **credential_store_id** | **str**| credentialStoreId |
+ **iam_project_credential_store_patch** | [**IamProjectCredentialStorePatch**](IamProjectCredentialStorePatch.md)|  |
 
 ### Return type
 
@@ -594,10 +651,10 @@ Delete project
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -618,13 +675,14 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project
         api_instance.iam_project_delete(project_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_delete: %s\n" % e)
 ```
 
@@ -632,7 +690,7 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
@@ -666,10 +724,11 @@ Get iam/project.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -690,15 +749,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.event
         api_response = api_instance.iam_project_event_get(project_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_event_get: %s\n" % e)
 ```
 
@@ -706,8 +766,8 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -732,7 +792,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_event_list**
-> list[Event] iam_project_event_list(project_id, limit=limit, skip=skip)
+> [Event] iam_project_event_list(project_id)
 
 List iam/project.event
 
@@ -742,10 +802,11 @@ List iam/project.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -766,16 +827,26 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/project.event
+        api_response = api_instance.iam_project_event_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/project.event
         api_response = api_instance.iam_project_event_list(project_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_event_list: %s\n" % e)
 ```
 
@@ -783,13 +854,13 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -820,10 +891,11 @@ Returns a single project
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -844,14 +916,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project
         api_response = api_instance.iam_project_get(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_get: %s\n" % e)
 ```
 
@@ -859,7 +932,7 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
@@ -894,10 +967,12 @@ action accept
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.iam_project_invitation_accept import IamProjectInvitationAccept
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -918,16 +993,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-invitation_id = 'invitation_id_example' # str | invitationId
-iam_project_invitation_accept = h1.IamProjectInvitationAccept() # IamProjectInvitationAccept | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    invitation_id = "invitationId_example" # str | invitationId
+    iam_project_invitation_accept = IamProjectInvitationAccept(
+        token="token_example",
+    ) # IamProjectInvitationAccept | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Accept iam/project.invitation
         api_response = api_instance.iam_project_invitation_accept(project_id, invitation_id, iam_project_invitation_accept)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_invitation_accept: %s\n" % e)
 ```
 
@@ -935,9 +1013,9 @@ iam_project_invitation_accept = h1.IamProjectInvitationAccept() # IamProjectInvi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **invitation_id** | **str**| invitationId | 
- **iam_project_invitation_accept** | [**IamProjectInvitationAccept**](IamProjectInvitationAccept.md)|  | 
+ **project_id** | **str**| Project Id |
+ **invitation_id** | **str**| invitationId |
+ **iam_project_invitation_accept** | [**IamProjectInvitationAccept**](IamProjectInvitationAccept.md)|  |
 
 ### Return type
 
@@ -972,10 +1050,10 @@ Delete iam/project.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -996,14 +1074,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-invitation_id = 'invitation_id_example' # str | invitationId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    invitation_id = "invitationId_example" # str | invitationId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project.invitation
         api_instance.iam_project_invitation_delete(project_id, invitation_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_invitation_delete: %s\n" % e)
 ```
 
@@ -1011,8 +1090,8 @@ invitation_id = 'invitation_id_example' # str | invitationId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **invitation_id** | **str**| invitationId | 
+ **project_id** | **str**| Project Id |
+ **invitation_id** | **str**| invitationId |
 
 ### Return type
 
@@ -1047,10 +1126,11 @@ Get iam/project.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1071,15 +1151,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-invitation_id = 'invitation_id_example' # str | invitationId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    invitation_id = "invitationId_example" # str | invitationId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.invitation
         api_response = api_instance.iam_project_invitation_get(project_id, invitation_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_invitation_get: %s\n" % e)
 ```
 
@@ -1087,8 +1168,8 @@ invitation_id = 'invitation_id_example' # str | invitationId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **invitation_id** | **str**| invitationId | 
+ **project_id** | **str**| Project Id |
+ **invitation_id** | **str**| invitationId |
 
 ### Return type
 
@@ -1113,7 +1194,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_invitation_list**
-> list[Invitation] iam_project_invitation_list(project_id, resource=resource)
+> [Invitation] iam_project_invitation_list(project_id)
 
 List iam/project.invitation
 
@@ -1123,10 +1204,11 @@ List iam/project.invitation
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.invitation import Invitation
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1147,15 +1229,25 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-resource = 'resource_example' # str | resource (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    resource = "resource_example" # str | resource (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List iam/project.invitation
+        api_response = api_instance.iam_project_invitation_list(project_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_invitation_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/project.invitation
         api_response = api_instance.iam_project_invitation_list(project_id, resource=resource)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_invitation_list: %s\n" % e)
 ```
 
@@ -1163,12 +1255,12 @@ resource = 'resource_example' # str | resource (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **resource** | **str**| resource | [optional] 
+ **project_id** | **str**| Project Id |
+ **resource** | **str**| resource | [optional]
 
 ### Return type
 
-[**list[Invitation]**](Invitation.md)
+[**[Invitation]**](Invitation.md)
 
 ### Authorization
 
@@ -1189,7 +1281,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_invoice_list**
-> list[Invoice] iam_project_invoice_list(project_id)
+> [Invoice] iam_project_invoice_list(project_id)
 
 List iam/project.invoice
 
@@ -1199,10 +1291,11 @@ List iam/project.invoice
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.invoice import Invoice
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1223,14 +1316,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.invoice
         api_response = api_instance.iam_project_invoice_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_invoice_list: %s\n" % e)
 ```
 
@@ -1238,11 +1332,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Invoice]**](Invoice.md)
+[**[Invoice]**](Invoice.md)
 
 ### Authorization
 
@@ -1263,7 +1357,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_list**
-> list[Project] iam_project_list(name=name, limit=limit, active=active, organisation=organisation, lean=lean, tag_value=tag_value, tag_key=tag_key)
+> [Project] iam_project_list()
 
 List iam/project
 
@@ -1273,10 +1367,11 @@ List project
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1297,20 +1392,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    name = 'name_example' # str | Filter by name (optional)
-limit = 3.4 # float | Filter by $limit (optional)
-active = False # bool | Filter by active (optional) (default to False)
-organisation = 'organisation_example' # str | Filter by organisation (optional)
-lean = False # bool | return a lightweight version of the resource (optional) (default to False)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    name = "name_example" # str | Filter by name (optional)
+    limit = 3.14 # float | Filter by $limit (optional)
+    active = False # bool | Filter by active (optional) if omitted the server will use the default value of False
+    organisation = "organisation_example" # str | Filter by organisation (optional)
+    lean = False # bool | return a lightweight version of the resource (optional) if omitted the server will use the default value of False
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List iam/project
         api_response = api_instance.iam_project_list(name=name, limit=limit, active=active, organisation=organisation, lean=lean, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_list: %s\n" % e)
 ```
 
@@ -1318,17 +1415,17 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**| Filter by name | [optional] 
- **limit** | **float**| Filter by $limit | [optional] 
- **active** | **bool**| Filter by active | [optional] [default to False]
- **organisation** | **str**| Filter by organisation | [optional] 
- **lean** | **bool**| return a lightweight version of the resource | [optional] [default to False]
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **name** | **str**| Filter by name | [optional]
+ **limit** | **float**| Filter by $limit | [optional]
+ **active** | **bool**| Filter by active | [optional] if omitted the server will use the default value of False
+ **organisation** | **str**| Filter by organisation | [optional]
+ **lean** | **bool**| return a lightweight version of the resource | [optional] if omitted the server will use the default value of False
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Project]**](Project.md)
+[**[Project]**](Project.md)
 
 ### Authorization
 
@@ -1359,10 +1456,12 @@ Create iam/project.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.iam_project_ownership_create import IamProjectOwnershipCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1383,15 +1482,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-iam_project_ownership_create = h1.IamProjectOwnershipCreate() # IamProjectOwnershipCreate | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    iam_project_ownership_create = IamProjectOwnershipCreate(
+        email="email_example",
+    ) # IamProjectOwnershipCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/project.ownership
         api_response = api_instance.iam_project_ownership_create(project_id, iam_project_ownership_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_ownership_create: %s\n" % e)
 ```
 
@@ -1399,8 +1501,8 @@ iam_project_ownership_create = h1.IamProjectOwnershipCreate() # IamProjectOwners
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **iam_project_ownership_create** | [**IamProjectOwnershipCreate**](IamProjectOwnershipCreate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **iam_project_ownership_create** | [**IamProjectOwnershipCreate**](IamProjectOwnershipCreate.md)|  |
 
 ### Return type
 
@@ -1436,10 +1538,10 @@ Delete iam/project.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1460,14 +1562,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-ownership_id = 'ownership_id_example' # str | ownershipId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    ownership_id = "ownershipId_example" # str | ownershipId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project.ownership
         api_instance.iam_project_ownership_delete(project_id, ownership_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_ownership_delete: %s\n" % e)
 ```
 
@@ -1475,8 +1578,8 @@ ownership_id = 'ownership_id_example' # str | ownershipId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **ownership_id** | **str**| ownershipId | 
+ **project_id** | **str**| Project Id |
+ **ownership_id** | **str**| ownershipId |
 
 ### Return type
 
@@ -1511,10 +1614,11 @@ Get iam/project.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.ownership import Ownership
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1535,15 +1639,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-ownership_id = 'ownership_id_example' # str | ownershipId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    ownership_id = "ownershipId_example" # str | ownershipId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.ownership
         api_response = api_instance.iam_project_ownership_get(project_id, ownership_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_ownership_get: %s\n" % e)
 ```
 
@@ -1551,8 +1656,8 @@ ownership_id = 'ownership_id_example' # str | ownershipId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **ownership_id** | **str**| ownershipId | 
+ **project_id** | **str**| Project Id |
+ **ownership_id** | **str**| ownershipId |
 
 ### Return type
 
@@ -1577,7 +1682,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_ownership_list**
-> list[Ownership] iam_project_ownership_list(project_id)
+> [Ownership] iam_project_ownership_list(project_id)
 
 List iam/project.ownership
 
@@ -1587,10 +1692,11 @@ List iam/project.ownership
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.ownership import Ownership
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1611,14 +1717,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.ownership
         api_response = api_instance.iam_project_ownership_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_ownership_list: %s\n" % e)
 ```
 
@@ -1626,11 +1733,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Ownership]**](Ownership.md)
+[**[Ownership]**](Ownership.md)
 
 ### Authorization
 
@@ -1651,7 +1758,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_payment_list**
-> list[Payment] iam_project_payment_list(project_id)
+> [Payment] iam_project_payment_list(project_id)
 
 List iam/project.payment
 
@@ -1661,10 +1768,11 @@ List iam/project.payment
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.payment import Payment
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1685,14 +1793,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.payment
         api_response = api_instance.iam_project_payment_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_payment_list: %s\n" % e)
 ```
 
@@ -1700,11 +1809,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Payment]**](Payment.md)
+[**[Payment]**](Payment.md)
 
 ### Authorization
 
@@ -1725,7 +1834,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_proforma_list**
-> list[Proforma] iam_project_proforma_list(project_id)
+> [Proforma] iam_project_proforma_list(project_id)
 
 List iam/project.proforma
 
@@ -1735,10 +1844,11 @@ List iam/project.proforma
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.proforma import Proforma
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1759,14 +1869,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.proforma
         api_response = api_instance.iam_project_proforma_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_proforma_list: %s\n" % e)
 ```
 
@@ -1774,11 +1885,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Proforma]**](Proforma.md)
+[**[Proforma]**](Proforma.md)
 
 ### Authorization
 
@@ -1809,10 +1920,11 @@ Get iam/project.quota
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.quota import Quota
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1833,15 +1945,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-quota_id = 'quota_id_example' # str | quotaId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    quota_id = "quotaId_example" # str | quotaId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.quota
         api_response = api_instance.iam_project_quota_get(project_id, quota_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_quota_get: %s\n" % e)
 ```
 
@@ -1849,8 +1962,8 @@ quota_id = 'quota_id_example' # str | quotaId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **quota_id** | **str**| quotaId | 
+ **project_id** | **str**| Project Id |
+ **quota_id** | **str**| quotaId |
 
 ### Return type
 
@@ -1885,10 +1998,12 @@ Update iam/project.limit
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.iam_project_quota_limit_patch import IamProjectQuotaLimitPatch
+from h1.model.quota_limit import QuotaLimit
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1909,16 +2024,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-quota_id = 'quota_id_example' # str | quotaId
-iam_project_quota_limit_patch = h1.IamProjectQuotaLimitPatch() # IamProjectQuotaLimitPatch | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    quota_id = "quotaId_example" # str | quotaId
+    iam_project_quota_limit_patch = IamProjectQuotaLimitPatch(
+        user=3.14,
+    ) # IamProjectQuotaLimitPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/project.limit
         api_response = api_instance.iam_project_quota_limit_patch(project_id, quota_id, iam_project_quota_limit_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_quota_limit_patch: %s\n" % e)
 ```
 
@@ -1926,9 +2044,9 @@ iam_project_quota_limit_patch = h1.IamProjectQuotaLimitPatch() # IamProjectQuota
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **quota_id** | **str**| quotaId | 
- **iam_project_quota_limit_patch** | [**IamProjectQuotaLimitPatch**](IamProjectQuotaLimitPatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **quota_id** | **str**| quotaId |
+ **iam_project_quota_limit_patch** | [**IamProjectQuotaLimitPatch**](IamProjectQuotaLimitPatch.md)|  |
 
 ### Return type
 
@@ -1953,7 +2071,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_quota_list**
-> list[Quota] iam_project_quota_list(project_id)
+> [Quota] iam_project_quota_list(project_id)
 
 List iam/project.quota
 
@@ -1963,10 +2081,11 @@ List iam/project.quota
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.quota import Quota
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1987,14 +2106,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.quota
         api_response = api_instance.iam_project_quota_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_quota_list: %s\n" % e)
 ```
 
@@ -2002,11 +2122,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Quota]**](Quota.md)
+[**[Quota]**](Quota.md)
 
 ### Authorization
 
@@ -2037,10 +2157,11 @@ Get iam/project.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2061,15 +2182,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.service
         api_response = api_instance.iam_project_service_get(project_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_service_get: %s\n" % e)
 ```
 
@@ -2077,8 +2199,8 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -2103,7 +2225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_service_list**
-> list[ResourceService] iam_project_service_list(project_id)
+> [ResourceService] iam_project_service_list(project_id)
 
 List iam/project.service
 
@@ -2113,10 +2235,11 @@ List iam/project.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2137,14 +2260,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.service
         api_response = api_instance.iam_project_service_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_service_list: %s\n" % e)
 ```
 
@@ -2152,11 +2276,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -2187,10 +2311,11 @@ Create iam/project.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2211,15 +2336,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-tag = h1.Tag() # Tag | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/project.tag
         api_response = api_instance.iam_project_tag_create(project_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_tag_create: %s\n" % e)
 ```
 
@@ -2227,8 +2357,8 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -2263,10 +2393,10 @@ Delete iam/project.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2287,14 +2417,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project.tag
         api_instance.iam_project_tag_delete(project_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_tag_delete: %s\n" % e)
 ```
 
@@ -2302,8 +2433,8 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2338,10 +2469,11 @@ Get iam/project.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2362,15 +2494,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.tag
         api_response = api_instance.iam_project_tag_get(project_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_tag_get: %s\n" % e)
 ```
 
@@ -2378,8 +2511,8 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -2404,7 +2537,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_tag_list**
-> list[Tag] iam_project_tag_list(project_id)
+> [Tag] iam_project_tag_list(project_id)
 
 List iam/project.tag
 
@@ -2414,10 +2547,11 @@ List iam/project.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2438,14 +2572,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.tag
         api_response = api_instance.iam_project_tag_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_tag_list: %s\n" % e)
 ```
 
@@ -2453,11 +2588,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2478,7 +2613,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_tag_put**
-> list[Tag] iam_project_tag_put(project_id, tag)
+> [Tag] iam_project_tag_put(project_id, tag_array)
 
 Replace iam/project.tag
 
@@ -2488,10 +2623,12 @@ Replace iam/project.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2512,15 +2649,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace iam/project.tag
-        api_response = api_instance.iam_project_tag_put(project_id, tag)
+        api_response = api_instance.iam_project_tag_put(project_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_tag_put: %s\n" % e)
 ```
 
@@ -2528,12 +2672,12 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -2564,10 +2708,12 @@ Create iam/project.threshold
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.iam_project_threshold_create import IamProjectThresholdCreate
+from h1.model.project_threshold import ProjectThreshold
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2588,15 +2734,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-iam_project_threshold_create = h1.IamProjectThresholdCreate() # IamProjectThresholdCreate | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    iam_project_threshold_create = IamProjectThresholdCreate(
+        id="id_example",
+        name="name_example",
+        type="type_example",
+        value=3.14,
+        uri="uri_example",
+    ) # IamProjectThresholdCreate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/project.threshold
         api_response = api_instance.iam_project_threshold_create(project_id, iam_project_threshold_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_threshold_create: %s\n" % e)
 ```
 
@@ -2604,8 +2757,8 @@ iam_project_threshold_create = h1.IamProjectThresholdCreate() # IamProjectThresh
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **iam_project_threshold_create** | [**IamProjectThresholdCreate**](IamProjectThresholdCreate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **iam_project_threshold_create** | [**IamProjectThresholdCreate**](IamProjectThresholdCreate.md)|  |
 
 ### Return type
 
@@ -2640,10 +2793,10 @@ Delete iam/project.threshold
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2664,14 +2817,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-threshold_id = 'threshold_id_example' # str | thresholdId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    threshold_id = "thresholdId_example" # str | thresholdId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/project.threshold
         api_instance.iam_project_threshold_delete(project_id, threshold_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_threshold_delete: %s\n" % e)
 ```
 
@@ -2679,8 +2833,8 @@ threshold_id = 'threshold_id_example' # str | thresholdId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **threshold_id** | **str**| thresholdId | 
+ **project_id** | **str**| Project Id |
+ **threshold_id** | **str**| thresholdId |
 
 ### Return type
 
@@ -2715,10 +2869,11 @@ Get iam/project.threshold
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_threshold import ProjectThreshold
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2739,15 +2894,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-threshold_id = 'threshold_id_example' # str | thresholdId
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    threshold_id = "thresholdId_example" # str | thresholdId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/project.threshold
         api_response = api_instance.iam_project_threshold_get(project_id, threshold_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_threshold_get: %s\n" % e)
 ```
 
@@ -2755,8 +2911,8 @@ threshold_id = 'threshold_id_example' # str | thresholdId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **threshold_id** | **str**| thresholdId | 
+ **project_id** | **str**| Project Id |
+ **threshold_id** | **str**| thresholdId |
 
 ### Return type
 
@@ -2781,7 +2937,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_threshold_list**
-> list[ProjectThreshold] iam_project_threshold_list(project_id)
+> [ProjectThreshold] iam_project_threshold_list(project_id)
 
 List iam/project.threshold
 
@@ -2791,10 +2947,11 @@ List iam/project.threshold
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project_threshold import ProjectThreshold
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2815,14 +2972,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/project.threshold
         api_response = api_instance.iam_project_threshold_list(project_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_threshold_list: %s\n" % e)
 ```
 
@@ -2830,11 +2988,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
+ **project_id** | **str**| Project Id |
 
 ### Return type
 
-[**list[ProjectThreshold]**](ProjectThreshold.md)
+[**[ProjectThreshold]**](ProjectThreshold.md)
 
 ### Authorization
 
@@ -2855,7 +3013,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_project_transfer**
-> Project iam_project_transfer(project_id, iam_project_transfer, x_idempotency_key=x_idempotency_key)
+> Project iam_project_transfer(project_id, iam_project_transfer)
 
 Transfer iam/project
 
@@ -2865,10 +3023,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.iam_project_transfer import IamProjectTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2889,16 +3049,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-iam_project_transfer = h1.IamProjectTransfer() # IamProjectTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    iam_project_transfer = IamProjectTransfer(
+        organisation="organisation_example",
+    ) # IamProjectTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer iam/project
-        api_response = api_instance.iam_project_transfer(project_id, iam_project_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.iam_project_transfer(project_id, iam_project_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling IamProjectApi->iam_project_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer iam/project
+        api_response = api_instance.iam_project_transfer(project_id, iam_project_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_transfer: %s\n" % e)
 ```
 
@@ -2906,9 +3079,10 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **iam_project_transfer** | [**IamProjectTransfer**](IamProjectTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **iam_project_transfer** | [**IamProjectTransfer**](IamProjectTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -2944,10 +3118,12 @@ Returns modified project
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_project_api
+from h1.model.project import Project
+from h1.model.iam_project_update import IamProjectUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -2968,15 +3144,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamProjectApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-iam_project_update = h1.IamProjectUpdate() # IamProjectUpdate | 
+    api_instance = iam_project_api.IamProjectApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    iam_project_update = IamProjectUpdate(
+        name="name_example",
+    ) # IamProjectUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/project
         api_response = api_instance.iam_project_update(project_id, iam_project_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamProjectApi->iam_project_update: %s\n" % e)
 ```
 
@@ -2984,8 +3163,8 @@ iam_project_update = h1.IamProjectUpdate() # IamProjectUpdate |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **iam_project_update** | [**IamProjectUpdate**](IamProjectUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **iam_project_update** | [**IamProjectUpdate**](IamProjectUpdate.md)|  |
 
 ### Return type
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.network import Network  # noqa: E501
-from h1.rest import ApiException
+from h1.model.network_dns import NetworkDns
+from h1.model.tag import Tag
+globals()['NetworkDns'] = NetworkDns
+globals()['Tag'] = Tag
+from h1.model.network import Network
+
 
 class TestNetwork(unittest.TestCase):
     """Network unit test stubs"""
@@ -28,48 +28,11 @@ class TestNetwork(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Network
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.network.Network()  # noqa: E501
-        if include_optional :
-            return Network(
-                id = '0', 
-                name = '0', 
-                flavour = '0', 
-                modified_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                modified_by = '0', 
-                created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                created_by = '0', 
-                state = 'Online', 
-                project = '0', 
-                uri = '0', 
-                address = '0', 
-                gateway = '0', 
-                type = 'public', 
-                dns = h1.models.network_dns.network_dns(
-                    nameservers = [
-                        '0'
-                        ], ), 
-                netgw = '0', 
-                firewall = '0', 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return Network(
-        )
-
     def testNetwork(self):
         """Test Network"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Network()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

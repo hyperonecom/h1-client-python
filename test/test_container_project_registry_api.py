@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.container_project_registry_api import ContainerProjectRegistryApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestContainerProjectRegistryApi(unittest.TestCase):
     """ContainerProjectRegistryApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.container_project_registry_api.ContainerProjectRegistryApi()  # noqa: E501
+        self.api = ContainerProjectRegistryApi()  # noqa: E501
 
     def tearDown(self):
         pass

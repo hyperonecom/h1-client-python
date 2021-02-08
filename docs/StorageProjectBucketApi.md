@@ -24,10 +24,11 @@ Returns a single bucket
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.bucket import Bucket
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -48,16 +49,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/bucket
         api_response = api_instance.storage_project_bucket_get(project_id, location_id, bucket_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_get: %s\n" % e)
 ```
 
@@ -65,9 +67,9 @@ bucket_id = 'bucket_id_example' # str | Bucket Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
 
 ### Return type
 
@@ -92,7 +94,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_bucket_list**
-> list[Bucket] storage_project_bucket_list(project_id, location_id)
+> [Bucket] storage_project_bucket_list(project_id, location_id)
 
 List storage/bucket
 
@@ -102,10 +104,11 @@ List bucket
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.bucket import Bucket
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -126,15 +129,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/bucket
         api_response = api_instance.storage_project_bucket_list(project_id, location_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_list: %s\n" % e)
 ```
 
@@ -142,12 +146,12 @@ location_id = 'location_id_example' # str | Location Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
 
 ### Return type
 
-[**list[Bucket]**](Bucket.md)
+[**[Bucket]**](Bucket.md)
 
 ### Authorization
 
@@ -178,10 +182,10 @@ Delete storage/bucket.object
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -202,16 +206,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
-object_id = 'object_id_example' # str | objectId
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
+    object_id = "objectId_example" # str | objectId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/bucket.object
         api_instance.storage_project_bucket_object_delete(project_id, location_id, bucket_id, object_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_delete: %s\n" % e)
 ```
 
@@ -219,10 +224,10 @@ object_id = 'object_id_example' # str | objectId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
- **object_id** | **str**| objectId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
+ **object_id** | **str**| objectId |
 
 ### Return type
 
@@ -257,10 +262,10 @@ action download
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -281,16 +286,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
-object_id = 'object_id_example' # str | objectId
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
+    object_id = "objectId_example" # str | objectId
 
+    # example passing only required values which don't have defaults set
     try:
         # Download storage/bucket.object
         api_instance.storage_project_bucket_object_download(project_id, location_id, bucket_id, object_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_download: %s\n" % e)
 ```
 
@@ -298,10 +304,10 @@ object_id = 'object_id_example' # str | objectId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
- **object_id** | **str**| objectId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
+ **object_id** | **str**| objectId |
 
 ### Return type
 
@@ -336,10 +342,11 @@ Get storage/bucket.object
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.storage_object import StorageObject
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -360,17 +367,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
-object_id = 'object_id_example' # str | objectId
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
+    object_id = "objectId_example" # str | objectId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/bucket.object
         api_response = api_instance.storage_project_bucket_object_get(project_id, location_id, bucket_id, object_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_get: %s\n" % e)
 ```
 
@@ -378,10 +386,10 @@ object_id = 'object_id_example' # str | objectId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
- **object_id** | **str**| objectId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
+ **object_id** | **str**| objectId |
 
 ### Return type
 
@@ -406,7 +414,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_bucket_object_list**
-> list[StorageObject] storage_project_bucket_object_list(project_id, location_id, bucket_id)
+> [StorageObject] storage_project_bucket_object_list(project_id, location_id, bucket_id)
 
 List storage/bucket.object
 
@@ -416,10 +424,11 @@ List storage/bucket.object
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.storage_object import StorageObject
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -440,16 +449,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/bucket.object
         api_response = api_instance.storage_project_bucket_object_list(project_id, location_id, bucket_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_list: %s\n" % e)
 ```
 
@@ -457,13 +467,13 @@ bucket_id = 'bucket_id_example' # str | Bucket Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
 
 ### Return type
 
-[**list[StorageObject]**](StorageObject.md)
+[**[StorageObject]**](StorageObject.md)
 
 ### Authorization
 
@@ -484,7 +494,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_bucket_upload**
-> Bucket storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload, x_idempotency_key=x_idempotency_key)
+> Bucket storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload)
 
 Upload storage/bucket
 
@@ -494,10 +504,12 @@ action upload
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_bucket_api
+from h1.model.storage_project_bucket_upload import StorageProjectBucketUpload
+from h1.model.bucket import Bucket
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -518,18 +530,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectBucketApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-bucket_id = 'bucket_id_example' # str | Bucket Id
-storage_project_bucket_upload = h1.StorageProjectBucketUpload() # StorageProjectBucketUpload | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_bucket_api.StorageProjectBucketApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    bucket_id = "bucketId_example" # str | Bucket Id
+    storage_project_bucket_upload = StorageProjectBucketUpload(
+        name="name_example",
+    ) # StorageProjectBucketUpload | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Upload storage/bucket
-        api_response = api_instance.storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectBucketApi->storage_project_bucket_upload: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Upload storage/bucket
+        api_response = api_instance.storage_project_bucket_upload(project_id, location_id, bucket_id, storage_project_bucket_upload, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_upload: %s\n" % e)
 ```
 
@@ -537,11 +562,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **bucket_id** | **str**| Bucket Id | 
- **storage_project_bucket_upload** | [**StorageProjectBucketUpload**](StorageProjectBucketUpload.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **bucket_id** | **str**| Bucket Id |
+ **storage_project_bucket_upload** | [**StorageProjectBucketUpload**](StorageProjectBucketUpload.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 

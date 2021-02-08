@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.invoice_buyer import InvoiceBuyer  # noqa: E501
-from h1.rest import ApiException
+from h1.model.invoice_buyer_address import InvoiceBuyerAddress
+globals()['InvoiceBuyerAddress'] = InvoiceBuyerAddress
+from h1.model.invoice_buyer import InvoiceBuyer
+
 
 class TestInvoiceBuyer(unittest.TestCase):
     """InvoiceBuyer unit test stubs"""
@@ -28,32 +26,11 @@ class TestInvoiceBuyer(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test InvoiceBuyer
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.invoice_buyer.InvoiceBuyer()  # noqa: E501
-        if include_optional :
-            return InvoiceBuyer(
-                company = '0', 
-                address = h1.models.invoice_buyer_address.invoice_buyer_address(
-                    street = '0', 
-                    zipcode = '0', 
-                    city = '0', 
-                    country = '0', ), 
-                nip = '0', 
-                email = '0'
-            )
-        else :
-            return InvoiceBuyer(
-                company = '0',
-        )
-
     def testInvoiceBuyer(self):
         """Test InvoiceBuyer"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = InvoiceBuyer()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

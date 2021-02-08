@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.networking_project_netgw_create import NetworkingProjectNetgwCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.netgw_public import NetgwPublic
+from h1.model.tag_array import TagArray
+globals()['NetgwPublic'] = NetgwPublic
+globals()['TagArray'] = TagArray
+from h1.model.networking_project_netgw_create import NetworkingProjectNetgwCreate
+
 
 class TestNetworkingProjectNetgwCreate(unittest.TestCase):
     """NetworkingProjectNetgwCreate unit test stubs"""
@@ -28,32 +28,11 @@ class TestNetworkingProjectNetgwCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test NetworkingProjectNetgwCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.networking_project_netgw_create.NetworkingProjectNetgwCreate()  # noqa: E501
-        if include_optional :
-            return NetworkingProjectNetgwCreate(
-                name = '0', 
-                public = h1.models.netgw_public.Netgw_public(
-                    ip = '0', ), 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return NetworkingProjectNetgwCreate(
-        )
-
     def testNetworkingProjectNetgwCreate(self):
         """Test NetworkingProjectNetgwCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = NetworkingProjectNetgwCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

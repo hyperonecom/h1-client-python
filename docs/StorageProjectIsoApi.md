@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **storage_project_iso_create**
-> Iso storage_project_iso_create(project_id, location_id, storage_project_iso_create, x_idempotency_key=x_idempotency_key)
+> Iso storage_project_iso_create(project_id, location_id, storage_project_iso_create)
 
 Create storage/iso
 
@@ -33,10 +33,12 @@ Create iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.iso import Iso
+from h1.model.storage_project_iso_create import StorageProjectIsoCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -57,17 +59,38 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-storage_project_iso_create = h1.StorageProjectIsoCreate() # StorageProjectIsoCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    storage_project_iso_create = StorageProjectIsoCreate(
+        name="name_example",
+        source="source_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # StorageProjectIsoCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/iso
-        api_response = api_instance.storage_project_iso_create(project_id, location_id, storage_project_iso_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_iso_create(project_id, location_id, storage_project_iso_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectIsoApi->storage_project_iso_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create storage/iso
+        api_response = api_instance.storage_project_iso_create(project_id, location_id, storage_project_iso_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_create: %s\n" % e)
 ```
 
@@ -75,10 +98,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **storage_project_iso_create** | [**StorageProjectIsoCreate**](StorageProjectIsoCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **storage_project_iso_create** | [**StorageProjectIsoCreate**](StorageProjectIsoCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -114,10 +138,10 @@ Delete iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -138,15 +162,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/iso
         api_instance.storage_project_iso_delete(project_id, location_id, iso_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_delete: %s\n" % e)
 ```
 
@@ -154,9 +179,9 @@ iso_id = 'iso_id_example' # str | Iso Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
 
 ### Return type
 
@@ -180,7 +205,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_detach**
-> Iso storage_project_iso_detach(project_id, location_id, iso_id, storage_project_iso_detach, x_idempotency_key=x_idempotency_key)
+> Iso storage_project_iso_detach(project_id, location_id, iso_id, storage_project_iso_detach)
 
 Detach storage/iso
 
@@ -190,10 +215,12 @@ action detach
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.storage_project_iso_detach import StorageProjectIsoDetach
+from h1.model.iso import Iso
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -214,18 +241,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-storage_project_iso_detach = h1.StorageProjectIsoDetach() # StorageProjectIsoDetach | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    storage_project_iso_detach = StorageProjectIsoDetach(
+        vm="vm_example",
+    ) # StorageProjectIsoDetach | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Detach storage/iso
-        api_response = api_instance.storage_project_iso_detach(project_id, location_id, iso_id, storage_project_iso_detach, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_iso_detach(project_id, location_id, iso_id, storage_project_iso_detach)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectIsoApi->storage_project_iso_detach: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Detach storage/iso
+        api_response = api_instance.storage_project_iso_detach(project_id, location_id, iso_id, storage_project_iso_detach, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_detach: %s\n" % e)
 ```
 
@@ -233,11 +273,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **storage_project_iso_detach** | [**StorageProjectIsoDetach**](StorageProjectIsoDetach.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **storage_project_iso_detach** | [**StorageProjectIsoDetach**](StorageProjectIsoDetach.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -273,10 +314,11 @@ Get storage/iso.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -297,17 +339,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/iso.event
         api_response = api_instance.storage_project_iso_event_get(project_id, location_id, iso_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_event_get: %s\n" % e)
 ```
 
@@ -315,10 +358,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -343,7 +386,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_event_list**
-> list[Event] storage_project_iso_event_list(project_id, location_id, iso_id, limit=limit, skip=skip)
+> [Event] storage_project_iso_event_list(project_id, location_id, iso_id)
 
 List storage/iso.event
 
@@ -353,10 +396,11 @@ List storage/iso.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -377,18 +421,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/iso.event
+        api_response = api_instance.storage_project_iso_event_list(project_id, location_id, iso_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectIsoApi->storage_project_iso_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/iso.event
         api_response = api_instance.storage_project_iso_event_list(project_id, location_id, iso_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_event_list: %s\n" % e)
 ```
 
@@ -396,15 +450,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -435,10 +489,11 @@ Returns a single iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.iso import Iso
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -459,16 +514,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/iso
         api_response = api_instance.storage_project_iso_get(project_id, location_id, iso_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_get: %s\n" % e)
 ```
 
@@ -476,9 +532,9 @@ iso_id = 'iso_id_example' # str | Iso Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
 
 ### Return type
 
@@ -503,7 +559,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_list**
-> list[Iso] storage_project_iso_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Iso] storage_project_iso_list(project_id, location_id)
 
 List storage/iso
 
@@ -513,10 +569,11 @@ List iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.iso import Iso
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -537,18 +594,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/iso
+        api_response = api_instance.storage_project_iso_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectIsoApi->storage_project_iso_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/iso
         api_response = api_instance.storage_project_iso_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_list: %s\n" % e)
 ```
 
@@ -556,15 +623,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Iso]**](Iso.md)
+[**[Iso]**](Iso.md)
 
 ### Authorization
 
@@ -595,10 +662,11 @@ Get storage/iso.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -619,17 +687,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/iso.service
         api_response = api_instance.storage_project_iso_service_get(project_id, location_id, iso_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_service_get: %s\n" % e)
 ```
 
@@ -637,10 +706,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -665,7 +734,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_service_list**
-> list[ResourceService] storage_project_iso_service_list(project_id, location_id, iso_id)
+> [ResourceService] storage_project_iso_service_list(project_id, location_id, iso_id)
 
 List storage/iso.service
 
@@ -675,10 +744,11 @@ List storage/iso.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -699,16 +769,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/iso.service
         api_response = api_instance.storage_project_iso_service_list(project_id, location_id, iso_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_service_list: %s\n" % e)
 ```
 
@@ -716,13 +787,13 @@ iso_id = 'iso_id_example' # str | Iso Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -753,10 +824,11 @@ Create storage/iso.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -777,17 +849,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-tag = h1.Tag() # Tag | 
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/iso.tag
         api_response = api_instance.storage_project_iso_tag_create(project_id, location_id, iso_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_tag_create: %s\n" % e)
 ```
 
@@ -795,10 +872,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -833,10 +910,10 @@ Delete storage/iso.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -857,16 +934,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/iso.tag
         api_instance.storage_project_iso_tag_delete(project_id, location_id, iso_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_tag_delete: %s\n" % e)
 ```
 
@@ -874,10 +952,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -912,10 +990,11 @@ Get storage/iso.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -936,17 +1015,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/iso.tag
         api_response = api_instance.storage_project_iso_tag_get(project_id, location_id, iso_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_tag_get: %s\n" % e)
 ```
 
@@ -954,10 +1034,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -982,7 +1062,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_tag_list**
-> list[Tag] storage_project_iso_tag_list(project_id, location_id, iso_id)
+> [Tag] storage_project_iso_tag_list(project_id, location_id, iso_id)
 
 List storage/iso.tag
 
@@ -992,10 +1072,11 @@ List storage/iso.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1016,16 +1097,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/iso.tag
         api_response = api_instance.storage_project_iso_tag_list(project_id, location_id, iso_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_tag_list: %s\n" % e)
 ```
 
@@ -1033,13 +1115,13 @@ iso_id = 'iso_id_example' # str | Iso Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1060,7 +1142,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_tag_put**
-> list[Tag] storage_project_iso_tag_put(project_id, location_id, iso_id, tag)
+> [Tag] storage_project_iso_tag_put(project_id, location_id, iso_id, tag_array)
 
 Replace storage/iso.tag
 
@@ -1070,10 +1152,12 @@ Replace storage/iso.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1094,17 +1178,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace storage/iso.tag
-        api_response = api_instance.storage_project_iso_tag_put(project_id, location_id, iso_id, tag)
+        api_response = api_instance.storage_project_iso_tag_put(project_id, location_id, iso_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_tag_put: %s\n" % e)
 ```
 
@@ -1112,14 +1203,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1140,7 +1231,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_iso_transfer**
-> Iso storage_project_iso_transfer(project_id, location_id, iso_id, storage_project_iso_transfer, x_idempotency_key=x_idempotency_key)
+> Iso storage_project_iso_transfer(project_id, location_id, iso_id, storage_project_iso_transfer)
 
 Transfer storage/iso
 
@@ -1150,10 +1241,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.iso import Iso
+from h1.model.storage_project_iso_transfer import StorageProjectIsoTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1174,18 +1267,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-storage_project_iso_transfer = h1.StorageProjectIsoTransfer() # StorageProjectIsoTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    storage_project_iso_transfer = StorageProjectIsoTransfer(
+        project="project_example",
+    ) # StorageProjectIsoTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer storage/iso
-        api_response = api_instance.storage_project_iso_transfer(project_id, location_id, iso_id, storage_project_iso_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_iso_transfer(project_id, location_id, iso_id, storage_project_iso_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectIsoApi->storage_project_iso_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer storage/iso
+        api_response = api_instance.storage_project_iso_transfer(project_id, location_id, iso_id, storage_project_iso_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_transfer: %s\n" % e)
 ```
 
@@ -1193,11 +1299,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **storage_project_iso_transfer** | [**StorageProjectIsoTransfer**](StorageProjectIsoTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **storage_project_iso_transfer** | [**StorageProjectIsoTransfer**](StorageProjectIsoTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1233,10 +1340,12 @@ Returns modified iso
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_iso_api
+from h1.model.iso import Iso
+from h1.model.storage_project_iso_update import StorageProjectIsoUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1257,17 +1366,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectIsoApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-iso_id = 'iso_id_example' # str | Iso Id
-storage_project_iso_update = h1.StorageProjectIsoUpdate() # StorageProjectIsoUpdate | 
+    api_instance = storage_project_iso_api.StorageProjectIsoApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    iso_id = "isoId_example" # str | Iso Id
+    storage_project_iso_update = StorageProjectIsoUpdate(
+        name="name_example",
+    ) # StorageProjectIsoUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update storage/iso
         api_response = api_instance.storage_project_iso_update(project_id, location_id, iso_id, storage_project_iso_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectIsoApi->storage_project_iso_update: %s\n" % e)
 ```
 
@@ -1275,10 +1387,10 @@ storage_project_iso_update = h1.StorageProjectIsoUpdate() # StorageProjectIsoUpd
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **iso_id** | **str**| Iso Id | 
- **storage_project_iso_update** | [**StorageProjectIsoUpdate**](StorageProjectIsoUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **iso_id** | **str**| Iso Id |
+ **storage_project_iso_update** | [**StorageProjectIsoUpdate**](StorageProjectIsoUpdate.md)|  |
 
 ### Return type
 

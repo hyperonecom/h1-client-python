@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.iso_metadata import IsoMetadata  # noqa: E501
-from h1.rest import ApiException
+from h1.model.iso_metadata_source import IsoMetadataSource
+globals()['IsoMetadataSource'] = IsoMetadataSource
+from h1.model.iso_metadata import IsoMetadata
+
 
 class TestIsoMetadata(unittest.TestCase):
     """IsoMetadata unit test stubs"""
@@ -28,26 +26,11 @@ class TestIsoMetadata(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test IsoMetadata
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.iso_metadata.IsoMetadata()  # noqa: E501
-        if include_optional :
-            return IsoMetadata(
-                source = h1.models.iso_metadata_source.iso_metadata_source(
-                    filename = '0', 
-                    size = 1.337, )
-            )
-        else :
-            return IsoMetadata(
-        )
-
     def testIsoMetadata(self):
         """Test IsoMetadata"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = IsoMetadata()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

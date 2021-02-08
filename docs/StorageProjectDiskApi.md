@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 
 # **storage_project_disk_create**
-> Disk storage_project_disk_create(project_id, location_id, storage_project_disk_create, x_idempotency_key=x_idempotency_key)
+> Disk storage_project_disk_create(project_id, location_id, storage_project_disk_create)
 
 Create storage/disk
 
@@ -38,10 +38,12 @@ Create disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.storage_project_disk_create import StorageProjectDiskCreate
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -62,17 +64,41 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-storage_project_disk_create = h1.StorageProjectDiskCreate() # StorageProjectDiskCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    storage_project_disk_create = StorageProjectDiskCreate(
+        name="name_example",
+        service="service_example",
+        size=1,
+        source="source_example",
+        vm="vm_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # StorageProjectDiskCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/disk
-        api_response = api_instance.storage_project_disk_create(project_id, location_id, storage_project_disk_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_disk_create(project_id, location_id, storage_project_disk_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create storage/disk
+        api_response = api_instance.storage_project_disk_create(project_id, location_id, storage_project_disk_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_create: %s\n" % e)
 ```
 
@@ -80,10 +106,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **storage_project_disk_create** | [**StorageProjectDiskCreate**](StorageProjectDiskCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **storage_project_disk_create** | [**StorageProjectDiskCreate**](StorageProjectDiskCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -119,10 +146,10 @@ Delete disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -143,15 +170,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/disk
         api_instance.storage_project_disk_delete(project_id, location_id, disk_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_delete: %s\n" % e)
 ```
 
@@ -159,9 +187,9 @@ disk_id = 'disk_id_example' # str | Disk Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
 
 ### Return type
 
@@ -185,7 +213,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_detach**
-> Disk storage_project_disk_detach(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key)
+> Disk storage_project_disk_detach(project_id, location_id, disk_id)
 
 Detach storage/disk
 
@@ -195,10 +223,11 @@ action detach
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -219,17 +248,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Detach storage/disk
-        api_response = api_instance.storage_project_disk_detach(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_disk_detach(project_id, location_id, disk_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_detach: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Detach storage/disk
+        api_response = api_instance.storage_project_disk_detach(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_detach: %s\n" % e)
 ```
 
@@ -237,10 +277,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -266,7 +307,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_download**
-> storage_project_disk_download(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key)
+> storage_project_disk_download(project_id, location_id, disk_id)
 
 Download storage/disk
 
@@ -276,10 +317,10 @@ action download
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -300,16 +341,26 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Download storage/disk
-        api_instance.storage_project_disk_download(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key)
-    except ApiException as e:
+        api_instance.storage_project_disk_download(project_id, location_id, disk_id)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_download: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Download storage/disk
+        api_instance.storage_project_disk_download(project_id, location_id, disk_id, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_download: %s\n" % e)
 ```
 
@@ -317,10 +368,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -355,10 +407,11 @@ Get storage/disk.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -379,17 +432,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/disk.event
         api_response = api_instance.storage_project_disk_event_get(project_id, location_id, disk_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_event_get: %s\n" % e)
 ```
 
@@ -397,10 +451,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -425,7 +479,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_event_list**
-> list[Event] storage_project_disk_event_list(project_id, location_id, disk_id, limit=limit, skip=skip)
+> [Event] storage_project_disk_event_list(project_id, location_id, disk_id)
 
 List storage/disk.event
 
@@ -435,10 +489,11 @@ List storage/disk.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -459,18 +514,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/disk.event
+        api_response = api_instance.storage_project_disk_event_list(project_id, location_id, disk_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/disk.event
         api_response = api_instance.storage_project_disk_event_list(project_id, location_id, disk_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_event_list: %s\n" % e)
 ```
 
@@ -478,15 +543,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -517,10 +582,11 @@ Returns a single disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -541,16 +607,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/disk
         api_response = api_instance.storage_project_disk_get(project_id, location_id, disk_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_get: %s\n" % e)
 ```
 
@@ -558,9 +625,9 @@ disk_id = 'disk_id_example' # str | Disk Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
 
 ### Return type
 
@@ -585,7 +652,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_list**
-> list[Disk] storage_project_disk_list(project_id, location_id, name=name, vm=vm, tag_value=tag_value, tag_key=tag_key)
+> [Disk] storage_project_disk_list(project_id, location_id)
 
 List storage/disk
 
@@ -595,10 +662,11 @@ List disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -619,19 +687,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-vm = 'vm_example' # str | Filter by vm (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    vm = "vm_example" # str | Filter by vm (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/disk
+        api_response = api_instance.storage_project_disk_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/disk
         api_response = api_instance.storage_project_disk_list(project_id, location_id, name=name, vm=vm, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_list: %s\n" % e)
 ```
 
@@ -639,16 +717,16 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **vm** | **str**| Filter by vm | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **vm** | **str**| Filter by vm | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Disk]**](Disk.md)
+[**[Disk]**](Disk.md)
 
 ### Authorization
 
@@ -679,10 +757,11 @@ Get storage/disk.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -703,17 +782,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-metric_id = 'metric_id_example' # str | metricId
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    metric_id = "metricId_example" # str | metricId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/disk.metric
         api_response = api_instance.storage_project_disk_metric_get(project_id, location_id, disk_id, metric_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_metric_get: %s\n" % e)
 ```
 
@@ -721,10 +801,10 @@ metric_id = 'metric_id_example' # str | metricId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **metric_id** | **str**| metricId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **metric_id** | **str**| metricId |
 
 ### Return type
 
@@ -749,7 +829,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_metric_list**
-> list[Metric] storage_project_disk_metric_list(project_id, location_id, disk_id)
+> [Metric] storage_project_disk_metric_list(project_id, location_id, disk_id)
 
 List storage/disk.metric
 
@@ -759,10 +839,11 @@ List storage/disk.metric
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -783,16 +864,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/disk.metric
         api_response = api_instance.storage_project_disk_metric_list(project_id, location_id, disk_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_metric_list: %s\n" % e)
 ```
 
@@ -800,13 +882,13 @@ disk_id = 'disk_id_example' # str | Disk Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
 
 ### Return type
 
-[**list[Metric]**](Metric.md)
+[**[Metric]**](Metric.md)
 
 ### Authorization
 
@@ -827,7 +909,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_metric_point_list**
-> list[Point] storage_project_disk_metric_point_list(project_id, location_id, disk_id, metric_id, interval=interval, timespan=timespan)
+> [Point] storage_project_disk_metric_point_list(project_id, location_id, disk_id, metric_id)
 
 List storage/disk.point
 
@@ -837,10 +919,11 @@ List storage/disk.point
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -861,19 +944,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-metric_id = 'metric_id_example' # str | metricId
-interval = 'interval_example' # str | interval (optional)
-timespan = 'timespan_example' # str | timespan (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/disk.point
+        api_response = api_instance.storage_project_disk_metric_point_list(project_id, location_id, disk_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/disk.point
         api_response = api_instance.storage_project_disk_metric_point_list(project_id, location_id, disk_id, metric_id, interval=interval, timespan=timespan)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_metric_point_list: %s\n" % e)
 ```
 
@@ -881,16 +974,16 @@ timespan = 'timespan_example' # str | timespan (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **metric_id** | **str**| metricId | 
- **interval** | **str**| interval | [optional] 
- **timespan** | **str**| timespan | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
 
 ### Return type
 
-[**list[Point]**](Point.md)
+[**[Point]**](Point.md)
 
 ### Authorization
 
@@ -911,7 +1004,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_resize**
-> Disk storage_project_disk_resize(project_id, location_id, disk_id, storage_project_disk_resize, x_idempotency_key=x_idempotency_key)
+> Disk storage_project_disk_resize(project_id, location_id, disk_id, storage_project_disk_resize)
 
 Resize storage/disk
 
@@ -921,10 +1014,12 @@ action resize
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.storage_project_disk_resize import StorageProjectDiskResize
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -945,18 +1040,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-storage_project_disk_resize = h1.StorageProjectDiskResize() # StorageProjectDiskResize | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    storage_project_disk_resize = StorageProjectDiskResize(
+        size=3.14,
+    ) # StorageProjectDiskResize | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Resize storage/disk
-        api_response = api_instance.storage_project_disk_resize(project_id, location_id, disk_id, storage_project_disk_resize, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_disk_resize(project_id, location_id, disk_id, storage_project_disk_resize)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_resize: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Resize storage/disk
+        api_response = api_instance.storage_project_disk_resize(project_id, location_id, disk_id, storage_project_disk_resize, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_resize: %s\n" % e)
 ```
 
@@ -964,11 +1072,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **storage_project_disk_resize** | [**StorageProjectDiskResize**](StorageProjectDiskResize.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **storage_project_disk_resize** | [**StorageProjectDiskResize**](StorageProjectDiskResize.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1004,10 +1113,11 @@ Get storage/disk.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1028,17 +1138,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/disk.service
         api_response = api_instance.storage_project_disk_service_get(project_id, location_id, disk_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_service_get: %s\n" % e)
 ```
 
@@ -1046,10 +1157,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1074,7 +1185,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_service_list**
-> list[ResourceService] storage_project_disk_service_list(project_id, location_id, disk_id)
+> [ResourceService] storage_project_disk_service_list(project_id, location_id, disk_id)
 
 List storage/disk.service
 
@@ -1084,10 +1195,11 @@ List storage/disk.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1108,16 +1220,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/disk.service
         api_response = api_instance.storage_project_disk_service_list(project_id, location_id, disk_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_service_list: %s\n" % e)
 ```
 
@@ -1125,13 +1238,13 @@ disk_id = 'disk_id_example' # str | Disk Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1162,10 +1275,11 @@ Create storage/disk.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1186,17 +1300,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-tag = h1.Tag() # Tag | 
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/disk.tag
         api_response = api_instance.storage_project_disk_tag_create(project_id, location_id, disk_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_tag_create: %s\n" % e)
 ```
 
@@ -1204,10 +1323,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1242,10 +1361,10 @@ Delete storage/disk.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1266,16 +1385,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/disk.tag
         api_instance.storage_project_disk_tag_delete(project_id, location_id, disk_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_tag_delete: %s\n" % e)
 ```
 
@@ -1283,10 +1403,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1321,10 +1441,11 @@ Get storage/disk.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1345,17 +1466,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/disk.tag
         api_response = api_instance.storage_project_disk_tag_get(project_id, location_id, disk_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_tag_get: %s\n" % e)
 ```
 
@@ -1363,10 +1485,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1391,7 +1513,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_tag_list**
-> list[Tag] storage_project_disk_tag_list(project_id, location_id, disk_id)
+> [Tag] storage_project_disk_tag_list(project_id, location_id, disk_id)
 
 List storage/disk.tag
 
@@ -1401,10 +1523,11 @@ List storage/disk.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1425,16 +1548,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/disk.tag
         api_response = api_instance.storage_project_disk_tag_list(project_id, location_id, disk_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_tag_list: %s\n" % e)
 ```
 
@@ -1442,13 +1566,13 @@ disk_id = 'disk_id_example' # str | Disk Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1469,7 +1593,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_tag_put**
-> list[Tag] storage_project_disk_tag_put(project_id, location_id, disk_id, tag)
+> [Tag] storage_project_disk_tag_put(project_id, location_id, disk_id, tag_array)
 
 Replace storage/disk.tag
 
@@ -1479,10 +1603,12 @@ Replace storage/disk.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1503,17 +1629,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace storage/disk.tag
-        api_response = api_instance.storage_project_disk_tag_put(project_id, location_id, disk_id, tag)
+        api_response = api_instance.storage_project_disk_tag_put(project_id, location_id, disk_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_tag_put: %s\n" % e)
 ```
 
@@ -1521,14 +1654,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1549,7 +1682,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_disk_transfer**
-> Disk storage_project_disk_transfer(project_id, location_id, disk_id, storage_project_disk_transfer, x_idempotency_key=x_idempotency_key)
+> Disk storage_project_disk_transfer(project_id, location_id, disk_id, storage_project_disk_transfer)
 
 Transfer storage/disk
 
@@ -1559,10 +1692,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.storage_project_disk_transfer import StorageProjectDiskTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1583,18 +1718,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-storage_project_disk_transfer = h1.StorageProjectDiskTransfer() # StorageProjectDiskTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    storage_project_disk_transfer = StorageProjectDiskTransfer(
+        project="project_example",
+    ) # StorageProjectDiskTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer storage/disk
-        api_response = api_instance.storage_project_disk_transfer(project_id, location_id, disk_id, storage_project_disk_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_disk_transfer(project_id, location_id, disk_id, storage_project_disk_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectDiskApi->storage_project_disk_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer storage/disk
+        api_response = api_instance.storage_project_disk_transfer(project_id, location_id, disk_id, storage_project_disk_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_transfer: %s\n" % e)
 ```
 
@@ -1602,11 +1750,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **storage_project_disk_transfer** | [**StorageProjectDiskTransfer**](StorageProjectDiskTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **storage_project_disk_transfer** | [**StorageProjectDiskTransfer**](StorageProjectDiskTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1642,10 +1791,12 @@ Returns modified disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_disk_api
+from h1.model.disk import Disk
+from h1.model.storage_project_disk_update import StorageProjectDiskUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1666,17 +1817,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectDiskApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-disk_id = 'disk_id_example' # str | Disk Id
-storage_project_disk_update = h1.StorageProjectDiskUpdate() # StorageProjectDiskUpdate | 
+    api_instance = storage_project_disk_api.StorageProjectDiskApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    disk_id = "diskId_example" # str | Disk Id
+    storage_project_disk_update = StorageProjectDiskUpdate(
+        name="name_example",
+    ) # StorageProjectDiskUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update storage/disk
         api_response = api_instance.storage_project_disk_update(project_id, location_id, disk_id, storage_project_disk_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectDiskApi->storage_project_disk_update: %s\n" % e)
 ```
 
@@ -1684,10 +1838,10 @@ storage_project_disk_update = h1.StorageProjectDiskUpdate() # StorageProjectDisk
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **disk_id** | **str**| Disk Id | 
- **storage_project_disk_update** | [**StorageProjectDiskUpdate**](StorageProjectDiskUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **disk_id** | **str**| Disk Id |
+ **storage_project_disk_update** | [**StorageProjectDiskUpdate**](StorageProjectDiskUpdate.md)|  |
 
 ### Return type
 

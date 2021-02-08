@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.website_link import WebsiteLink  # noqa: E501
-from h1.rest import ApiException
+from h1.model.website_link import WebsiteLink
+
 
 class TestWebsiteLink(unittest.TestCase):
     """WebsiteLink unit test stubs"""
@@ -28,30 +24,11 @@ class TestWebsiteLink(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test WebsiteLink
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.website_link.WebsiteLink()  # noqa: E501
-        if include_optional :
-            return WebsiteLink(
-                id = '0', 
-                actor = '0', 
-                purpose = 'logs', 
-                resource = '0'
-            )
-        else :
-            return WebsiteLink(
-                actor = '0',
-                purpose = 'logs',
-                resource = '0',
-        )
-
     def testWebsiteLink(self):
         """Test WebsiteLink"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = WebsiteLink()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

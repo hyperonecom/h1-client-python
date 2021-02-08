@@ -31,7 +31,7 @@ Method | HTTP request | Description
 
 
 # **dns_project_zone_create**
-> Zone dns_project_zone_create(project_id, location_id, dns_project_zone_create, x_idempotency_key=x_idempotency_key)
+> Zone dns_project_zone_create(project_id, location_id, dns_project_zone_create)
 
 Create dns/zone
 
@@ -41,10 +41,12 @@ Create zone
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_project_zone_create import DnsProjectZoneCreate
+from h1.model.zone import Zone
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -65,17 +67,42 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-dns_project_zone_create = h1.DnsProjectZoneCreate() # DnsProjectZoneCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    dns_project_zone_create = DnsProjectZoneCreate(
+        name="name_example",
+        service="service_example",
+        dns_name="dns_name_example",
+        source=ZoneSource(
+            dns_probing=False,
+        ),
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # DnsProjectZoneCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create dns/zone
-        api_response = api_instance.dns_project_zone_create(project_id, location_id, dns_project_zone_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.dns_project_zone_create(project_id, location_id, dns_project_zone_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling DnsProjectZoneApi->dns_project_zone_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create dns/zone
+        api_response = api_instance.dns_project_zone_create(project_id, location_id, dns_project_zone_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_create: %s\n" % e)
 ```
 
@@ -83,10 +110,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **dns_project_zone_create** | [**DnsProjectZoneCreate**](DnsProjectZoneCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **dns_project_zone_create** | [**DnsProjectZoneCreate**](DnsProjectZoneCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -122,10 +150,10 @@ Delete zone
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -146,15 +174,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete dns/zone
         api_instance.dns_project_zone_delete(project_id, location_id, zone_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_delete: %s\n" % e)
 ```
 
@@ -162,9 +191,9 @@ zone_id = 'zone_id_example' # str | Zone Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
 
 ### Return type
 
@@ -198,10 +227,11 @@ Get dns/zone.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -222,17 +252,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone.event
         api_response = api_instance.dns_project_zone_event_get(project_id, location_id, zone_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_event_get: %s\n" % e)
 ```
 
@@ -240,10 +271,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -268,7 +299,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_event_list**
-> list[Event] dns_project_zone_event_list(project_id, location_id, zone_id, limit=limit, skip=skip)
+> [Event] dns_project_zone_event_list(project_id, location_id, zone_id)
 
 List dns/zone.event
 
@@ -278,10 +309,11 @@ List dns/zone.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -302,18 +334,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List dns/zone.event
+        api_response = api_instance.dns_project_zone_event_list(project_id, location_id, zone_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DnsProjectZoneApi->dns_project_zone_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List dns/zone.event
         api_response = api_instance.dns_project_zone_event_list(project_id, location_id, zone_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_event_list: %s\n" % e)
 ```
 
@@ -321,15 +363,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -360,10 +402,11 @@ Returns a single zone
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.zone import Zone
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -384,16 +427,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone
         api_response = api_instance.dns_project_zone_get(project_id, location_id, zone_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_get: %s\n" % e)
 ```
 
@@ -401,9 +445,9 @@ zone_id = 'zone_id_example' # str | Zone Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
 
 ### Return type
 
@@ -428,7 +472,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_list**
-> list[Zone] dns_project_zone_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Zone] dns_project_zone_list(project_id, location_id)
 
 List dns/zone
 
@@ -438,10 +482,11 @@ List zone
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.zone import Zone
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -462,18 +507,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List dns/zone
+        api_response = api_instance.dns_project_zone_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DnsProjectZoneApi->dns_project_zone_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List dns/zone
         api_response = api_instance.dns_project_zone_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_list: %s\n" % e)
 ```
 
@@ -481,15 +536,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Zone]**](Zone.md)
+[**[Zone]**](Zone.md)
 
 ### Authorization
 
@@ -520,10 +575,11 @@ Create dns/zone.recordset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_recordset import DnsRecordset
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -544,17 +600,29 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-dns_recordset = h1.DnsRecordset() # DnsRecordset | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    dns_recordset = DnsRecordset(
+        id="id_example",
+        name="@",
+        type="A",
+        ttl=3600,
+        record=DnsRecordArray([
+            DnsRecord(
+                id="id_example",
+                content="content_example",
+            ),
+        ]),
+    ) # DnsRecordset | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create dns/zone.recordset
         api_response = api_instance.dns_project_zone_recordset_create(project_id, location_id, zone_id, dns_recordset)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_create: %s\n" % e)
 ```
 
@@ -562,10 +630,10 @@ dns_recordset = h1.DnsRecordset() # DnsRecordset |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **dns_recordset** | [**DnsRecordset**](DnsRecordset.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **dns_recordset** | [**DnsRecordset**](DnsRecordset.md)|  |
 
 ### Return type
 
@@ -600,10 +668,11 @@ Delete dns/zone.recordset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.zone import Zone
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -624,17 +693,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete dns/zone.recordset
         api_response = api_instance.dns_project_zone_recordset_delete(project_id, location_id, zone_id, recordset_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_delete: %s\n" % e)
 ```
 
@@ -642,10 +712,10 @@ recordset_id = 'recordset_id_example' # str | recordsetId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
 
 ### Return type
 
@@ -681,10 +751,11 @@ Get dns/zone.recordset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_recordset import DnsRecordset
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -705,17 +776,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone.recordset
         api_response = api_instance.dns_project_zone_recordset_get(project_id, location_id, zone_id, recordset_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_get: %s\n" % e)
 ```
 
@@ -723,10 +795,10 @@ recordset_id = 'recordset_id_example' # str | recordsetId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
 
 ### Return type
 
@@ -751,7 +823,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_recordset_list**
-> list[DnsRecordset] dns_project_zone_recordset_list(project_id, location_id, zone_id)
+> [DnsRecordset] dns_project_zone_recordset_list(project_id, location_id, zone_id)
 
 List dns/zone.recordset
 
@@ -761,10 +833,11 @@ List dns/zone.recordset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_recordset import DnsRecordset
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -785,16 +858,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List dns/zone.recordset
         api_response = api_instance.dns_project_zone_recordset_list(project_id, location_id, zone_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_list: %s\n" % e)
 ```
 
@@ -802,13 +876,13 @@ zone_id = 'zone_id_example' # str | Zone Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
 
 ### Return type
 
-[**list[DnsRecordset]**](DnsRecordset.md)
+[**[DnsRecordset]**](DnsRecordset.md)
 
 ### Authorization
 
@@ -839,10 +913,12 @@ Update dns/zone.recordset
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_project_zone_recordset_patch import DnsProjectZoneRecordsetPatch
+from h1.model.dns_recordset import DnsRecordset
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -863,18 +939,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
-dns_project_zone_recordset_patch = h1.DnsProjectZoneRecordsetPatch() # DnsProjectZoneRecordsetPatch | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
+    dns_project_zone_recordset_patch = DnsProjectZoneRecordsetPatch(
+        ttl=3600,
+    ) # DnsProjectZoneRecordsetPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update dns/zone.recordset
         api_response = api_instance.dns_project_zone_recordset_patch(project_id, location_id, zone_id, recordset_id, dns_project_zone_recordset_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_patch: %s\n" % e)
 ```
 
@@ -882,11 +961,11 @@ dns_project_zone_recordset_patch = h1.DnsProjectZoneRecordsetPatch() # DnsProjec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
- **dns_project_zone_recordset_patch** | [**DnsProjectZoneRecordsetPatch**](DnsProjectZoneRecordsetPatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
+ **dns_project_zone_recordset_patch** | [**DnsProjectZoneRecordsetPatch**](DnsProjectZoneRecordsetPatch.md)|  |
 
 ### Return type
 
@@ -921,10 +1000,11 @@ Create dns/zone.record
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_record import DnsRecord
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -945,18 +1025,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
-dns_record = h1.DnsRecord() # DnsRecord | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
+    dns_record = DnsRecord(
+        id="id_example",
+        content="content_example",
+    ) # DnsRecord | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create dns/zone.record
         api_response = api_instance.dns_project_zone_recordset_record_create(project_id, location_id, zone_id, recordset_id, dns_record)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_create: %s\n" % e)
 ```
 
@@ -964,11 +1048,11 @@ dns_record = h1.DnsRecord() # DnsRecord |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
- **dns_record** | [**DnsRecord**](DnsRecord.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
+ **dns_record** | [**DnsRecord**](DnsRecord.md)|  |
 
 ### Return type
 
@@ -1003,10 +1087,10 @@ Delete dns/zone.record
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1027,17 +1111,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
-record_id = 'record_id_example' # str | recordId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
+    record_id = "recordId_example" # str | recordId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete dns/zone.record
         api_instance.dns_project_zone_recordset_record_delete(project_id, location_id, zone_id, recordset_id, record_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_delete: %s\n" % e)
 ```
 
@@ -1045,11 +1130,11 @@ record_id = 'record_id_example' # str | recordId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
- **record_id** | **str**| recordId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
+ **record_id** | **str**| recordId |
 
 ### Return type
 
@@ -1084,10 +1169,11 @@ Get dns/zone.record
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_record import DnsRecord
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1108,18 +1194,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
-record_id = 'record_id_example' # str | recordId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
+    record_id = "recordId_example" # str | recordId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone.record
         api_response = api_instance.dns_project_zone_recordset_record_get(project_id, location_id, zone_id, recordset_id, record_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_get: %s\n" % e)
 ```
 
@@ -1127,11 +1214,11 @@ record_id = 'record_id_example' # str | recordId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
- **record_id** | **str**| recordId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
+ **record_id** | **str**| recordId |
 
 ### Return type
 
@@ -1156,7 +1243,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_recordset_record_list**
-> list[DnsRecord] dns_project_zone_recordset_record_list(project_id, location_id, zone_id, recordset_id)
+> [DnsRecord] dns_project_zone_recordset_record_list(project_id, location_id, zone_id, recordset_id)
 
 List dns/zone.record
 
@@ -1166,10 +1253,11 @@ List dns/zone.record
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_record import DnsRecord
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1190,17 +1278,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
 
+    # example passing only required values which don't have defaults set
     try:
         # List dns/zone.record
         api_response = api_instance.dns_project_zone_recordset_record_list(project_id, location_id, zone_id, recordset_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_list: %s\n" % e)
 ```
 
@@ -1208,14 +1297,14 @@ recordset_id = 'recordset_id_example' # str | recordsetId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
 
 ### Return type
 
-[**list[DnsRecord]**](DnsRecord.md)
+[**[DnsRecord]**](DnsRecord.md)
 
 ### Authorization
 
@@ -1236,7 +1325,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_recordset_record_put**
-> list[DnsRecord] dns_project_zone_recordset_record_put(project_id, location_id, zone_id, recordset_id, dns_record)
+> [DnsRecord] dns_project_zone_recordset_record_put(project_id, location_id, zone_id, recordset_id, dns_record_array)
 
 Replace dns/zone.record
 
@@ -1246,10 +1335,12 @@ Replace dns/zone.record
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_record import DnsRecord
+from h1.model.dns_record_array import DnsRecordArray
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1270,18 +1361,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-recordset_id = 'recordset_id_example' # str | recordsetId
-dns_record = [h1.DnsRecord()] # list[DnsRecord] | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    recordset_id = "recordsetId_example" # str | recordsetId
+    dns_record_array = DnsRecordArray([
+        DnsRecord(
+            id="id_example",
+            content="content_example",
+        ),
+    ]) # DnsRecordArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace dns/zone.record
-        api_response = api_instance.dns_project_zone_recordset_record_put(project_id, location_id, zone_id, recordset_id, dns_record)
+        api_response = api_instance.dns_project_zone_recordset_record_put(project_id, location_id, zone_id, recordset_id, dns_record_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_put: %s\n" % e)
 ```
 
@@ -1289,15 +1386,15 @@ dns_record = [h1.DnsRecord()] # list[DnsRecord] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **recordset_id** | **str**| recordsetId | 
- **dns_record** | [**list[DnsRecord]**](DnsRecord.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **recordset_id** | **str**| recordsetId |
+ **dns_record_array** | [**DnsRecordArray**](DnsRecordArray.md)|  |
 
 ### Return type
 
-[**list[DnsRecord]**](DnsRecord.md)
+[**[DnsRecord]**](DnsRecord.md)
 
 ### Authorization
 
@@ -1328,10 +1425,11 @@ Get dns/zone.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1352,17 +1450,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone.service
         api_response = api_instance.dns_project_zone_service_get(project_id, location_id, zone_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_service_get: %s\n" % e)
 ```
 
@@ -1370,10 +1469,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1398,7 +1497,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_service_list**
-> list[ResourceService] dns_project_zone_service_list(project_id, location_id, zone_id)
+> [ResourceService] dns_project_zone_service_list(project_id, location_id, zone_id)
 
 List dns/zone.service
 
@@ -1408,10 +1507,11 @@ List dns/zone.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1432,16 +1532,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List dns/zone.service
         api_response = api_instance.dns_project_zone_service_list(project_id, location_id, zone_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_service_list: %s\n" % e)
 ```
 
@@ -1449,13 +1550,13 @@ zone_id = 'zone_id_example' # str | Zone Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1486,10 +1587,11 @@ Create dns/zone.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1510,17 +1612,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-tag = h1.Tag() # Tag | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create dns/zone.tag
         api_response = api_instance.dns_project_zone_tag_create(project_id, location_id, zone_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_create: %s\n" % e)
 ```
 
@@ -1528,10 +1635,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1566,10 +1673,10 @@ Delete dns/zone.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1590,16 +1697,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete dns/zone.tag
         api_instance.dns_project_zone_tag_delete(project_id, location_id, zone_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_delete: %s\n" % e)
 ```
 
@@ -1607,10 +1715,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1645,10 +1753,11 @@ Get dns/zone.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1669,17 +1778,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get dns/zone.tag
         api_response = api_instance.dns_project_zone_tag_get(project_id, location_id, zone_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_get: %s\n" % e)
 ```
 
@@ -1687,10 +1797,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1715,7 +1825,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_tag_list**
-> list[Tag] dns_project_zone_tag_list(project_id, location_id, zone_id)
+> [Tag] dns_project_zone_tag_list(project_id, location_id, zone_id)
 
 List dns/zone.tag
 
@@ -1725,10 +1835,11 @@ List dns/zone.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1749,16 +1860,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List dns/zone.tag
         api_response = api_instance.dns_project_zone_tag_list(project_id, location_id, zone_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_list: %s\n" % e)
 ```
 
@@ -1766,13 +1878,13 @@ zone_id = 'zone_id_example' # str | Zone Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1793,7 +1905,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dns_project_zone_tag_put**
-> list[Tag] dns_project_zone_tag_put(project_id, location_id, zone_id, tag)
+> [Tag] dns_project_zone_tag_put(project_id, location_id, zone_id, tag_array)
 
 Replace dns/zone.tag
 
@@ -1803,10 +1915,12 @@ Replace dns/zone.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1827,17 +1941,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace dns/zone.tag
-        api_response = api_instance.dns_project_zone_tag_put(project_id, location_id, zone_id, tag)
+        api_response = api_instance.dns_project_zone_tag_put(project_id, location_id, zone_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_put: %s\n" % e)
 ```
 
@@ -1845,14 +1966,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1883,10 +2004,12 @@ Returns modified zone
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import dns_project_zone_api
+from h1.model.dns_project_zone_update import DnsProjectZoneUpdate
+from h1.model.zone import Zone
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1907,17 +2030,20 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.DnsProjectZoneApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-zone_id = 'zone_id_example' # str | Zone Id
-dns_project_zone_update = h1.DnsProjectZoneUpdate() # DnsProjectZoneUpdate | 
+    api_instance = dns_project_zone_api.DnsProjectZoneApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    zone_id = "zoneId_example" # str | Zone Id
+    dns_project_zone_update = DnsProjectZoneUpdate(
+        name="name_example",
+    ) # DnsProjectZoneUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update dns/zone
         api_response = api_instance.dns_project_zone_update(project_id, location_id, zone_id, dns_project_zone_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_update: %s\n" % e)
 ```
 
@@ -1925,10 +2051,10 @@ dns_project_zone_update = h1.DnsProjectZoneUpdate() # DnsProjectZoneUpdate |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **zone_id** | **str**| Zone Id | 
- **dns_project_zone_update** | [**DnsProjectZoneUpdate**](DnsProjectZoneUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **zone_id** | **str**| Zone Id |
+ **dns_project_zone_update** | [**DnsProjectZoneUpdate**](DnsProjectZoneUpdate.md)|  |
 
 ### Return type
 

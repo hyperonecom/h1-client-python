@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.project_billing import ProjectBilling  # noqa: E501
-from h1.rest import ApiException
+from h1.model.project_billing import ProjectBilling
+
 
 class TestProjectBilling(unittest.TestCase):
     """ProjectBilling unit test stubs"""
@@ -28,26 +24,11 @@ class TestProjectBilling(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ProjectBilling
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.project_billing.ProjectBilling()  # noqa: E501
-        if include_optional :
-            return ProjectBilling(
-                credits = 1.337, 
-                credits_bonus = 1.337, 
-                credit_limit = 1.337
-            )
-        else :
-            return ProjectBilling(
-        )
-
     def testProjectBilling(self):
         """Test ProjectBilling"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ProjectBilling()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

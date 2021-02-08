@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] [readonly] 
 **type** | **str** |  | 
+**id** | **str** |  | [optional] [readonly] 
 **user** | **str** |  | [optional] [readonly] 
 **data** | [**MessageData**](MessageData.md) |  | [optional] 
 **origin** | **str** |  | [optional] [readonly] 

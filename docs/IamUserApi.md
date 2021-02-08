@@ -29,10 +29,10 @@ Delete iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -53,14 +53,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-authtoken_id = 'authtoken_id_example' # str | authtokenId
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    authtoken_id = "authtokenId_example" # str | authtokenId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/user.credential
         api_instance.iam_user_credential_authtoken_delete(user_id, authtoken_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_delete: %s\n" % e)
 ```
 
@@ -68,8 +69,8 @@ authtoken_id = 'authtoken_id_example' # str | authtokenId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **authtoken_id** | **str**| authtokenId | 
+ **user_id** | **str**| User Id |
+ **authtoken_id** | **str**| authtokenId |
 
 ### Return type
 
@@ -104,10 +105,11 @@ Get iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.auth_token import AuthToken
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -128,15 +130,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-authtoken_id = 'authtoken_id_example' # str | authtokenId
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    authtoken_id = "authtokenId_example" # str | authtokenId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/user.credential
         api_response = api_instance.iam_user_credential_authtoken_get(user_id, authtoken_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_get: %s\n" % e)
 ```
 
@@ -144,8 +147,8 @@ authtoken_id = 'authtoken_id_example' # str | authtokenId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **authtoken_id** | **str**| authtokenId | 
+ **user_id** | **str**| User Id |
+ **authtoken_id** | **str**| authtokenId |
 
 ### Return type
 
@@ -170,7 +173,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_user_credential_authtoken_list**
-> list[AuthToken] iam_user_credential_authtoken_list(user_id)
+> [AuthToken] iam_user_credential_authtoken_list(user_id)
 
 List iam/user.credential
 
@@ -180,10 +183,11 @@ List iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.auth_token import AuthToken
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -204,14 +208,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/user.credential
         api_response = api_instance.iam_user_credential_authtoken_list(user_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_list: %s\n" % e)
 ```
 
@@ -219,11 +224,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
+ **user_id** | **str**| User Id |
 
 ### Return type
 
-[**list[AuthToken]**](AuthToken.md)
+[**[AuthToken]**](AuthToken.md)
 
 ### Authorization
 
@@ -254,10 +259,11 @@ Create iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.user_credential import UserCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -278,15 +284,25 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-user_credential = h1.UserCredential() # UserCredential | 
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    user_credential = UserCredential(
+        id="id_example",
+        name="name_example",
+        created_by="created_by_example",
+        created_on=dateutil_parser('1970-01-01T00:00:00.00Z'),
+        type="ssh",
+        value="value_example",
+        fingerprint="fingerprint_example",
+        token="token_example",
+    ) # UserCredential | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create iam/user.credential
         api_response = api_instance.iam_user_credential_create(user_id, user_credential)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_create: %s\n" % e)
 ```
 
@@ -294,8 +310,8 @@ user_credential = h1.UserCredential() # UserCredential |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **user_credential** | [**UserCredential**](UserCredential.md)|  | 
+ **user_id** | **str**| User Id |
+ **user_credential** | [**UserCredential**](UserCredential.md)|  |
 
 ### Return type
 
@@ -330,10 +346,11 @@ Delete iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.user import User
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -354,15 +371,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete iam/user.credential
         api_response = api_instance.iam_user_credential_delete(user_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_delete: %s\n" % e)
 ```
 
@@ -370,8 +388,8 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **credential_id** | **str**| credentialId | 
+ **user_id** | **str**| User Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -407,10 +425,11 @@ Get iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.user_credential import UserCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -431,15 +450,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/user.credential
         api_response = api_instance.iam_user_credential_get(user_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_get: %s\n" % e)
 ```
 
@@ -447,8 +467,8 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **credential_id** | **str**| credentialId | 
+ **user_id** | **str**| User Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -473,7 +493,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_user_credential_list**
-> list[UserCredential] iam_user_credential_list(user_id)
+> [UserCredential] iam_user_credential_list(user_id)
 
 List iam/user.credential
 
@@ -483,10 +503,11 @@ List iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.user_credential import UserCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -507,14 +528,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/user.credential
         api_response = api_instance.iam_user_credential_list(user_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_list: %s\n" % e)
 ```
 
@@ -522,11 +544,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
+ **user_id** | **str**| User Id |
 
 ### Return type
 
-[**list[UserCredential]**](UserCredential.md)
+[**[UserCredential]**](UserCredential.md)
 
 ### Authorization
 
@@ -557,10 +579,12 @@ Update iam/user.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.iam_user_credential_patch import IamUserCredentialPatch
+from h1.model.user_credential import UserCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -581,16 +605,19 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-credential_id = 'credential_id_example' # str | credentialId
-iam_user_credential_patch = h1.IamUserCredentialPatch() # IamUserCredentialPatch | 
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    credential_id = "credentialId_example" # str | credentialId
+    iam_user_credential_patch = IamUserCredentialPatch(
+        name="name_example",
+    ) # IamUserCredentialPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/user.credential
         api_response = api_instance.iam_user_credential_patch(user_id, credential_id, iam_user_credential_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_credential_patch: %s\n" % e)
 ```
 
@@ -598,9 +625,9 @@ iam_user_credential_patch = h1.IamUserCredentialPatch() # IamUserCredentialPatch
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **credential_id** | **str**| credentialId | 
- **iam_user_credential_patch** | [**IamUserCredentialPatch**](IamUserCredentialPatch.md)|  | 
+ **user_id** | **str**| User Id |
+ **credential_id** | **str**| credentialId |
+ **iam_user_credential_patch** | [**IamUserCredentialPatch**](IamUserCredentialPatch.md)|  |
 
 ### Return type
 
@@ -635,10 +662,11 @@ Returns a single user
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.user import User
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -659,14 +687,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/user
         api_response = api_instance.iam_user_get(user_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_get: %s\n" % e)
 ```
 
@@ -674,7 +703,7 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
+ **user_id** | **str**| User Id |
 
 ### Return type
 
@@ -709,10 +738,11 @@ Get iam/user.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -733,15 +763,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get iam/user.service
         api_response = api_instance.iam_user_service_get(user_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_service_get: %s\n" % e)
 ```
 
@@ -749,8 +780,8 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **service_id** | **str**| serviceId | 
+ **user_id** | **str**| User Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -775,7 +806,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iam_user_service_list**
-> list[ResourceService] iam_user_service_list(user_id)
+> [ResourceService] iam_user_service_list(user_id)
 
 List iam/user.service
 
@@ -785,10 +816,11 @@ List iam/user.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -809,14 +841,15 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List iam/user.service
         api_response = api_instance.iam_user_service_list(user_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_service_list: %s\n" % e)
 ```
 
@@ -824,11 +857,11 @@ with h1.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
+ **user_id** | **str**| User Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -859,10 +892,12 @@ Returns modified user
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import iam_user_api
+from h1.model.iam_user_update import IamUserUpdate
+from h1.model.user import User
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -883,15 +918,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.IamUserApi(api_client)
-    user_id = 'user_id_example' # str | User Id
-iam_user_update = h1.IamUserUpdate() # IamUserUpdate | 
+    api_instance = iam_user_api.IamUserApi(api_client)
+    user_id = "userId_example" # str | User Id
+    iam_user_update = IamUserUpdate(
+        phone="phone_example",
+        first_name="first_name_example",
+        family_name="family_name_example",
+        lang="en",
+    ) # IamUserUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update iam/user
         api_response = api_instance.iam_user_update(user_id, iam_user_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling IamUserApi->iam_user_update: %s\n" % e)
 ```
 
@@ -899,8 +940,8 @@ iam_user_update = h1.IamUserUpdate() # IamUserUpdate |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| User Id | 
- **iam_user_update** | [**IamUserUpdate**](IamUserUpdate.md)|  | 
+ **user_id** | **str**| User Id |
+ **iam_user_update** | [**IamUserUpdate**](IamUserUpdate.md)|  |
 
 ### Return type
 

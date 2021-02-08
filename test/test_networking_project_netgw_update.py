@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.networking_project_netgw_update import NetworkingProjectNetgwUpdate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.networking_project_netgw_update import NetworkingProjectNetgwUpdate
+
 
 class TestNetworkingProjectNetgwUpdate(unittest.TestCase):
     """NetworkingProjectNetgwUpdate unit test stubs"""
@@ -28,24 +24,11 @@ class TestNetworkingProjectNetgwUpdate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test NetworkingProjectNetgwUpdate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.networking_project_netgw_update.NetworkingProjectNetgwUpdate()  # noqa: E501
-        if include_optional :
-            return NetworkingProjectNetgwUpdate(
-                name = '0'
-            )
-        else :
-            return NetworkingProjectNetgwUpdate(
-        )
-
     def testNetworkingProjectNetgwUpdate(self):
         """Test NetworkingProjectNetgwUpdate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = NetworkingProjectNetgwUpdate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

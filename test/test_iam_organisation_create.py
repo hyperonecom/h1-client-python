@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.iam_organisation_create import IamOrganisationCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.organisation_billing import OrganisationBilling
+globals()['OrganisationBilling'] = OrganisationBilling
+from h1.model.iam_organisation_create import IamOrganisationCreate
+
 
 class TestIamOrganisationCreate(unittest.TestCase):
     """IamOrganisationCreate unit test stubs"""
@@ -28,35 +26,11 @@ class TestIamOrganisationCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test IamOrganisationCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.iam_organisation_create.IamOrganisationCreate()  # noqa: E501
-        if include_optional :
-            return IamOrganisationCreate(
-                name = '0', 
-                billing = h1.models.organisation_billing.Organisation_billing(
-                    nip = '0', 
-                    email = '0', 
-                    company = '0', 
-                    currency = 'PLN', 
-                    address = h1.models.billing_address.Billing_address(
-                        country = 'PL', 
-                        city = '0', 
-                        street = '0', 
-                        zipcode = '0', ), )
-            )
-        else :
-            return IamOrganisationCreate(
-                name = '0',
-        )
-
     def testIamOrganisationCreate(self):
         """Test IamOrganisationCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = IamOrganisationCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.auth_token import AuthToken  # noqa: E501
-from h1.rest import ApiException
+from h1.model.auth_token_access import AuthTokenAccess
+globals()['AuthTokenAccess'] = AuthTokenAccess
+from h1.model.auth_token import AuthToken
+
 
 class TestAuthToken(unittest.TestCase):
     """AuthToken unit test stubs"""
@@ -28,35 +26,11 @@ class TestAuthToken(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test AuthToken
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.auth_token.AuthToken()  # noqa: E501
-        if include_optional :
-            return AuthToken(
-                id = '0', 
-                expiry = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                created_by = '0', 
-                created_on = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                access = [
-                    h1.models.auth_token_access.authToken_access(
-                        method = 'ALL', 
-                        path = '0', )
-                    ], 
-                name = '0', 
-                client_ip = '0', 
-                user_agent = '0'
-            )
-        else :
-            return AuthToken(
-        )
-
     def testAuthToken(self):
         """Test AuthToken"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = AuthToken()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.support_message import SupportMessage  # noqa: E501
-from h1.rest import ApiException
+from h1.model.message_data import MessageData
+globals()['MessageData'] = MessageData
+from h1.model.support_message import SupportMessage
+
 
 class TestSupportMessage(unittest.TestCase):
     """SupportMessage unit test stubs"""
@@ -28,33 +26,11 @@ class TestSupportMessage(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test SupportMessage
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.support_message.SupportMessage()  # noqa: E501
-        if include_optional :
-            return SupportMessage(
-                id = '0', 
-                type = 'text', 
-                user = '0', 
-                data = h1.models.message_data.Message_data(
-                    mime = 'text/plain', 
-                    url = '0', 
-                    body = '0', ), 
-                origin = '0', 
-                date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
-            )
-        else :
-            return SupportMessage(
-                type = 'text',
-        )
-
     def testSupportMessage(self):
         """Test SupportMessage"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = SupportMessage()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

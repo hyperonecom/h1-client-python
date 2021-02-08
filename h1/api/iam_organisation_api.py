@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,18 +8,37 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from h1.api_client import ApiClient
-from h1.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from h1.api_client import ApiClient, Endpoint as _Endpoint
+from h1.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from h1.model.billing import Billing
+from h1.model.event import Event
+from h1.model.iam_organisation_create import IamOrganisationCreate
+from h1.model.iam_organisation_invitation_accept import IamOrganisationInvitationAccept
+from h1.model.iam_organisation_ownership_create import IamOrganisationOwnershipCreate
+from h1.model.iam_organisation_payment_allocate import IamOrganisationPaymentAllocate
+from h1.model.iam_organisation_proforma_create import IamOrganisationProformaCreate
+from h1.model.iam_organisation_transfer_accept import IamOrganisationTransferAccept
+from h1.model.iam_organisation_update import IamOrganisationUpdate
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.invitation import Invitation
+from h1.model.invoice import Invoice
+from h1.model.organisation import Organisation
+from h1.model.ownership import Ownership
+from h1.model.payment import Payment
+from h1.model.proforma import Proforma
+from h1.model.resource_service import ResourceService
+from h1.model.transfer import Transfer
 
 
 class IamOrganisationApi(object):
@@ -36,3803 +53,3976 @@ class IamOrganisationApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def iam_organisation_billing_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.billing  # noqa: E501
+        def __iam_organisation_billing_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.billing  # noqa: E501
 
-        List iam/organisation.billing  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_billing_list(organisation_id, async_req=True)
-        >>> result = thread.get()
+            List iam/organisation.billing  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param datetime start: start
-        :param datetime end: end
-        :param str resource_type: resource.type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Billing]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_billing_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
+            >>> thread = api.iam_organisation_billing_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-    def iam_organisation_billing_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.billing  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
 
-        List iam/organisation.billing  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_billing_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                start (datetime): start. [optional]
+                end (datetime): end. [optional]
+                resource_type (str): resource.type. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param datetime start: start
-        :param datetime end: end
-        :param str resource_type: resource.type
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Billing], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                [Billing]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'start',
-            'end',
-            'resource_type'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_billing_list = _Endpoint(
+            settings={
+                'response_type': ([Billing],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/billing',
+                'operation_id': 'iam_organisation_billing_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'start',
+                    'end',
+                    'resource_type',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'start':
+                        (datetime,),
+                    'end':
+                        (datetime,),
+                    'resource_type':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'start': 'start',
+                    'end': 'end',
+                    'resource_type': 'resource.type',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'start': 'query',
+                    'end': 'query',
+                    'resource_type': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_billing_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_billing_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_billing_list`")  # noqa: E501
+        def __iam_organisation_create(
+            self,
+            iam_organisation_create,
+            **kwargs
+        ):
+            """Create iam/organisation  # noqa: E501
 
-        collection_formats = {}
+            Create organisation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_create(iam_organisation_create, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'start' in local_var_params and local_var_params['start'] is not None:  # noqa: E501
-            query_params.append(('start', local_var_params['start']))  # noqa: E501
-        if 'end' in local_var_params and local_var_params['end'] is not None:  # noqa: E501
-            query_params.append(('end', local_var_params['end']))  # noqa: E501
-        if 'resource_type' in local_var_params and local_var_params['resource_type'] is not None:  # noqa: E501
-            query_params.append(('resource.type', local_var_params['resource_type']))  # noqa: E501
+            Args:
+                iam_organisation_create (IamOrganisationCreate):
 
-        header_params = {}
+            Keyword Args:
+                x_idempotency_key (str): Idempotency key. [optional]
+                x_dry_run (str): Dry run. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Organisation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['iam_organisation_create'] = \
+                iam_organisation_create
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/billing', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Billing]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_create(self, iam_organisation_create, **kwargs):  # noqa: E501
-        """Create iam/organisation  # noqa: E501
-
-        Create organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_create(iam_organisation_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param IamOrganisationCreate iam_organisation_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Organisation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_create_with_http_info(iam_organisation_create, **kwargs)  # noqa: E501
-
-    def iam_organisation_create_with_http_info(self, iam_organisation_create, **kwargs):  # noqa: E501
-        """Create iam/organisation  # noqa: E501
-
-        Create organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_create_with_http_info(iam_organisation_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param IamOrganisationCreate iam_organisation_create: (required)
-        :param str x_idempotency_key: Idempotency key
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Organisation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'iam_organisation_create',
-            'x_idempotency_key'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_create = _Endpoint(
+            settings={
+                'response_type': (Organisation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation',
+                'operation_id': 'iam_organisation_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'iam_organisation_create',
+                    'x_idempotency_key',
+                    'x_dry_run',
+                ],
+                'required': [
+                    'iam_organisation_create',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'iam_organisation_create':
+                        (IamOrganisationCreate,),
+                    'x_idempotency_key':
+                        (str,),
+                    'x_dry_run':
+                        (str,),
+                },
+                'attribute_map': {
+                    'x_idempotency_key': 'x-idempotency-key',
+                    'x_dry_run': 'x-dry-run',
+                },
+                'location_map': {
+                    'iam_organisation_create': 'body',
+                    'x_idempotency_key': 'header',
+                    'x_dry_run': 'header',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'iam_organisation_create' is set
-        if self.api_client.client_side_validation and ('iam_organisation_create' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_create'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_create` when calling `iam_organisation_create`")  # noqa: E501
+        def __iam_organisation_delete(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """Delete iam/organisation  # noqa: E501
 
-        collection_formats = {}
+            Delete organisation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.iam_organisation_delete(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
-        if 'x_idempotency_key' in local_var_params:
-            header_params['x-idempotency-key'] = local_var_params['x_idempotency_key']  # noqa: E501
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_create' in local_var_params:
-            body_params = local_var_params['iam_organisation_create']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Organisation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_delete(self, organisation_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation  # noqa: E501
-
-        Delete organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_delete(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_delete_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_delete_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation  # noqa: E501
-
-        Delete organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_delete_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}',
+                'operation_id': 'iam_organisation_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_delete`")  # noqa: E501
+        def __iam_organisation_event_get(
+            self,
+            organisation_id,
+            event_id,
+            **kwargs
+        ):
+            """Get iam/organisation.event  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_event_get(organisation_id, event_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                event_id (str): eventId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Event
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['event_id'] = \
+                event_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_event_get(self, organisation_id, event_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.event  # noqa: E501
-
-        Get iam/organisation.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_event_get(organisation_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str event_id: eventId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Event
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_event_get_with_http_info(organisation_id, event_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_event_get_with_http_info(self, organisation_id, event_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.event  # noqa: E501
-
-        Get iam/organisation.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_event_get_with_http_info(organisation_id, event_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str event_id: eventId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Event, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'event_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_event_get = _Endpoint(
+            settings={
+                'response_type': (Event,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/event/{eventId}',
+                'operation_id': 'iam_organisation_event_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'event_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'event_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'event_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'event_id': 'eventId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'event_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_event_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_event_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_event_get`")  # noqa: E501
-        # verify the required parameter 'event_id' is set
-        if self.api_client.client_side_validation and ('event_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['event_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `event_id` when calling `iam_organisation_event_get`")  # noqa: E501
+        def __iam_organisation_event_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.event  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.event  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'event_id' in local_var_params:
-            path_params['eventId'] = local_var_params['event_id']  # noqa: E501
+            >>> thread = api.iam_organisation_event_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                limit (float): $limit. [optional] if omitted the server will use the default value of 100
+                skip (float): $skip. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Event]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.iam_organisation_event_list = _Endpoint(
+            settings={
+                'response_type': ([Event],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/event',
+                'operation_id': 'iam_organisation_event_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'limit',
+                    'skip',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'limit',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('limit',): {
 
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/event/{eventId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Event',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_event_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.event  # noqa: E501
-
-        List iam/organisation.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_event_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Event]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_event_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_event_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.event  # noqa: E501
-
-        List iam/organisation.event  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_event_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param float limit: $limit
-        :param float skip: $skip
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Event], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'limit',
-            'skip'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 1,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'limit':
+                        (float,),
+                    'skip':
+                        (float,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'limit': '$limit',
+                    'skip': '$skip',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'limit': 'query',
+                    'skip': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_event_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_event_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_event_list`")  # noqa: E501
+        def __iam_organisation_get(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """Get iam/organisation  # noqa: E501
 
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `iam_organisation_event_list`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'limit' in local_var_params and local_var_params['limit'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `limit` when calling `iam_organisation_event_list`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
+            Returns a single organisation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_get(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'limit' in local_var_params and local_var_params['limit'] is not None:  # noqa: E501
-            query_params.append(('$limit', local_var_params['limit']))  # noqa: E501
-        if 'skip' in local_var_params and local_var_params['skip'] is not None:  # noqa: E501
-            query_params.append(('$skip', local_var_params['skip']))  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Organisation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/event', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Event]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_get(self, organisation_id, **kwargs):  # noqa: E501
-        """Get iam/organisation  # noqa: E501
-
-        Returns a single organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_get(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Organisation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_get_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_get_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """Get iam/organisation  # noqa: E501
-
-        Returns a single organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_get_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Organisation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_get = _Endpoint(
+            settings={
+                'response_type': (Organisation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}',
+                'operation_id': 'iam_organisation_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_get`")  # noqa: E501
+        def __iam_organisation_invitation_accept(
+            self,
+            organisation_id,
+            invitation_id,
+            iam_organisation_invitation_accept,
+            **kwargs
+        ):
+            """Accept iam/organisation.invitation  # noqa: E501
 
-        collection_formats = {}
+            action accept  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invitation_accept(organisation_id, invitation_id, iam_organisation_invitation_accept, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                invitation_id (str): invitationId
+                iam_organisation_invitation_accept (IamOrganisationInvitationAccept):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Invitation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['invitation_id'] = \
+                invitation_id
+            kwargs['iam_organisation_invitation_accept'] = \
+                iam_organisation_invitation_accept
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Organisation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invitation_accept(self, organisation_id, invitation_id, iam_organisation_invitation_accept, **kwargs):  # noqa: E501
-        """Accept iam/organisation.invitation  # noqa: E501
-
-        action accept  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_accept(organisation_id, invitation_id, iam_organisation_invitation_accept, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param IamOrganisationInvitationAccept iam_organisation_invitation_accept: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Invitation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invitation_accept_with_http_info(organisation_id, invitation_id, iam_organisation_invitation_accept, **kwargs)  # noqa: E501
-
-    def iam_organisation_invitation_accept_with_http_info(self, organisation_id, invitation_id, iam_organisation_invitation_accept, **kwargs):  # noqa: E501
-        """Accept iam/organisation.invitation  # noqa: E501
-
-        action accept  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_accept_with_http_info(organisation_id, invitation_id, iam_organisation_invitation_accept, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param IamOrganisationInvitationAccept iam_organisation_invitation_accept: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Invitation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'invitation_id',
-            'iam_organisation_invitation_accept'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invitation_accept = _Endpoint(
+            settings={
+                'response_type': (Invitation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invitation/{invitationId}/actions/accept',
+                'operation_id': 'iam_organisation_invitation_accept',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'invitation_id',
+                    'iam_organisation_invitation_accept',
+                ],
+                'required': [
+                    'organisation_id',
+                    'invitation_id',
+                    'iam_organisation_invitation_accept',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'invitation_id':
+                        (str,),
+                    'iam_organisation_invitation_accept':
+                        (IamOrganisationInvitationAccept,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'invitation_id': 'invitationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'invitation_id': 'path',
+                    'iam_organisation_invitation_accept': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invitation_accept
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invitation_accept" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invitation_accept`")  # noqa: E501
-        # verify the required parameter 'invitation_id' is set
-        if self.api_client.client_side_validation and ('invitation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['invitation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invitation_id` when calling `iam_organisation_invitation_accept`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_invitation_accept' is set
-        if self.api_client.client_side_validation and ('iam_organisation_invitation_accept' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_invitation_accept'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_invitation_accept` when calling `iam_organisation_invitation_accept`")  # noqa: E501
+        def __iam_organisation_invitation_delete(
+            self,
+            organisation_id,
+            invitation_id,
+            **kwargs
+        ):
+            """Delete iam/organisation.invitation  # noqa: E501
 
-        collection_formats = {}
+            Delete iam/organisation.invitation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'invitation_id' in local_var_params:
-            path_params['invitationId'] = local_var_params['invitation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invitation_delete(organisation_id, invitation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                invitation_id (str): invitationId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['invitation_id'] = \
+                invitation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_invitation_accept' in local_var_params:
-            body_params = local_var_params['iam_organisation_invitation_accept']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invitation/{invitationId}/actions/accept', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Invitation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invitation_delete(self, organisation_id, invitation_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation.invitation  # noqa: E501
-
-        Delete iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_delete(organisation_id, invitation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invitation_delete_with_http_info(organisation_id, invitation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invitation_delete_with_http_info(self, organisation_id, invitation_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation.invitation  # noqa: E501
-
-        Delete iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_delete_with_http_info(organisation_id, invitation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'invitation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invitation_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invitation/{invitationId}',
+                'operation_id': 'iam_organisation_invitation_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'invitation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'invitation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'invitation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'invitation_id': 'invitationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'invitation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invitation_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invitation_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invitation_delete`")  # noqa: E501
-        # verify the required parameter 'invitation_id' is set
-        if self.api_client.client_side_validation and ('invitation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['invitation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invitation_id` when calling `iam_organisation_invitation_delete`")  # noqa: E501
+        def __iam_organisation_invitation_get(
+            self,
+            organisation_id,
+            invitation_id,
+            **kwargs
+        ):
+            """Get iam/organisation.invitation  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.invitation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'invitation_id' in local_var_params:
-            path_params['invitationId'] = local_var_params['invitation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invitation_get(organisation_id, invitation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                invitation_id (str): invitationId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Invitation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['invitation_id'] = \
+                invitation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invitation/{invitationId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invitation_get(self, organisation_id, invitation_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.invitation  # noqa: E501
-
-        Get iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_get(organisation_id, invitation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Invitation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invitation_get_with_http_info(organisation_id, invitation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invitation_get_with_http_info(self, organisation_id, invitation_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.invitation  # noqa: E501
-
-        Get iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_get_with_http_info(organisation_id, invitation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invitation_id: invitationId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Invitation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'invitation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invitation_get = _Endpoint(
+            settings={
+                'response_type': (Invitation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invitation/{invitationId}',
+                'operation_id': 'iam_organisation_invitation_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'invitation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'invitation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'invitation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'invitation_id': 'invitationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'invitation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invitation_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invitation_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invitation_get`")  # noqa: E501
-        # verify the required parameter 'invitation_id' is set
-        if self.api_client.client_side_validation and ('invitation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['invitation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invitation_id` when calling `iam_organisation_invitation_get`")  # noqa: E501
+        def __iam_organisation_invitation_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.invitation  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.invitation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'invitation_id' in local_var_params:
-            path_params['invitationId'] = local_var_params['invitation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invitation_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                resource (str): resource. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Invitation]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invitation/{invitationId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Invitation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invitation_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.invitation  # noqa: E501
-
-        List iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str resource: resource
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Invitation]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invitation_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invitation_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.invitation  # noqa: E501
-
-        List iam/organisation.invitation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invitation_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str resource: resource
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Invitation], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'resource'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invitation_list = _Endpoint(
+            settings={
+                'response_type': ([Invitation],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invitation',
+                'operation_id': 'iam_organisation_invitation_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'resource',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'resource':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'resource': 'resource',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'resource': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invitation_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invitation_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invitation_list`")  # noqa: E501
+        def __iam_organisation_invoice_download(
+            self,
+            organisation_id,
+            invoice_id,
+            **kwargs
+        ):
+            """Download iam/organisation.invoice  # noqa: E501
 
-        collection_formats = {}
+            action download  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invoice_download(organisation_id, invoice_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'resource' in local_var_params and local_var_params['resource'] is not None:  # noqa: E501
-            query_params.append(('resource', local_var_params['resource']))  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
+                invoice_id (str): invoiceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                file_type
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['invoice_id'] = \
+                invoice_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invitation', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Invitation]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invoice_download(self, organisation_id, invoice_id, **kwargs):  # noqa: E501
-        """Download iam/organisation.invoice  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_download(organisation_id, invoice_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invoice_id: invoiceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: file
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invoice_download_with_http_info(organisation_id, invoice_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invoice_download_with_http_info(self, organisation_id, invoice_id, **kwargs):  # noqa: E501
-        """Download iam/organisation.invoice  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_download_with_http_info(organisation_id, invoice_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invoice_id: invoiceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(file, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'invoice_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invoice_download = _Endpoint(
+            settings={
+                'response_type': (file_type,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invoice/{invoiceId}/actions/download',
+                'operation_id': 'iam_organisation_invoice_download',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'invoice_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'invoice_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'invoice_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'invoice_id': 'invoiceId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'invoice_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/pdf',
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invoice_download
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invoice_download" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invoice_download`")  # noqa: E501
-        # verify the required parameter 'invoice_id' is set
-        if self.api_client.client_side_validation and ('invoice_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['invoice_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invoice_id` when calling `iam_organisation_invoice_download`")  # noqa: E501
+        def __iam_organisation_invoice_get(
+            self,
+            organisation_id,
+            invoice_id,
+            **kwargs
+        ):
+            """Get iam/organisation.invoice  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.invoice  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'invoice_id' in local_var_params:
-            path_params['invoiceId'] = local_var_params['invoice_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invoice_get(organisation_id, invoice_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                invoice_id (str): invoiceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Invoice
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['invoice_id'] = \
+                invoice_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/pdf', 'application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invoice/{invoiceId}/actions/download', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='file',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invoice_get(self, organisation_id, invoice_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.invoice  # noqa: E501
-
-        Get iam/organisation.invoice  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_get(organisation_id, invoice_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invoice_id: invoiceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Invoice
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invoice_get_with_http_info(organisation_id, invoice_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invoice_get_with_http_info(self, organisation_id, invoice_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.invoice  # noqa: E501
-
-        Get iam/organisation.invoice  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_get_with_http_info(organisation_id, invoice_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str invoice_id: invoiceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Invoice, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'invoice_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invoice_get = _Endpoint(
+            settings={
+                'response_type': (Invoice,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invoice/{invoiceId}',
+                'operation_id': 'iam_organisation_invoice_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'invoice_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'invoice_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'invoice_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'invoice_id': 'invoiceId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'invoice_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invoice_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invoice_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invoice_get`")  # noqa: E501
-        # verify the required parameter 'invoice_id' is set
-        if self.api_client.client_side_validation and ('invoice_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['invoice_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invoice_id` when calling `iam_organisation_invoice_get`")  # noqa: E501
+        def __iam_organisation_invoice_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.invoice  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.invoice  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'invoice_id' in local_var_params:
-            path_params['invoiceId'] = local_var_params['invoice_id']  # noqa: E501
+            >>> thread = api.iam_organisation_invoice_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Invoice]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invoice/{invoiceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Invoice',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_invoice_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.invoice  # noqa: E501
-
-        List iam/organisation.invoice  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Invoice]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_invoice_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_invoice_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.invoice  # noqa: E501
-
-        List iam/organisation.invoice  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_invoice_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Invoice], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_invoice_list = _Endpoint(
+            settings={
+                'response_type': ([Invoice],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/invoice',
+                'operation_id': 'iam_organisation_invoice_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_invoice_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_invoice_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_invoice_list`")  # noqa: E501
+        def __iam_organisation_list(
+            self,
+            **kwargs
+        ):
+            """List iam/organisation  # noqa: E501
 
-        collection_formats = {}
+            List organisation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_list(async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
 
-        header_params = {}
+            Keyword Args:
+                name (str): Filter by name. [optional]
+                billing_company (str): Filter by billing.company. [optional]
+                limit (float): Filter by $limit. [optional]
+                active (bool): Filter by active. [optional] if omitted the server will use the default value of False
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Organisation]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/invoice', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Invoice]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_list(self, **kwargs):  # noqa: E501
-        """List iam/organisation  # noqa: E501
-
-        List organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_list(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str name: Filter by name
-        :param str billing_company: Filter by billing.company
-        :param float limit: Filter by $limit
-        :param bool active: Filter by active
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Organisation]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_list_with_http_info(**kwargs)  # noqa: E501
-
-    def iam_organisation_list_with_http_info(self, **kwargs):  # noqa: E501
-        """List iam/organisation  # noqa: E501
-
-        List organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_list_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str name: Filter by name
-        :param str billing_company: Filter by billing.company
-        :param float limit: Filter by $limit
-        :param bool active: Filter by active
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Organisation], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'name',
-            'billing_company',
-            'limit',
-            'active'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_list = _Endpoint(
+            settings={
+                'response_type': ([Organisation],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation',
+                'operation_id': 'iam_organisation_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'name',
+                    'billing_company',
+                    'limit',
+                    'active',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'name':
+                        (str,),
+                    'billing_company':
+                        (str,),
+                    'limit':
+                        (float,),
+                    'active':
+                        (bool,),
+                },
+                'attribute_map': {
+                    'name': 'name',
+                    'billing_company': 'billing.company',
+                    'limit': '$limit',
+                    'active': 'active',
+                },
+                'location_map': {
+                    'name': 'query',
+                    'billing_company': 'query',
+                    'limit': 'query',
+                    'active': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
+        def __iam_organisation_ownership_create(
+            self,
+            organisation_id,
+            iam_organisation_ownership_create,
+            **kwargs
+        ):
+            """Create iam/organisation.ownership  # noqa: E501
 
-        collection_formats = {}
+            Create iam/organisation.ownership  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.iam_organisation_ownership_create(organisation_id, iam_organisation_ownership_create, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
-            query_params.append(('name', local_var_params['name']))  # noqa: E501
-        if 'billing_company' in local_var_params and local_var_params['billing_company'] is not None:  # noqa: E501
-            query_params.append(('billing.company', local_var_params['billing_company']))  # noqa: E501
-        if 'limit' in local_var_params and local_var_params['limit'] is not None:  # noqa: E501
-            query_params.append(('$limit', local_var_params['limit']))  # noqa: E501
-        if 'active' in local_var_params and local_var_params['active'] is not None:  # noqa: E501
-            query_params.append(('active', local_var_params['active']))  # noqa: E501
+            Args:
+                organisation_id (str): Organisation Id
+                iam_organisation_ownership_create (IamOrganisationOwnershipCreate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Organisation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['iam_organisation_ownership_create'] = \
+                iam_organisation_ownership_create
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Organisation]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_ownership_create(self, organisation_id, iam_organisation_ownership_create, **kwargs):  # noqa: E501
-        """Create iam/organisation.ownership  # noqa: E501
-
-        Create iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_create(organisation_id, iam_organisation_ownership_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationOwnershipCreate iam_organisation_ownership_create: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Organisation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_ownership_create_with_http_info(organisation_id, iam_organisation_ownership_create, **kwargs)  # noqa: E501
-
-    def iam_organisation_ownership_create_with_http_info(self, organisation_id, iam_organisation_ownership_create, **kwargs):  # noqa: E501
-        """Create iam/organisation.ownership  # noqa: E501
-
-        Create iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_create_with_http_info(organisation_id, iam_organisation_ownership_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationOwnershipCreate iam_organisation_ownership_create: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Organisation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'iam_organisation_ownership_create'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_ownership_create = _Endpoint(
+            settings={
+                'response_type': (Organisation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/ownership',
+                'operation_id': 'iam_organisation_ownership_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'iam_organisation_ownership_create',
+                ],
+                'required': [
+                    'organisation_id',
+                    'iam_organisation_ownership_create',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'iam_organisation_ownership_create':
+                        (IamOrganisationOwnershipCreate,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'iam_organisation_ownership_create': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_ownership_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_ownership_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_ownership_create`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_ownership_create' is set
-        if self.api_client.client_side_validation and ('iam_organisation_ownership_create' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_ownership_create'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_ownership_create` when calling `iam_organisation_ownership_create`")  # noqa: E501
+        def __iam_organisation_ownership_delete(
+            self,
+            organisation_id,
+            ownership_id,
+            **kwargs
+        ):
+            """Delete iam/organisation.ownership  # noqa: E501
 
-        collection_formats = {}
+            Delete iam/organisation.ownership  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_ownership_delete(organisation_id, ownership_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                ownership_id (str): ownershipId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['ownership_id'] = \
+                ownership_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_ownership_create' in local_var_params:
-            body_params = local_var_params['iam_organisation_ownership_create']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/ownership', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Organisation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_ownership_delete(self, organisation_id, ownership_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation.ownership  # noqa: E501
-
-        Delete iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_delete(organisation_id, ownership_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str ownership_id: ownershipId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_ownership_delete_with_http_info(organisation_id, ownership_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_ownership_delete_with_http_info(self, organisation_id, ownership_id, **kwargs):  # noqa: E501
-        """Delete iam/organisation.ownership  # noqa: E501
-
-        Delete iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_delete_with_http_info(organisation_id, ownership_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str ownership_id: ownershipId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'ownership_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_ownership_delete = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/ownership/{ownershipId}',
+                'operation_id': 'iam_organisation_ownership_delete',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'ownership_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'ownership_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'ownership_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'ownership_id': 'ownershipId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'ownership_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_ownership_delete
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_ownership_delete" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_ownership_delete`")  # noqa: E501
-        # verify the required parameter 'ownership_id' is set
-        if self.api_client.client_side_validation and ('ownership_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['ownership_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `ownership_id` when calling `iam_organisation_ownership_delete`")  # noqa: E501
+        def __iam_organisation_ownership_get(
+            self,
+            organisation_id,
+            ownership_id,
+            **kwargs
+        ):
+            """Get iam/organisation.ownership  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.ownership  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'ownership_id' in local_var_params:
-            path_params['ownershipId'] = local_var_params['ownership_id']  # noqa: E501
+            >>> thread = api.iam_organisation_ownership_get(organisation_id, ownership_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                ownership_id (str): ownershipId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Ownership
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['ownership_id'] = \
+                ownership_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/ownership/{ownershipId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_ownership_get(self, organisation_id, ownership_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.ownership  # noqa: E501
-
-        Get iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_get(organisation_id, ownership_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str ownership_id: ownershipId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Ownership
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_ownership_get_with_http_info(organisation_id, ownership_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_ownership_get_with_http_info(self, organisation_id, ownership_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.ownership  # noqa: E501
-
-        Get iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_get_with_http_info(organisation_id, ownership_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str ownership_id: ownershipId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Ownership, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'ownership_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_ownership_get = _Endpoint(
+            settings={
+                'response_type': (Ownership,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/ownership/{ownershipId}',
+                'operation_id': 'iam_organisation_ownership_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'ownership_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'ownership_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'ownership_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'ownership_id': 'ownershipId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'ownership_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_ownership_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_ownership_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_ownership_get`")  # noqa: E501
-        # verify the required parameter 'ownership_id' is set
-        if self.api_client.client_side_validation and ('ownership_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['ownership_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `ownership_id` when calling `iam_organisation_ownership_get`")  # noqa: E501
+        def __iam_organisation_ownership_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.ownership  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.ownership  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'ownership_id' in local_var_params:
-            path_params['ownershipId'] = local_var_params['ownership_id']  # noqa: E501
+            >>> thread = api.iam_organisation_ownership_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Ownership]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/ownership/{ownershipId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Ownership',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_ownership_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.ownership  # noqa: E501
-
-        List iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Ownership]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_ownership_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_ownership_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.ownership  # noqa: E501
-
-        List iam/organisation.ownership  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_ownership_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Ownership], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_ownership_list = _Endpoint(
+            settings={
+                'response_type': ([Ownership],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/ownership',
+                'operation_id': 'iam_organisation_ownership_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_ownership_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_ownership_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_ownership_list`")  # noqa: E501
+        def __iam_organisation_payment_allocate(
+            self,
+            organisation_id,
+            payment_id,
+            iam_organisation_payment_allocate,
+            **kwargs
+        ):
+            """Allocate iam/organisation.payment  # noqa: E501
 
-        collection_formats = {}
+            action allocate  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_payment_allocate(organisation_id, payment_id, iam_organisation_payment_allocate, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                payment_id (str): paymentId
+                iam_organisation_payment_allocate (IamOrganisationPaymentAllocate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Payment
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['payment_id'] = \
+                payment_id
+            kwargs['iam_organisation_payment_allocate'] = \
+                iam_organisation_payment_allocate
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/ownership', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Ownership]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_payment_allocate(self, organisation_id, payment_id, iam_organisation_payment_allocate, **kwargs):  # noqa: E501
-        """Allocate iam/organisation.payment  # noqa: E501
-
-        action allocate  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_allocate(organisation_id, payment_id, iam_organisation_payment_allocate, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str payment_id: paymentId (required)
-        :param IamOrganisationPaymentAllocate iam_organisation_payment_allocate: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Payment
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_payment_allocate_with_http_info(organisation_id, payment_id, iam_organisation_payment_allocate, **kwargs)  # noqa: E501
-
-    def iam_organisation_payment_allocate_with_http_info(self, organisation_id, payment_id, iam_organisation_payment_allocate, **kwargs):  # noqa: E501
-        """Allocate iam/organisation.payment  # noqa: E501
-
-        action allocate  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_allocate_with_http_info(organisation_id, payment_id, iam_organisation_payment_allocate, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str payment_id: paymentId (required)
-        :param IamOrganisationPaymentAllocate iam_organisation_payment_allocate: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Payment, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'payment_id',
-            'iam_organisation_payment_allocate'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_payment_allocate = _Endpoint(
+            settings={
+                'response_type': (Payment,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/payment/{paymentId}/actions/allocate',
+                'operation_id': 'iam_organisation_payment_allocate',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'payment_id',
+                    'iam_organisation_payment_allocate',
+                ],
+                'required': [
+                    'organisation_id',
+                    'payment_id',
+                    'iam_organisation_payment_allocate',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'payment_id':
+                        (str,),
+                    'iam_organisation_payment_allocate':
+                        (IamOrganisationPaymentAllocate,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'payment_id': 'paymentId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'payment_id': 'path',
+                    'iam_organisation_payment_allocate': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_payment_allocate
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_payment_allocate" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_payment_allocate`")  # noqa: E501
-        # verify the required parameter 'payment_id' is set
-        if self.api_client.client_side_validation and ('payment_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['payment_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `payment_id` when calling `iam_organisation_payment_allocate`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_payment_allocate' is set
-        if self.api_client.client_side_validation and ('iam_organisation_payment_allocate' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_payment_allocate'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_payment_allocate` when calling `iam_organisation_payment_allocate`")  # noqa: E501
+        def __iam_organisation_payment_get(
+            self,
+            organisation_id,
+            payment_id,
+            **kwargs
+        ):
+            """Get iam/organisation.payment  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.payment  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'payment_id' in local_var_params:
-            path_params['paymentId'] = local_var_params['payment_id']  # noqa: E501
+            >>> thread = api.iam_organisation_payment_get(organisation_id, payment_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                payment_id (str): paymentId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Payment
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['payment_id'] = \
+                payment_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_payment_allocate' in local_var_params:
-            body_params = local_var_params['iam_organisation_payment_allocate']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/payment/{paymentId}/actions/allocate', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Payment',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_payment_get(self, organisation_id, payment_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.payment  # noqa: E501
-
-        Get iam/organisation.payment  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_get(organisation_id, payment_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str payment_id: paymentId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Payment
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_payment_get_with_http_info(organisation_id, payment_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_payment_get_with_http_info(self, organisation_id, payment_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.payment  # noqa: E501
-
-        Get iam/organisation.payment  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_get_with_http_info(organisation_id, payment_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str payment_id: paymentId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Payment, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'payment_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_payment_get = _Endpoint(
+            settings={
+                'response_type': (Payment,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/payment/{paymentId}',
+                'operation_id': 'iam_organisation_payment_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'payment_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'payment_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'payment_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'payment_id': 'paymentId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'payment_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_payment_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_payment_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_payment_get`")  # noqa: E501
-        # verify the required parameter 'payment_id' is set
-        if self.api_client.client_side_validation and ('payment_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['payment_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `payment_id` when calling `iam_organisation_payment_get`")  # noqa: E501
+        def __iam_organisation_payment_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.payment  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.payment  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'payment_id' in local_var_params:
-            path_params['paymentId'] = local_var_params['payment_id']  # noqa: E501
+            >>> thread = api.iam_organisation_payment_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Payment]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/payment/{paymentId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Payment',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_payment_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.payment  # noqa: E501
-
-        List iam/organisation.payment  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Payment]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_payment_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_payment_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.payment  # noqa: E501
-
-        List iam/organisation.payment  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_payment_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Payment], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_payment_list = _Endpoint(
+            settings={
+                'response_type': ([Payment],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/payment',
+                'operation_id': 'iam_organisation_payment_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_payment_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_payment_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_payment_list`")  # noqa: E501
+        def __iam_organisation_proforma_create(
+            self,
+            organisation_id,
+            iam_organisation_proforma_create,
+            **kwargs
+        ):
+            """Create iam/organisation.proforma  # noqa: E501
 
-        collection_formats = {}
+            Create iam/organisation.proforma  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_proforma_create(organisation_id, iam_organisation_proforma_create, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                iam_organisation_proforma_create (IamOrganisationProformaCreate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Proforma
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['iam_organisation_proforma_create'] = \
+                iam_organisation_proforma_create
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/payment', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Payment]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_proforma_create(self, organisation_id, iam_organisation_proforma_create, **kwargs):  # noqa: E501
-        """Create iam/organisation.proforma  # noqa: E501
-
-        Create iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_create(organisation_id, iam_organisation_proforma_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationProformaCreate iam_organisation_proforma_create: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Proforma
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_proforma_create_with_http_info(organisation_id, iam_organisation_proforma_create, **kwargs)  # noqa: E501
-
-    def iam_organisation_proforma_create_with_http_info(self, organisation_id, iam_organisation_proforma_create, **kwargs):  # noqa: E501
-        """Create iam/organisation.proforma  # noqa: E501
-
-        Create iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_create_with_http_info(organisation_id, iam_organisation_proforma_create, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationProformaCreate iam_organisation_proforma_create: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Proforma, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'iam_organisation_proforma_create'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_proforma_create = _Endpoint(
+            settings={
+                'response_type': (Proforma,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/proforma',
+                'operation_id': 'iam_organisation_proforma_create',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'iam_organisation_proforma_create',
+                ],
+                'required': [
+                    'organisation_id',
+                    'iam_organisation_proforma_create',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'iam_organisation_proforma_create':
+                        (IamOrganisationProformaCreate,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'iam_organisation_proforma_create': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_proforma_create
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_proforma_create" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_proforma_create`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_proforma_create' is set
-        if self.api_client.client_side_validation and ('iam_organisation_proforma_create' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_proforma_create'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_proforma_create` when calling `iam_organisation_proforma_create`")  # noqa: E501
+        def __iam_organisation_proforma_download(
+            self,
+            organisation_id,
+            proforma_id,
+            **kwargs
+        ):
+            """Download iam/organisation.proforma  # noqa: E501
 
-        collection_formats = {}
+            action download  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_proforma_download(organisation_id, proforma_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                proforma_id (str): proformaId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                file_type
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['proforma_id'] = \
+                proforma_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_proforma_create' in local_var_params:
-            body_params = local_var_params['iam_organisation_proforma_create']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/proforma', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Proforma',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_proforma_download(self, organisation_id, proforma_id, **kwargs):  # noqa: E501
-        """Download iam/organisation.proforma  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_download(organisation_id, proforma_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str proforma_id: proformaId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: file
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_proforma_download_with_http_info(organisation_id, proforma_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_proforma_download_with_http_info(self, organisation_id, proforma_id, **kwargs):  # noqa: E501
-        """Download iam/organisation.proforma  # noqa: E501
-
-        action download  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_download_with_http_info(organisation_id, proforma_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str proforma_id: proformaId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(file, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'proforma_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_proforma_download = _Endpoint(
+            settings={
+                'response_type': (file_type,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/proforma/{proformaId}/actions/download',
+                'operation_id': 'iam_organisation_proforma_download',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'proforma_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'proforma_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'proforma_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'proforma_id': 'proformaId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'proforma_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/pdf',
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_proforma_download
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_proforma_download" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_proforma_download`")  # noqa: E501
-        # verify the required parameter 'proforma_id' is set
-        if self.api_client.client_side_validation and ('proforma_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['proforma_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `proforma_id` when calling `iam_organisation_proforma_download`")  # noqa: E501
+        def __iam_organisation_proforma_get(
+            self,
+            organisation_id,
+            proforma_id,
+            **kwargs
+        ):
+            """Get iam/organisation.proforma  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.proforma  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'proforma_id' in local_var_params:
-            path_params['proformaId'] = local_var_params['proforma_id']  # noqa: E501
+            >>> thread = api.iam_organisation_proforma_get(organisation_id, proforma_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                proforma_id (str): proformaId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Proforma
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['proforma_id'] = \
+                proforma_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/pdf', 'application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/proforma/{proformaId}/actions/download', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='file',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_proforma_get(self, organisation_id, proforma_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.proforma  # noqa: E501
-
-        Get iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_get(organisation_id, proforma_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str proforma_id: proformaId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Proforma
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_proforma_get_with_http_info(organisation_id, proforma_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_proforma_get_with_http_info(self, organisation_id, proforma_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.proforma  # noqa: E501
-
-        Get iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_get_with_http_info(organisation_id, proforma_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str proforma_id: proformaId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Proforma, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'proforma_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_proforma_get = _Endpoint(
+            settings={
+                'response_type': (Proforma,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/proforma/{proformaId}',
+                'operation_id': 'iam_organisation_proforma_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'proforma_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'proforma_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'proforma_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'proforma_id': 'proformaId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'proforma_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_proforma_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_proforma_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_proforma_get`")  # noqa: E501
-        # verify the required parameter 'proforma_id' is set
-        if self.api_client.client_side_validation and ('proforma_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['proforma_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `proforma_id` when calling `iam_organisation_proforma_get`")  # noqa: E501
+        def __iam_organisation_proforma_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.proforma  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.proforma  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'proforma_id' in local_var_params:
-            path_params['proformaId'] = local_var_params['proforma_id']  # noqa: E501
+            >>> thread = api.iam_organisation_proforma_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Proforma]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/proforma/{proformaId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Proforma',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_proforma_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.proforma  # noqa: E501
-
-        List iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Proforma]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_proforma_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_proforma_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.proforma  # noqa: E501
-
-        List iam/organisation.proforma  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_proforma_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Proforma], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_proforma_list = _Endpoint(
+            settings={
+                'response_type': ([Proforma],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/proforma',
+                'operation_id': 'iam_organisation_proforma_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_proforma_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_proforma_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_proforma_list`")  # noqa: E501
+        def __iam_organisation_service_get(
+            self,
+            organisation_id,
+            service_id,
+            **kwargs
+        ):
+            """Get iam/organisation.service  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_service_get(organisation_id, service_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                service_id (str): serviceId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                ResourceService
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['service_id'] = \
+                service_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/proforma', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Proforma]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_service_get(self, organisation_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.service  # noqa: E501
-
-        Get iam/organisation.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_service_get(organisation_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str service_id: serviceId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: ResourceService
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_service_get_with_http_info(organisation_id, service_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_service_get_with_http_info(self, organisation_id, service_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.service  # noqa: E501
-
-        Get iam/organisation.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_service_get_with_http_info(organisation_id, service_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str service_id: serviceId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(ResourceService, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'service_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_service_get = _Endpoint(
+            settings={
+                'response_type': (ResourceService,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/service/{serviceId}',
+                'operation_id': 'iam_organisation_service_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'service_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'service_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'service_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'service_id': 'serviceId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'service_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_service_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_service_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_service_get`")  # noqa: E501
-        # verify the required parameter 'service_id' is set
-        if self.api_client.client_side_validation and ('service_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['service_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `service_id` when calling `iam_organisation_service_get`")  # noqa: E501
+        def __iam_organisation_service_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.service  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.service  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'service_id' in local_var_params:
-            path_params['serviceId'] = local_var_params['service_id']  # noqa: E501
+            >>> thread = api.iam_organisation_service_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [ResourceService]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/service/{serviceId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ResourceService',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_service_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.service  # noqa: E501
-
-        List iam/organisation.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_service_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[ResourceService]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_service_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_service_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.service  # noqa: E501
-
-        List iam/organisation.service  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_service_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[ResourceService], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_service_list = _Endpoint(
+            settings={
+                'response_type': ([ResourceService],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/service',
+                'operation_id': 'iam_organisation_service_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_service_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_service_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_service_list`")  # noqa: E501
+        def __iam_organisation_transfer_accept(
+            self,
+            organisation_id,
+            transfer_id,
+            iam_organisation_transfer_accept,
+            **kwargs
+        ):
+            """Accept iam/organisation.transfer  # noqa: E501
 
-        collection_formats = {}
+            action accept  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                transfer_id (str): transferId
+                iam_organisation_transfer_accept (IamOrganisationTransferAccept):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Transfer
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['transfer_id'] = \
+                transfer_id
+            kwargs['iam_organisation_transfer_accept'] = \
+                iam_organisation_transfer_accept
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/service', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[ResourceService]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_transfer_accept(self, organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
-        """Accept iam/organisation.transfer  # noqa: E501
-
-        action accept  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_accept(organisation_id, transfer_id, iam_organisation_transfer_accept, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str transfer_id: transferId (required)
-        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Transfer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_transfer_accept_with_http_info(organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs)  # noqa: E501
-
-    def iam_organisation_transfer_accept_with_http_info(self, organisation_id, transfer_id, iam_organisation_transfer_accept, **kwargs):  # noqa: E501
-        """Accept iam/organisation.transfer  # noqa: E501
-
-        action accept  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_accept_with_http_info(organisation_id, transfer_id, iam_organisation_transfer_accept, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str transfer_id: transferId (required)
-        :param IamOrganisationTransferAccept iam_organisation_transfer_accept: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Transfer, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'transfer_id',
-            'iam_organisation_transfer_accept'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_transfer_accept = _Endpoint(
+            settings={
+                'response_type': (Transfer,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/transfer/{transferId}/actions/accept',
+                'operation_id': 'iam_organisation_transfer_accept',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'transfer_id',
+                    'iam_organisation_transfer_accept',
+                ],
+                'required': [
+                    'organisation_id',
+                    'transfer_id',
+                    'iam_organisation_transfer_accept',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'transfer_id':
+                        (str,),
+                    'iam_organisation_transfer_accept':
+                        (IamOrganisationTransferAccept,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'transfer_id': 'transferId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'transfer_id': 'path',
+                    'iam_organisation_transfer_accept': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_transfer_accept
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_transfer_accept" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_accept`")  # noqa: E501
-        # verify the required parameter 'transfer_id' is set
-        if self.api_client.client_side_validation and ('transfer_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['transfer_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `transfer_id` when calling `iam_organisation_transfer_accept`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_transfer_accept' is set
-        if self.api_client.client_side_validation and ('iam_organisation_transfer_accept' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_transfer_accept'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_transfer_accept` when calling `iam_organisation_transfer_accept`")  # noqa: E501
+        def __iam_organisation_transfer_get(
+            self,
+            organisation_id,
+            transfer_id,
+            **kwargs
+        ):
+            """Get iam/organisation.transfer  # noqa: E501
 
-        collection_formats = {}
+            Get iam/organisation.transfer  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'transfer_id' in local_var_params:
-            path_params['transferId'] = local_var_params['transfer_id']  # noqa: E501
+            >>> thread = api.iam_organisation_transfer_get(organisation_id, transfer_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                transfer_id (str): transferId
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Transfer
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['transfer_id'] = \
+                transfer_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'iam_organisation_transfer_accept' in local_var_params:
-            body_params = local_var_params['iam_organisation_transfer_accept']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/transfer/{transferId}/actions/accept', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Transfer',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_transfer_get(self, organisation_id, transfer_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.transfer  # noqa: E501
-
-        Get iam/organisation.transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_get(organisation_id, transfer_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str transfer_id: transferId (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Transfer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_transfer_get_with_http_info(organisation_id, transfer_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_transfer_get_with_http_info(self, organisation_id, transfer_id, **kwargs):  # noqa: E501
-        """Get iam/organisation.transfer  # noqa: E501
-
-        Get iam/organisation.transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_get_with_http_info(organisation_id, transfer_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param str transfer_id: transferId (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Transfer, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'transfer_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_transfer_get = _Endpoint(
+            settings={
+                'response_type': (Transfer,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/transfer/{transferId}',
+                'operation_id': 'iam_organisation_transfer_get',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'transfer_id',
+                ],
+                'required': [
+                    'organisation_id',
+                    'transfer_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'transfer_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                    'transfer_id': 'transferId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'transfer_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_transfer_get
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_transfer_get" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_get`")  # noqa: E501
-        # verify the required parameter 'transfer_id' is set
-        if self.api_client.client_side_validation and ('transfer_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['transfer_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `transfer_id` when calling `iam_organisation_transfer_get`")  # noqa: E501
+        def __iam_organisation_transfer_list(
+            self,
+            organisation_id,
+            **kwargs
+        ):
+            """List iam/organisation.transfer  # noqa: E501
 
-        collection_formats = {}
+            List iam/organisation.transfer  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-        if 'transfer_id' in local_var_params:
-            path_params['transferId'] = local_var_params['transfer_id']  # noqa: E501
+            >>> thread = api.iam_organisation_transfer_list(organisation_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                [Transfer]
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/transfer/{transferId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Transfer',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_transfer_list(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.transfer  # noqa: E501
-
-        List iam/organisation.transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_list(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: list[Transfer]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_transfer_list_with_http_info(organisation_id, **kwargs)  # noqa: E501
-
-    def iam_organisation_transfer_list_with_http_info(self, organisation_id, **kwargs):  # noqa: E501
-        """List iam/organisation.transfer  # noqa: E501
-
-        List iam/organisation.transfer  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_transfer_list_with_http_info(organisation_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(list[Transfer], status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_transfer_list = _Endpoint(
+            settings={
+                'response_type': ([Transfer],),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}/transfer',
+                'operation_id': 'iam_organisation_transfer_list',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                ],
+                'required': [
+                    'organisation_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__iam_organisation_transfer_list
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_transfer_list" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_transfer_list`")  # noqa: E501
+        def __iam_organisation_update(
+            self,
+            organisation_id,
+            iam_organisation_update,
+            **kwargs
+        ):
+            """Update iam/organisation  # noqa: E501
 
-        collection_formats = {}
+            Returns modified organisation  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
+            >>> thread = api.iam_organisation_update(organisation_id, iam_organisation_update, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                organisation_id (str): Organisation Id
+                iam_organisation_update (IamOrganisationUpdate):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Organisation
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['organisation_id'] = \
+                organisation_id
+            kwargs['iam_organisation_update'] = \
+                iam_organisation_update
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}/transfer', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[Transfer]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def iam_organisation_update(self, organisation_id, iam_organisation_update, **kwargs):  # noqa: E501
-        """Update iam/organisation  # noqa: E501
-
-        Returns modified organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_update(organisation_id, iam_organisation_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationUpdate iam_organisation_update: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Organisation
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.iam_organisation_update_with_http_info(organisation_id, iam_organisation_update, **kwargs)  # noqa: E501
-
-    def iam_organisation_update_with_http_info(self, organisation_id, iam_organisation_update, **kwargs):  # noqa: E501
-        """Update iam/organisation  # noqa: E501
-
-        Returns modified organisation  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.iam_organisation_update_with_http_info(organisation_id, iam_organisation_update, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str organisation_id: Organisation Id (required)
-        :param IamOrganisationUpdate iam_organisation_update: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Organisation, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'organisation_id',
-            'iam_organisation_update'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.iam_organisation_update = _Endpoint(
+            settings={
+                'response_type': (Organisation,),
+                'auth': [
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/iam/organisation/{organisationId}',
+                'operation_id': 'iam_organisation_update',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'organisation_id',
+                    'iam_organisation_update',
+                ],
+                'required': [
+                    'organisation_id',
+                    'iam_organisation_update',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'organisation_id':
+                        (str,),
+                    'iam_organisation_update':
+                        (IamOrganisationUpdate,),
+                },
+                'attribute_map': {
+                    'organisation_id': 'organisationId',
+                },
+                'location_map': {
+                    'organisation_id': 'path',
+                    'iam_organisation_update': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__iam_organisation_update
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method iam_organisation_update" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'organisation_id' is set
-        if self.api_client.client_side_validation and ('organisation_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['organisation_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organisation_id` when calling `iam_organisation_update`")  # noqa: E501
-        # verify the required parameter 'iam_organisation_update' is set
-        if self.api_client.client_side_validation and ('iam_organisation_update' not in local_var_params or  # noqa: E501
-                                                        local_var_params['iam_organisation_update'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `iam_organisation_update` when calling `iam_organisation_update`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'organisation_id' in local_var_params:
-            path_params['organisationId'] = local_var_params['organisation_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'iam_organisation_update' in local_var_params:
-            body_params = local_var_params['iam_organisation_update']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['BearerAuth']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/iam/organisation/{organisationId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Organisation',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **seller** | [**ProformaSeller**](ProformaSeller.md) |  | [optional] 
 **buyer** | [**InvoiceBuyer**](InvoiceBuyer.md) |  | [optional] 
 **issue_date** | **datetime** |  | [optional] 
-**items** | [**list[InvoiceItems]**](InvoiceItems.md) |  | [optional] 
+**items** | [**[InvoiceItems]**](InvoiceItems.md) |  | [optional] 
 **summary** | **str** |  | [optional] 
 **project** | **str** |  | [optional] 
 **uri** | **str** |  | [optional] 

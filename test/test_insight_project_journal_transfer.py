@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.insight_project_journal_transfer import InsightProjectJournalTransfer  # noqa: E501
-from h1.rest import ApiException
+from h1.model.insight_project_journal_transfer import InsightProjectJournalTransfer
+
 
 class TestInsightProjectJournalTransfer(unittest.TestCase):
     """InsightProjectJournalTransfer unit test stubs"""
@@ -28,25 +24,11 @@ class TestInsightProjectJournalTransfer(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test InsightProjectJournalTransfer
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.insight_project_journal_transfer.InsightProjectJournalTransfer()  # noqa: E501
-        if include_optional :
-            return InsightProjectJournalTransfer(
-                project = '0'
-            )
-        else :
-            return InsightProjectJournalTransfer(
-                project = '0',
-        )
-
     def testInsightProjectJournalTransfer(self):
         """Test InsightProjectJournalTransfer"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = InsightProjectJournalTransfer()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **compute_project_replica_create**
-> Replica compute_project_replica_create(project_id, location_id, compute_project_replica_create, x_idempotency_key=x_idempotency_key)
+> Replica compute_project_replica_create(project_id, location_id, compute_project_replica_create)
 
 Create compute/replica
 
@@ -30,10 +30,12 @@ Create replica
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.compute_project_replica_create import ComputeProjectReplicaCreate
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.replica import Replica
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -54,17 +56,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-compute_project_replica_create = h1.ComputeProjectReplicaCreate() # ComputeProjectReplicaCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    compute_project_replica_create = ComputeProjectReplicaCreate(
+        hostname="hostname_example",
+        secret="secret_example",
+    ) # ComputeProjectReplicaCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/replica
-        api_response = api_instance.compute_project_replica_create(project_id, location_id, compute_project_replica_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.compute_project_replica_create(project_id, location_id, compute_project_replica_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create compute/replica
+        api_response = api_instance.compute_project_replica_create(project_id, location_id, compute_project_replica_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_create: %s\n" % e)
 ```
 
@@ -72,10 +88,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **compute_project_replica_create** | [**ComputeProjectReplicaCreate**](ComputeProjectReplicaCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **compute_project_replica_create** | [**ComputeProjectReplicaCreate**](ComputeProjectReplicaCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -111,10 +128,10 @@ Delete replica
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -135,15 +152,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete compute/replica
         api_instance.compute_project_replica_delete(project_id, location_id, replica_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_delete: %s\n" % e)
 ```
 
@@ -151,9 +169,9 @@ replica_id = 'replica_id_example' # str | Replica Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
 
 ### Return type
 
@@ -187,10 +205,11 @@ Get compute/replica.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -211,17 +230,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/replica.event
         api_response = api_instance.compute_project_replica_event_get(project_id, location_id, replica_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_event_get: %s\n" % e)
 ```
 
@@ -229,10 +249,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -257,7 +277,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_replica_event_list**
-> list[Event] compute_project_replica_event_list(project_id, location_id, replica_id, limit=limit, skip=skip)
+> [Event] compute_project_replica_event_list(project_id, location_id, replica_id)
 
 List compute/replica.event
 
@@ -267,10 +287,11 @@ List compute/replica.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -291,18 +312,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List compute/replica.event
+        api_response = api_instance.compute_project_replica_event_list(project_id, location_id, replica_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List compute/replica.event
         api_response = api_instance.compute_project_replica_event_list(project_id, location_id, replica_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_event_list: %s\n" % e)
 ```
 
@@ -310,15 +341,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -349,10 +380,11 @@ Returns a single replica
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.replica import Replica
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -373,16 +405,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/replica
         api_response = api_instance.compute_project_replica_get(project_id, location_id, replica_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_get: %s\n" % e)
 ```
 
@@ -390,9 +423,9 @@ replica_id = 'replica_id_example' # str | Replica Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
 
 ### Return type
 
@@ -417,7 +450,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_replica_list**
-> list[Replica] compute_project_replica_list(project_id, location_id, name=name)
+> [Replica] compute_project_replica_list(project_id, location_id)
 
 List compute/replica
 
@@ -427,10 +460,11 @@ List replica
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.inline_response400 import InlineResponse400
+from h1.model.replica import Replica
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -451,16 +485,26 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List compute/replica
+        api_response = api_instance.compute_project_replica_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List compute/replica
         api_response = api_instance.compute_project_replica_list(project_id, location_id, name=name)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_list: %s\n" % e)
 ```
 
@@ -468,13 +512,13 @@ name = 'name_example' # str | Filter by name (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
 
 ### Return type
 
-[**list[Replica]**](Replica.md)
+[**[Replica]**](Replica.md)
 
 ### Authorization
 
@@ -505,10 +549,11 @@ Get compute/replica.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -529,17 +574,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/replica.service
         api_response = api_instance.compute_project_replica_service_get(project_id, location_id, replica_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_service_get: %s\n" % e)
 ```
 
@@ -547,10 +593,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -575,7 +621,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_replica_service_list**
-> list[ResourceService] compute_project_replica_service_list(project_id, location_id, replica_id)
+> [ResourceService] compute_project_replica_service_list(project_id, location_id, replica_id)
 
 List compute/replica.service
 
@@ -585,10 +631,11 @@ List compute/replica.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -609,16 +656,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/replica.service
         api_response = api_instance.compute_project_replica_service_list(project_id, location_id, replica_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_service_list: %s\n" % e)
 ```
 
@@ -626,13 +674,13 @@ replica_id = 'replica_id_example' # str | Replica Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -663,10 +711,11 @@ Create compute/replica.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -687,17 +736,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-tag = h1.Tag() # Tag | 
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create compute/replica.tag
         api_response = api_instance.compute_project_replica_tag_create(project_id, location_id, replica_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_tag_create: %s\n" % e)
 ```
 
@@ -705,10 +759,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -743,10 +797,10 @@ Delete compute/replica.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -767,16 +821,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete compute/replica.tag
         api_instance.compute_project_replica_tag_delete(project_id, location_id, replica_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_tag_delete: %s\n" % e)
 ```
 
@@ -784,10 +839,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -822,10 +877,11 @@ Get compute/replica.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -846,17 +902,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get compute/replica.tag
         api_response = api_instance.compute_project_replica_tag_get(project_id, location_id, replica_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_tag_get: %s\n" % e)
 ```
 
@@ -864,10 +921,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -892,7 +949,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_replica_tag_list**
-> list[Tag] compute_project_replica_tag_list(project_id, location_id, replica_id)
+> [Tag] compute_project_replica_tag_list(project_id, location_id, replica_id)
 
 List compute/replica.tag
 
@@ -902,10 +959,11 @@ List compute/replica.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -926,16 +984,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List compute/replica.tag
         api_response = api_instance.compute_project_replica_tag_list(project_id, location_id, replica_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_tag_list: %s\n" % e)
 ```
 
@@ -943,13 +1002,13 @@ replica_id = 'replica_id_example' # str | Replica Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -970,7 +1029,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **compute_project_replica_tag_put**
-> list[Tag] compute_project_replica_tag_put(project_id, location_id, replica_id, tag)
+> [Tag] compute_project_replica_tag_put(project_id, location_id, replica_id, tag_array)
 
 Replace compute/replica.tag
 
@@ -980,10 +1039,12 @@ Replace compute/replica.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import compute_project_replica_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1004,17 +1065,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.ComputeProjectReplicaApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-replica_id = 'replica_id_example' # str | Replica Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = compute_project_replica_api.ComputeProjectReplicaApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    replica_id = "replicaId_example" # str | Replica Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace compute/replica.tag
-        api_response = api_instance.compute_project_replica_tag_put(project_id, location_id, replica_id, tag)
+        api_response = api_instance.compute_project_replica_tag_put(project_id, location_id, replica_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling ComputeProjectReplicaApi->compute_project_replica_tag_put: %s\n" % e)
 ```
 
@@ -1022,14 +1090,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **replica_id** | **str**| Replica Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **replica_id** | **str**| Replica Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 

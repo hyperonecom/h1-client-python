@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 
 # **insight_project_journal_create**
-> Journal insight_project_journal_create(project_id, location_id, insight_project_journal_create, x_idempotency_key=x_idempotency_key)
+> Journal insight_project_journal_create(project_id, location_id, insight_project_journal_create)
 
 Create insight/journal
 
@@ -38,10 +38,12 @@ Create journal
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.insight_project_journal_create import InsightProjectJournalCreate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -62,17 +64,39 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-insight_project_journal_create = h1.InsightProjectJournalCreate() # InsightProjectJournalCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    insight_project_journal_create = InsightProjectJournalCreate(
+        name="name_example",
+        service="5c9cc2d0255c16c3e899a4ea",
+        retention=3.14,
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # InsightProjectJournalCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create insight/journal
-        api_response = api_instance.insight_project_journal_create(project_id, location_id, insight_project_journal_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.insight_project_journal_create(project_id, location_id, insight_project_journal_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling InsightProjectJournalApi->insight_project_journal_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create insight/journal
+        api_response = api_instance.insight_project_journal_create(project_id, location_id, insight_project_journal_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_create: %s\n" % e)
 ```
 
@@ -80,10 +104,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **insight_project_journal_create** | [**InsightProjectJournalCreate**](InsightProjectJournalCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **insight_project_journal_create** | [**InsightProjectJournalCreate**](InsightProjectJournalCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -119,10 +144,11 @@ Create insight/journal.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal_credential import JournalCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -143,17 +169,27 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-journal_credential = h1.JournalCredential() # JournalCredential | 
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    journal_credential = JournalCredential(
+        id="id_example",
+        name="name_example",
+        created_by="created_by_example",
+        created_on=dateutil_parser('1970-01-01T00:00:00.00Z'),
+        type="sha512",
+        value="value_example",
+        fingerprint="fingerprint_example",
+        token="token_example",
+    ) # JournalCredential | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create insight/journal.credential
         api_response = api_instance.insight_project_journal_credential_create(project_id, location_id, journal_id, journal_credential)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_create: %s\n" % e)
 ```
 
@@ -161,10 +197,10 @@ journal_credential = h1.JournalCredential() # JournalCredential |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **journal_credential** | [**JournalCredential**](JournalCredential.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **journal_credential** | [**JournalCredential**](JournalCredential.md)|  |
 
 ### Return type
 
@@ -199,10 +235,11 @@ Delete insight/journal.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -223,17 +260,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete insight/journal.credential
         api_response = api_instance.insight_project_journal_credential_delete(project_id, location_id, journal_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_delete: %s\n" % e)
 ```
 
@@ -241,10 +279,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -280,10 +318,11 @@ Get insight/journal.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal_credential import JournalCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -304,17 +343,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-credential_id = 'credential_id_example' # str | credentialId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    credential_id = "credentialId_example" # str | credentialId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get insight/journal.credential
         api_response = api_instance.insight_project_journal_credential_get(project_id, location_id, journal_id, credential_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_get: %s\n" % e)
 ```
 
@@ -322,10 +362,10 @@ credential_id = 'credential_id_example' # str | credentialId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **credential_id** | **str**| credentialId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **credential_id** | **str**| credentialId |
 
 ### Return type
 
@@ -350,7 +390,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_credential_list**
-> list[JournalCredential] insight_project_journal_credential_list(project_id, location_id, journal_id)
+> [JournalCredential] insight_project_journal_credential_list(project_id, location_id, journal_id)
 
 List insight/journal.credential
 
@@ -360,10 +400,11 @@ List insight/journal.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal_credential import JournalCredential
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -384,16 +425,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List insight/journal.credential
         api_response = api_instance.insight_project_journal_credential_list(project_id, location_id, journal_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_list: %s\n" % e)
 ```
 
@@ -401,13 +443,13 @@ journal_id = 'journal_id_example' # str | Journal Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
 
 ### Return type
 
-[**list[JournalCredential]**](JournalCredential.md)
+[**[JournalCredential]**](JournalCredential.md)
 
 ### Authorization
 
@@ -438,10 +480,12 @@ Update insight/journal.credential
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal_credential import JournalCredential
+from h1.model.insight_project_journal_credential_patch import InsightProjectJournalCredentialPatch
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -462,18 +506,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-credential_id = 'credential_id_example' # str | credentialId
-insight_project_journal_credential_patch = h1.InsightProjectJournalCredentialPatch() # InsightProjectJournalCredentialPatch | 
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    credential_id = "credentialId_example" # str | credentialId
+    insight_project_journal_credential_patch = InsightProjectJournalCredentialPatch(
+        name="name_example",
+    ) # InsightProjectJournalCredentialPatch | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update insight/journal.credential
         api_response = api_instance.insight_project_journal_credential_patch(project_id, location_id, journal_id, credential_id, insight_project_journal_credential_patch)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_patch: %s\n" % e)
 ```
 
@@ -481,11 +528,11 @@ insight_project_journal_credential_patch = h1.InsightProjectJournalCredentialPat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **credential_id** | **str**| credentialId | 
- **insight_project_journal_credential_patch** | [**InsightProjectJournalCredentialPatch**](InsightProjectJournalCredentialPatch.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **credential_id** | **str**| credentialId |
+ **insight_project_journal_credential_patch** | [**InsightProjectJournalCredentialPatch**](InsightProjectJournalCredentialPatch.md)|  |
 
 ### Return type
 
@@ -520,10 +567,10 @@ Delete journal
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -544,15 +591,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete insight/journal
         api_instance.insight_project_journal_delete(project_id, location_id, journal_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_delete: %s\n" % e)
 ```
 
@@ -560,9 +608,9 @@ journal_id = 'journal_id_example' # str | Journal Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
 
 ### Return type
 
@@ -596,10 +644,11 @@ Get insight/journal.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -620,17 +669,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get insight/journal.event
         api_response = api_instance.insight_project_journal_event_get(project_id, location_id, journal_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_event_get: %s\n" % e)
 ```
 
@@ -638,10 +688,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -666,7 +716,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_event_list**
-> list[Event] insight_project_journal_event_list(project_id, location_id, journal_id, limit=limit, skip=skip)
+> [Event] insight_project_journal_event_list(project_id, location_id, journal_id)
 
 List insight/journal.event
 
@@ -676,10 +726,11 @@ List insight/journal.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -700,18 +751,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List insight/journal.event
+        api_response = api_instance.insight_project_journal_event_list(project_id, location_id, journal_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling InsightProjectJournalApi->insight_project_journal_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List insight/journal.event
         api_response = api_instance.insight_project_journal_event_list(project_id, location_id, journal_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_event_list: %s\n" % e)
 ```
 
@@ -719,15 +780,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -758,10 +819,11 @@ Returns a single journal
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -782,16 +844,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get insight/journal
         api_response = api_instance.insight_project_journal_get(project_id, location_id, journal_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_get: %s\n" % e)
 ```
 
@@ -799,9 +862,9 @@ journal_id = 'journal_id_example' # str | Journal Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
 
 ### Return type
 
@@ -826,7 +889,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_list**
-> list[Journal] insight_project_journal_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Journal] insight_project_journal_list(project_id, location_id)
 
 List insight/journal
 
@@ -836,10 +899,11 @@ List journal
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -860,18 +924,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List insight/journal
+        api_response = api_instance.insight_project_journal_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling InsightProjectJournalApi->insight_project_journal_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List insight/journal
         api_response = api_instance.insight_project_journal_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_list: %s\n" % e)
 ```
 
@@ -879,15 +953,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Journal]**](Journal.md)
+[**[Journal]**](Journal.md)
 
 ### Authorization
 
@@ -908,7 +982,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_log_get**
-> insight_project_journal_log_get(project_id, location_id, journal_id, since=since, until=until, follow=follow, tail=tail, tag=tag)
+> insight_project_journal_log_get(project_id, location_id, journal_id)
 
 Get insight/journal.log
 
@@ -918,10 +992,11 @@ websocket is also supported
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.tag_array import TagArray
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -942,20 +1017,35 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-since = '2013-10-20T19:20:30+01:00' # datetime | since (optional)
-until = '2013-10-20T19:20:30+01:00' # datetime | until (optional)
-follow = False # bool | follow (optional) (default to False)
-tail = 3.4 # float | tail (optional)
-tag = [h1.Tag()] # list[Tag] | tag (optional)
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    since = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | since (optional)
+    until = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | until (optional)
+    follow = False # bool | follow (optional) if omitted the server will use the default value of False
+    tail = 3.14 # float | tail (optional)
+    tag = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | tag (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Get insight/journal.log
+        api_instance.insight_project_journal_log_get(project_id, location_id, journal_id)
+    except h1.ApiException as e:
+        print("Exception when calling InsightProjectJournalApi->insight_project_journal_log_get: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Get insight/journal.log
         api_instance.insight_project_journal_log_get(project_id, location_id, journal_id, since=since, until=until, follow=follow, tail=tail, tag=tag)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_log_get: %s\n" % e)
 ```
 
@@ -963,14 +1053,14 @@ tag = [h1.Tag()] # list[Tag] | tag (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **since** | **datetime**| since | [optional] 
- **until** | **datetime**| until | [optional] 
- **follow** | **bool**| follow | [optional] [default to False]
- **tail** | **float**| tail | [optional] 
- **tag** | [**list[Tag]**](Tag.md)| tag | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **since** | **datetime**| since | [optional]
+ **until** | **datetime**| until | [optional]
+ **follow** | **bool**| follow | [optional] if omitted the server will use the default value of False
+ **tail** | **float**| tail | [optional]
+ **tag** | **TagArray**| tag | [optional]
 
 ### Return type
 
@@ -1005,10 +1095,11 @@ Get insight/journal.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1029,17 +1120,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get insight/journal.service
         api_response = api_instance.insight_project_journal_service_get(project_id, location_id, journal_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_service_get: %s\n" % e)
 ```
 
@@ -1047,10 +1139,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -1075,7 +1167,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_service_list**
-> list[ResourceService] insight_project_journal_service_list(project_id, location_id, journal_id)
+> [ResourceService] insight_project_journal_service_list(project_id, location_id, journal_id)
 
 List insight/journal.service
 
@@ -1085,10 +1177,11 @@ List insight/journal.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1109,16 +1202,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List insight/journal.service
         api_response = api_instance.insight_project_journal_service_list(project_id, location_id, journal_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_service_list: %s\n" % e)
 ```
 
@@ -1126,13 +1220,13 @@ journal_id = 'journal_id_example' # str | Journal Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -1163,10 +1257,11 @@ Create insight/journal.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1187,17 +1282,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-tag = h1.Tag() # Tag | 
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create insight/journal.tag
         api_response = api_instance.insight_project_journal_tag_create(project_id, location_id, journal_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_create: %s\n" % e)
 ```
 
@@ -1205,10 +1305,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -1243,10 +1343,10 @@ Delete insight/journal.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1267,16 +1367,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete insight/journal.tag
         api_instance.insight_project_journal_tag_delete(project_id, location_id, journal_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_delete: %s\n" % e)
 ```
 
@@ -1284,10 +1385,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1322,10 +1423,11 @@ Get insight/journal.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1346,17 +1448,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get insight/journal.tag
         api_response = api_instance.insight_project_journal_tag_get(project_id, location_id, journal_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_get: %s\n" % e)
 ```
 
@@ -1364,10 +1467,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -1392,7 +1495,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_tag_list**
-> list[Tag] insight_project_journal_tag_list(project_id, location_id, journal_id)
+> [Tag] insight_project_journal_tag_list(project_id, location_id, journal_id)
 
 List insight/journal.tag
 
@@ -1402,10 +1505,11 @@ List insight/journal.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1426,16 +1530,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List insight/journal.tag
         api_response = api_instance.insight_project_journal_tag_list(project_id, location_id, journal_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_list: %s\n" % e)
 ```
 
@@ -1443,13 +1548,13 @@ journal_id = 'journal_id_example' # str | Journal Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1470,7 +1575,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_tag_put**
-> list[Tag] insight_project_journal_tag_put(project_id, location_id, journal_id, tag)
+> [Tag] insight_project_journal_tag_put(project_id, location_id, journal_id, tag_array)
 
 Replace insight/journal.tag
 
@@ -1480,10 +1585,12 @@ Replace insight/journal.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1504,17 +1611,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace insight/journal.tag
-        api_response = api_instance.insight_project_journal_tag_put(project_id, location_id, journal_id, tag)
+        api_response = api_instance.insight_project_journal_tag_put(project_id, location_id, journal_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_put: %s\n" % e)
 ```
 
@@ -1522,14 +1636,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1550,7 +1664,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **insight_project_journal_transfer**
-> Journal insight_project_journal_transfer(project_id, location_id, journal_id, insight_project_journal_transfer, x_idempotency_key=x_idempotency_key)
+> Journal insight_project_journal_transfer(project_id, location_id, journal_id, insight_project_journal_transfer)
 
 Transfer insight/journal
 
@@ -1560,10 +1674,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.insight_project_journal_transfer import InsightProjectJournalTransfer
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1584,18 +1700,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-insight_project_journal_transfer = h1.InsightProjectJournalTransfer() # InsightProjectJournalTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    insight_project_journal_transfer = InsightProjectJournalTransfer(
+        project="project_example",
+    ) # InsightProjectJournalTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer insight/journal
-        api_response = api_instance.insight_project_journal_transfer(project_id, location_id, journal_id, insight_project_journal_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.insight_project_journal_transfer(project_id, location_id, journal_id, insight_project_journal_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling InsightProjectJournalApi->insight_project_journal_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer insight/journal
+        api_response = api_instance.insight_project_journal_transfer(project_id, location_id, journal_id, insight_project_journal_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_transfer: %s\n" % e)
 ```
 
@@ -1603,11 +1732,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **insight_project_journal_transfer** | [**InsightProjectJournalTransfer**](InsightProjectJournalTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **insight_project_journal_transfer** | [**InsightProjectJournalTransfer**](InsightProjectJournalTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1643,10 +1773,12 @@ Returns modified journal
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import insight_project_journal_api
+from h1.model.journal import Journal
+from h1.model.insight_project_journal_update import InsightProjectJournalUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1667,17 +1799,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.InsightProjectJournalApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-journal_id = 'journal_id_example' # str | Journal Id
-insight_project_journal_update = h1.InsightProjectJournalUpdate() # InsightProjectJournalUpdate | 
+    api_instance = insight_project_journal_api.InsightProjectJournalApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    journal_id = "journalId_example" # str | Journal Id
+    insight_project_journal_update = InsightProjectJournalUpdate(
+        name="name_example",
+        retention=3.14,
+    ) # InsightProjectJournalUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update insight/journal
         api_response = api_instance.insight_project_journal_update(project_id, location_id, journal_id, insight_project_journal_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_update: %s\n" % e)
 ```
 
@@ -1685,10 +1821,10 @@ insight_project_journal_update = h1.InsightProjectJournalUpdate() # InsightProje
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **journal_id** | **str**| Journal Id | 
- **insight_project_journal_update** | [**InsightProjectJournalUpdate**](InsightProjectJournalUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **journal_id** | **str**| Journal Id |
+ **insight_project_journal_update** | [**InsightProjectJournalUpdate**](InsightProjectJournalUpdate.md)|  |
 
 ### Return type
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,20 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.organisation_billing import OrganisationBilling  # noqa: E501
-from h1.rest import ApiException
+from h1.model.from_h1_model_from_h1_model_invoice_seller_address_import_invoice_seller_address_import_from_h1_model_invoice_seller_address_import_invoice_seller_address import FromH1ModelFromH1ModelInvoiceSellerAddressImportInvoiceSellerAddressImportFromH1ModelInvoiceSellerAddressImportInvoiceSellerAddress
+from h1.model.from_h1_model_globals_invoice_seller_address_invoice_seller_address_import_globals_invoice_seller_address_invoice_seller_address import FromH1ModelGlobalsInvoiceSellerAddressInvoiceSellerAddressImportGlobalsInvoiceSellerAddressInvoiceSellerAddress
+from h1.model.globals_from_h1_model_invoice_seller_address_import_invoice_seller_address_from_h1_model_invoice_seller_address_import_invoice_seller_address import GlobalsFromH1ModelInvoiceSellerAddressImportInvoiceSellerAddressFromH1ModelInvoiceSellerAddressImportInvoiceSellerAddress
+from h1.model.globals_globals_invoice_seller_address_invoice_seller_address_globals_invoice_seller_address_invoice_seller_address import GlobalsGlobalsInvoiceSellerAddressInvoiceSellerAddressGlobalsInvoiceSellerAddressInvoiceSellerAddress
+globals()['from h1.model.from_h1_model_invoice_seller_address_import_invoice_seller_address import FromH1ModelInvoiceSellerAddressImportInvoiceSellerAddress'] = from h1.model.from_h1_model_invoice_seller_address_import_invoice_seller_address import FromH1ModelInvoiceSellerAddressImportInvoiceSellerAddress
+globals()['from h1.model.globals_invoice_seller_address_invoice_seller_address import GlobalsInvoiceSellerAddressInvoiceSellerAddress'] = from h1.model.globals_invoice_seller_address_invoice_seller_address import GlobalsInvoiceSellerAddressInvoiceSellerAddress
+globals()['globals()['from h1.model.invoice_seller_address import InvoiceSellerAddress'] = from h1.model.invoice_seller_address import InvoiceSellerAddress'] = globals()['from h1.model.invoice_seller_address import InvoiceSellerAddress'] = from h1.model.invoice_seller_address import InvoiceSellerAddress
+globals()['globals()['globals()['InvoiceSellerAddress'] = InvoiceSellerAddress'] = globals()['InvoiceSellerAddress'] = InvoiceSellerAddress'] = globals()['globals()['InvoiceSellerAddress'] = InvoiceSellerAddress'] = globals()['InvoiceSellerAddress'] = InvoiceSellerAddress
+from h1.model.organisation_billing import OrganisationBilling
+
 
 class TestOrganisationBilling(unittest.TestCase):
     """OrganisationBilling unit test stubs"""
@@ -28,32 +32,11 @@ class TestOrganisationBilling(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test OrganisationBilling
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.organisation_billing.OrganisationBilling()  # noqa: E501
-        if include_optional :
-            return OrganisationBilling(
-                currency = '0', 
-                company = '0', 
-                email = '0', 
-                address = h1.models.invoice_seller_address.invoice_seller_address(
-                    street = '0', 
-                    zipcode = '0', 
-                    city = '0', 
-                    country = '0', ), 
-                nip = '0'
-            )
-        else :
-            return OrganisationBilling(
-        )
-
     def testOrganisationBilling(self):
         """Test OrganisationBilling"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = OrganisationBilling()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

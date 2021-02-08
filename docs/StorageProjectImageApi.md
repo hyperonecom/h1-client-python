@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **storage_project_image_create**
-> Image storage_project_image_create(project_id, location_id, storage_project_image_create, x_idempotency_key=x_idempotency_key)
+> Image storage_project_image_create(project_id, location_id, storage_project_image_create)
 
 Create storage/image
 
@@ -33,10 +33,12 @@ Create image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.storage_project_image_create import StorageProjectImageCreate
+from h1.model.image import Image
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -57,17 +59,41 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-storage_project_image_create = h1.StorageProjectImageCreate() # StorageProjectImageCreate | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    storage_project_image_create = StorageProjectImageCreate(
+        name="name_example",
+        service="564639bc052c084e2f2e3266",
+        vm="vm_example",
+        replica="replica_example",
+        description="description_example",
+        tag=TagArray([
+            Tag(
+                id="id_example",
+                key="key_example",
+                value="value_example",
+            ),
+        ]),
+    ) # StorageProjectImageCreate | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/image
-        api_response = api_instance.storage_project_image_create(project_id, location_id, storage_project_image_create, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_image_create(project_id, location_id, storage_project_image_create)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectImageApi->storage_project_image_create: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create storage/image
+        api_response = api_instance.storage_project_image_create(project_id, location_id, storage_project_image_create, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_create: %s\n" % e)
 ```
 
@@ -75,10 +101,11 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **storage_project_image_create** | [**StorageProjectImageCreate**](StorageProjectImageCreate.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **storage_project_image_create** | [**StorageProjectImageCreate**](StorageProjectImageCreate.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -114,10 +141,10 @@ Delete image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -138,15 +165,16 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/image
         api_instance.storage_project_image_delete(project_id, location_id, image_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_delete: %s\n" % e)
 ```
 
@@ -154,9 +182,9 @@ image_id = 'image_id_example' # str | Image Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
 
 ### Return type
 
@@ -180,7 +208,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_disk_list**
-> list[Disk] storage_project_image_disk_list(project_id, location_id, image_id)
+> [Disk] storage_project_image_disk_list(project_id, location_id, image_id)
 
 List storage/image.disk
 
@@ -190,10 +218,11 @@ List storage/image.disk
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.disk import Disk
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -214,16 +243,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/image.disk
         api_response = api_instance.storage_project_image_disk_list(project_id, location_id, image_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_disk_list: %s\n" % e)
 ```
 
@@ -231,13 +261,13 @@ image_id = 'image_id_example' # str | Image Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
 
 ### Return type
 
-[**list[Disk]**](Disk.md)
+[**[Disk]**](Disk.md)
 
 ### Authorization
 
@@ -268,10 +298,11 @@ Get storage/image.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -292,17 +323,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-event_id = 'event_id_example' # str | eventId
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    event_id = "eventId_example" # str | eventId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/image.event
         api_response = api_instance.storage_project_image_event_get(project_id, location_id, image_id, event_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_event_get: %s\n" % e)
 ```
 
@@ -310,10 +342,10 @@ event_id = 'event_id_example' # str | eventId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **event_id** | **str**| eventId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **event_id** | **str**| eventId |
 
 ### Return type
 
@@ -338,7 +370,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_event_list**
-> list[Event] storage_project_image_event_list(project_id, location_id, image_id, limit=limit, skip=skip)
+> [Event] storage_project_image_event_list(project_id, location_id, image_id)
 
 List storage/image.event
 
@@ -348,10 +380,11 @@ List storage/image.event
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.event import Event
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -372,18 +405,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-limit = 100 # float | $limit (optional) (default to 100)
-skip = 3.4 # float | $skip (optional)
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    limit = 100 # float | $limit (optional) if omitted the server will use the default value of 100
+    skip = 3.14 # float | $skip (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/image.event
+        api_response = api_instance.storage_project_image_event_list(project_id, location_id, image_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectImageApi->storage_project_image_event_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/image.event
         api_response = api_instance.storage_project_image_event_list(project_id, location_id, image_id, limit=limit, skip=skip)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_event_list: %s\n" % e)
 ```
 
@@ -391,15 +434,15 @@ skip = 3.4 # float | $skip (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **limit** | **float**| $limit | [optional] [default to 100]
- **skip** | **float**| $skip | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **limit** | **float**| $limit | [optional] if omitted the server will use the default value of 100
+ **skip** | **float**| $skip | [optional]
 
 ### Return type
 
-[**list[Event]**](Event.md)
+[**[Event]**](Event.md)
 
 ### Authorization
 
@@ -430,10 +473,11 @@ Returns a single image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.image import Image
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -454,16 +498,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/image
         api_response = api_instance.storage_project_image_get(project_id, location_id, image_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_get: %s\n" % e)
 ```
 
@@ -471,9 +516,9 @@ image_id = 'image_id_example' # str | Image Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
 
 ### Return type
 
@@ -498,7 +543,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_list**
-> list[Image] storage_project_image_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
+> [Image] storage_project_image_list(project_id, location_id)
 
 List storage/image
 
@@ -508,10 +553,11 @@ List image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.image import Image
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -532,18 +578,28 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-name = 'name_example' # str | Filter by name (optional)
-tag_value = 'tag_value_example' # str | Filter by tag.value (optional)
-tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    name = "name_example" # str | Filter by name (optional)
+    tag_value = "tag.value_example" # str | Filter by tag.value (optional)
+    tag_key = "tag.key_example" # str | Filter by tag.key (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # List storage/image
+        api_response = api_instance.storage_project_image_list(project_id, location_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectImageApi->storage_project_image_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List storage/image
         api_response = api_instance.storage_project_image_list(project_id, location_id, name=name, tag_value=tag_value, tag_key=tag_key)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_list: %s\n" % e)
 ```
 
@@ -551,15 +607,15 @@ tag_key = 'tag_key_example' # str | Filter by tag.key (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **name** | **str**| Filter by name | [optional] 
- **tag_value** | **str**| Filter by tag.value | [optional] 
- **tag_key** | **str**| Filter by tag.key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **name** | **str**| Filter by name | [optional]
+ **tag_value** | **str**| Filter by tag.value | [optional]
+ **tag_key** | **str**| Filter by tag.key | [optional]
 
 ### Return type
 
-[**list[Image]**](Image.md)
+[**[Image]**](Image.md)
 
 ### Authorization
 
@@ -590,10 +646,11 @@ Get storage/image.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -614,17 +671,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-service_id = 'service_id_example' # str | serviceId
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    service_id = "serviceId_example" # str | serviceId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/image.service
         api_response = api_instance.storage_project_image_service_get(project_id, location_id, image_id, service_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_service_get: %s\n" % e)
 ```
 
@@ -632,10 +690,10 @@ service_id = 'service_id_example' # str | serviceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **service_id** | **str**| serviceId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **service_id** | **str**| serviceId |
 
 ### Return type
 
@@ -660,7 +718,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_service_list**
-> list[ResourceService] storage_project_image_service_list(project_id, location_id, image_id)
+> [ResourceService] storage_project_image_service_list(project_id, location_id, image_id)
 
 List storage/image.service
 
@@ -670,10 +728,11 @@ List storage/image.service
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.resource_service import ResourceService
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -694,16 +753,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/image.service
         api_response = api_instance.storage_project_image_service_list(project_id, location_id, image_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_service_list: %s\n" % e)
 ```
 
@@ -711,13 +771,13 @@ image_id = 'image_id_example' # str | Image Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
 
 ### Return type
 
-[**list[ResourceService]**](ResourceService.md)
+[**[ResourceService]**](ResourceService.md)
 
 ### Authorization
 
@@ -748,10 +808,11 @@ Create storage/image.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -772,17 +833,22 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-tag = h1.Tag() # Tag | 
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    tag = Tag(
+        id="id_example",
+        key="key_example",
+        value="value_example",
+    ) # Tag | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Create storage/image.tag
         api_response = api_instance.storage_project_image_tag_create(project_id, location_id, image_id, tag)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_tag_create: %s\n" % e)
 ```
 
@@ -790,10 +856,10 @@ tag = h1.Tag() # Tag |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **tag** | [**Tag**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **tag** | [**Tag**](Tag.md)|  |
 
 ### Return type
 
@@ -828,10 +894,10 @@ Delete storage/image.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -852,16 +918,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Delete storage/image.tag
         api_instance.storage_project_image_tag_delete(project_id, location_id, image_id, tag_id)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_tag_delete: %s\n" % e)
 ```
 
@@ -869,10 +936,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -907,10 +974,11 @@ Get storage/image.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -931,17 +999,18 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-tag_id = 'tag_id_example' # str | tagId
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    tag_id = "tagId_example" # str | tagId
 
+    # example passing only required values which don't have defaults set
     try:
         # Get storage/image.tag
         api_response = api_instance.storage_project_image_tag_get(project_id, location_id, image_id, tag_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_tag_get: %s\n" % e)
 ```
 
@@ -949,10 +1018,10 @@ tag_id = 'tag_id_example' # str | tagId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **tag_id** | **str**| tagId | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **tag_id** | **str**| tagId |
 
 ### Return type
 
@@ -977,7 +1046,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_tag_list**
-> list[Tag] storage_project_image_tag_list(project_id, location_id, image_id)
+> [Tag] storage_project_image_tag_list(project_id, location_id, image_id)
 
 List storage/image.tag
 
@@ -987,10 +1056,11 @@ List storage/image.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1011,16 +1081,17 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
 
+    # example passing only required values which don't have defaults set
     try:
         # List storage/image.tag
         api_response = api_instance.storage_project_image_tag_list(project_id, location_id, image_id)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_tag_list: %s\n" % e)
 ```
 
@@ -1028,13 +1099,13 @@ image_id = 'image_id_example' # str | Image Id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1055,7 +1126,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_tag_put**
-> list[Tag] storage_project_image_tag_put(project_id, location_id, image_id, tag)
+> [Tag] storage_project_image_tag_put(project_id, location_id, image_id, tag_array)
 
 Replace storage/image.tag
 
@@ -1065,10 +1136,12 @@ Replace storage/image.tag
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.tag_array import TagArray
+from h1.model.tag import Tag
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1089,17 +1162,24 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-tag = [h1.Tag()] # list[Tag] | 
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    tag_array = TagArray([
+        Tag(
+            id="id_example",
+            key="key_example",
+            value="value_example",
+        ),
+    ]) # TagArray | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Replace storage/image.tag
-        api_response = api_instance.storage_project_image_tag_put(project_id, location_id, image_id, tag)
+        api_response = api_instance.storage_project_image_tag_put(project_id, location_id, image_id, tag_array)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_tag_put: %s\n" % e)
 ```
 
@@ -1107,14 +1187,14 @@ tag = [h1.Tag()] # list[Tag] |
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **tag** | [**list[Tag]**](Tag.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **tag_array** | [**TagArray**](TagArray.md)|  |
 
 ### Return type
 
-[**list[Tag]**](Tag.md)
+[**[Tag]**](Tag.md)
 
 ### Authorization
 
@@ -1135,7 +1215,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **storage_project_image_transfer**
-> Image storage_project_image_transfer(project_id, location_id, image_id, storage_project_image_transfer, x_idempotency_key=x_idempotency_key)
+> Image storage_project_image_transfer(project_id, location_id, image_id, storage_project_image_transfer)
 
 Transfer storage/image
 
@@ -1145,10 +1225,12 @@ action transfer
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.storage_project_image_transfer import StorageProjectImageTransfer
+from h1.model.image import Image
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1169,18 +1251,31 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-storage_project_image_transfer = h1.StorageProjectImageTransfer() # StorageProjectImageTransfer | 
-x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optional)
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    storage_project_image_transfer = StorageProjectImageTransfer(
+        project="project_example",
+    ) # StorageProjectImageTransfer | 
+    x_idempotency_key = "x-idempotency-key_example" # str | Idempotency key (optional)
+    x_dry_run = "x-dry-run_example" # str | Dry run (optional)
 
+    # example passing only required values which don't have defaults set
     try:
         # Transfer storage/image
-        api_response = api_instance.storage_project_image_transfer(project_id, location_id, image_id, storage_project_image_transfer, x_idempotency_key=x_idempotency_key)
+        api_response = api_instance.storage_project_image_transfer(project_id, location_id, image_id, storage_project_image_transfer)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
+        print("Exception when calling StorageProjectImageApi->storage_project_image_transfer: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Transfer storage/image
+        api_response = api_instance.storage_project_image_transfer(project_id, location_id, image_id, storage_project_image_transfer, x_idempotency_key=x_idempotency_key, x_dry_run=x_dry_run)
+        pprint(api_response)
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_transfer: %s\n" % e)
 ```
 
@@ -1188,11 +1283,12 @@ x_idempotency_key = 'x_idempotency_key_example' # str | Idempotency key (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **storage_project_image_transfer** | [**StorageProjectImageTransfer**](StorageProjectImageTransfer.md)|  | 
- **x_idempotency_key** | **str**| Idempotency key | [optional] 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **storage_project_image_transfer** | [**StorageProjectImageTransfer**](StorageProjectImageTransfer.md)|  |
+ **x_idempotency_key** | **str**| Idempotency key | [optional]
+ **x_dry_run** | **str**| Dry run | [optional]
 
 ### Return type
 
@@ -1228,10 +1324,12 @@ Returns modified image
 
 * Bearer (JWT) Authentication (BearerAuth):
 ```python
-from __future__ import print_function
 import time
 import h1
-from h1.rest import ApiException
+from h1.api import storage_project_image_api
+from h1.model.image import Image
+from h1.model.storage_project_image_update import StorageProjectImageUpdate
+from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
 # See configuration.py for a list of all supported configuration parameters.
@@ -1252,17 +1350,21 @@ configuration = h1.Configuration(
 # Enter a context with an instance of the API client
 with h1.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = h1.StorageProjectImageApi(api_client)
-    project_id = 'project_id_example' # str | Project Id
-location_id = 'location_id_example' # str | Location Id
-image_id = 'image_id_example' # str | Image Id
-storage_project_image_update = h1.StorageProjectImageUpdate() # StorageProjectImageUpdate | 
+    api_instance = storage_project_image_api.StorageProjectImageApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    image_id = "imageId_example" # str | Image Id
+    storage_project_image_update = StorageProjectImageUpdate(
+        name="name_example",
+        description="description_example",
+    ) # StorageProjectImageUpdate | 
 
+    # example passing only required values which don't have defaults set
     try:
         # Update storage/image
         api_response = api_instance.storage_project_image_update(project_id, location_id, image_id, storage_project_image_update)
         pprint(api_response)
-    except ApiException as e:
+    except h1.ApiException as e:
         print("Exception when calling StorageProjectImageApi->storage_project_image_update: %s\n" % e)
 ```
 
@@ -1270,10 +1372,10 @@ storage_project_image_update = h1.StorageProjectImageUpdate() # StorageProjectIm
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project Id | 
- **location_id** | **str**| Location Id | 
- **image_id** | **str**| Image Id | 
- **storage_project_image_update** | [**StorageProjectImageUpdate**](StorageProjectImageUpdate.md)|  | 
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **image_id** | **str**| Image Id |
+ **storage_project_image_update** | [**StorageProjectImageUpdate**](StorageProjectImageUpdate.md)|  |
 
 ### Return type
 

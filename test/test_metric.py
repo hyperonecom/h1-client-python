@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.metric import Metric  # noqa: E501
-from h1.rest import ApiException
+from h1.model.metric_dimension import MetricDimension
+globals()['MetricDimension'] = MetricDimension
+from h1.model.metric import Metric
+
 
 class TestMetric(unittest.TestCase):
     """Metric unit test stubs"""
@@ -28,34 +26,11 @@ class TestMetric(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test Metric
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.metric.Metric()  # noqa: E501
-        if include_optional :
-            return Metric(
-                id = '0', 
-                name = '0', 
-                unit = '0', 
-                dimension = [
-                    h1.models.metric_dimension.metric_dimension(
-                        name = '0', 
-                        description = '0', )
-                    ]
-            )
-        else :
-            return Metric(
-                id = '0',
-                name = '0',
-                unit = '0',
-        )
-
     def testMetric(self):
         """Test Metric"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Metric()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

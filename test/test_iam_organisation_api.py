@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import h1
 from h1.api.iam_organisation_api import IamOrganisationApi  # noqa: E501
-from h1.rest import ApiException
 
 
 class TestIamOrganisationApi(unittest.TestCase):
     """IamOrganisationApi unit test stubs"""
 
     def setUp(self):
-        self.api = h1.api.iam_organisation_api.IamOrganisationApi()  # noqa: E501
+        self.api = IamOrganisationApi()  # noqa: E501
 
     def tearDown(self):
         pass

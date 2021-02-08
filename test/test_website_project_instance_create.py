@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     HyperOne
 
@@ -10,14 +8,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import h1
-from h1.models.website_project_instance_create import WebsiteProjectInstanceCreate  # noqa: E501
-from h1.rest import ApiException
+from h1.model.tag_array import TagArray
+from h1.model.website_env import WebsiteEnv
+globals()['TagArray'] = TagArray
+globals()['WebsiteEnv'] = WebsiteEnv
+from h1.model.website_project_instance_create import WebsiteProjectInstanceCreate
+
 
 class TestWebsiteProjectInstanceCreate(unittest.TestCase):
     """WebsiteProjectInstanceCreate unit test stubs"""
@@ -28,42 +28,11 @@ class TestWebsiteProjectInstanceCreate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test WebsiteProjectInstanceCreate
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = h1.models.website_project_instance_create.WebsiteProjectInstanceCreate()  # noqa: E501
-        if include_optional :
-            return WebsiteProjectInstanceCreate(
-                name = '0', 
-                service = '0', 
-                image = '0', 
-                source = '0', 
-                env = [
-                    h1.models.website/env.website.env(
-                        id = '0', 
-                        name = '0', 
-                        value = '0', )
-                    ], 
-                tag = [
-                    h1.models.tag.tag(
-                        id = '0', 
-                        key = '0', 
-                        value = '0', )
-                    ]
-            )
-        else :
-            return WebsiteProjectInstanceCreate(
-                name = '0',
-                service = '0',
-                image = '0',
-        )
-
     def testWebsiteProjectInstanceCreate(self):
         """Test WebsiteProjectInstanceCreate"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = WebsiteProjectInstanceCreate()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':
