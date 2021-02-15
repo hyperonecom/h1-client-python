@@ -12,6 +12,7 @@
 from h1.model.agent import Agent
 from h1.model.agent_credential import AgentCredential
 from h1.model.attempt import Attempt
+from h1.model.attempt_array import AttemptArray
 from h1.model.auth_token import AuthToken
 from h1.model.auth_token_access import AuthTokenAccess
 from h1.model.backup import Backup
@@ -61,6 +62,8 @@ from h1.model.dns_recordset import DnsRecordset
 from h1.model.domain import Domain
 from h1.model.enabled_service import EnabledService
 from h1.model.event import Event
+from h1.model.event_base import EventBase
+from h1.model.event_base_array import EventBaseArray
 from h1.model.firewall import Firewall
 from h1.model.hdd import Hdd
 from h1.model.iam_actor import IamActor

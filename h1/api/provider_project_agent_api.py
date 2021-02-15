@@ -2166,7 +2166,7 @@ class ProviderProjectAgentApi(object):
                 async_req (bool): execute request asynchronously
 
             Returns:
-                Agent
+                {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
                     If the method is called asynchronously, returns the request
                     thread.
             """
@@ -2199,7 +2199,7 @@ class ProviderProjectAgentApi(object):
 
         self.provider_project_agent_inspect = _Endpoint(
             settings={
-                'response_type': (Agent,),
+                'response_type': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),
                 'auth': [
                     'BearerAuth'
                 ],

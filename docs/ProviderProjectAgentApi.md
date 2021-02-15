@@ -1233,7 +1233,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **provider_project_agent_inspect**
-> Agent provider_project_agent_inspect(project_id, location_id, agent_id)
+> {str: (bool, date, datetime, dict, float, int, list, str, none_type)} provider_project_agent_inspect(project_id, location_id, agent_id)
 
 Inspect provider/agent
 
@@ -1246,7 +1246,6 @@ action inspect
 import time
 import h1
 from h1.api import provider_project_agent_api
-from h1.model.agent import Agent
 from h1.model.inline_response400 import InlineResponse400
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.hyperone.com/v2
@@ -1305,7 +1304,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Agent**](Agent.md)
+**{str: (bool, date, datetime, dict, float, int, list, str, none_type)}**
 
 ### Authorization
 
@@ -1320,7 +1319,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | successful operation |  -  |
-**202** | operation queued |  -  |
 **400** | Bad Request |  -  |
 **401** | Access token is missing or invalid |  -  |
 

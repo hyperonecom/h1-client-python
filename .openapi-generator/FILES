@@ -6,6 +6,7 @@ README.md
 docs/Agent.md
 docs/AgentCredential.md
 docs/Attempt.md
+docs/AttemptArray.md
 docs/AuthToken.md
 docs/AuthTokenAccess.md
 docs/Backup.md
@@ -62,6 +63,8 @@ docs/DnsRecordset.md
 docs/Domain.md
 docs/EnabledService.md
 docs/Event.md
+docs/EventBase.md
+docs/EventBaseArray.md
 docs/Firewall.md
 docs/Hdd.md
 docs/IamActor.md
@@ -305,6 +308,7 @@ h1/model/__init__.py
 h1/model/agent.py
 h1/model/agent_credential.py
 h1/model/attempt.py
+h1/model/attempt_array.py
 h1/model/auth_token.py
 h1/model/auth_token_access.py
 h1/model/backup.py
@@ -354,6 +358,8 @@ h1/model/dns_recordset.py
 h1/model/domain.py
 h1/model/enabled_service.py
 h1/model/event.py
+h1/model/event_base.py
+h1/model/event_base_array.py
 h1/model/firewall.py
 h1/model/hdd.py
 h1/model/iam_actor.py
@@ -541,6 +547,7 @@ test/__init__.py
 test/test_agent.py
 test/test_agent_credential.py
 test/test_attempt.py
+test/test_attempt_array.py
 test/test_auth_token.py
 test/test_auth_token_access.py
 test/test_backup.py
@@ -597,6 +604,8 @@ test/test_dns_recordset.py
 test/test_domain.py
 test/test_enabled_service.py
 test/test_event.py
+test/test_event_base.py
+test/test_event_base_array.py
 test/test_firewall.py
 test/test_hdd.py
 test/test_iam_actor.py

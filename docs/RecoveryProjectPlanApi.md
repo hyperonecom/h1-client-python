@@ -1182,7 +1182,6 @@ with h1.ApiClient(configuration) as api_client:
     plan_id = "planId_example" # str | Plan Id
     recovery_project_plan_update = RecoveryProjectPlanUpdate(
         name="name_example",
-        plan="plan_example",
     ) # RecoveryProjectPlanUpdate | 
 
     # example passing only required values which don't have defaults set

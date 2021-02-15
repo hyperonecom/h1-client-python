@@ -80,10 +80,9 @@ class Event(ModelNormal):
         return {
             'id': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
-            'created_by': (str,),  # noqa: E501
             'created_on': (datetime,),  # noqa: E501
             'state': (str,),  # noqa: E501
-            'stage': (str,),  # noqa: E501
+            'created_by': (str,),  # noqa: E501
             'resource': (str,),  # noqa: E501
         }
 
@@ -95,10 +94,9 @@ class Event(ModelNormal):
     attribute_map = {
         'id': 'id',  # noqa: E501
         'name': 'name',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
         'created_on': 'createdOn',  # noqa: E501
         'state': 'state',  # noqa: E501
-        'stage': 'stage',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
         'resource': 'resource',  # noqa: E501
     }
 
@@ -150,10 +148,9 @@ class Event(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             id (str): [optional]  # noqa: E501
             name (str): [optional]  # noqa: E501
-            created_by (str): [optional]  # noqa: E501
             created_on (datetime): [optional]  # noqa: E501
             state (str): [optional]  # noqa: E501
-            stage (str): [optional]  # noqa: E501
+            created_by (str): [optional]  # noqa: E501
             resource (str): [optional]  # noqa: E501
         """
 

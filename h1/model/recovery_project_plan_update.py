@@ -73,7 +73,6 @@ class RecoveryProjectPlanUpdate(ModelNormal):
         """
         return {
             'name': (str,),  # noqa: E501
-            'plan': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -83,7 +82,6 @@ class RecoveryProjectPlanUpdate(ModelNormal):
 
     attribute_map = {
         'name': 'name',  # noqa: E501
-        'plan': 'plan',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -133,7 +131,6 @@ class RecoveryProjectPlanUpdate(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             name (str): [optional]  # noqa: E501
-            plan (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

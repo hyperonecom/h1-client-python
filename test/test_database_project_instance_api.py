@@ -114,6 +114,27 @@ class TestDatabaseProjectInstanceApi(unittest.TestCase):
         """
         pass
 
+    def test_database_project_instance_metric_get(self):
+        """Test case for database_project_instance_metric_get
+
+        Get database/instance.metric  # noqa: E501
+        """
+        pass
+
+    def test_database_project_instance_metric_list(self):
+        """Test case for database_project_instance_metric_list
+
+        List database/instance.metric  # noqa: E501
+        """
+        pass
+
+    def test_database_project_instance_metric_point_list(self):
+        """Test case for database_project_instance_metric_point_list
+
+        List database/instance.point  # noqa: E501
+        """
+        pass
+
     def test_database_project_instance_service_get(self):
         """Test case for database_project_instance_service_get
 

@@ -17,6 +17,9 @@ Method | HTTP request | Description
 [**database_project_instance_event_list**](DatabaseProjectInstanceApi.md#database_project_instance_event_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/event | List database/instance.event
 [**database_project_instance_get**](DatabaseProjectInstanceApi.md#database_project_instance_get) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId} | Get database/instance
 [**database_project_instance_list**](DatabaseProjectInstanceApi.md#database_project_instance_list) | **GET** /database/{locationId}/project/{projectId}/instance | List database/instance
+[**database_project_instance_metric_get**](DatabaseProjectInstanceApi.md#database_project_instance_metric_get) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/metric/{metricId} | Get database/instance.metric
+[**database_project_instance_metric_list**](DatabaseProjectInstanceApi.md#database_project_instance_metric_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/metric | List database/instance.metric
+[**database_project_instance_metric_point_list**](DatabaseProjectInstanceApi.md#database_project_instance_metric_point_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/metric/{metricId}/point | List database/instance.point
 [**database_project_instance_service_get**](DatabaseProjectInstanceApi.md#database_project_instance_service_get) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/service/{serviceId} | Get database/instance.service
 [**database_project_instance_service_list**](DatabaseProjectInstanceApi.md#database_project_instance_service_list) | **GET** /database/{locationId}/project/{projectId}/instance/{instanceId}/service | List database/instance.service
 [**database_project_instance_start**](DatabaseProjectInstanceApi.md#database_project_instance_start) | **POST** /database/{locationId}/project/{projectId}/instance/{instanceId}/actions/start | Start database/instance
@@ -1127,6 +1130,263 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[Database]**](Database.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **database_project_instance_metric_get**
+> Metric database_project_instance_metric_get(project_id, location_id, instance_id, metric_id)
+
+Get database/instance.metric
+
+Get database/instance.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+import time
+import h1
+from h1.api import database_project_instance_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = database_project_instance_api.DatabaseProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    metric_id = "metricId_example" # str | metricId
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get database/instance.metric
+        api_response = api_instance.database_project_instance_metric_get(project_id, location_id, instance_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_metric_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **metric_id** | **str**| metricId |
+
+### Return type
+
+[**Metric**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **database_project_instance_metric_list**
+> [Metric] database_project_instance_metric_list(project_id, location_id, instance_id)
+
+List database/instance.metric
+
+List database/instance.metric
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+import time
+import h1
+from h1.api import database_project_instance_api
+from h1.model.metric import Metric
+from h1.model.inline_response400 import InlineResponse400
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = database_project_instance_api.DatabaseProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+
+    # example passing only required values which don't have defaults set
+    try:
+        # List database/instance.metric
+        api_response = api_instance.database_project_instance_metric_list(project_id, location_id, instance_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_metric_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+
+### Return type
+
+[**[Metric]**](Metric.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  -  |
+**400** | Bad Request |  -  |
+**401** | Access token is missing or invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **database_project_instance_metric_point_list**
+> [Point] database_project_instance_metric_point_list(project_id, location_id, instance_id, metric_id)
+
+List database/instance.point
+
+List database/instance.point
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+```python
+import time
+import h1
+from h1.api import database_project_instance_api
+from h1.model.point import Point
+from h1.model.inline_response400 import InlineResponse400
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.hyperone.com/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = h1.Configuration(
+    host = "https://api.hyperone.com/v2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = h1.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
+
+# Enter a context with an instance of the API client
+with h1.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = database_project_instance_api.DatabaseProjectInstanceApi(api_client)
+    project_id = "projectId_example" # str | Project Id
+    location_id = "locationId_example" # str | Location Id
+    instance_id = "instanceId_example" # str | Instance Id
+    metric_id = "metricId_example" # str | metricId
+    interval = "interval_example" # str | interval (optional)
+    timespan = "timespan_example" # str | timespan (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        # List database/instance.point
+        api_response = api_instance.database_project_instance_metric_point_list(project_id, location_id, instance_id, metric_id)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_metric_point_list: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # List database/instance.point
+        api_response = api_instance.database_project_instance_metric_point_list(project_id, location_id, instance_id, metric_id, interval=interval, timespan=timespan)
+        pprint(api_response)
+    except h1.ApiException as e:
+        print("Exception when calling DatabaseProjectInstanceApi->database_project_instance_metric_point_list: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project Id |
+ **location_id** | **str**| Location Id |
+ **instance_id** | **str**| Instance Id |
+ **metric_id** | **str**| metricId |
+ **interval** | **str**| interval | [optional]
+ **timespan** | **str**| timespan | [optional]
+
+### Return type
+
+[**[Point]**](Point.md)
 
 ### Authorization
 

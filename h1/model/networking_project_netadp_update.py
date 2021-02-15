@@ -72,7 +72,7 @@ class NetworkingProjectNetadpUpdate(ModelNormal):
                 and the value is attribute type.
         """
         return {
-            'firewall': (str,),  # noqa: E501
+            'firewall': (str, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -130,7 +130,7 @@ class NetworkingProjectNetadpUpdate(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            firewall (str): [optional]  # noqa: E501
+            firewall (str, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
