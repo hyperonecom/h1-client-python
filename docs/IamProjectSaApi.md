@@ -96,6 +96,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -117,6 +118,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -187,6 +189,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_credential_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -207,6 +210,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -267,6 +271,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_credential_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -287,6 +292,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -348,6 +354,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_credential_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -368,6 +375,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -427,6 +435,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_credential_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -446,6 +455,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -510,6 +520,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_credential_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -531,6 +542,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -588,6 +600,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -607,6 +620,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -666,6 +680,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -686,6 +701,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -756,6 +772,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -777,6 +794,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -836,6 +854,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -855,6 +874,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -925,6 +945,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -946,6 +967,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1006,6 +1028,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1026,6 +1049,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1085,6 +1109,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1104,6 +1129,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1168,6 +1194,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1188,6 +1215,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1246,6 +1274,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1266,6 +1295,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1326,6 +1356,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1346,6 +1377,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1405,6 +1437,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1424,6 +1457,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1491,6 +1525,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1511,6 +1546,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1574,6 +1610,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectSaApi->iam_project_sa_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1594,6 +1631,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

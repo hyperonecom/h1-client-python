@@ -1,5 +1,6 @@
 # StorageSnapshot
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

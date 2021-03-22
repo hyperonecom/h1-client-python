@@ -1,5 +1,6 @@
 # RegistryCredential
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

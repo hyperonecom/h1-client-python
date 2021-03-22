@@ -1,5 +1,6 @@
 # RecoveryProjectPlanCreate
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,5 +1,6 @@
 # InsightProjectJournalCredentialPatch
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

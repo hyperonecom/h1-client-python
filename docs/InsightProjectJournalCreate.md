@@ -1,5 +1,6 @@
 # InsightProjectJournalCreate
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

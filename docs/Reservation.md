@@ -1,5 +1,6 @@
 # Reservation
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

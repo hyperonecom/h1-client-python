@@ -1,5 +1,6 @@
 # InvoiceSeller
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

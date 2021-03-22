@@ -73,6 +73,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_close: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -94,6 +95,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -170,6 +172,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -191,6 +194,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -251,6 +255,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -270,6 +275,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -338,6 +344,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -357,6 +364,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -428,6 +436,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_message_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -448,6 +457,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -508,6 +518,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_message_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -528,6 +539,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -587,6 +599,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling SupportProjectTicketApi->support_project_ticket_message_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -606,6 +619,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

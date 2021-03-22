@@ -1,5 +1,6 @@
 # DnsRecordArray
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

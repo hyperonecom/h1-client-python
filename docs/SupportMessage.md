@@ -1,5 +1,6 @@
 # SupportMessage
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -85,6 +85,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_connect_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -106,6 +107,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -166,6 +168,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_connect_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -186,6 +189,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -270,6 +274,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -292,6 +297,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -363,6 +369,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_credential_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -384,6 +391,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -445,6 +453,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_credential_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -466,6 +475,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -528,6 +538,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_credential_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -549,6 +560,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -609,6 +621,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_credential_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -629,6 +642,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -694,6 +708,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_credential_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -716,6 +731,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -778,6 +794,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -799,6 +816,7 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -859,6 +877,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -880,6 +899,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -951,6 +971,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -973,6 +994,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1033,6 +1055,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1053,6 +1076,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1124,6 +1148,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1146,6 +1171,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1221,6 +1247,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_resize: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1244,6 +1271,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1306,6 +1334,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1327,6 +1356,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1387,6 +1417,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1407,6 +1438,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1471,6 +1503,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_snapshot_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1492,6 +1525,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1553,6 +1587,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_snapshot_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1574,6 +1609,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1635,6 +1671,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_snapshot_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1656,6 +1693,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1716,6 +1754,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_snapshot_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1736,6 +1775,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1807,6 +1847,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_start: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1829,6 +1870,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1901,6 +1943,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_stop: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1923,6 +1966,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1989,6 +2033,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2010,6 +2055,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2069,6 +2115,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2090,6 +2137,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2151,6 +2199,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2172,6 +2221,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2232,6 +2282,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2252,6 +2303,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2320,6 +2372,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2341,6 +2394,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2405,6 +2459,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectVaultApi->storage_project_vault_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2426,6 +2481,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

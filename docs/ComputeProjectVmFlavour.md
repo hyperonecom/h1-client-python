@@ -1,5 +1,6 @@
 # ComputeProjectVmFlavour
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

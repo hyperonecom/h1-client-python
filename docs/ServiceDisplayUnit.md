@@ -1,5 +1,6 @@
 # ServiceDisplayUnit
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

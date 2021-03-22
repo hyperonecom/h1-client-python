@@ -1,5 +1,6 @@
 # InvoiceBuyerAddress
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

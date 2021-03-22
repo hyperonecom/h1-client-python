@@ -1,5 +1,6 @@
 # InvoiceDuplicate
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

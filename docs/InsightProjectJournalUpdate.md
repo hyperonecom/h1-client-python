@@ -1,5 +1,6 @@
 # InsightProjectJournalUpdate
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

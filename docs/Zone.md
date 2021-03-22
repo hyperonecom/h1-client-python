@@ -1,5 +1,6 @@
 # Zone
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

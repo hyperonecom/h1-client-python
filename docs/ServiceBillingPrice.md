@@ -1,5 +1,6 @@
 # ServiceBillingPrice
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

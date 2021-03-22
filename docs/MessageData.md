@@ -1,5 +1,6 @@
 # MessageData
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

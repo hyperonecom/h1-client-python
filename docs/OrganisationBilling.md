@@ -1,5 +1,6 @@
 # OrganisationBilling
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

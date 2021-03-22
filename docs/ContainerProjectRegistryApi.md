@@ -109,6 +109,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -131,6 +132,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -202,6 +204,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -223,6 +226,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -284,6 +288,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -305,6 +310,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -367,6 +373,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -388,6 +395,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -448,6 +456,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -468,6 +477,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -533,6 +543,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_credential_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -555,6 +566,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -613,6 +625,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -633,6 +646,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -696,6 +710,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -717,6 +732,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -776,6 +792,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -797,6 +814,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -858,6 +876,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -879,6 +898,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -939,6 +959,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_domain_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -959,6 +980,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1020,6 +1042,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1041,6 +1064,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1112,6 +1136,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1134,6 +1159,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1194,6 +1220,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1214,6 +1241,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1285,6 +1313,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1307,6 +1336,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1368,6 +1398,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1389,6 +1420,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1449,6 +1481,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1471,6 +1504,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1533,6 +1567,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1555,6 +1590,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1616,6 +1652,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_image_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1637,6 +1674,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1697,6 +1735,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_repository_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1717,6 +1756,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1778,6 +1818,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1799,6 +1840,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1859,6 +1901,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1879,6 +1922,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1950,6 +1994,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_start: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1972,6 +2017,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2044,6 +2090,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_stop: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2066,6 +2113,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2132,6 +2180,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2153,6 +2202,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2212,6 +2262,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2233,6 +2284,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2294,6 +2346,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2315,6 +2368,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2375,6 +2429,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2395,6 +2450,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2463,6 +2519,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2484,6 +2541,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2559,6 +2617,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_transfer: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2582,6 +2641,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2647,6 +2707,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling ContainerProjectRegistryApi->container_project_registry_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2668,6 +2729,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

@@ -1,5 +1,6 @@
 # DatabaseCredential
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

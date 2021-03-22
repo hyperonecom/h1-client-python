@@ -1,5 +1,6 @@
 # Invitation
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

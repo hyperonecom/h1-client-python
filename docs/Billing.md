@@ -1,5 +1,6 @@
 # Billing
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,5 +1,6 @@
 # BillingProjectReservationUpdate
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

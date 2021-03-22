@@ -1,5 +1,6 @@
 # WebsiteCredential
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

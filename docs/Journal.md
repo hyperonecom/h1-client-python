@@ -1,5 +1,6 @@
 # Journal
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

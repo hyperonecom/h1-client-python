@@ -97,6 +97,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_billing_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -118,6 +119,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -202,6 +204,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -222,6 +225,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -279,6 +283,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -297,6 +302,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -355,6 +361,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -374,6 +381,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -443,6 +451,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -463,6 +472,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -521,6 +531,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -539,6 +550,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -602,6 +614,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_accept: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -622,6 +635,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -679,6 +693,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -698,6 +713,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -757,6 +773,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -776,6 +793,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -844,6 +862,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invitation_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -863,6 +882,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -921,6 +941,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_download: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -940,6 +961,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/pdf, application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -999,6 +1021,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1018,6 +1041,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1076,6 +1100,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_invoice_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1094,6 +1119,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1156,6 +1182,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1177,6 +1204,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1239,6 +1267,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1258,6 +1287,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1316,6 +1346,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1335,6 +1366,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1394,6 +1426,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1413,6 +1446,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1471,6 +1505,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_ownership_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1489,6 +1524,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1552,6 +1588,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_allocate: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1572,6 +1609,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1631,6 +1669,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1650,6 +1689,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1708,6 +1748,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_payment_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1726,6 +1767,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1789,6 +1831,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1808,6 +1851,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1866,6 +1910,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_download: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1885,6 +1930,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/pdf, application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1944,6 +1990,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1963,6 +2010,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2021,6 +2069,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_proforma_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2039,6 +2088,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2098,6 +2148,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2117,6 +2168,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2175,6 +2227,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2193,6 +2246,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2256,6 +2310,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_accept: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2276,6 +2331,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2335,6 +2391,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2354,6 +2411,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2412,6 +2470,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_transfer_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2430,6 +2489,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2501,6 +2561,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamOrganisationApi->iam_organisation_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2520,6 +2581,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

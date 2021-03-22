@@ -117,6 +117,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -139,6 +140,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -198,6 +200,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -218,6 +221,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -288,6 +292,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -309,6 +314,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -368,6 +374,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -389,6 +396,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -450,6 +458,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -471,6 +480,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -531,6 +541,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -551,6 +562,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -625,6 +637,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_egress_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -646,6 +659,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -707,6 +721,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -728,6 +743,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -799,6 +815,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -821,6 +838,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -881,6 +899,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -901,6 +920,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -972,6 +992,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -993,6 +1014,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1052,6 +1074,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1073,6 +1096,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1134,6 +1158,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1155,6 +1180,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1215,6 +1241,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1235,6 +1262,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1309,6 +1337,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_ingress_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1330,6 +1359,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1401,6 +1431,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1423,6 +1454,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1484,6 +1516,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1505,6 +1538,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1565,6 +1599,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1585,6 +1620,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1650,6 +1686,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1671,6 +1708,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1730,6 +1768,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1751,6 +1790,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1812,6 +1852,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1833,6 +1874,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1893,6 +1935,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1913,6 +1956,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1981,6 +2025,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2002,6 +2047,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2077,6 +2123,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_transfer: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2100,6 +2147,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2165,6 +2213,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling NetworkingProjectFirewallApi->networking_project_firewall_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2186,6 +2235,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

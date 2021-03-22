@@ -1,5 +1,6 @@
 # InsightProjectJournalTransfer
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

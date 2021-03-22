@@ -65,6 +65,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -84,6 +85,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -143,6 +145,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -162,6 +165,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -220,6 +224,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_authtoken_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -238,6 +243,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -306,6 +312,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -325,6 +332,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -384,6 +392,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -403,6 +412,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -463,6 +473,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -482,6 +493,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -540,6 +552,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -558,6 +571,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -621,6 +635,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_credential_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -641,6 +656,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -699,6 +715,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -717,6 +734,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -776,6 +794,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -795,6 +814,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -853,6 +873,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -871,6 +892,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -936,6 +958,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamUserApi->iam_user_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -955,6 +978,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

@@ -105,6 +105,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_billing_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -126,6 +127,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -206,6 +208,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -226,6 +229,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -295,6 +299,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_credential_store_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -314,6 +319,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -373,6 +379,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_credential_store_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -392,6 +399,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -452,6 +460,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_credential_store_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -471,6 +480,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -529,6 +539,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_credential_store_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -547,6 +558,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -610,6 +622,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_credential_store_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -630,6 +643,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -686,6 +700,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -704,6 +719,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -762,6 +778,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -781,6 +798,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -850,6 +868,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -870,6 +889,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -928,6 +948,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -946,6 +967,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1009,6 +1031,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_invitation_accept: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1029,6 +1052,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1086,6 +1110,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_invitation_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1105,6 +1130,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1164,6 +1190,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_invitation_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1183,6 +1210,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1251,6 +1279,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_invitation_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1270,6 +1299,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1328,6 +1358,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_invoice_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1346,6 +1377,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1411,6 +1443,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1435,6 +1468,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1497,6 +1531,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_ownership_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1516,6 +1551,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1574,6 +1610,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_ownership_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1593,6 +1630,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1652,6 +1690,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_ownership_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1671,6 +1710,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1729,6 +1769,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_ownership_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1747,6 +1788,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1805,6 +1847,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_payment_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1823,6 +1866,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1881,6 +1925,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_proforma_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1899,6 +1944,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1958,6 +2004,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_quota_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1977,6 +2024,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2040,6 +2088,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_quota_limit_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2060,6 +2109,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2118,6 +2168,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_quota_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2136,6 +2187,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2195,6 +2247,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2214,6 +2267,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2272,6 +2326,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2290,6 +2345,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2353,6 +2409,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2372,6 +2429,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2429,6 +2487,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2448,6 +2507,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2507,6 +2567,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2526,6 +2587,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2584,6 +2646,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2602,6 +2665,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2668,6 +2732,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2687,6 +2752,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2753,6 +2819,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_threshold_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2772,6 +2839,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2829,6 +2897,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_threshold_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2848,6 +2917,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2907,6 +2977,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_threshold_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2926,6 +2997,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2984,6 +3056,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_threshold_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -3002,6 +3075,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -3075,6 +3149,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_transfer: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -3096,6 +3171,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -3159,6 +3235,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling IamProjectApi->iam_project_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -3178,6 +3255,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

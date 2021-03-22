@@ -63,6 +63,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -83,6 +84,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -142,6 +144,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -161,6 +164,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -220,6 +224,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -241,6 +246,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -300,6 +306,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_download: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -321,6 +328,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -382,6 +390,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -403,6 +412,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -463,6 +473,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_object_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -483,6 +494,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -558,6 +570,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling StorageProjectBucketApi->storage_project_bucket_upload: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -581,6 +594,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

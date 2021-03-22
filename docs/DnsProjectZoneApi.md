@@ -106,6 +106,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -128,6 +129,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -187,6 +189,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -207,6 +210,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -267,6 +271,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -288,6 +293,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -359,6 +365,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -381,6 +388,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -441,6 +449,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -461,6 +470,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -532,6 +542,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -554,6 +565,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -626,6 +638,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -647,6 +660,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -708,6 +722,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -729,6 +744,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -791,6 +807,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -812,6 +829,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -872,6 +890,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -892,6 +911,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -957,6 +977,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -979,6 +1000,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1044,6 +1066,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1066,6 +1089,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1126,6 +1150,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1148,6 +1173,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1210,6 +1236,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1232,6 +1259,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1293,6 +1321,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1314,6 +1343,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1382,6 +1412,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_recordset_record_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1404,6 +1435,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1465,6 +1497,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1486,6 +1519,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1546,6 +1580,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1566,6 +1601,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1631,6 +1667,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1652,6 +1689,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1711,6 +1749,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1732,6 +1771,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1793,6 +1833,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1814,6 +1855,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1874,6 +1916,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1894,6 +1937,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1962,6 +2006,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1983,6 +2028,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2047,6 +2093,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling DnsProjectZoneApi->dns_project_zone_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -2068,6 +2115,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

@@ -1,5 +1,6 @@
 # InvoiceBuyer
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

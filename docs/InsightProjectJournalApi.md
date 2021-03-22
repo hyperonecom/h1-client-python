@@ -100,6 +100,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -122,6 +123,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -193,6 +195,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -214,6 +217,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -275,6 +279,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -296,6 +301,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -358,6 +364,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -379,6 +386,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -439,6 +447,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -459,6 +468,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -524,6 +534,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_credential_patch: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -546,6 +557,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -604,6 +616,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -624,6 +637,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -684,6 +698,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -705,6 +720,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -776,6 +792,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -798,6 +815,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -858,6 +876,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -878,6 +897,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -949,6 +969,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -971,6 +992,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1049,6 +1071,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_log_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1074,6 +1097,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1135,6 +1159,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1156,6 +1181,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1216,6 +1242,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1236,6 +1263,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1301,6 +1329,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1322,6 +1351,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1381,6 +1411,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1402,6 +1433,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1463,6 +1495,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1484,6 +1517,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1544,6 +1578,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1564,6 +1599,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1632,6 +1668,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1653,6 +1690,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1728,6 +1766,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_transfer: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1751,6 +1790,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1817,6 +1857,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling InsightProjectJournalApi->insight_project_journal_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1838,6 +1879,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

@@ -1,5 +1,6 @@
 # StorageProjectVaultCredentialPatch
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

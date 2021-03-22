@@ -1,5 +1,6 @@
 # BillingCharges
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

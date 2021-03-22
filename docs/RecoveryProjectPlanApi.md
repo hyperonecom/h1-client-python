@@ -102,6 +102,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -124,6 +125,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -183,6 +185,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -203,6 +206,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -263,6 +267,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_event_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -284,6 +289,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -355,6 +361,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_event_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -377,6 +384,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -437,6 +445,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -457,6 +466,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -528,6 +538,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -550,6 +561,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -611,6 +623,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_service_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -632,6 +645,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -692,6 +706,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_service_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -712,6 +727,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -777,6 +793,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_tag_create: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -798,6 +815,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -857,6 +875,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_tag_delete: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -878,6 +897,7 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -939,6 +959,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_tag_get: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -960,6 +981,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1020,6 +1042,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_tag_list: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1040,6 +1063,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1108,6 +1132,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_tag_put: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1129,6 +1154,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1193,6 +1219,7 @@ with h1.ApiClient(configuration) as api_client:
         print("Exception when calling RecoveryProjectPlanApi->recovery_project_plan_update: %s\n" % e)
 ```
 
+
 ### Parameters
 
 Name | Type | Description  | Notes
@@ -1214,6 +1241,7 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |

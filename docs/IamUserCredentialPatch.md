@@ -1,5 +1,6 @@
 # IamUserCredentialPatch
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
