@@ -36,6 +36,7 @@ from h1.api.networking_project_netadp_api import NetworkingProjectNetadpApi
 from h1.api.networking_project_netgw_api import NetworkingProjectNetgwApi
 from h1.api.networking_project_network_api import NetworkingProjectNetworkApi
 from h1.api.provider_project_agent_api import ProviderProjectAgentApi
+from h1.api.provider_project_development_api import ProviderProjectDevelopmentApi
 from h1.api.recovery_project_backup_api import RecoveryProjectBackupApi
 from h1.api.recovery_project_plan_api import RecoveryProjectPlanApi
 from h1.api.storage_project_bucket_api import StorageProjectBucketApi
